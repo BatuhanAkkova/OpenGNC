@@ -23,6 +23,7 @@ dependencies = [
     "dash>=2.0.0",
     "numba>=0.56.0",
     "jplephem>=2.17",
+    "spiceypy>=5.0.0",
 ]
 
 [project.optional-dependencies]

@@ -23,7 +23,7 @@ This roadmap outlines the strategic development of **OpenGNC** to provide a high
 - [x] **High-Fidelity Environment**: Integrated IGRF-13 magnetic fields and NRLMSISE-00 atmospheric density models.
 - [x] **Advanced Propagators**: Cowell’s Method, Keplerian elements, and Gauss-Variational Equations (GVE).
 - [x] **Professionality**: Established CI/CD pipeline, automated formatting, and performance benchmarking suite.
-- [ ] **Interoperability**: Standardized interfaces for external tools like GMAT, Orekit, and STK (SPICE kernels).
+- [x] **Interoperability**: Standardized interfaces for external tools like GMAT, Orekit, and STK (SPICE kernels).
 
 ### Phase 2: Autonomy, AI & Advanced Research (Later)
 *Integrating modern control and state estimation techniques for autonomous missions.*
