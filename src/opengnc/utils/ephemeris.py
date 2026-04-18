@@ -6,7 +6,12 @@ import os
 from typing import Optional, cast
 
 import numpy as np
-from jplephem.spk import SPK
+
+try:
+    from jplephem.spk import SPK
+    JPLEPHEM_AVAILABLE = True
+except ImportError:
+    JPLEPHEM_AVAILABLE = False
 
 
 class JPLEphemeris:
@@ -24,6 +29,9 @@ class JPLEphemeris:
     def __init__(self, spk_path: Optional[str] = None) -> None:
         """Initialize SPK kernel."""
         self.kernel = None
+        if not JPLEPHEM_AVAILABLE:
+            return
+
         if spk_path and os.path.exists(spk_path):
             self.kernel = SPK.open(spk_path)
         else:
@@ -49,6 +57,11 @@ class JPLEphemeris:
         np.ndarray
             Position vector [x, y, z] in meters.
         """
+        if not JPLEPHEM_AVAILABLE:
+            raise ImportError(
+                "jplephem is required for JPL Ephemeris. Install via 'pip install OpenGNC[spk]'"
+            )
+
         if self.kernel is None:
             raise RuntimeError("SPK Kernel not loaded. Provide a valid .bsp file.")
 
@@ -72,6 +85,11 @@ class JPLEphemeris:
         np.ndarray
             State vector [x, y, z, vx, vy, vz] in m, m/s.
         """
+        if not JPLEPHEM_AVAILABLE:
+            raise ImportError(
+                "jplephem is required for JPL Ephemeris. Install via 'pip install OpenGNC[spk]'"
+            )
+
         if self.kernel is None:
             raise RuntimeError("SPK Kernel not loaded.")
 

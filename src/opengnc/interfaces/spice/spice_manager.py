@@ -23,12 +23,14 @@ class SpiceManager:
     def __init__(self) -> None:
         self.loaded_kernels: List[str] = []
         if not SPICEYPY_AVAILABLE:
-            print("Warning: spiceypy not installed. SPICE functionality will be disabled.")
+            pass
 
     def load_kernel(self, kernel_path: str) -> None:
         """Load a SPICE kernel (.bsp, .tpc, .tls, etc.)."""
         if not SPICEYPY_AVAILABLE:
-            return
+            raise ImportError(
+                "spiceypy is required for SPICE manager. Install via 'pip install OpenGNC[spk]'"
+            )
         if os.path.exists(kernel_path):
             spice.furnsh(kernel_path)
             self.loaded_kernels.append(kernel_path)
@@ -44,7 +46,9 @@ class SpiceManager:
     def utc_to_et(self, utc_str: str) -> float:
         """Convert UTC string to Ephemeris Time (ET)."""
         if not SPICEYPY_AVAILABLE:
-            raise RuntimeError("spiceypy required.")
+            raise ImportError(
+                "spiceypy is required for SPICE manager. Install via 'pip install OpenGNC[spk]'"
+            )
         return float(spice.str2et(utc_str))
 
     def get_state(
@@ -59,7 +63,9 @@ class SpiceManager:
             [x, y, z, vx, vy, vz] in meters and m/s.
         """
         if not SPICEYPY_AVAILABLE:
-            raise RuntimeError("spiceypy required.")
+            raise ImportError(
+                "spiceypy is required for SPICE manager. Install via 'pip install OpenGNC[spk]'"
+            )
 
         state, lt = spice.spkezr(target, et, frame, "NONE", observer)
         # state is in km and km/s

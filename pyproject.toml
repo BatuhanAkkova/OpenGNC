@@ -17,16 +17,25 @@ dependencies = [
     "scipy>=1.7.0",
     "pymsis>=0.6.0",
     "ppigrf>=0.1.0",
-    "sgp4>=2.21",
-    "plotly>=5.0.0",
     "pandas>=1.3.0",
     "dash>=2.0.0",
     "numba>=0.56.0",
-    "jplephem>=2.17",
-    "spiceypy>=5.0.0",
 ]
 
 [project.optional-dependencies]
+sat = [
+    "sgp4>=2.21",
+]
+spk = [
+    "jplephem>=2.17",
+    "spiceypy>=5.0.0",
+]
+all = [
+    "sgp4>=2.21",
+    "jplephem>=2.17",
+    "spiceypy>=5.0.0",
+    "casadi>=3.6.0",
+]
 mpc = [
     "casadi>=3.6.0",
 ]

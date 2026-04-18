@@ -7,7 +7,12 @@ from __future__ import annotations
 from typing import Any
 
 import numpy as np
-from sgp4.api import Satrec
+
+try:
+    from sgp4.api import Satrec
+    SGP4_AVAILABLE = True
+except ImportError:
+    SGP4_AVAILABLE = False
 
 from .base import Propagator
 
@@ -28,6 +33,10 @@ class Sgp4Propagator(Propagator):
     """
 
     def __init__(self, line1: str, line2: str) -> None:
+        if not SGP4_AVAILABLE:
+            raise ImportError(
+                "sgp4 is required for Sgp4Propagator. Install via 'pip install OpenGNC[sat]'"
+            )
         self.sat = Satrec.twoline2rv(line1, line2)
         # TLE Epoch Julian Date
         self.jdsatepoch = self.sat.jdsatepoch

@@ -2,6 +2,8 @@ import pytest
 import numpy as np
 from opengnc.propagators.sgp4_propagator import Sgp4Propagator
 
+pytest.importorskip("sgp4")
+
 def test_sgp4_init_and_propagate():
     # ISS TLE (Sample)
     line1 = "1 25544U 98067A   20325.43545139  .00001564  00000-0  36550-4 0  9997"
