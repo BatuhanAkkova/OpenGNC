@@ -1,0 +1,21 @@
+opengnc.interfaces.gmat package
+===============================
+
+Submodules
+----------
+
+opengnc.interfaces.gmat.gmat\_interface module
+----------------------------------------------
+
+.. automodule:: opengnc.interfaces.gmat.gmat_interface
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.interfaces.gmat
+   :members:
+   :show-inheritance:
+   :undoc-members:

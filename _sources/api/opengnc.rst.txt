@@ -17,6 +17,7 @@ Subpackages
    opengnc.fdir
    opengnc.guidance
    opengnc.integrators
+   opengnc.interfaces
    opengnc.kalman_filters
    opengnc.mission_design
    opengnc.navigation

@@ -1,0 +1,29 @@
+opengnc.interfaces.ccsds package
+================================
+
+Submodules
+----------
+
+opengnc.interfaces.ccsds.oem module
+-----------------------------------
+
+.. automodule:: opengnc.interfaces.ccsds.oem
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+opengnc.interfaces.ccsds.opm module
+-----------------------------------
+
+.. automodule:: opengnc.interfaces.ccsds.opm
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.interfaces.ccsds
+   :members:
+   :show-inheritance:
+   :undoc-members:

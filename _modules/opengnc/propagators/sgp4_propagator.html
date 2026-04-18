@@ -85,7 +85,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sgp4.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Satrec</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sgp4.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Satrec</span>
+    <span class="n">SGP4_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">SGP4_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">Propagator</span>
 
@@ -108,6 +113,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">SGP4_AVAILABLE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                <span class="s2">&quot;sgp4 is required for Sgp4Propagator. Install via &#39;pip install OpenGNC[sat]&#39;&quot;</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sat</span> <span class="o">=</span> <span class="n">Satrec</span><span class="o">.</span><span class="n">twoline2rv</span><span class="p">(</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">)</span>
         <span class="c1"># TLE Epoch Julian Date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">jdsatepoch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sat</span><span class="o">.</span><span class="n">jdsatepoch</span>

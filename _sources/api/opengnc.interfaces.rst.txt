@@ -1,0 +1,31 @@
+opengnc.interfaces package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   opengnc.interfaces.ccsds
+   opengnc.interfaces.gmat
+   opengnc.interfaces.spice
+
+Submodules
+----------
+
+opengnc.interfaces.base module
+------------------------------
+
+.. automodule:: opengnc.interfaces.base
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.interfaces
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,21 @@
+opengnc.interfaces.spice package
+================================
+
+Submodules
+----------
+
+opengnc.interfaces.spice.spice\_manager module
+----------------------------------------------
+
+.. automodule:: opengnc.interfaces.spice.spice_manager
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.interfaces.spice
+   :members:
+   :show-inheritance:
+   :undoc-members:
