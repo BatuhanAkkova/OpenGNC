@@ -14,7 +14,7 @@ class RK45(Integrator):
     """
     Runge-Kutta-Fehlberg 4(5) Adaptive Variable Step Integrator.
 
-    Implements the Fehlberg embedded method that calculates both a 4th and 
+    Implements the Fehlberg embedded method that calculates both a 4th and
     5th order solution at each step to estimate local truncation error.
 
     Parameters

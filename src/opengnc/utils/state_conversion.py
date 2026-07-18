@@ -8,7 +8,6 @@ import numpy as np
 
 from opengnc.utils import euler_utils as eu
 from opengnc.utils import quat_utils as qu
-from opengnc.utils.euler_utils import rot_x, rot_y, rot_z
 
 
 def quat_to_dcm(q: np.ndarray) -> np.ndarray:
@@ -152,8 +151,17 @@ def euler_to_dcm(angles: np.ndarray, sequence: str) -> np.ndarray:
     """
     return eu.euler_to_dcm(np.asarray(angles), sequence)
 
+def rot_x(theta: float) -> np.ndarray:
+    """Return the x-axis rotation matrix for the given angle."""
+    return eu.rot_x(theta)
 
 
+def rot_y(theta: float) -> np.ndarray:
+    """Return the y-axis rotation matrix for the given angle."""
+    return eu.rot_y(theta)
 
 
+def rot_z(theta: float) -> np.ndarray:
+    """Return the z-axis rotation matrix for the given angle."""
+    return eu.rot_z(theta)
 

@@ -5,9 +5,9 @@ Control allocation algorithms mapping generalized forces to actuator commands.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from typing import cast
 
 import numpy as np
-from typing import cast
 
 
 class ControlAllocator(ABC):

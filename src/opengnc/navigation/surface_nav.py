@@ -3,8 +3,9 @@ Lander/Rover surface navigation EKF using landmark tracking.
 """
 
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 from opengnc.kalman_filters.ekf import EKF
 
@@ -13,8 +14,8 @@ class SurfaceNavigationEKF:
     r"""
     Surface Navigation EKF for Landers or Rovers.
 
-    Estimates 6D state $\mathbf{x} = [\mathbf{r}, \mathbf{v}]^T$ in a local 
-    surface-fixed frame using constant acceleration kinematics and landmark 
+    Estimates 6D state $\mathbf{x} = [\mathbf{r}, \mathbf{v}]^T$ in a local
+    surface-fixed frame using constant acceleration kinematics and landmark
     observations.
 
     Parameters

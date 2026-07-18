@@ -52,8 +52,7 @@
 - **Sensors**: Realistic Star Tracker, Sun Sensor, Magnetometer, and Gyroscope models with bias/noise.
 - **Actuators**: Model Reaction Wheels (saturation/jitter) and Thrusters (Chemical/Electric).
 
-### FDIR & Mission Design
-- **FDIR (Fault Detection)**: Parity Space methods, Residual Generation, and Safe Mode logic.
+### Mission Design
 - **SSA (Space Situational Awareness)**: Conjunction Assessment (CAT), Maneuver Detection, and TLE interface.
 - **Mission Design**: $\Delta v$ Budgeting, Communication Link Budgets, and Ground Station Coverage tools.
 - **EDL (Entry, Descent, Landing)**: Ballistic & Lifting entry dynamics, heating models, and Aerocapture guidance.
@@ -136,7 +135,4 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. 
 For support or feedback, please contact [Batuhan Akkova](mailto:batuhanakkova1@gmail.com).
-
-
-
 

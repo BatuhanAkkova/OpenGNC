@@ -2,8 +2,9 @@
 Utility for managing and searching star catalogs.
 """
 
-import numpy as np
 from typing import TypedDict
+
+import numpy as np
 
 
 class _StarEntry(TypedDict):

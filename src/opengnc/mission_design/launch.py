@@ -2,8 +2,9 @@
 Launch window and injection state computation utilities.
 """
 
-import numpy as np
 from typing import Any
+
+import numpy as np
 
 from opengnc.utils.frame_conversion import ecef2eci, llh2ecef
 
@@ -25,7 +26,6 @@ def calculate_launch_windows(jd_start: float, jd_end: float, inc_deg: float, raa
     -------
         dict: list of dicts with 'jd', 'type' (Ascending/Descending), and 'azimuth_deg'.
     """
-    R_earth = 6378137.0
     lat_rad = np.radians(lat_deg)
     lon_rad = np.radians(lon_deg)
 
@@ -75,8 +75,6 @@ def calculate_launch_windows(jd_start: float, jd_end: float, inc_deg: float, raa
                     azimuth_deg = np.degrees(psi_rad)
                 else:
                     azimuth_deg = np.nan  # No launching directly
-
-            is_ascending = rate > 0
 
             windows.append({"jd": jd_cross, "rate": rate, "azimuth_approx_deg": azimuth_deg})
 

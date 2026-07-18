@@ -9,7 +9,7 @@ class CR3BP:
     r"""
     Circular Restricted Three-Body Problem Dynamics.
 
-    Models the motion of a negligible mass under the influence of two 
+    Models the motion of a negligible mass under the influence of two
     massive bodies (primaries) in a circular orbit about their barycenter.
 
     Parameters

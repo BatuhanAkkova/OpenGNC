@@ -3,8 +3,9 @@ Debris Avoidance Maneuver Planning.
 """
 
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 def plan_avoidance_maneuver(
@@ -18,7 +19,7 @@ def plan_avoidance_maneuver(
     """
     Plan an impulsive Debris Avoidance Maneuver (DAM).
 
-    Primarily calculates an along-track thrust to achieve a target miss 
+    Primarily calculates an along-track thrust to achieve a target miss
     distance at encounter via phasing.
 
     Parameters
@@ -39,7 +40,7 @@ def plan_avoidance_maneuver(
         - Estimated miss distance after maneuver (m).
     """
     rs, vs = np.asarray(r_sat), np.asarray(v_sat)
-    rd, vd = np.asarray(r_debris), np.asarray(v_debris)
+    rd = np.asarray(r_debris)
 
     v_mag = float(np.linalg.norm(vs))
     if v_mag < 1e-6:

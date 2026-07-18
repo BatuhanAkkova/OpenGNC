@@ -3,7 +3,7 @@ Base classes for external tool interfaces in OpenGNC.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import numpy as np
 
@@ -36,7 +36,7 @@ class ExternalPropagator(ExternalTool):
         start_jd: float,
         duration_sec: float,
         step_sec: float,
-    ) -> Dict[str, np.ndarray]:
+    ) -> dict[str, np.ndarray]:
         """
         Run propagation in the external tool.
 

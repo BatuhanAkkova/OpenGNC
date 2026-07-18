@@ -38,7 +38,7 @@ class Actuator(ABC):
         name : str, optional
             Actuator name. Default "Actuator".
         saturation : float | tuple[float, float] | None, optional
-            Saturation limit. Scalar for symmetric $[\text{-limit}, \text{limit}]$ 
+            Saturation limit. Scalar for symmetric $[\text{-limit}, \text{limit}]$
             or tuple for $[\min, \max]$.
         deadband : float | None, optional
             Deadband threshold.

@@ -14,7 +14,7 @@ class RequestFilter:
     r"""
     Recursive QUEST (REQUEST) filter.
 
-    Enables recursive attitude estimation by updating the Davenport 
+    Enables recursive attitude estimation by updating the Davenport
     K-matrix with a fading memory factor $\rho$:
     $\mathbf{K}_k = \rho \mathbf{K}_{k-1} + \delta \mathbf{K}_k$
 

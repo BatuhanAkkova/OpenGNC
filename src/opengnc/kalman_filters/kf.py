@@ -3,15 +3,16 @@ Standard Linear Kalman Filter (KF) implementation.
 """
 
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 class KF:
     """
     Standard Discrete-Time Linear Kalman Filter (KF).
 
-    Suitable for linear estimation and navigation problems (e.g., constant 
+    Suitable for linear estimation and navigation problems (e.g., constant
     velocity or constant acceleration models in Cartesian space).
 
     Parameters
@@ -82,7 +83,7 @@ class KF:
         """
         Update state estimate using a new measurement.
 
-        Uses the Joseph robust form for covariance updates to maintain symmetry 
+        Uses the Joseph robust form for covariance updates to maintain symmetry
         and positive-definiteness.
 
         Parameters

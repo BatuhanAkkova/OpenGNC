@@ -3,6 +3,8 @@ name: Docs
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -26,9 +28,10 @@ jobs:
     - name: Build Documentation
       run: |
         sphinx-apidoc -o docs/api src/opengnc
-        sphinx-build docs docs/_build/html
+        sphinx-build -W --keep-going docs docs/_build/html
 
     - name: Deploy to GitHub Pages
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

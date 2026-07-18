@@ -14,8 +14,8 @@ def rts_smoother(
     """
     Rauch-Tung-Striebel (RTS) Smoother for linear systems.
 
-    Performs a backward pass over Kalman filter results to provide optimal 
-    minimum-variance estimates utilizing all future information (fixed-interval 
+    Performs a backward pass over Kalman filter results to provide optimal
+    minimum-variance estimates utilizing all future information (fixed-interval
     smoothing).
 
     Parameters

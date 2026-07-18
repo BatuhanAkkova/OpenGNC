@@ -2,8 +2,9 @@
 Adaptive Kalman Filter (AKF) with online covariance estimation (Myers-Tapley).
 """
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 from opengnc.kalman_filters.kf import KF
 

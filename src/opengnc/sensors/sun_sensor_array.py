@@ -2,8 +2,9 @@
 Coarse Sun Sensor Array model.
 """
 
-import numpy as np
 from typing import Any
+
+import numpy as np
 
 from opengnc.sensors.sensor import Sensor
 

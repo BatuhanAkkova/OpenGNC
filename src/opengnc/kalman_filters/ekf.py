@@ -5,9 +5,6 @@ Extended Kalman Filter (EKF) for non-linear systems using Jacobians.
 from collections.abc import Callable
 from typing import Any
 
-from collections.abc import Callable
-from typing import Any
-
 import numpy as np
 
 
@@ -15,7 +12,7 @@ class EKF:
     """
     Extended Kalman Filter (EKF) for non-linear systems.
 
-    Linearizes the non-linear state transition and measurement models around the 
+    Linearizes the non-linear state transition and measurement models around the
     current estimate using first-order Taylor expansion (Jacobians).
 
     Parameters

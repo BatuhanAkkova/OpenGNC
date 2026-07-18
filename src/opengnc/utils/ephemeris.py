@@ -3,7 +3,7 @@ JPL Ephemeris integration using jplephem.
 """
 
 import os
-from typing import Optional, cast
+from typing import cast
 
 import numpy as np
 
@@ -26,7 +26,7 @@ class JPLEphemeris:
         Path to the .bsp SPK file (e.g., de421.bsp).
     """
 
-    def __init__(self, spk_path: Optional[str] = None) -> None:
+    def __init__(self, spk_path: str | None = None) -> None:
         """Initialize SPK kernel."""
         self.kernel = None
         if not JPLEPHEM_AVAILABLE:

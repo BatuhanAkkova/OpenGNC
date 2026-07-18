@@ -24,7 +24,7 @@ def ballistic_entry_dynamics(
     r"""
     Ballistic Atmospheric Entry Dynamics (3-DOF).
 
-    Calculates the ECI state derivative for a non-lifting entry vehicle 
+    Calculates the ECI state derivative for a non-lifting entry vehicle
     subject to spherical gravity and aerodynamic drag.
 
     Parameters
@@ -87,7 +87,7 @@ def lifting_entry_dynamics(
     """
     Lifting Atmospheric Entry Dynamics with Bank Angle Modulation.
 
-    Calculates the ECI state derivative for a vehicle with non-zero 
+    Calculates the ECI state derivative for a vehicle with non-zero
     Lift-over-Drag (L/D) ratios.
 
     Parameters
@@ -149,7 +149,7 @@ def sutton_grave_heating(rho: float, v: float, rn: float) -> float:
     r"""
     Stagnation Point Heat Flux via Sutton-Grave Correlation.
 
-    Estimates the convective heat transfer at the vehicle nose during 
+    Estimates the convective heat transfer at the vehicle nose during
     hypersonic atmospheric entry.
     Equation: $\dot{q} = k \sqrt{\rho / r_n} v^3$.
 
@@ -202,7 +202,7 @@ def aerocapture_guidance(
     """
     Predictive-Corrector Aerocapture Guidance.
 
-    Determines the required bank angle to achieve a target exit apoapsis 
+    Determines the required bank angle to achieve a target exit apoapsis
     by numerically integrating internal trajectories.
 
     Parameters

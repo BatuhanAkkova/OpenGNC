@@ -3,13 +3,9 @@ Cubature Kalman Filter (CKF) using spherical-radial rule for non-linear estimati
 """
 
 from collections.abc import Callable
-from typing import Any
-
-from collections.abc import Callable
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
-from typing import cast
 from scipy.linalg import cholesky
 
 
@@ -17,8 +13,8 @@ class CKF:
     """
     Cubature Kalman Filter (CKF) using the spherical-radial rule.
 
-    Offers superior numerical stability and accuracy for high-dimensional 
-    non-linear systems compared to the UKF. Uses exactly $2n$ cubature points 
+    Offers superior numerical stability and accuracy for high-dimensional
+    non-linear systems compared to the UKF. Uses exactly $2n$ cubature points
     with equal weights.
 
     Parameters

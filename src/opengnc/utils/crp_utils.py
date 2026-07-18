@@ -4,8 +4,9 @@ Classical Rodrigues Parameters (CRP) kinematics and composition.
 
 from __future__ import annotations
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 def quat_to_crp(q: np.ndarray) -> np.ndarray:

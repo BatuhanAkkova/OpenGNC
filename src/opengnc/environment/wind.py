@@ -9,7 +9,7 @@ class AtmosphereCoRotation:
     """
     Atmospheric Wind Model (Strict Co-Rotation).
 
-    Assumes that the atmosphere rotates perfectly in sync with the planet's 
+    Assumes that the atmosphere rotates perfectly in sync with the planet's
     Earth-Centered Earth-Fixed (ECEF) frame.
 
     Parameters

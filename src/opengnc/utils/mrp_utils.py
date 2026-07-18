@@ -2,8 +2,9 @@
 Modified Rodrigues Parameters (MRP) kinematics and math utilities.
 """
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 def quat_to_mrp(q: np.ndarray) -> np.ndarray:
@@ -87,7 +88,7 @@ def get_shadow_mrp(sigma: np.ndarray) -> np.ndarray:
     r"""
     Return the shadow set for the given MRP.
 
-    The shadow set represents the same rotation but stays within the 
+    The shadow set represents the same rotation but stays within the
     unit sphere ($|\sigma| \le 1$).
     $\sigma_{shadow} = -\sigma / \|\sigma\|^2$.
 

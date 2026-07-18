@@ -2,7 +2,8 @@
 Taylor Series Numerical Integrator.
 """
 
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 import numpy as np
 
@@ -13,7 +14,7 @@ class TaylorIntegrator(Integrator):
     r"""
     Taylor Series expansion-based numerical integrator.
 
-    Solves $\dot{y} = f(t, y)$ by expanding $y$ as a Taylor series 
+    Solves $\dot{y} = f(t, y)$ by expanding $y$ as a Taylor series
     up to a specified order.
 
     Parameters
@@ -54,7 +55,7 @@ class TaylorIntegrator(Integrator):
             (y_next, t_next, dt_suggested).
         """
         y_next = np.array(y, dtype=float)
-        
+
         # 1st order term (Euler)
         f1 = f(t, y, **kwargs)
         y_next += f1 * dt

@@ -35,12 +35,12 @@ class DecomEngine:
     def decommutate(self, payload: bytes) -> dict[str, Any]:
         """
         Extract parameters from the binary payload.
-        
+
         Parameters
         ----------
         payload : bytes
             Raw binary data field of the CCSDS packet (excluding header).
-            
+
         Returns
         -------
         dict[str, Any]
@@ -51,14 +51,14 @@ class DecomEngine:
             size = self.TYPE_SIZES.get(field.data_type, 0)
             if field.offset + size > len(payload):
                 continue
-            
+
             # Unpack using big-endian by default (common in space standards)
             fmt = f">{field.data_type}"
             raw_val = struct.unpack_from(fmt, payload, field.offset)[0]
-            
+
             # Apply calibration (linear)
             results[field.name] = (raw_val * field.scale) + field.offset_val
-            
+
         return results
 
     @classmethod

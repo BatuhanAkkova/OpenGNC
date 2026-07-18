@@ -13,7 +13,7 @@ class Moon:
     frame.
 
     Calculation (Fundamental Arguments):
-    $L$ = Mean longitude, $M'$ = Moon mean anomaly, $M$ = Sun mean anomaly, 
+    $L$ = Mean longitude, $M'$ = Moon mean anomaly, $M$ = Sun mean anomaly,
     $D$ = Mean elongation, $u$ = Mean latitude.
 
     Parameters

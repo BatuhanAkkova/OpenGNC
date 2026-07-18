@@ -4,8 +4,9 @@ Covariance transformation and reachability analysis tools.
 
 from __future__ import annotations
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 class CovarianceTransform:

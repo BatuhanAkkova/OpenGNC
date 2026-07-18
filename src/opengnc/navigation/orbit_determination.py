@@ -14,8 +14,8 @@ class OrbitDeterminationEKF:
     r"""
     Extended Kalman Filter for Orbit Determination (OD-EKF).
 
-    Estimates the 6D Cartesian state $\mathbf{x} = [\mathbf{r}, \mathbf{v}]^T$ 
-    in the ECI frame. Supports multi-model dynamics (Two-body, J2) and 
+    Estimates the 6D Cartesian state $\mathbf{x} = [\mathbf{r}, \mathbf{v}]^T$
+    in the ECI frame. Supports multi-model dynamics (Two-body, J2) and
     RK4-based state prediction.
 
     Parameters

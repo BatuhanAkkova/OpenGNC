@@ -4,16 +4,10 @@ Gravitational acceleration models (Two-Body, J2, Harmonics) and Gradient Torques
 
 import csv
 import os
+from typing import cast
 
 import numpy as np
-from typing import cast
 from numba import njit
-
-"""
-Gravitational acceleration models (Two-Body, J2, Harmonics) and Gradient Torques.
-"""
-
-
 
 from opengnc.utils.frame_conversion import ecef2eci, eci2ecef
 from opengnc.utils.quat_utils import quat_conj, quat_rot

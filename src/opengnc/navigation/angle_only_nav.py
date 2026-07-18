@@ -4,8 +4,9 @@ Navigation using Line-of-Sight (LOS) measurements (unit vectors).
 
 from __future__ import annotations
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 from .orbit_determination import OrbitDeterminationEKF
 
@@ -14,7 +15,7 @@ class AngleOnlyNavigation(OrbitDeterminationEKF):
     r"""
     Angles-Only Navigation (AON) using Line-of-Sight (LOS) unit vectors.
 
-    Estimates the spacecraft state by tracking unit vectors to known celestial 
+    Estimates the spacecraft state by tracking unit vectors to known celestial
     or terrestrial targets. Inherits dynamics from `OrbitDeterminationEKF`.
 
     Parameters

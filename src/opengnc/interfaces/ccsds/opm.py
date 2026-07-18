@@ -3,7 +3,6 @@ CCSDS Orbit Parameter Message (OPM) implementation.
 """
 
 import datetime
-from typing import Dict, Optional, Union
 
 import numpy as np
 
@@ -15,7 +14,7 @@ class OPM:
     Supports reading and writing CCSDS OPM files (KVN format).
     """
 
-    def __init__(self, data: Optional[Dict] = None) -> None:
+    def __init__(self, data: dict | None = None) -> None:
         self.header = {
             "CCSDS_OPM_VERS": "2.0",
             "CREATION_DATE": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S"),
@@ -28,7 +27,7 @@ class OPM:
             "REF_FRAME": "EME2000",
             "TIME_SYSTEM": "UTC",
         }
-        self.state: Dict[str, Union[float, str]] = {
+        self.state: dict[str, float | str] = {
             "EPOCH": "",
             "X": 0.0,
             "Y": 0.0,

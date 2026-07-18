@@ -14,7 +14,7 @@ def compute_mahalanobis_distance(
     r"""
     Compute the Mahalanobis statistical distance between two state estimates.
 
-    Used to measure the separation between two Gaussian distributions 
+    Used to measure the separation between two Gaussian distributions
     accounting for their covariance.
     Formula: $d_M = \sqrt{(\mathbf{x}_1 - \mathbf{x}_2)^T (\mathbf{P}_1 + \mathbf{P}_2)^{-1} (\mathbf{x}_1 - \mathbf{x}_2)}$.
 

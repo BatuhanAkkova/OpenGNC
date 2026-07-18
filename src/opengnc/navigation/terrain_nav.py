@@ -10,7 +10,7 @@ class FeatureMatchingTRN:
     """
     Terrain-Relative Navigation (TRN) Feature Matcher.
 
-    Correlates observed landmarks (from sensors like LIDAR or cameras) with 
+    Correlates observed landmarks (from sensors like LIDAR or cameras) with
     a known map database using efficient nearest-neighbor search.
 
     Parameters
@@ -64,7 +64,7 @@ def map_relative_localization_update(
     r"""
     EKF Measurement Update using TRN feature matches.
 
-    Corrects the global state estimate using residuals between map-known 
+    Corrects the global state estimate using residuals between map-known
     landmarks and their estimated positions.
 
     Parameters

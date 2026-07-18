@@ -1,10 +1,10 @@
-import asyncio
 import json
 import os
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+
 import uvicorn
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -41,7 +41,7 @@ manager = ConnectionManager()
 
 @app.get("/")
 async def get():
-    with open(os.path.join(STATIC_DIR, "index.html"), "r") as f:
+    with open(os.path.join(STATIC_DIR, "index.html")) as f:
         return HTMLResponse(content=f.read(), status_code=200)
 
 @app.websocket("/ws")

@@ -16,7 +16,7 @@ def kepler2equinoctial(
     r"""
     Convert Keplerian elements to Classical Equinoctial elements.
 
-    Equinoctial elements $(a, h, k, p, q, \lambda_M)$ are non-singular 
+    Equinoctial elements $(a, h, k, p, q, \lambda_M)$ are non-singular
     for zero eccentricity and zero/90-deg inclination.
 
     Parameters

@@ -3,8 +3,9 @@ EKF for relative navigation using Clohessy-Wiltshire (Hill) dynamics.
 """
 
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 from opengnc.kalman_filters.ekf import EKF
 
@@ -13,7 +14,7 @@ class RelativeNavigationEKF:
     r"""
     Relative Navigation EKF via Clohessy-Wiltshire (Hill) Dynamics.
 
-    Estimates the 6D relative state $\delta \mathbf{x} = [\delta \mathbf{r}, \delta \mathbf{v}]^T$ 
+    Estimates the 6D relative state $\delta \mathbf{x} = [\delta \mathbf{r}, \delta \mathbf{v}]^T$
     in the Hill (RSW) frame. Assumes a circular target orbit.
 
     Parameters

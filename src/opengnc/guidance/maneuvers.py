@@ -92,23 +92,23 @@ def bi_elliptic_transfer(
     v_trans1_p = np.sqrt(mu_arr * (2 / r1_arr - 1 / a1))
     dv1 = abs(v_trans1_p - v_c1)
 
-    v_trans1_a = np.sqrt(mu * (2 / rb - 1 / a1))
+    v_trans1_a = np.sqrt(mu_arr * (2 / rb_arr - 1 / a1))
 
     # Second transfer: rb to r2
-    a2 = (r2 + rb) / 2.0
-    v_trans2_a = np.sqrt(mu * (2 / rb - 1 / a2))
+    a2 = (r2_arr + rb_arr) / 2.0
+    v_trans2_a = np.sqrt(mu_arr * (2 / rb_arr - 1 / a2))
     dv2 = abs(v_trans2_a - v_trans1_a)  # Burn at apoapsis rb
 
-    v_trans2_p = np.sqrt(mu * (2 / r2 - 1 / a2))
-    v_c2 = np.sqrt(mu / r2)
+    v_trans2_p = np.sqrt(mu_arr * (2 / r2_arr - 1 / a2))
+    v_c2 = np.sqrt(mu_arr / r2_arr)
     dv3 = abs(v_c2 - v_trans2_p)
 
     # Total time
-    t1 = np.pi * np.sqrt(a1**3 / mu)
-    t2 = np.pi * np.sqrt(a2**3 / mu)
+    t1 = np.pi * np.sqrt(a1**3 / mu_arr)
+    t2 = np.pi * np.sqrt(a2**3 / mu_arr)
     t_total = t1 + t2
 
-    return dv1, dv2, dv3, t_total
+    return float(dv1), float(dv2), float(dv3), float(t_total)
 
 
 def phasing_maneuver(

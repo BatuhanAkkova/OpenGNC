@@ -19,7 +19,7 @@ class MEKF:
     """
     Multiplicative Extended Kalman Filter (MEKF) for Attitude Estimation.
 
-    Maintains a global quaternion for orientation and an additive 3-component 
+    Maintains a global quaternion for orientation and an additive 3-component
     error vector in the tangent space for bias and local attitude corrections.
 
     Parameters
@@ -102,7 +102,7 @@ class MEKF:
         """
         Perform a vector measurement update.
 
-        Linearizes the observation of a reference vector (e.g., Sun, Earth) 
+        Linearizes the observation of a reference vector (e.g., Sun, Earth)
         and applies a multiplicative correction to the quaternion.
 
         Parameters

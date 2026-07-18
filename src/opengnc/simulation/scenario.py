@@ -13,7 +13,7 @@ class ScenarioConfig:
     """
     Scenario Configuration Manager.
 
-    Handles loading and parsing of reproducible mission configurations from 
+    Handles loading and parsing of reproducible mission configurations from
     external formatted files (JSON, YAML).
 
     Parameters
@@ -65,7 +65,7 @@ class ScenarioConfig:
         """
         Retrieve a configuration value using dot-notation.
 
-        Example: `config.get('spacecraft.mass', 500.0)` retrieves the 'mass' 
+        Example: `config.get('spacecraft.mass', 500.0)` retrieves the 'mass'
         property from the 'spacecraft' object.
 
         Parameters

@@ -30,7 +30,6 @@ This roadmap outlines the strategic development of **OpenGNC** to provide a high
 - [ ] **Relative Navigation**: Filter-based relative state estimation for swarming, docking, and proximity operations.
 - [ ] **Optimal Control**: Expanded MPC optimization using CasADi for highly constrained multi-burn maneuvers.
 - [ ] **AI/ML Hooks**: Reinforcement Learning (RL) wrappers for autonomous rendezvous and docking (GNC Gymnasium).
-- [ ] **FDIR v2**: Implementation of PCA and LSTM-based anomaly detection for sensor/actuator protection.
 
 ### Phase 3: Flight Implementation & Embedded Software
 *Converting high-fidelity simulations into deterministic, flight-ready artifacts.*
@@ -47,4 +46,4 @@ This roadmap outlines the strategic development of **OpenGNC** to provide a high
 
 ---
 
-*Last updated: March 2026 | Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md)*
+*Last updated: July 2026 | Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md)*

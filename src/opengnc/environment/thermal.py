@@ -9,7 +9,7 @@ class ThermalEnvironment:
     """
     Spacecraft External Thermal Environment Models.
 
-    Calculates heat fluxes from direct solar radiation, planetary albedo, and 
+    Calculates heat fluxes from direct solar radiation, planetary albedo, and
     outgoing longwave radiation (Earth IR).
 
     Parameters

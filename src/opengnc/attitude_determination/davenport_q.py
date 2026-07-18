@@ -16,7 +16,7 @@ def davenport_q(
     r"""
     Solve for the optimal attitude quaternion using Davenport's q-method.
 
-    The optimal quaternion $\mathbf{q}$ is the eigenvector corresponding to the 
+    The optimal quaternion $\mathbf{q}$ is the eigenvector corresponding to the
     maximum eigenvalue $\lambda_{max}$ of the Davenport K-matrix:
     $\mathbf{K} \mathbf{q} = \lambda \mathbf{q}$
 

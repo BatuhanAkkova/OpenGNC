@@ -3,8 +3,9 @@ Geometric Controller on SO(3) for attitude tracking.
 """
 
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 def vee_map(R: np.ndarray) -> np.ndarray:
@@ -54,7 +55,7 @@ class GeometricController:
     avoiding singularities and unwinding issues associated with Euler angles
     and quaternions.
 
-    Ref: Lee, T., Leok, M., & McClamroch, N. H. (2010). Geometric Tracking 
+    Ref: Lee, T., Leok, M., & McClamroch, N. H. (2010). Geometric Tracking
     Control of a Quadrotor UAV on SE(3).
 
     Parameters

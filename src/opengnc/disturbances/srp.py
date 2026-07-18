@@ -2,8 +2,9 @@
 Solar Radiation Pressure (SRP) acceleration models.
 """
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 from opengnc.environment.solar import Sun
 

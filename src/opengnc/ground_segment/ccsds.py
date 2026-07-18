@@ -26,7 +26,7 @@ class SequenceFlags(IntEnum):
 class SpacePacket:
     """
     Implementation of the CCSDS Space Packet Primary Header.
-    
+
     Total header size: 6 octets (48 bits).
     """
 
@@ -73,18 +73,18 @@ class SpacePacket:
             raise ValueError("Buffer too short for CCSDS header.")
 
         word1, word2, word3 = struct.unpack(">HHH", buffer[:cls.HEADER_SIZE])
-        
+
         version = (word1 >> 13) & 0x07
         packet_type = PacketType((word1 >> 12) & 0x01)
         sec_header_flag = bool((word1 >> 11) & 0x01)
         apid = word1 & 0x07FF
-        
+
         seq_flags = SequenceFlags((word2 >> 14) & 0x03)
         seq_count = word2 & 0x3FFF
-        
+
         data_len = word3 + 1
         data = buffer[cls.HEADER_SIZE : cls.HEADER_SIZE + data_len]
-        
+
         packet = cls(apid, packet_type, sec_header_flag, seq_flags, seq_count, data)
         packet.version = version
         return packet
@@ -93,7 +93,7 @@ class SpacePacket:
 class CUC:
     """
     CCSDS Unsegmented Time Code (CUC).
-    
+
     Format: 4 octets coarse time (seconds), 2 octets fine time (1/65536 subseconds).
     Epoch: TAI (1958 Jan 1) or Unix (1970 Jan 1). Here we use Unix for convenience.
     """
@@ -105,7 +105,7 @@ class CUC:
         """Pack a float timestamp into 6-byte CUC."""
         if t is None:
             t = time.time()
-        
+
         coarse = int(t)
         fine = int((t - coarse) * 65536) & 0xFFFF
         return struct.pack(">IH", coarse, fine)
@@ -115,6 +115,6 @@ class CUC:
         """Unpack 6-byte CUC into a float timestamp."""
         if len(data) < 6:
             raise ValueError("CUC data must be 6 bytes.")
-        
+
         coarse, fine = struct.unpack(">IH", data[:6])
         return float(coarse) + (float(fine) / 65536.0)

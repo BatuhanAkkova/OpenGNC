@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import heapq
 from collections.abc import Callable
 from typing import Any

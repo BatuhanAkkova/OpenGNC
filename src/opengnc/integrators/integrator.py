@@ -13,7 +13,7 @@ class Integrator(ABC):
     r"""
     Abstract base class for numerical ODE integrators.
 
-    Provides a common interface for fixed-step and variable-step numerical 
+    Provides a common interface for fixed-step and variable-step numerical
     integration of first-order differential equations $\dot{y} = f(t, y)$.
     """
 

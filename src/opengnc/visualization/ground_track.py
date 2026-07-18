@@ -12,7 +12,7 @@ def plot_ground_track(
     """
     2D Sub-Satellite Point (SSP) Visualization.
 
-    Projects the spacecraft trajectory onto a 2D equirectangular map tracking 
+    Projects the spacecraft trajectory onto a 2D equirectangular map tracking
     latitude and longitude evolution over time.
 
     Parameters

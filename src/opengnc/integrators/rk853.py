@@ -3,7 +3,7 @@ Adaptive-step Dormand-Prince 8(5,3) integrator (DOP853).
 """
 
 from collections.abc import Callable
-from typing import Any, Optional
+from typing import Any
 
 import numpy as np
 
@@ -91,7 +91,7 @@ class RK853(Integrator):
                 if abs(dt_current) < 1e-15:
                     raise RuntimeError("Step size too small in RK853")
 
-    def integrate(self, f: Callable, t_span: tuple[float, float], y0: np.ndarray, dt: Optional[float] = None, **kwargs: Any) -> tuple[np.ndarray, np.ndarray]:
+    def integrate(self, f: Callable, t_span: tuple[float, float], y0: np.ndarray, dt: float | None = None, **kwargs: Any) -> tuple[np.ndarray, np.ndarray]:
         if dt is None:
             dt = (t_span[1] - t_span[0]) / 100.0
         return super().integrate(f, t_span, y0, dt, **kwargs)

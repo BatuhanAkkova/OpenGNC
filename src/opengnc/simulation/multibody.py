@@ -1,5 +1,4 @@
 from typing import Any
-import numpy as np
 
 from .simulator import (
     ControllerFunc,
@@ -15,7 +14,7 @@ class ConstellationSimulator:
     """
     Multi-Agent / Constellation Simulator.
 
-    Manages simultaneous simulation of multiple spacecraft, enabling 
+    Manages simultaneous simulation of multiple spacecraft, enabling
     coordinated formation flying or large network analysis.
 
     Parameters

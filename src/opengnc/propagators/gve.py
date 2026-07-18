@@ -4,7 +4,7 @@ Gauss-Variational Equations (GVE) Propagator.
 
 from __future__ import annotations
 
-from typing import Callable
+from collections.abc import Callable
 
 import numpy as np
 
@@ -15,7 +15,7 @@ class GVEPropagator(Propagator):
     """
     Propagator based on Gauss-Variational Equations.
 
-    Suitable for analyzing the effects of small perturbations on 
+    Suitable for analyzing the effects of small perturbations on
     Keplerian elements.
 
     Parameters
@@ -86,7 +86,7 @@ class GVEPropagator(Propagator):
             $[da, de, di, d\Omega, d\omega, d\theta]$.
         """
         a, e, i, raan, argp, nu = state
-        
+
         # Avoid division by zero for circular/equatorial orbits
         e = max(e, 1e-12)
         i = max(i, 1e-12)

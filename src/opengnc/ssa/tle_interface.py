@@ -83,7 +83,7 @@ class TLECatalog:
             Path to the TLE file.
         """
         with open(filepath) as f:
-            lines = [l.strip() for l in f.readlines() if l.strip()]
+            lines = [line.strip() for line in f.readlines() if line.strip()]
 
         i = 0
         while i < len(lines) - 1:

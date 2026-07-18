@@ -109,7 +109,7 @@ class HarrisPriester:
         Parameters
         ----------
         lag_deg : float, optional
-            Diurnal bulge lag angle behind the sub-solar point (deg). 
+            Diurnal bulge lag angle behind the sub-solar point (deg).
             Default 30.0.
         """
         self.lag = np.radians(lag_deg)
@@ -206,8 +206,8 @@ class NRLMSISE00:
     """
     NRLMSISE-00 high-fidelity atmospheric density model.
 
-    The standard empirical model of the Earth's atmosphere from ground to 
-    space. Accounts for solar activity, geomagnetic storms, and seasonal 
+    The standard empirical model of the Earth's atmosphere from ground to
+    space. Accounts for solar activity, geomagnetic storms, and seasonal
     variations.
 
     Notes
@@ -257,7 +257,7 @@ class JB2008:
     """
     Simplified Jacchia-Bowman 2008 (JB2008) Atmosphere Model.
 
-    A high-accuracy model based on Jacchia's diffusion equations, 
+    A high-accuracy model based on Jacchia's diffusion equations,
     driven by solar indices (F10.7, S10, M10, etc).
 
     Parameters

@@ -1,51 +1,65 @@
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
 from .akf import AKF
 from .ckf import CKF
 from .ekf import EKF
 from .enkf import EnKF
 from .imm import IMM
 from .kf import KF
-from .mekf import MEKF
+from .mekf import MEKF as PythonMEKF
 from .pf import ParticleFilter
 from .rts_smoother import rts_smoother
 from .sr_ukf import SRUKF
-from .ukf import UKF, UKF_Attitude
+from .ukf import UKF
+from .ukf import UKF_Attitude as PythonUKF_Attitude
 
-# Save original Python versions
-PythonMEKF = MEKF
-PythonUKF_Attitude = UKF_Attitude
-
-# Accelerated C++ Implementations (if available)
+MEKF: Any = PythonMEKF
+UKF_Attitude: Any = PythonUKF_Attitude
 ACCELERATION_AVAILABLE = False
+
 try:
     import sys
-    import os
-    # Add common build paths to search for the extension
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.abspath(os.path.join(current_dir, '..', '..', '..'))
-    
-    # Check multiple build locations
-    build_paths = [
-        os.path.join(project_root, 'build', 'Release'),
-        os.path.join(project_root, 'build'),
-        os.path.join(project_root, 'cpp', 'build', 'Release'),
-        os.path.join(project_root, 'cpp', 'build')
-    ]
-    
-    for path in build_paths:
-        if os.path.exists(path):
-            sys.path.append(path)
 
     import opengnc_py
-    
-    # Swap public classes with accelerated ones
+
+    current_dir = Path(__file__).resolve().parent
+    project_root = current_dir.parent.parent.parent
+    build_paths = [
+        project_root / "build" / "Release",
+        project_root / "build",
+        project_root / "cpp" / "build" / "Release",
+        project_root / "cpp" / "build",
+    ]
+
+    for path in build_paths:
+        if path.exists():
+            sys.path.append(str(path))
+
     MEKF = opengnc_py.MEKF
     UKF_Attitude = opengnc_py.UKF_Attitude
     ACCELERATION_AVAILABLE = True
-    
-    # print("[OpenGNC] C++ acceleration enabled for filters: MEKF, UKF_Attitude")
 except ImportError:
     pass
 
+__all__ = [
+    "ACCELERATION_AVAILABLE",
+    "AKF",
+    "CKF",
+    "EKF",
+    "IMM",
+    "KF",
+    "MEKF",
+    "SRUKF",
+    "UKF",
+    "EnKF",
+    "ParticleFilter",
+    "PythonMEKF",
+    "PythonUKF_Attitude",
+    "RTS_smoother",
+    "UKF_Attitude",
+]
 
-
-
+RTS_smoother = rts_smoother

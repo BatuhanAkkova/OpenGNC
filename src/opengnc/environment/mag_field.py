@@ -83,7 +83,7 @@ def tilted_dipole_field(r_ecef: np.ndarray) -> np.ndarray:
     r"""
     Tilted Dipole Geomagnetic Approximation.
 
-    A simplified model useful for fast orbit propagation. Approximates Earth's 
+    A simplified model useful for fast orbit propagation. Approximates Earth's
     field as a dipole tilted relative to the geographic poles.
 
     Equation:

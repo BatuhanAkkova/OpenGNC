@@ -2,6 +2,7 @@
 Fast Optimal Attitude Matrix (FOAM) algorithm for attitude determination.
 """
 
+from typing import cast
 
 import numpy as np
 
@@ -16,80 +17,70 @@ def foam(
     r"""
     Solve for the optimal attitude matrix using FOAM.
 
-    Directly computes the DCM:
-    $\mathbf{R}_{BI} = \frac{(\lambda^2 + \|\mathbf{B}\|_F^2)\mathbf{B} + 2\lambda \text{adj}(\mathbf{B})^T - 2\mathbf{B} \mathbf{B}^T \mathbf{B}}{\lambda(\lambda^2 - \|\mathbf{B}\|_F^2) - 2 \det(\mathbf{B})}$
-
     Parameters
     ----------
     body_vectors : np.ndarray
-        Body measurements (N, 3).
+        Body measurements with shape ``(N, 3)``.
     ref_vectors : np.ndarray
-        Inertial references (N, 3).
+        Inertial reference vectors with shape ``(N, 3)``.
     weights : np.ndarray | None, optional
-        Weights (N,).
+        Optional weights of shape ``(N,)``.
     tol : float, optional
-        Tolerance. Default 1e-12.
+        Newton iteration tolerance.
     max_iter : int, optional
-        Max iterations. Default 20.
+        Maximum Newton iterations.
 
     Returns
     -------
     np.ndarray
-        Optimal $3 \times 3$ DCM $\mathbf{R}_{BI}$.
+        Optimal ``3 x 3`` direction cosine matrix.
     """
-    b_vecs = np.asarray(body_vectors)
-    r_vecs = np.asarray(ref_vectors)
+    b_vecs = np.asarray(body_vectors, dtype=float)
+    r_vecs = np.asarray(ref_vectors, dtype=float)
 
     if b_vecs.shape != r_vecs.shape:
         raise ValueError("Body and reference vector arrays must have the same shape.")
 
     n_vecs = b_vecs.shape[0]
-    w = np.asarray(weights) if weights is not None else np.ones(n_vecs) / n_vecs
-    if len(w) != n_vecs:
+    w_vec = np.asarray(weights, dtype=float) if weights is not None else np.ones(n_vecs) / n_vecs
+    if len(w_vec) != n_vecs:
         raise ValueError("Number of weights must match number of vectors.")
 
-    # Normalize vectors and compute profile matrix B
     b_norm = b_vecs / np.linalg.norm(b_vecs, axis=1)[:, np.newaxis]
     r_norm = r_vecs / np.linalg.norm(r_vecs, axis=1)[:, np.newaxis]
 
-    b_matrix = np.zeros((3, 3))
+    b_matrix = np.zeros((3, 3), dtype=float)
     for i in range(n_vecs):
-        b_matrix += w[i] * np.outer(b_norm[i], r_norm[i])
+        b_matrix += w_vec[i] * np.outer(b_norm[i], r_norm[i])
 
     det_b = float(np.linalg.det(b_matrix))
-    # Correct adjugate calculation
-    adj_b = np.zeros((3, 3))
-    adj_b[0, 0] = b_matrix[1, 1]*b_matrix[2, 2] - b_matrix[1, 2]*b_matrix[2, 1]
-    adj_b[0, 1] = b_matrix[0, 2]*b_matrix[2, 1] - b_matrix[0, 1]*b_matrix[2, 2]
-    adj_b[0, 2] = b_matrix[0, 1]*b_matrix[1, 2] - b_matrix[0, 2]*b_matrix[1, 1]
-    adj_b[1, 0] = b_matrix[1, 2]*b_matrix[2, 0] - b_matrix[1, 0]*b_matrix[2, 2]
-    adj_b[1, 1] = b_matrix[0, 0]*b_matrix[2, 2] - b_matrix[0, 2]*b_matrix[2, 0]
-    adj_b[1, 2] = b_matrix[0, 2]*b_matrix[1, 0] - b_matrix[0, 0]*b_matrix[1, 2]
-    adj_b[2, 0] = b_matrix[1, 0]*b_matrix[2, 1] - b_matrix[1, 1]*b_matrix[2, 0]
-    adj_b[2, 1] = b_matrix[0, 1]*b_matrix[2, 0] - b_matrix[0, 0]*b_matrix[2, 1]
-    adj_b[2, 2] = b_matrix[0, 0]*b_matrix[1, 1] - b_matrix[0, 1]*b_matrix[1, 0]
+    adj_b = np.zeros((3, 3), dtype=float)
+    adj_b[0, 0] = b_matrix[1, 1] * b_matrix[2, 2] - b_matrix[1, 2] * b_matrix[2, 1]
+    adj_b[0, 1] = b_matrix[0, 2] * b_matrix[2, 1] - b_matrix[0, 1] * b_matrix[2, 2]
+    adj_b[0, 2] = b_matrix[0, 1] * b_matrix[1, 2] - b_matrix[0, 2] * b_matrix[1, 1]
+    adj_b[1, 0] = b_matrix[1, 2] * b_matrix[2, 0] - b_matrix[1, 0] * b_matrix[2, 2]
+    adj_b[1, 1] = b_matrix[0, 0] * b_matrix[2, 2] - b_matrix[0, 2] * b_matrix[2, 0]
+    adj_b[1, 2] = b_matrix[0, 2] * b_matrix[1, 0] - b_matrix[0, 0] * b_matrix[1, 2]
+    adj_b[2, 0] = b_matrix[1, 0] * b_matrix[2, 1] - b_matrix[1, 1] * b_matrix[2, 0]
+    adj_b[2, 1] = b_matrix[0, 1] * b_matrix[2, 0] - b_matrix[0, 0] * b_matrix[2, 1]
+    adj_b[2, 2] = b_matrix[0, 0] * b_matrix[1, 1] - b_matrix[0, 1] * b_matrix[1, 0]
 
     b_frob_sq = float(np.trace(b_matrix @ b_matrix.T))
     adj_b_frob_sq = float(np.trace(adj_b @ adj_b.T))
 
-    # Solve for lambda_max using Newton-Raphson
-    lam = float(np.sum(w))
+    lam = float(np.sum(w_vec))
     for _ in range(max_iter):
-        f_val = (lam**2 - b_frob_sq)**2 - 8*lam*det_b - 4*adj_b_frob_sq
-        fp_val = 4*lam*(lam**2 - b_frob_sq) - 8*det_b
-
+        f_val = (lam**2 - b_frob_sq) ** 2 - 8.0 * lam * det_b - 4.0 * adj_b_frob_sq
+        fp_val = 4.0 * lam * (lam**2 - b_frob_sq) - 8.0 * det_b
         delta = f_val / fp_val
         lam -= delta
         if abs(delta) < tol:
             break
 
-    # Construct the final DCM directly using Markley's robust algorithm
-    # R_opt = [ (l^2 + ||B||^2)B + 2*l*adj(B)^T - 2*B*B^T*B ] / [ l(l^2 - ||B||^2) - 2*det(B) ]
-    num = (lam**2 + b_frob_sq) * b_matrix + 2 * lam * adj_b.T - 2 * (b_matrix @ b_matrix.T @ b_matrix)
-    den = lam * (lam**2 - b_frob_sq) - 2 * det_b
-
-    return num / den
-
-
-
-
+    num = (
+        (lam**2 + b_frob_sq) * b_matrix
+        + 2.0 * lam * adj_b.T
+        - 2.0 * (b_matrix @ b_matrix.T @ b_matrix)
+    )
+    den = lam * (lam**2 - b_frob_sq) - 2.0 * det_b
+    return cast(np.ndarray, np.asarray(num / den, dtype=float))

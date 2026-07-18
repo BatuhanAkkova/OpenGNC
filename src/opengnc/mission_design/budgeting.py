@@ -2,8 +2,9 @@
 Propellant budgeting and orbital lifetime prediction tools.
 """
 
-import numpy as np
 from typing import Any
+
+import numpy as np
 from scipy.integrate import solve_ivp
 
 from opengnc.disturbances.drag import LumpedDrag
@@ -210,7 +211,6 @@ def predict_lifetime(
     """
     drag_model = LumpedDrag(density_model, co_rotate=True)  # LumpedDrag uses SI units (m, m/s)
 
-    RE_EARTH = 6378.137  # km
     MU = 398600.4418  # km^3/s^2
 
     # State: [r_km, v_km_s]

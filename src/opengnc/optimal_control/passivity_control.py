@@ -12,8 +12,8 @@ class PassivityBasedController:
     r"""
     Passivity-Based Controller for Euler-Lagrange mechanical systems.
 
-    Exploits the energy and passivity properties of mechanical systems to 
-    ensure global stability. This implementation is based on the Slotine & Li 
+    Exploits the energy and passivity properties of mechanical systems to
+    ensure global stability. This implementation is based on the Slotine & Li
     adaptive/passivity scheme.
 
     System model: $M(q)\ddot{q} + C(q, \dot{q})\dot{q} + G(q) = u$

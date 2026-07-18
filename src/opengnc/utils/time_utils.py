@@ -341,7 +341,6 @@ def convert_time(
         A tuple containing converted time values for various systems:
         (ut1, tut1, jdut1, jdut1frac, utc, tai, gps, tt, ttt, jdtt, jdttfrac, tdb, ttdb, jdtdb, jdtdbfrac)
     """
-    local_hour = timezone + hour
     utc = hour * 3600 + minute * 60 + sec
 
     ut1 = utc + dut1

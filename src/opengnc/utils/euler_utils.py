@@ -4,8 +4,9 @@ Euler angle kinematics and Direction Cosine Matrix (DCM) utilities.
 
 from __future__ import annotations
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 def rot_x(angle: float) -> np.ndarray:
@@ -78,7 +79,7 @@ def euler_to_dcm(angles: np.ndarray, sequence: str) -> np.ndarray:
     r"""
     Convert Euler angles to a 3x3 Direction Cosine Matrix (DCM).
 
-    Standard convention for satellite dynamics is the Body-to-Inertial 
+    Standard convention for satellite dynamics is the Body-to-Inertial
     rotation $R_{I/B} = R_3(\theta_3) R_2(\theta_2) R_1(\theta_1)$.
 
     Parameters
@@ -119,7 +120,7 @@ def dcm_to_euler(dcm: np.ndarray, sequence: str) -> np.ndarray:
     r"""
     Extract Euler angles from a 3x3 Direction Cosine Matrix.
 
-    Supports all 12 standard rotation sequences (Symmetric and Asymmetric). 
+    Supports all 12 standard rotation sequences (Symmetric and Asymmetric).
     Handles gimbal lock singularities by setting the first angle to zero.
 
     Parameters

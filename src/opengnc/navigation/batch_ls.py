@@ -3,8 +3,9 @@ Differential Correction using Batch Least Squares for Orbit Determination.
 """
 
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 from opengnc.disturbances.gravity import TwoBodyGravity
 
@@ -13,7 +14,7 @@ class BatchLeastSquaresOD:
     r"""
     Differential Correction via Batch Least Squares for Orbit Determination.
 
-    Iteratively refines the spacecraft state by minimizing weighted residuals 
+    Iteratively refines the spacecraft state by minimizing weighted residuals
     over a batch of observations.
     Normal Equations: $(\mathbf{H}^T \mathbf{W} \mathbf{H}) \Delta \mathbf{x} = \mathbf{H}^T \mathbf{W} \mathbf{b}$.
 

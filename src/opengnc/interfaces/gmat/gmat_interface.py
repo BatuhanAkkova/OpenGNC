@@ -2,17 +2,14 @@
 GMAT Python API Integration for high-fidelity truth propagation.
 """
 
-from typing import Any, Dict, List, Optional
+from importlib.util import find_spec
+from typing import Any
 
 import numpy as np
 
 from opengnc.interfaces.base import ExternalPropagator
 
-try:
-    import gmatpy as gmat
-    GMAT_AVAILABLE = True
-except ImportError:
-    GMAT_AVAILABLE = False
+GMAT_AVAILABLE = find_spec("gmatpy") is not None
 
 
 class GMATInterface(ExternalPropagator):
@@ -44,7 +41,7 @@ class GMATInterface(ExternalPropagator):
         start_jd: float,
         duration_sec: float,
         step_sec: float,
-    ) -> Dict[str, np.ndarray]:
+    ) -> dict[str, np.ndarray]:
         """
         Run high-fidelity propagation using GMAT.
 

@@ -8,13 +8,13 @@ class INDIController:
     r"""
     Incremental Nonlinear Dynamic Inversion (INDI) Controller.
 
-    A sensor-based control method that reduces model dependency by 
+    A sensor-based control method that reduces model dependency by
     calculating control increments based on measured accelerations.
 
     System model: $\ddot{x} = f(x, \dot{x}) + g(x, \dot{x}) u$
     Discrete Law: $u_k = u_{k-1} + g(x_k, \dot{x}_k)^{-1} (v_k - \ddot{x}_k)$
 
-    where $\ddot{x}_k$ is the current measured acceleration and $v_k$ is the 
+    where $\ddot{x}_k$ is the current measured acceleration and $v_k$ is the
     desired acceleration command.
 
     Parameters

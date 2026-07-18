@@ -8,12 +8,14 @@ from typing import Any
 import numpy as np
 from scipy.linalg import cholesky, sqrtm
 
+from opengnc.utils.quat_utils import axis_angle_to_quat, quat_conj, quat_mult, quat_normalize
+
 
 class UKF:
     r"""
     Generalized Unscented Kalman Filter (UKF).
 
-    Propagates state and covariance through non-linear functions using the 
+    Propagates state and covariance through non-linear functions using the
     Unscented Transform (UT) with support for manifolds (e.g., $S^3$ for quaternions).
 
     Parameters
@@ -245,9 +247,6 @@ class UKF:
                 sigmas.append(self.add_x(x, -u_mat[i]))
 
         return np.array(sigmas)
-
-
-from opengnc.utils.quat_utils import axis_angle_to_quat, quat_conj, quat_mult, quat_normalize
 
 
 class UKF_Attitude(UKF):

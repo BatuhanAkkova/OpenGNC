@@ -18,7 +18,7 @@ def osculating2mean(
     """
     Convert osculating Keplerian elements to mean elements using J2 secular theory.
 
-    This implements the secular mapping (ignoring short/long period terms). 
+    This implements the secular mapping (ignoring short/long period terms).
     Mean elements are essential for long-term orbit propagation and mission planning.
 
     Parameters

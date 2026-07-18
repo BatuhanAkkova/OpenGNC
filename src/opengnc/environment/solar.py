@@ -9,7 +9,7 @@ class Sun:
     r"""
     Solar Position Model (Astronomical Almanac).
 
-    Provides the Sun's position vector in the Earth-Centered Inertial (ECI) 
+    Provides the Sun's position vector in the Earth-Centered Inertial (ECI)
     frame (J2000).
 
     Calculation:

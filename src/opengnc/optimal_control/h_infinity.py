@@ -2,8 +2,9 @@
 H-Infinity Robust Controller state-feedback design.
 """
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 from scipy.linalg import solve_continuous_are
 
 

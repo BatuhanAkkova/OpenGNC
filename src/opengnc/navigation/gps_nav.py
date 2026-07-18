@@ -3,8 +3,9 @@ Navigation using GNSS (GPS) position and velocity measurements.
 """
 
 
-import numpy as np
 from typing import Any
+
+import numpy as np
 
 from .orbit_determination import OrbitDeterminationEKF
 
@@ -13,8 +14,8 @@ class GPSNavigation(OrbitDeterminationEKF):
     r"""
     GNSS-based Navigation using absolute Position and Velocity measurements.
 
-    Processes PVT (Position, Velocity, Time) solutions from a receiver 
-    to correct the integrated orbital state. Inherits dynamics from 
+    Processes PVT (Position, Velocity, Time) solutions from a receiver
+    to correct the integrated orbital state. Inherits dynamics from
     `OrbitDeterminationEKF`.
     """
 

@@ -4,8 +4,9 @@ Initial Orbit Determination (IOD) methods (Gibbs, Gauss, Laplace).
 
 from __future__ import annotations
 
-import numpy as np
 from typing import cast
+
+import numpy as np
 
 
 def gibbs_iod(
@@ -132,7 +133,7 @@ def gauss_iod(
     l1, l2, l3 = np.asarray(rho_hat1), np.asarray(rho_hat2), np.asarray(rho_hat3)
     R1, R2, R3 = np.asarray(r_obs1), np.asarray(r_obs2), np.asarray(r_obs3)
 
-    p1, p2, p3 = np.cross(l2, l3), np.cross(l1, l3), np.cross(l1, l2)
+    p1, p2 = np.cross(l2, l3), np.cross(l1, l3)
     d0 = float(np.dot(l1, p1))
     if abs(d0) < 1e-18:
         raise ValueError("LOS vectors are nearly coplanar.")
@@ -230,20 +231,20 @@ def laplace_iod(
     np.ndarray
         ECI State vector $[r, v]$ at epoch.
     """
-    l, ld, ldd = np.asarray(rho_hat), np.asarray(rho_dot), np.asarray(rho_ddot)
+    rho_hat_vec, rho_dot_vec, rho_ddot_vec = np.asarray(rho_hat), np.asarray(rho_dot), np.asarray(rho_ddot)
     r_o, v_o, a_o = np.asarray(r_obs), np.asarray(v_obs), np.asarray(a_obs)
 
-    d_mat = np.array([l, ld, ldd])
+    d_mat = np.array([rho_hat_vec, rho_dot_vec, rho_ddot_vec])
     det_d = np.linalg.det(d_mat)
     if abs(det_d) < 1e-15:
         raise ValueError("Determinant D is too small for Laplace IOD.")
 
-    d1 = np.linalg.det(np.array([l, ld, a_o]))
-    d2 = np.linalg.det(np.array([l, ld, r_o]))
+    d1 = np.linalg.det(np.array([rho_hat_vec, rho_dot_vec, a_o]))
+    d2 = np.linalg.det(np.array([rho_hat_vec, rho_dot_vec, r_o]))
 
     a_lap, b_lap = -d1 / det_d, -mu * d2 / det_d
     r_mag_o = np.linalg.norm(r_o)
-    cos_phi = np.dot(l, r_o) / r_mag_o
+    cos_phi = np.dot(rho_hat_vec, r_o) / r_mag_o
 
     # Solve radius equation
     poly = [1.0, 0.0, -(a_lap**2 + 2.0*r_mag_o*a_lap*cos_phi + r_mag_o**2),
@@ -256,13 +257,13 @@ def laplace_iod(
     r_mag = float(np.max(real_positive_roots))
     rho_mag = a_lap + b_lap / r_mag**3
 
-    rv = rho_mag * l + r_o
+    rv = rho_mag * rho_hat_vec + r_o
 
-    d3 = np.linalg.det(np.array([l, a_o, ldd]))
-    d4 = np.linalg.det(np.array([l, r_o, ldd]))
+    d3 = np.linalg.det(np.array([rho_hat_vec, a_o, rho_ddot_vec]))
+    d4 = np.linalg.det(np.array([rho_hat_vec, r_o, rho_ddot_vec]))
     rho_mag_dot = -(d3 + (mu / r_mag**3) * d4) / (2.0 * det_d)
 
-    vv = rho_mag_dot * l + rho_mag * ld + v_o
+    vv = rho_mag_dot * rho_hat_vec + rho_mag * rho_dot_vec + v_o
 
     return cast(np.ndarray, np.concatenate([rv, vv]))
 

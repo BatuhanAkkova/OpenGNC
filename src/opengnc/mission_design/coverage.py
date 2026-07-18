@@ -2,8 +2,9 @@
 Ground station access and lighting conditions analysis utilities.
 """
 
-import numpy as np
 from typing import Any
+
+import numpy as np
 
 from opengnc.environment.solar import Sun
 from opengnc.utils.frame_conversion import eci2ecef, eci2llh, llh2ecef
@@ -156,6 +157,7 @@ def calculate_lighting_conditions(t_array: np.ndarray, r_eci_array: np.ndarray, 
 
     R_earth = 6378137.0
 
+
     for i, t in enumerate(t_array):
         jd_current = jdut1 + t / 86400.0
         r_eci = r_eci_array[i]
@@ -211,7 +213,6 @@ def calculate_constellation_coverage(
         list of dict: For each target point, statistics including 'max_revisit_time_gap',
                       'mean_revisit_time', and 'total_coverage_time'.
     """
-    R_earth = 6378137.0
     M = len(target_points_llh)
     N = len(t_array)
     num_sats = len(r_eci_array_list)
