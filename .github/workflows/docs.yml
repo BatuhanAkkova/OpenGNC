@@ -25,6 +25,10 @@ jobs:
         pip install ".[ops]"
         pip install -r docs/requirements.txt
 
+    - name: Smoke import docs/runtime deps
+      run: |
+        python -c "import fastapi, myst_nb, plotly, sphinx, uvicorn; print('docs imports OK')"
+
     - name: Build Documentation
       run: python docs/build_docs.py
 

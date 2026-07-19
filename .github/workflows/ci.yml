@@ -22,6 +22,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e ".[dev,ops]"
 
+    - name: Smoke import optional runtime deps
+      run: |
+        python -c "import fastapi, plotly, uvicorn; print('runtime imports OK')"
+
     - name: Ruff
       run: python -m ruff check src
 
@@ -50,6 +54,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -e ".[dev,ops]"
         pip install pytest-cov
+
+    - name: Smoke import visualization stack
+      run: |
+        python -c "import plotly, opengnc.visualization; print('visualization imports OK')"
 
     - name: Run tests with coverage
       run: pytest --cov=src/opengnc --cov-report=xml
