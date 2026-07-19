@@ -80,7 +80,8 @@
 <span class="sd">Taylor Series Numerical Integrator.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -93,7 +94,7 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Taylor Series expansion-based numerical integrator.</span>
 
-<span class="sd">    Solves $\dot{y} = f(t, y)$ by expanding $y$ as a Taylor series </span>
+<span class="sd">    Solves $\dot{y} = f(t, y)$ by expanding $y$ as a Taylor series</span>
 <span class="sd">    up to a specified order.</span>
 
 <span class="sd">    Parameters</span>
@@ -136,7 +137,7 @@
 <span class="sd">            (y_next, t_next, dt_suggested).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_next</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-        
+
         <span class="c1"># 1st order term (Euler)</span>
         <span class="n">f1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">y_next</span> <span class="o">+=</span> <span class="n">f1</span> <span class="o">*</span> <span class="n">dt</span>

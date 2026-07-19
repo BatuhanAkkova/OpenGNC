@@ -76,117 +76,137 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.simulation.monte_carlo_analyzer</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
 
 <div class="viewcode-block" id="MonteCarloAnalyzer">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MonteCarloAnalyzer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Statistical analysis suite for Monte Carlo simulations.</span>
-<span class="sd">    </span>
-<span class="sd">    Provides specialized tools for calculating performance margins, </span>
-<span class="sd">    stability metrics, and covariance consistency proofs.</span>
+
+<span class="sd">    Provides tools for calculating performance margins, stability metrics,</span>
+<span class="sd">    and covariance consistency checks.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize with a list of simulation result dictionaries.</span>
-<span class="sd">        </span>
-<span class="sd">        Each dictionary should contain time-series data or terminal states.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with a list of simulation result dictionaries.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">results</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No results provided to MonteCarloAnalyzer.&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MonteCarloAnalyzer.get_aggregate_stats">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.get_aggregate_stats">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_aggregate_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_aggregate_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Extract mean, std dev, and 3-sigma bounds for a specific telemetry key.</span>
-<span class="sd">        </span>
-<span class="sd">        Assumes the key points to a 1D or 2D numpy array in each result.</span>
+<span class="sd">        Extract summary statistics for a specific telemetry key.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : str</span>
+<span class="sd">            Result dictionary key containing scalar or array-like telemetry.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, np.ndarray]</span>
+<span class="sd">            Mean, spread, and extrema statistics for the requested key.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{}</span>
 
-        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="c1"># Shape: (NumRuns, NumSteps, Dim) or (NumRuns, Dim)</span>
-        
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        
+
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span>
             <span class="s2">&quot;std&quot;</span><span class="p">:</span> <span class="n">std</span><span class="p">,</span>
-            <span class="s2">&quot;sigma_3_upper&quot;</span><span class="p">:</span> <span class="n">mean</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">std</span><span class="p">,</span>
-            <span class="s2">&quot;sigma_3_lower&quot;</span><span class="p">:</span> <span class="n">mean</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">std</span><span class="p">,</span>
+            <span class="s2">&quot;sigma_3_upper&quot;</span><span class="p">:</span> <span class="n">mean</span> <span class="o">+</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">std</span><span class="p">,</span>
+            <span class="s2">&quot;sigma_3_lower&quot;</span><span class="p">:</span> <span class="n">mean</span> <span class="o">-</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">std</span><span class="p">,</span>
             <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
             <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
-            <span class="s2">&quot;median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="s2">&quot;median&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
         <span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="MonteCarloAnalyzer.check_covariance_consistency">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.check_covariance_consistency">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">check_covariance_consistency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cov_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_covariance_consistency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cov_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform a consistency test (e.g., NIS or NEES).</span>
-<span class="sd">        </span>
-<span class="sd">        Calculates the average quadratic form: e^T * P^-1 * e</span>
-<span class="sd">        Should be close to the dimension of the state if P is consistent.</span>
+<span class="sd">        Perform a covariance consistency check such as NIS or NEES.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        error_key : str</span>
+<span class="sd">            Result key for estimation error vectors.</span>
+<span class="sd">        cov_key : str</span>
+<span class="sd">            Result key for covariance matrices.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, float | str]</span>
+<span class="sd">            Aggregate consistency metrics, or ``{&quot;status&quot;: &quot;missing_data&quot;}``</span>
+<span class="sd">            when the required keys are not present.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">errors</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="n">error_key</span><span class="p">]</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="k">if</span> <span class="n">error_key</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
-        <span class="n">covs</span> <span class="o">=</span> <span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="n">cov_key</span><span class="p">]</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="k">if</span> <span class="n">cov_key</span> <span class="ow">in</span> <span class="n">res</span><span class="p">]</span>
-        
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">errors</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">covs</span><span class="p">:</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">error_key</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="k">if</span> <span class="n">error_key</span> <span class="ow">in</span> <span class="n">res</span>
+        <span class="p">]</span>
+        <span class="n">covariances</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="n">cov_key</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="k">if</span> <span class="n">cov_key</span> <span class="ow">in</span> <span class="n">res</span>
+        <span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">errors</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">covariances</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;missing_data&quot;</span><span class="p">}</span>
 
-        <span class="n">nis_values</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">covs</span><span class="p">):</span>
-            <span class="c1"># Assumes e and p are time-series or terminal</span>
-            <span class="c1"># If time-series, we take the average over time</span>
-            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">run_nis</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)):</span>
+        <span class="n">nis_values</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">error</span><span class="p">,</span> <span class="n">covariance</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">covariances</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">error</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">run_nis</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">error</span><span class="p">)):</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">inv_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                        <span class="n">run_nis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_p</span> <span class="o">@</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="n">inv_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">covariance</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                     <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
                         <span class="k">continue</span>
-                <span class="n">nis_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">run_nis</span><span class="p">))</span>
+                    <span class="n">run_nis</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_cov</span> <span class="o">@</span> <span class="n">error</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="k">if</span> <span class="n">run_nis</span><span class="p">:</span>
+                    <span class="n">nis_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">run_nis</span><span class="p">)))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">inv_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-                    <span class="n">nis_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_p</span> <span class="o">@</span> <span class="n">e</span><span class="p">)</span>
+                    <span class="n">inv_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">covariance</span><span class="p">)</span>
                 <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
                     <span class="k">continue</span>
+                <span class="n">nis_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_cov</span> <span class="o">@</span> <span class="n">error</span><span class="p">))</span>
 
-        <span class="n">avg_nis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">nis_values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">nis_values</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;missing_data&quot;</span><span class="p">}</span>
+
+        <span class="n">expected_dim</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">avg_nis</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">nis_values</span><span class="p">))</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;avg_nis&quot;</span><span class="p">:</span> <span class="n">avg_nis</span><span class="p">,</span>
-            <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
-            <span class="s2">&quot;consistency_ratio&quot;</span><span class="p">:</span> <span class="n">avg_nis</span> <span class="o">/</span> <span class="n">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="n">expected_dim</span><span class="p">,</span>
+            <span class="s2">&quot;consistency_ratio&quot;</span><span class="p">:</span> <span class="n">avg_nis</span> <span class="o">/</span> <span class="n">expected_dim</span><span class="p">,</span>
         <span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="MonteCarloAnalyzer.summarize_failures">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.summarize_failures">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">summarize_failures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">criteria_func</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">summarize_failures</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">criteria_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="nb">bool</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculate failure rates based on a user-defined criteria function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">failures</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">criteria_func</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
-                <span class="n">failures</span> <span class="o">+=</span> <span class="mi">1</span>
-        
+<span class="sd">        Calculate failure rates based on a user-defined criteria function.&quot;&quot;&quot;</span>
+        <span class="n">failures</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="k">if</span> <span class="n">criteria_func</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
         <span class="n">rate</span> <span class="o">=</span> <span class="n">failures</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;total_runs&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">),</span>
             <span class="s2">&quot;failures&quot;</span><span class="p">:</span> <span class="n">failures</span><span class="p">,</span>
             <span class="s2">&quot;failure_rate&quot;</span><span class="p">:</span> <span class="n">rate</span><span class="p">,</span>
-            <span class="s2">&quot;reliability&quot;</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">rate</span>
+            <span class="s2">&quot;reliability&quot;</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">rate</span><span class="p">,</span>
         <span class="p">}</span></div>
 </div>
 

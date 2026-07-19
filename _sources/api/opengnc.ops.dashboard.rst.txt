@@ -1,0 +1,21 @@
+opengnc.ops.dashboard package
+=============================
+
+Submodules
+----------
+
+opengnc.ops.dashboard.server module
+-----------------------------------
+
+.. automodule:: opengnc.ops.dashboard.server
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.ops.dashboard
+   :members:
+   :show-inheritance:
+   :undoc-members:

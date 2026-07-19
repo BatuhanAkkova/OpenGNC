@@ -77,13 +77,17 @@
              
   <h1>Source code for opengnc.ssa.conjunction</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Conjunction Analysis and Probability of Collision (Pc) computation.</span>
+<span class="sd">Conjunction analysis and probability of collision utilities.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">dblquad</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize_scalar</span>
 
 
 <div class="viewcode-block" id="compute_pc_foster">
@@ -98,32 +102,32 @@
     <span class="n">hbr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute Probability of Collision (Pc) via Foster&#39;s method.</span>
+<span class="sd">    Compute probability of collision via Foster&#39;s method.</span>
 
-<span class="sd">    Projects the encounter into a 2D plane and integrates the PDF:</span>
-<span class="sd">    $P_c = \iint_{HBR} \frac{1}{2\pi \sqrt{|\mathbf{C}|}} \exp\left(-\frac{1}{2} \mathbf{x}^T \mathbf{C}^{-1} \mathbf{x}\right) dA$</span>
+<span class="sd">    The encounter is projected into a 2D collision plane and the Gaussian</span>
+<span class="sd">    probability density is integrated over the circular hard-body region.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    r1, v1 : np.ndarray</span>
-<span class="sd">        ECI state of Object 1 at TCA (m, m/s).</span>
+<span class="sd">        ECI state of object 1 at TCA in meters and meters per second.</span>
 <span class="sd">    cov1 : np.ndarray</span>
-<span class="sd">        $3 \times 3$ covariance of Object 1 ($m^2$).</span>
+<span class="sd">        ``3 x 3`` covariance of object 1 in square meters.</span>
 <span class="sd">    r2, v2 : np.ndarray</span>
-<span class="sd">        ECI state of Object 2 at TCA (m, m/s).</span>
+<span class="sd">        ECI state of object 2 at TCA in meters and meters per second.</span>
 <span class="sd">    cov2 : np.ndarray</span>
-<span class="sd">        $3 \times 3$ covariance of Object 2 ($m^2$).</span>
+<span class="sd">        ``3 x 3`` covariance of object 2 in square meters.</span>
 <span class="sd">    hbr : float</span>
-<span class="sd">        Combined Hard Body Radius (m).</span>
+<span class="sd">        Combined hard-body radius in meters.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
-<span class="sd">        Probability of collision $P_c \in [0, 1]$.</span>
+<span class="sd">        Probability of collision in ``[0, 1]``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">rv1</span><span class="p">,</span> <span class="n">rv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
-    <span class="n">vv1</span><span class="p">,</span> <span class="n">vv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
-    <span class="n">cv1</span><span class="p">,</span> <span class="n">cv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov2</span><span class="p">)</span>
+    <span class="n">rv1</span><span class="p">,</span> <span class="n">rv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">vv1</span><span class="p">,</span> <span class="n">vv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">cv1</span><span class="p">,</span> <span class="n">cv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
     <span class="n">r_rel</span> <span class="o">=</span> <span class="n">rv1</span> <span class="o">-</span> <span class="n">rv2</span>
     <span class="n">v_rel</span> <span class="o">=</span> <span class="n">vv1</span> <span class="o">-</span> <span class="n">vv2</span>
@@ -133,11 +137,8 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Relative velocity is too small for encounter projection.&quot;</span><span class="p">)</span>
 
     <span class="n">combined_cov</span> <span class="o">=</span> <span class="n">cv1</span> <span class="o">+</span> <span class="n">cv2</span>
-
-    <span class="c1"># Define Encounter Frame (Equinoctial/Collision Plane)</span>
     <span class="n">z_hat</span> <span class="o">=</span> <span class="n">v_rel</span> <span class="o">/</span> <span class="n">v_mag</span>
 
-    <span class="c1"># x-hat is along the projected relative position (impact parameter)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_rel</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-4</span><span class="p">:</span>
         <span class="n">x_hat</span> <span class="o">=</span> <span class="n">r_rel</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r_rel</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">)</span> <span class="o">*</span> <span class="n">z_hat</span>
         <span class="n">x_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_hat</span><span class="p">)</span>
@@ -148,7 +149,6 @@
             <span class="n">x_hat</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">)</span> <span class="o">*</span> <span class="n">z_hat</span>
             <span class="n">x_hat</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_hat</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Direct collision at TCA</span>
         <span class="n">x_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">0.9</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
         <span class="n">x_hat</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">)</span> <span class="o">*</span> <span class="n">z_hat</span>
         <span class="n">x_hat</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_hat</span><span class="p">)</span>
@@ -156,7 +156,6 @@
     <span class="n">y_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">z_hat</span><span class="p">,</span> <span class="n">x_hat</span><span class="p">)</span>
     <span class="n">m_rot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">x_hat</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">])</span>
 
-    <span class="c1"># Project to 2D</span>
     <span class="n">r_enc</span> <span class="o">=</span> <span class="n">m_rot</span> <span class="o">@</span> <span class="n">r_rel</span>
     <span class="n">cov_enc</span> <span class="o">=</span> <span class="n">m_rot</span> <span class="o">@</span> <span class="n">combined_cov</span> <span class="o">@</span> <span class="n">m_rot</span><span class="o">.</span><span class="n">T</span>
     <span class="n">cov_2d</span> <span class="o">=</span> <span class="n">cov_enc</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
@@ -166,20 +165,20 @@
         <span class="k">return</span> <span class="mf">0.0</span>
 
     <span class="n">inv_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cov_2d</span><span class="p">)</span>
-    <span class="n">x_c</span><span class="p">,</span> <span class="n">y_c</span> <span class="o">=</span> <span class="n">r_enc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r_enc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">x_c</span><span class="p">,</span> <span class="n">y_c</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">r_enc</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">r_enc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">pdf_2d</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_c</span><span class="p">])</span>
-        <span class="n">arg</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">d</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_c</span> <span class="o">@</span> <span class="n">d</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pdf_2d</span><span class="p">(</span><span class="n">y_val</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_val</span> <span class="o">-</span> <span class="n">x_c</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">-</span> <span class="n">y_c</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">delta</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_c</span> <span class="o">@</span> <span class="n">delta</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">((</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">det_c</span><span class="p">)))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
 
     <span class="n">pc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dblquad</span><span class="p">(</span>
         <span class="n">pdf_2d</span><span class="p">,</span>
-        <span class="o">-</span><span class="n">hbr</span><span class="p">,</span> <span class="n">hbr</span><span class="p">,</span>
-        <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">hbr</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
-        <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">hbr</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="o">-</span><span class="n">hbr</span><span class="p">,</span>
+        <span class="n">hbr</span><span class="p">,</span>
+        <span class="k">lambda</span> <span class="n">y_val</span><span class="p">:</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">hbr</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y_val</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
+        <span class="k">lambda</span> <span class="n">y_val</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">hbr</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y_val</span><span class="o">**</span><span class="mi">2</span><span class="p">)),</span>
     <span class="p">)</span>
-
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span></div>
 
 
@@ -196,31 +195,27 @@
     <span class="n">hbr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Probability of Collision (Pc) via Chan&#39;s Analytical Approximation.</span>
-
-<span class="sd">    Provides a fast, series-based solution to the 2D Gaussian integral over </span>
-<span class="sd">    a circular region. Most accurate when the HBR is small compared to </span>
-<span class="sd">    the standard deviation of the covariance.</span>
+<span class="sd">    Compute probability of collision via Chan&#39;s analytical approximation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    r1, r2 : np.ndarray</span>
-<span class="sd">        ECI Position vectors at TCA (m).</span>
+<span class="sd">        ECI position vectors at TCA in meters.</span>
 <span class="sd">    v1, v2 : np.ndarray</span>
-<span class="sd">        ECI Velocity vectors at TCA (m/s).</span>
+<span class="sd">        ECI velocity vectors at TCA in meters per second.</span>
 <span class="sd">    cov1, cov2 : np.ndarray</span>
-<span class="sd">        $3\times 3$ error covariance matrices ($m^2$).</span>
+<span class="sd">        ``3 x 3`` covariance matrices in square meters.</span>
 <span class="sd">    hbr : float</span>
-<span class="sd">        Combined Hard Body Radius (m).</span>
+<span class="sd">        Combined hard-body radius in meters.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Computed probability of collision.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">rv1</span><span class="p">,</span> <span class="n">rv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
-    <span class="n">vv1</span><span class="p">,</span> <span class="n">vv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
-    <span class="n">cv1</span><span class="p">,</span> <span class="n">cv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov2</span><span class="p">)</span>
+    <span class="n">rv1</span><span class="p">,</span> <span class="n">rv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">vv1</span><span class="p">,</span> <span class="n">vv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">cv1</span><span class="p">,</span> <span class="n">cv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
     <span class="n">r_rel</span> <span class="o">=</span> <span class="n">rv1</span> <span class="o">-</span> <span class="n">rv2</span>
     <span class="n">v_rel</span> <span class="o">=</span> <span class="n">vv1</span> <span class="o">-</span> <span class="n">vv2</span>
@@ -229,7 +224,6 @@
     <span class="k">if</span> <span class="n">v_mag</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Relative velocity is too small.&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Frame projection (same as Foster)</span>
     <span class="n">z_hat</span> <span class="o">=</span> <span class="n">v_rel</span> <span class="o">/</span> <span class="n">v_mag</span>
     <span class="n">x_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">0.9</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
     <span class="n">x_hat</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_hat</span><span class="p">,</span> <span class="n">z_hat</span><span class="p">)</span> <span class="o">*</span> <span class="n">z_hat</span>
@@ -240,31 +234,28 @@
     <span class="n">r_enc</span> <span class="o">=</span> <span class="n">m_rot</span> <span class="o">@</span> <span class="n">r_rel</span>
     <span class="n">cov_2d</span> <span class="o">=</span> <span class="p">(</span><span class="n">m_rot</span> <span class="o">@</span> <span class="p">(</span><span class="n">cv1</span> <span class="o">+</span> <span class="n">cv2</span><span class="p">)</span> <span class="o">@</span> <span class="n">m_rot</span><span class="o">.</span><span class="n">T</span><span class="p">)[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 
-    <span class="c1"># Diagonalize covariance</span>
     <span class="n">vals</span><span class="p">,</span> <span class="n">vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">cov_2d</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">vals</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">0.0</span>
 
-    <span class="c1"># Principal components</span>
     <span class="n">r_p</span> <span class="o">=</span> <span class="n">vecs</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">r_enc</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">sig_x</span><span class="p">,</span> <span class="n">sig_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">r_p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">hbr</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">sig_x</span> <span class="o">*</span> <span class="n">sig_y</span><span class="p">)</span>
+    <span class="n">u_val</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">r_p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">v_val</span> <span class="o">=</span> <span class="n">hbr</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">sig_x</span> <span class="o">*</span> <span class="n">sig_y</span><span class="p">)</span>
 
-    <span class="c1"># Chan series: Pc = exp(-u/2) * sum(...)</span>
     <span class="n">pc</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="n">term_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
-    <span class="n">term_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">v</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+    <span class="n">term_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u_val</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+    <span class="n">term_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">v_val</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
     <span class="n">sum_v</span> <span class="o">=</span> <span class="n">term_v</span>
 
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
         <span class="n">inc</span> <span class="o">=</span> <span class="n">term_u</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">sum_v</span><span class="p">)</span>
         <span class="n">pc</span> <span class="o">+=</span> <span class="n">inc</span>
         <span class="k">if</span> <span class="n">inc</span> <span class="o">&lt;</span> <span class="mf">1e-15</span><span class="p">:</span>
             <span class="k">break</span>
-        <span class="n">term_u</span> <span class="o">*=</span> <span class="p">(</span><span class="n">u</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">term_v</span> <span class="o">*=</span> <span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">term_u</span> <span class="o">*=</span> <span class="p">(</span><span class="n">u_val</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">term_v</span> <span class="o">*=</span> <span class="p">(</span><span class="n">v_val</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">sum_v</span> <span class="o">+=</span> <span class="n">term_v</span>
 
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span></div>
@@ -280,73 +271,55 @@
     <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Linearly propagate a 3x3 position covariance using Keplerian motion.</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    cov0 : np.ndarray</span>
-<span class="sd">        Initial 3x3 position covariance (m^2).</span>
-<span class="sd">    r, v : np.ndarray</span>
-<span class="sd">        Initial ECI state (m, m/s).</span>
-<span class="sd">    dt : float</span>
-<span class="sd">        Time step (s).</span>
-<span class="sd">        </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    np.ndarray</span>
-<span class="sd">        Propagated 3x3 position covariance.</span>
+<span class="sd">    Linearly propagate a ``3 x 3`` position covariance using a simple growth model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Simple growth model for demonstration</span>
-    <span class="c1"># In reality, this should use the full 6x6 STM</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="mf">3.986004418e14</span>
     <span class="n">r_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r_mag</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
-    
-    <span class="c1"># We add a small process noise for realism</span>
+    <span class="n">n_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r_mag</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">q_drift</span> <span class="o">=</span> <span class="mf">1e-4</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    
-    <span class="c1"># Heuristic spread: spread scales with time</span>
-    <span class="n">spread_factor</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.01</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dt</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">cov0</span> <span class="o">*</span> <span class="p">(</span><span class="n">spread_factor</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">q_drift</span></div>
+    <span class="n">spread_factor</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.01</span> <span class="o">*</span> <span class="n">n_val</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dt</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cov0</span> <span class="o">*</span> <span class="p">(</span><span class="n">spread_factor</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">q_drift</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="find_tca">
 <a class="viewcode-back" href="../../../api/opengnc.ssa.html#opengnc.ssa.conjunction.find_tca">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">find_tca</span><span class="p">(</span>
-    <span class="n">r1_func</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span>
-    <span class="n">r2_func</span><span class="p">:</span> <span class="nb">callable</span><span class="p">,</span>
+    <span class="n">r1_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">r2_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="n">t_start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">t_end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Find Time of Closest Approach (TCA) between two objects.</span>
-<span class="sd">    </span>
+<span class="sd">    Find the time of closest approach between two objects.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    r1_func, r2_func : callable</span>
-<span class="sd">        Functions that return ECI position at time t.</span>
+<span class="sd">    r1_func, r2_func : Callable[[float], np.ndarray]</span>
+<span class="sd">        Functions returning ECI position at time ``t``.</span>
 <span class="sd">    t_start, t_end : float</span>
-<span class="sd">        Search window (s).</span>
-<span class="sd">        </span>
+<span class="sd">        Search window in seconds.</span>
+<span class="sd">    tol : float, optional</span>
+<span class="sd">        Scalar search tolerance in seconds.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Time of closest approach.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize_scalar</span>
-    
-    <span class="k">def</span><span class="w"> </span><span class="nf">dist_sq</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="n">dr</span> <span class="o">=</span> <span class="n">r1_func</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">r2_func</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dist_sq</span><span class="p">(</span><span class="n">t_val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">dr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1_func</span><span class="p">(</span><span class="n">t_val</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2_func</span><span class="p">(</span><span class="n">t_val</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dr</span><span class="p">,</span> <span class="n">dr</span><span class="p">))</span>
-        
-    <span class="n">res</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">dist_sq</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">t_start</span><span class="p">,</span> <span class="n">t_end</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bounded&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xatol&#39;</span><span class="p">:</span> <span class="n">tol</span><span class="p">})</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">)</span></div>
 
-
-
-
+    <span class="n">res</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span>
+        <span class="n">dist_sq</span><span class="p">,</span>
+        <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="n">t_start</span><span class="p">,</span> <span class="n">t_end</span><span class="p">),</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;bounded&quot;</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;xatol&quot;</span><span class="p">:</span> <span class="n">tol</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">))</span></div>
 
 </pre></div>
 

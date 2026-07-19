@@ -82,8 +82,9 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
 <div class="viewcode-block" id="rot_x">
@@ -167,7 +168,7 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert Euler angles to a 3x3 Direction Cosine Matrix (DCM).</span>
 
-<span class="sd">    Standard convention for satellite dynamics is the Body-to-Inertial </span>
+<span class="sd">    Standard convention for satellite dynamics is the Body-to-Inertial</span>
 <span class="sd">    rotation $R_{I/B} = R_3(\theta_3) R_2(\theta_2) R_1(\theta_1)$.</span>
 
 <span class="sd">    Parameters</span>
@@ -211,7 +212,7 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract Euler angles from a 3x3 Direction Cosine Matrix.</span>
 
-<span class="sd">    Supports all 12 standard rotation sequences (Symmetric and Asymmetric). </span>
+<span class="sd">    Supports all 12 standard rotation sequences (Symmetric and Asymmetric).</span>
 <span class="sd">    Handles gimbal lock singularities by setting the first angle to zero.</span>
 
 <span class="sd">    Parameters</span>

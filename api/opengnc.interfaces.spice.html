@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="opengnc.kalman_filters package" href="opengnc.kalman_filters.html" />
-    <link rel="prev" title="opengnc.interfaces.gmat package" href="opengnc.interfaces.gmat.html" /> 
+    <link rel="prev" title="opengnc.interfaces.ccsds package" href="opengnc.interfaces.ccsds.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,15 +59,15 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
@@ -118,13 +118,13 @@
 </section>
 <section id="module-opengnc.interfaces.spice.spice_manager">
 <span id="opengnc-interfaces-spice-spice-manager-module"></span><h2>opengnc.interfaces.spice.spice_manager module<a class="headerlink" href="#module-opengnc.interfaces.spice.spice_manager" title="Link to this heading"></a></h2>
-<p>SPICE Kernel and Frame management for STK/SPICE interoperability.</p>
+<p>SPICE kernel and frame management for STK/SPICE interoperability.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.spice_manager.SpiceManager">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.interfaces.spice.spice_manager.</span></span><span class="sig-name descname"><span class="pre">SpiceManager</span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.spice_manager.SpiceManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Standardized interface for SPICE kernels and frame transformations.
-Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
+<p>Standardized interface for SPICE kernels and frame transformations.</p>
+<p>Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.spice_manager.SpiceManager.clear_kernels">
 <span class="sig-name descname"><span class="pre">clear_kernels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.clear_kernels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.spice_manager.SpiceManager.clear_kernels" title="Link to this definition"></a></dt>
@@ -134,10 +134,10 @@ Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.spice_manager.SpiceManager.get_state">
 <span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'J2000'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'EARTH'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.get_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.spice_manager.SpiceManager.get_state" title="Link to this definition"></a></dt>
-<dd><p>Get state vector of a target body.</p>
+<dd><p>Get the state vector of a target body.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>[x, y, z, vx, vy, vz] in meters and m/s.</p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">vx,</span> <span class="pre">vy,</span> <span class="pre">vz]</span></code> in meters and meters per second.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>np.ndarray</p>
@@ -148,19 +148,19 @@ Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.spice_manager.SpiceManager.load_kernel">
 <span class="sig-name descname"><span class="pre">load_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.load_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.spice_manager.SpiceManager.load_kernel" title="Link to this definition"></a></dt>
-<dd><p>Load a SPICE kernel (.bsp, .tpc, .tls, etc.).</p>
+<dd><p>Load a SPICE kernel such as <code class="docutils literal notranslate"><span class="pre">.bsp</span></code>, <code class="docutils literal notranslate"><span class="pre">.tpc</span></code>, or <code class="docutils literal notranslate"><span class="pre">.tls</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.spice_manager.SpiceManager.transform_state">
 <span class="sig-name descname"><span class="pre">transform_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.transform_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.spice_manager.SpiceManager.transform_state" title="Link to this definition"></a></dt>
-<dd><p>Transform state vector between frames.</p>
+<dd><p>Transform a state vector between reference frames.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.spice_manager.SpiceManager.utc_to_et">
 <span class="sig-name descname"><span class="pre">utc_to_et</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.utc_to_et"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.spice_manager.SpiceManager.utc_to_et" title="Link to this definition"></a></dt>
-<dd><p>Convert UTC string to Ephemeris Time (ET).</p>
+<dd><p>Convert a UTC string to ephemeris time.</p>
 </dd></dl>
 
 </dd></dl>
@@ -173,8 +173,8 @@ Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.SpiceManager">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.interfaces.spice.</span></span><span class="sig-name descname"><span class="pre">SpiceManager</span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.SpiceManager" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Standardized interface for SPICE kernels and frame transformations.
-Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
+<p>Standardized interface for SPICE kernels and frame transformations.</p>
+<p>Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.SpiceManager.clear_kernels">
 <span class="sig-name descname"><span class="pre">clear_kernels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.clear_kernels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.SpiceManager.clear_kernels" title="Link to this definition"></a></dt>
@@ -184,10 +184,10 @@ Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.SpiceManager.get_state">
 <span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'J2000'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'EARTH'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.get_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.SpiceManager.get_state" title="Link to this definition"></a></dt>
-<dd><p>Get state vector of a target body.</p>
+<dd><p>Get the state vector of a target body.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>[x, y, z, vx, vy, vz] in meters and m/s.</p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">[x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">vx,</span> <span class="pre">vy,</span> <span class="pre">vz]</span></code> in meters and meters per second.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>np.ndarray</p>
@@ -198,19 +198,19 @@ Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.SpiceManager.load_kernel">
 <span class="sig-name descname"><span class="pre">load_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.load_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.SpiceManager.load_kernel" title="Link to this definition"></a></dt>
-<dd><p>Load a SPICE kernel (.bsp, .tpc, .tls, etc.).</p>
+<dd><p>Load a SPICE kernel such as <code class="docutils literal notranslate"><span class="pre">.bsp</span></code>, <code class="docutils literal notranslate"><span class="pre">.tpc</span></code>, or <code class="docutils literal notranslate"><span class="pre">.tls</span></code>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.SpiceManager.transform_state">
 <span class="sig-name descname"><span class="pre">transform_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.transform_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.SpiceManager.transform_state" title="Link to this definition"></a></dt>
-<dd><p>Transform state vector between frames.</p>
+<dd><p>Transform a state vector between reference frames.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.interfaces.spice.SpiceManager.utc_to_et">
 <span class="sig-name descname"><span class="pre">utc_to_et</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utc_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/spice/spice_manager.html#SpiceManager.utc_to_et"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.spice.SpiceManager.utc_to_et" title="Link to this definition"></a></dt>
-<dd><p>Convert UTC string to Ephemeris Time (ET).</p>
+<dd><p>Convert a UTC string to ephemeris time.</p>
 </dd></dl>
 
 </dd></dl>
@@ -222,7 +222,7 @@ Wraps SpiceyPy to provide STK-compatible environment modeling.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opengnc.interfaces.gmat.html" class="btn btn-neutral float-left" title="opengnc.interfaces.gmat package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opengnc.interfaces.ccsds.html" class="btn btn-neutral float-left" title="opengnc.interfaces.ccsds package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="opengnc.kalman_filters.html" class="btn btn-neutral float-right" title="opengnc.kalman_filters package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

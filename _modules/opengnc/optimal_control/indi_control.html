@@ -88,13 +88,13 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Incremental Nonlinear Dynamic Inversion (INDI) Controller.</span>
 
-<span class="sd">    A sensor-based control method that reduces model dependency by </span>
+<span class="sd">    A sensor-based control method that reduces model dependency by</span>
 <span class="sd">    calculating control increments based on measured accelerations.</span>
 
 <span class="sd">    System model: $\ddot{x} = f(x, \dot{x}) + g(x, \dot{x}) u$</span>
 <span class="sd">    Discrete Law: $u_k = u_{k-1} + g(x_k, \dot{x}_k)^{-1} (v_k - \ddot{x}_k)$</span>
 
-<span class="sd">    where $\ddot{x}_k$ is the current measured acceleration and $v_k$ is the </span>
+<span class="sd">    where $\ddot{x}_k$ is the current measured acceleration and $v_k$ is the</span>
 <span class="sd">    desired acceleration command.</span>
 
 <span class="sd">    Parameters</span>

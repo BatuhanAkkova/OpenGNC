@@ -20,7 +20,6 @@ Tutorials
    tutorials/13_rendezvous
    tutorials/14_optimal_control
    tutorials/15_attitude_control
-   tutorials/16_fdir
    tutorials/17_e2e_sim
    tutorials/18_monte_carlo_verification
    tutorials/19_edl_dynamics

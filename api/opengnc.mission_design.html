@@ -59,15 +59,15 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">opengnc.mission_design package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
@@ -274,55 +274,19 @@ Saves and returns the time of reentry (altitude &lt; 100km).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.mission_design.communications.calculate_atmospheric_attenuation">
 <span class="sig-prename descclassname"><span class="pre">opengnc.mission_design.communications.</span></span><span class="sig-name descname"><span class="pre">calculate_atmospheric_attenuation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elevation_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/mission_design/communications.html#calculate_atmospheric_attenuation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.mission_design.communications.calculate_atmospheric_attenuation" title="Link to this definition"></a></dt>
-<dd><p>Calculates atmospheric attenuation using a simplified cosecant model.</p>
-<dl class="simple">
-<dt>Formula:</dt><dd><p>L_atm = A_zenith / sin(elevation)
-where A_zenith is a base attenuation dependent on frequency band.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>elevation_deg</strong> (<em>float</em>) – Elevation angle [deg].</p></li>
-<li><p><strong>frequency_hz</strong> (<em>float</em>) – Frequency [Hz].</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>float</strong></p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Atmospheric attenuation [dB].</p>
-</dd>
-</dl>
+<dd><p>Calculate atmospheric attenuation using a simplified cosecant model.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.mission_design.communications.calculate_doppler_shift">
 <span class="sig-prename descclassname"><span class="pre">opengnc.mission_design.communications.</span></span><span class="sig-name descname"><span class="pre">calculate_doppler_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_tx_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_ecef_rx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_ecef_rx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_ecef_tx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_ecef_tx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/mission_design/communications.html#calculate_doppler_shift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.mission_design.communications.calculate_doppler_shift" title="Link to this definition"></a></dt>
-<dd><p>Calculates the Doppler shift for a signal sent from TX to RX.</p>
-<dl class="simple">
-<dt>Formula:</dt><dd><p>delta_f = - f_tx * (v_rel / c)
-where v_rel = dot(r_rel, v_rel_vec) / <a href="#id1"><span class="problematic" id="id2">|r_rel|</span></a>
-r_rel = r_rx - r_tx
-v_rel_vec = v_rx - v_tx</p>
-</dd>
-</dl>
+<dd><p>Calculate the Doppler shift for a signal sent from transmitter to receiver.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>f_tx_hz</strong> (<em>float</em>) – Transmitter frequency [Hz].</p></li>
-<li><p><strong>r_ecef_rx</strong> (<em>np.ndarray</em>) – Receiver position in ECEF [m], shape (3,).</p></li>
-<li><p><strong>v_ecef_rx</strong> (<em>np.ndarray</em>) – Receiver velocity in ECEF [m/s], shape (3,).</p></li>
-<li><p><strong>r_ecef_tx</strong> (<em>np.ndarray</em>) – Transmitter position in ECEF [m], shape (3,).</p></li>
-<li><p><strong>v_ecef_tx</strong> (<em>np.ndarray</em>) – Transmitter velocity in ECEF [m/s], shape (3,).</p></li>
-</ul>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Received frequency and Doppler shift in hertz.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dict</strong> – ‘f_rx_hz’ (float): Received frequency [Hz].
-‘doppler_shift_hz’ (float): Doppler shift [Hz].</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Containing:</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, float]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -330,31 +294,13 @@ v_rel_vec = v_rx - v_tx</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.mission_design.communications.calculate_friis_link_budget">
 <span class="sig-prename descclassname"><span class="pre">opengnc.mission_design.communications.</span></span><span class="sig-name descname"><span class="pre">calculate_friis_link_budget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_tx_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_tx_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_rx_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses_misc_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_atm_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/mission_design/communications.html#calculate_friis_link_budget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.mission_design.communications.calculate_friis_link_budget" title="Link to this definition"></a></dt>
-<dd><p>Calculates the link budget using Friis transmission equation.</p>
-<dl class="simple">
-<dt>Formula:</dt><dd><p>Pr (dBW) = Pt (dBW) + Gt (dB) + Gr (dB) - Lfs (dB) - Latm (dB) - Lmisc (dB)
-Lfs = 20 * log10(d) + 20 * log10(f) + 20 * log10(4*pi/c)</p>
-</dd>
-</dl>
+<dd><p>Calculate a link budget using the Friis transmission equation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>p_tx_w</strong> (<em>float</em>) – Transmitter power [W].</p></li>
-<li><p><strong>g_tx_db</strong> (<em>float</em>) – Transmitter antenna gain [dB].</p></li>
-<li><p><strong>g_rx_db</strong> (<em>float</em>) – Receiver antenna gain [dB].</p></li>
-<li><p><strong>frequency_hz</strong> (<em>float</em>) – Carrier frequency [Hz].</p></li>
-<li><p><strong>distance_m</strong> (<em>float</em>) – Distance between Tx and Rx [m].</p></li>
-<li><p><strong>losses_misc_db</strong> (<em>float</em><em>, </em><em>optional</em>) – Miscellaneous losses (pointing, line, etc.) [dB]. Default 0.</p></li>
-<li><p><strong>l_atm_db</strong> (<em>float</em><em>, </em><em>optional</em>) – Atmospheric attenuation [dB]. Default 0.</p></li>
-</ul>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Received power and free-space loss terms in linear and dB form.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dict</strong> – ‘p_rx_dbw’ (float): Received power [dBW].
-‘p_rx_w’ (float): Received power [W].
-‘l_fs_db’ (float): Free space path loss [dB].</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Containing:</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, float]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -618,26 +564,7 @@ Altitude defaults to 0 if only 2 columns provided.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.mission_design.calculate_atmospheric_attenuation">
 <span class="sig-prename descclassname"><span class="pre">opengnc.mission_design.</span></span><span class="sig-name descname"><span class="pre">calculate_atmospheric_attenuation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elevation_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/mission_design/communications.html#calculate_atmospheric_attenuation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.mission_design.calculate_atmospheric_attenuation" title="Link to this definition"></a></dt>
-<dd><p>Calculates atmospheric attenuation using a simplified cosecant model.</p>
-<dl class="simple">
-<dt>Formula:</dt><dd><p>L_atm = A_zenith / sin(elevation)
-where A_zenith is a base attenuation dependent on frequency band.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>elevation_deg</strong> (<em>float</em>) – Elevation angle [deg].</p></li>
-<li><p><strong>frequency_hz</strong> (<em>float</em>) – Frequency [Hz].</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>float</strong></p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Atmospheric attenuation [dB].</p>
-</dd>
-</dl>
+<dd><p>Calculate atmospheric attenuation using a simplified cosecant model.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -714,30 +641,13 @@ $Delta V = I_{sp} g_0 lnleft(frac{m_0}{m_f}right)$</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.mission_design.calculate_doppler_shift">
 <span class="sig-prename descclassname"><span class="pre">opengnc.mission_design.</span></span><span class="sig-name descname"><span class="pre">calculate_doppler_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f_tx_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_ecef_rx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_ecef_rx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_ecef_tx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_ecef_tx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/mission_design/communications.html#calculate_doppler_shift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.mission_design.calculate_doppler_shift" title="Link to this definition"></a></dt>
-<dd><p>Calculates the Doppler shift for a signal sent from TX to RX.</p>
-<dl class="simple">
-<dt>Formula:</dt><dd><p>delta_f = - f_tx * (v_rel / c)
-where v_rel = dot(r_rel, v_rel_vec) / <a href="#id3"><span class="problematic" id="id4">|r_rel|</span></a>
-r_rel = r_rx - r_tx
-v_rel_vec = v_rx - v_tx</p>
-</dd>
-</dl>
+<dd><p>Calculate the Doppler shift for a signal sent from transmitter to receiver.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>f_tx_hz</strong> (<em>float</em>) – Transmitter frequency [Hz].</p></li>
-<li><p><strong>r_ecef_rx</strong> (<em>np.ndarray</em>) – Receiver position in ECEF [m], shape (3,).</p></li>
-<li><p><strong>v_ecef_rx</strong> (<em>np.ndarray</em>) – Receiver velocity in ECEF [m/s], shape (3,).</p></li>
-<li><p><strong>r_ecef_tx</strong> (<em>np.ndarray</em>) – Transmitter position in ECEF [m], shape (3,).</p></li>
-<li><p><strong>v_ecef_tx</strong> (<em>np.ndarray</em>) – Transmitter velocity in ECEF [m/s], shape (3,).</p></li>
-</ul>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Received frequency and Doppler shift in hertz.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dict</strong> – ‘f_rx_hz’ (float): Received frequency [Hz].
-‘doppler_shift_hz’ (float): Doppler shift [Hz].</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Containing:</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, float]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -745,31 +655,13 @@ v_rel_vec = v_rx - v_tx</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.mission_design.calculate_friis_link_budget">
 <span class="sig-prename descclassname"><span class="pre">opengnc.mission_design.</span></span><span class="sig-name descname"><span class="pre">calculate_friis_link_budget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_tx_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_tx_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_rx_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency_hz</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses_misc_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l_atm_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/mission_design/communications.html#calculate_friis_link_budget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.mission_design.calculate_friis_link_budget" title="Link to this definition"></a></dt>
-<dd><p>Calculates the link budget using Friis transmission equation.</p>
-<dl class="simple">
-<dt>Formula:</dt><dd><p>Pr (dBW) = Pt (dBW) + Gt (dB) + Gr (dB) - Lfs (dB) - Latm (dB) - Lmisc (dB)
-Lfs = 20 * log10(d) + 20 * log10(f) + 20 * log10(4*pi/c)</p>
-</dd>
-</dl>
+<dd><p>Calculate a link budget using the Friis transmission equation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>p_tx_w</strong> (<em>float</em>) – Transmitter power [W].</p></li>
-<li><p><strong>g_tx_db</strong> (<em>float</em>) – Transmitter antenna gain [dB].</p></li>
-<li><p><strong>g_rx_db</strong> (<em>float</em>) – Receiver antenna gain [dB].</p></li>
-<li><p><strong>frequency_hz</strong> (<em>float</em>) – Carrier frequency [Hz].</p></li>
-<li><p><strong>distance_m</strong> (<em>float</em>) – Distance between Tx and Rx [m].</p></li>
-<li><p><strong>losses_misc_db</strong> (<em>float</em><em>, </em><em>optional</em>) – Miscellaneous losses (pointing, line, etc.) [dB]. Default 0.</p></li>
-<li><p><strong>l_atm_db</strong> (<em>float</em><em>, </em><em>optional</em>) – Atmospheric attenuation [dB]. Default 0.</p></li>
-</ul>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Received power and free-space loss terms in linear and dB form.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>dict</strong> – ‘p_rx_dbw’ (float): Received power [dBW].
-‘p_rx_w’ (float): Received power [W].
-‘l_fs_db’ (float): Free space path loss [dB].</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Containing:</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, float]</p>
 </dd>
 </dl>
 </dd></dl>

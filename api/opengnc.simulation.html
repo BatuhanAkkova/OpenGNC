@@ -59,15 +59,15 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
@@ -225,17 +225,18 @@ Records state history and outputs to common formats like JSON, CSV.
 </section>
 <section id="module-opengnc.simulation.monte_carlo">
 <span id="opengnc-simulation-monte-carlo-module"></span><h2>opengnc.simulation.monte_carlo module<a class="headerlink" href="#module-opengnc.simulation.monte_carlo" title="Link to this heading"></a></h2>
+<p>Monte Carlo simulation harness and statistical analysis helpers.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opengnc.simulation.monte_carlo.MonteCarloSim">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.simulation.monte_carlo.</span></span><span class="sig-name descname"><span class="pre">MonteCarloSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulator_factory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo.html#MonteCarloSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo.MonteCarloSim" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Monte Carlo Simulation Harness.</p>
+<p>Monte Carlo simulation harness.</p>
 <p>Facilitates large-scale robustness analysis by executing multiple
 simulation runs with stochastic variations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>simulator_factory</strong> (<em>Callable</em><em>[</em><em>...</em><em>, </em><a class="reference internal" href="#opengnc.simulation.simulator.MissionSimulator" title="opengnc.simulation.simulator.MissionSimulator"><em>MissionSimulator</em></a><em>]</em>) – Generator function to produce specialized simulator instances.
-Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
+<dd class="field-odd"><p><strong>simulator_factory</strong> (<em>Callable</em><em>[</em><em>...</em><em>, </em><em>Any</em><em>]</em>) – Generator function that produces simulator instances or direct results.
+Signature: <code class="docutils literal notranslate"><span class="pre">(seed,</span> <span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">simulator_or_result</span></code>.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -244,7 +245,7 @@ Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
 <dd><p>Produce a statistical analyzer for the current simulation results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Instance of the analyzer initialized with current trial data.</p>
+<dd class="field-odd"><p>Analyzer initialized with the current trial data.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer" title="opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer">MonteCarloAnalyzer</a></p>
@@ -260,15 +261,15 @@ Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_runs</strong> (<em>int</em>) – Number of trials to execute.</p></li>
-<li><p><strong>processes</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Number of parallel workers. Defaults to machine CPU count.</p></li>
-<li><p><strong>**kwargs</strong> – Parameters for simulation configuration.</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Number of parallel workers. Defaults to machine CPU count.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Parameters for simulation configuration.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Aggregated results.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Any]</p>
+<dd class="field-odd"><p>list[Any]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -281,14 +282,14 @@ Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_runs</strong> (<em>int</em>) – Number of trials to execute.</p></li>
-<li><p><strong>**kwargs</strong> – Variable parameters passed to the simulator factory.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Variable parameters passed to the simulator factory.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Aggregated results from all trials.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Any]</p>
+<dd class="field-odd"><p>list[Any]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -300,29 +301,52 @@ Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
 <span id="opengnc-simulation-monte-carlo-analyzer-module"></span><h2>opengnc.simulation.monte_carlo_analyzer module<a class="headerlink" href="#module-opengnc.simulation.monte_carlo_analyzer" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.simulation.monte_carlo_analyzer.</span></span><span class="sig-name descname"><span class="pre">MonteCarloAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.simulation.monte_carlo_analyzer.</span></span><span class="sig-name descname"><span class="pre">MonteCarloAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Statistical analysis suite for Monte Carlo simulations.</p>
-<p>Provides specialized tools for calculating performance margins,
-stability metrics, and covariance consistency proofs.</p>
+<p>Provides tools for calculating performance margins, stability metrics,
+and covariance consistency checks.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.check_covariance_consistency">
-<span class="sig-name descname"><span class="pre">check_covariance_consistency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer.check_covariance_consistency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.check_covariance_consistency" title="Link to this definition"></a></dt>
-<dd><p>Perform a consistency test (e.g., NIS or NEES).</p>
-<p>Calculates the average quadratic form: e^T * P^-1 * e
-Should be close to the dimension of the state if P is consistent.</p>
+<span class="sig-name descname"><span class="pre">check_covariance_consistency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer.check_covariance_consistency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.check_covariance_consistency" title="Link to this definition"></a></dt>
+<dd><p>Perform a covariance consistency check such as NIS or NEES.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_key</strong> (<em>str</em>) – Result key for estimation error vectors.</p></li>
+<li><p><strong>cov_key</strong> (<em>str</em>) – Result key for covariance matrices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Aggregate consistency metrics, or <code class="docutils literal notranslate"><span class="pre">{&quot;status&quot;:</span> <span class="pre">&quot;missing_data&quot;}</span></code>
+when the required keys are not present.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, float | str]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.get_aggregate_stats">
-<span class="sig-name descname"><span class="pre">get_aggregate_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer.get_aggregate_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.get_aggregate_stats" title="Link to this definition"></a></dt>
-<dd><p>Extract mean, std dev, and 3-sigma bounds for a specific telemetry key.</p>
-<p>Assumes the key points to a 1D or 2D numpy array in each result.</p>
+<span class="sig-name descname"><span class="pre">get_aggregate_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer.get_aggregate_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.get_aggregate_stats" title="Link to this definition"></a></dt>
+<dd><p>Extract summary statistics for a specific telemetry key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Result dictionary key containing scalar or array-like telemetry.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mean, spread, and extrema statistics for the requested key.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, np.ndarray]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.summarize_failures">
-<span class="sig-name descname"><span class="pre">summarize_failures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criteria_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer.summarize_failures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.summarize_failures" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">summarize_failures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criteria_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo_analyzer.html#MonteCarloAnalyzer.summarize_failures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer.summarize_failures" title="Link to this definition"></a></dt>
 <dd><p>Calculate failure rates based on a user-defined criteria function.</p>
 </dd></dl>
 
@@ -785,13 +809,13 @@ Handles maneuver scheduling and mode transitions.</p>
 <dt class="sig sig-object py" id="opengnc.simulation.MonteCarloSim">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.simulation.</span></span><span class="sig-name descname"><span class="pre">MonteCarloSim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulator_factory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/simulation/monte_carlo.html#MonteCarloSim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.simulation.MonteCarloSim" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Monte Carlo Simulation Harness.</p>
+<p>Monte Carlo simulation harness.</p>
 <p>Facilitates large-scale robustness analysis by executing multiple
 simulation runs with stochastic variations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>simulator_factory</strong> (<em>Callable</em><em>[</em><em>...</em><em>, </em><a class="reference internal" href="#opengnc.simulation.MissionSimulator" title="opengnc.simulation.MissionSimulator"><em>MissionSimulator</em></a><em>]</em>) – Generator function to produce specialized simulator instances.
-Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
+<dd class="field-odd"><p><strong>simulator_factory</strong> (<em>Callable</em><em>[</em><em>...</em><em>, </em><em>Any</em><em>]</em>) – Generator function that produces simulator instances or direct results.
+Signature: <code class="docutils literal notranslate"><span class="pre">(seed,</span> <span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">simulator_or_result</span></code>.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -800,7 +824,7 @@ Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
 <dd><p>Produce a statistical analyzer for the current simulation results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Instance of the analyzer initialized with current trial data.</p>
+<dd class="field-odd"><p>Analyzer initialized with the current trial data.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer" title="opengnc.simulation.monte_carlo_analyzer.MonteCarloAnalyzer">MonteCarloAnalyzer</a></p>
@@ -816,15 +840,15 @@ Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_runs</strong> (<em>int</em>) – Number of trials to execute.</p></li>
-<li><p><strong>processes</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Number of parallel workers. Defaults to machine CPU count.</p></li>
-<li><p><strong>**kwargs</strong> – Parameters for simulation configuration.</p></li>
+<li><p><strong>processes</strong> (<em>int</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – Number of parallel workers. Defaults to machine CPU count.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Parameters for simulation configuration.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Aggregated results.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Any]</p>
+<dd class="field-odd"><p>list[Any]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -837,14 +861,14 @@ Signature: <cite>(seed, **kwargs) -&gt; MissionSimulator</cite>.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_runs</strong> (<em>int</em>) – Number of trials to execute.</p></li>
-<li><p><strong>**kwargs</strong> – Variable parameters passed to the simulator factory.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Variable parameters passed to the simulator factory.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Aggregated results from all trials.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Any]</p>
+<dd class="field-odd"><p>list[Any]</p>
 </dd>
 </dl>
 </dd></dl>

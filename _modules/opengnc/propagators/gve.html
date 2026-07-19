@@ -82,7 +82,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -95,7 +95,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Propagator based on Gauss-Variational Equations.</span>
 
-<span class="sd">    Suitable for analyzing the effects of small perturbations on </span>
+<span class="sd">    Suitable for analyzing the effects of small perturbations on</span>
 <span class="sd">    Keplerian elements.</span>
 
 <span class="sd">    Parameters</span>
@@ -171,7 +171,7 @@
 <span class="sd">            $[da, de, di, d\Omega, d\omega, d\theta]$.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">raan</span><span class="p">,</span> <span class="n">argp</span><span class="p">,</span> <span class="n">nu</span> <span class="o">=</span> <span class="n">state</span>
-        
+
         <span class="c1"># Avoid division by zero for circular/equatorial orbits</span>
         <span class="n">e</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)</span>
         <span class="n">i</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)</span>

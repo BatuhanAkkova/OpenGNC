@@ -1,0 +1,19 @@
+opengnc.ops package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   opengnc.ops.dashboard
+   opengnc.ops.ground_segment
+
+Module contents
+---------------
+
+.. automodule:: opengnc.ops
+   :members:
+   :show-inheritance:
+   :undoc-members:

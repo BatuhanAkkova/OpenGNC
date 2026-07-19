@@ -76,9 +76,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.sensors.imu</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Inertial Measurement Unit (IMU) with Accelerometer and Gyroscope.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Inertial Measurement Unit (IMU) with accelerometer and gyroscope channels.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -87,28 +85,17 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.gyroscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gyroscope</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span><span class="p">,</span> <span class="n">SensorMeasurement</span>
 
 
 <div class="viewcode-block" id="Accelerometer">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.imu.Accelerometer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Accelerometer</span><span class="p">(</span><span class="n">Sensor</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Accelerometer sensor model.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accelerometer sensor model.&quot;&quot;&quot;</span>
 
-<span class="sd">    Measures non-gravitational acceleration: a_meas = a_true + bias + noise.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    noise_std : float, optional</span>
-<span class="sd">        Standard deviation of measurement noise (m/s^2). Default is 0.0.</span>
-<span class="sd">    bias : np.ndarray, optional</span>
-<span class="sd">        Constant bias vector (m/s^2). Default is zero vector.</span>
-<span class="sd">    scale_factor : float, optional</span>
-<span class="sd">        Scale factor error (1.0 = no error). Default is 1.0.</span>
-<span class="sd">    name : str, optional</span>
-<span class="sd">        Sensor name. Default is &quot;Accelerometer&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="s2">&quot;specific_force&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;m/s^2&quot;</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;body&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -117,55 +104,21 @@
         <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize accelerometer parameters.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        noise_std : float, optional</span>
-<span class="sd">            Standard deviation of Gaussian noise ($m/s^2$). Default 0.0.</span>
-<span class="sd">        bias : np.ndarray | None, optional</span>
-<span class="sd">            Constant bias vector ($m/s^2$).</span>
-<span class="sd">        scale_factor : float, optional</span>
-<span class="sd">            Scale factor error. Default 1.0.</span>
-<span class="sd">        name : str, optional</span>
-<span class="sd">            Sensor name. Default &quot;Accelerometer&quot;.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span> <span class="o">=</span> <span class="n">noise_std</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">bias</span><span class="p">)</span> <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">bias</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">scale_factor</span>
 
 <div class="viewcode-block" id="Accelerometer.measure">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.imu.Accelerometer.measure">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">true_accel</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate acceleration measurement.</span>
-
-<span class="sd">        Equation:</span>
-<span class="sd">        $\mathbf{a}_{meas} = S \mathbf{a}_{true} + \mathbf{b} + \mathbf{\eta}$</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        true_accel : np.ndarray</span>
-<span class="sd">            True non-gravitational acceleration ($m/s^2$).</span>
-<span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional parameters.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Measured acceleration vector ($m/s^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_accel</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SensorMeasurement</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">true_accel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;true_accel is required.&quot;</span><span class="p">)</span>
             <span class="n">true_accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
         <span class="n">measured_accel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">true_accel</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">+</span> <span class="n">noise</span>
-        <span class="k">return</span> <span class="n">measured_accel</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_measurement</span><span class="p">(</span><span class="n">measured_accel</span><span class="p">)</span></div>
 </div>
 
 
@@ -173,18 +126,11 @@
 <div class="viewcode-block" id="IMU">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.imu.IMU">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">IMU</span><span class="p">(</span><span class="n">Sensor</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Inertial Measurement Unit (IMU) combining Gyroscope and Accelerometer.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;IMU combining gyroscope and accelerometer channels.&quot;&quot;&quot;</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    gyro_params : dict, optional</span>
-<span class="sd">        Parameters for Gyroscope initialization.</span>
-<span class="sd">    accel_params : dict, optional</span>
-<span class="sd">        Parameters for Accelerometer initialization.</span>
-<span class="sd">    name : str, optional</span>
-<span class="sd">        Sensor name. Default is &quot;IMU&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="s2">&quot;imu&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;rad/s&quot;</span><span class="p">,</span> <span class="s2">&quot;m/s^2&quot;</span><span class="p">)</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;body&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -193,11 +139,8 @@
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;IMU&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">gyro_p</span> <span class="o">=</span> <span class="n">gyro_params</span> <span class="k">if</span> <span class="n">gyro_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
-        <span class="n">accel_p</span> <span class="o">=</span> <span class="n">accel_params</span> <span class="k">if</span> <span class="n">accel_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">gyro</span> <span class="o">=</span> <span class="n">Gyroscope</span><span class="p">(</span><span class="o">**</span><span class="n">gyro_p</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">accel</span> <span class="o">=</span> <span class="n">Accelerometer</span><span class="p">(</span><span class="o">**</span><span class="n">accel_p</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gyro</span> <span class="o">=</span> <span class="n">Gyroscope</span><span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">gyro_params</span> <span class="ow">or</span> <span class="p">{}))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accel</span> <span class="o">=</span> <span class="n">Accelerometer</span><span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">accel_params</span> <span class="ow">or</span> <span class="p">{}))</span>
 
 <div class="viewcode-block" id="IMU.measure">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.imu.IMU.measure">[docs]</a>
@@ -206,25 +149,8 @@
         <span class="n">true_omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">true_accel</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate dual IMU measurements.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        true_omega : np.ndarray</span>
-<span class="sd">            True angular velocity (rad/s).</span>
-<span class="sd">        true_accel : np.ndarray</span>
-<span class="sd">            True non-gravitational acceleration ($m/s^2$).</span>
-<span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional parameters.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        tuple[np.ndarray, np.ndarray]</span>
-<span class="sd">            (measured_omega, measured_accel).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SensorMeasurement</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">true_omega</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;true_omega is required.&quot;</span><span class="p">)</span>
@@ -233,14 +159,21 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;true_accel is required.&quot;</span><span class="p">)</span>
             <span class="n">true_accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">meas_omega</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gyro</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">true_omega</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">meas_accel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">true_accel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">meas_omega</span><span class="p">,</span> <span class="n">meas_accel</span></div>
+        <span class="n">gyro_packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gyro</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">true_omega</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">accel_packet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">true_accel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([</span>
+            <span class="p">[</span><span class="n">gyro_packet</span><span class="o">.</span><span class="n">covariance</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))],</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="n">accel_packet</span><span class="o">.</span><span class="n">covariance</span><span class="p">],</span>
+        <span class="p">])</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">gyro_packet</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">accel_packet</span><span class="o">.</span><span class="n">value</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_measurement</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">covariance</span><span class="o">=</span><span class="n">covariance</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;components&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;angular_rate&quot;</span><span class="p">,</span> <span class="s2">&quot;specific_force&quot;</span><span class="p">]})</span></div>
+
+
+<div class="viewcode-block" id="IMU.measurement_noise_std">
+<a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.imu.IMU.measurement_noise_std">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">measurement_noise_std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">gyro</span><span class="o">.</span><span class="n">measurement_noise_std</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">measurement_noise_std</span><span class="p">()])</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

@@ -83,9 +83,6 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
-
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
@@ -93,28 +90,15 @@
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.enkf.EnKF">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EnKF</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Ensemble Kalman Filter (EnKF).</span>
+<span class="sd">    Ensemble Kalman Filter.</span>
 
 <span class="sd">    Uses an ensemble of states to represent the error covariance matrix.</span>
-<span class="sd">    Highly efficient for high-dimensional systems (e.g., weather/climate models)</span>
-<span class="sd">    where the full covariance matrix is too large to compute.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    dim_x : int</span>
-<span class="sd">        Dimension of the state vector.</span>
-<span class="sd">    dim_z : int</span>
-<span class="sd">        Dimension of the measurement vector.</span>
-<span class="sd">    ensemble_size : int, optional</span>
-<span class="sd">        Number of ensemble members (N). Default is 50.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim_z</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ensemble_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span> <span class="o">=</span> <span class="n">dim_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span> <span class="o">=</span> <span class="n">dim_z</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span> <span class="o">=</span> <span class="n">ensemble_size</span>
-
-        <span class="c1"># Ensemble of states: shape (dim_x, N)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dim_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_x</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_z</span><span class="p">)</span>
@@ -122,18 +106,10 @@
 <div class="viewcode-block" id="EnKF.initialize_ensemble">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.enkf.EnKF.initialize_ensemble">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize_ensemble</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_mean</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">p_cov</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize the ensemble using a multivariate normal distribution.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        x_mean : np.ndarray</span>
-<span class="sd">            Mean initial state (dim_x,).</span>
-<span class="sd">        p_cov : np.ndarray</span>
-<span class="sd">            Initial state error covariance (dim_x, dim_x).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the ensemble from a multivariate normal distribution.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">x_mean</span><span class="p">,</span> <span class="n">p_cov</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">x_mean</span><span class="p">,</span> <span class="n">p_cov</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
@@ -146,28 +122,10 @@
         <span class="n">q_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Predict step (Propagates each ensemble member).</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        dt : float</span>
-<span class="sd">            Time step (s).</span>
-<span class="sd">        fx_func : Callable</span>
-<span class="sd">            Nonlinear state transition function $f(x, dt, **kwargs) \to x_{new}$.</span>
-<span class="sd">        q_mat : np.ndarray, optional</span>
-<span class="sd">            Process noise covariance (dim_x, dim_x). If None, uses `self.Q`.</span>
-<span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional arguments passed to transition function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Propagate each ensemble member forward in time.&quot;&quot;&quot;</span>
         <span class="n">q_curr</span> <span class="o">=</span> <span class="n">q_mat</span> <span class="k">if</span> <span class="n">q_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
-
-        <span class="c1"># Propagate each ensemble member</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">):</span>
-            <span class="c1"># Propagate through nonlinear model</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">fx_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">dt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
-
-            <span class="c1"># Add process noise to each member</span>
             <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">),</span> <span class="n">q_curr</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">noise</span></div>
 
@@ -181,71 +139,42 @@
         <span class="n">r_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Update step (Ensemble transformation).</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        z : np.ndarray</span>
-<span class="sd">            Measurement vector (dim_z,).</span>
-<span class="sd">        hx_func : Callable</span>
-<span class="sd">            Nonlinear measurement function $h(x, **kwargs) \to z_{pred}$.</span>
-<span class="sd">        r_mat : np.ndarray, optional</span>
-<span class="sd">            Measurement noise covariance (dim_z, dim_z). If None, uses `self.R`.</span>
-<span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional arguments passed to measurement function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the ensemble using a measurement.&quot;&quot;&quot;</span>
         <span class="n">r_curr</span> <span class="o">=</span> <span class="n">r_mat</span> <span class="k">if</span> <span class="n">r_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
-
-        <span class="c1"># Transform ensemble to measurement space</span>
         <span class="n">z_ensemble</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">):</span>
             <span class="n">z_ensemble</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hx_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
 
-        <span class="c1"># Sample mean of measurement ensemble</span>
         <span class="n">z_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">z_ensemble</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="c1"># Calculate ensemble anomalies (perturbations)</span>
         <span class="n">x_mean_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">anomalies_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">-</span> <span class="n">x_mean_vec</span>  <span class="c1"># State anomalies</span>
-        <span class="n">anomalies_z</span> <span class="o">=</span> <span class="n">z_ensemble</span> <span class="o">-</span> <span class="n">z_mean</span>  <span class="c1"># Measurement anomalies</span>
+        <span class="n">anomalies_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">-</span> <span class="n">x_mean_vec</span>
+        <span class="n">anomalies_z</span> <span class="o">=</span> <span class="n">z_ensemble</span> <span class="o">-</span> <span class="n">z_mean</span>
 
-        <span class="c1"># Perturbed measurements (adding noise for each ensemble member)</span>
         <span class="n">z_perturbed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span><span class="p">):</span>
             <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">),</span> <span class="n">r_curr</span><span class="p">)</span>
             <span class="n">z_perturbed</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span> <span class="o">+</span> <span class="n">noise</span>
 
-        <span class="c1"># Innovation</span>
         <span class="n">innov_ensemble</span> <span class="o">=</span> <span class="n">z_perturbed</span> <span class="o">-</span> <span class="n">z_ensemble</span>
-
-        <span class="c1"># Innovation covariance S = (1/(N-1)) * B * B.T + R</span>
         <span class="n">s_mat</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">anomalies_z</span> <span class="o">@</span> <span class="n">anomalies_z</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="n">r_curr</span>
-
-        <span class="c1"># Cross-covariance Pxz = (1/(N-1)) * A * B.T</span>
         <span class="n">pxz</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">anomalies_x</span> <span class="o">@</span> <span class="n">anomalies_z</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-
-        <span class="c1"># Kalman Gain K = Pxz * inv(S)</span>
         <span class="n">k_gain</span> <span class="o">=</span> <span class="n">pxz</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">s_mat</span><span class="p">)</span>
-
-        <span class="c1"># Correct each ensemble member</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">+=</span> <span class="n">k_gain</span> <span class="o">@</span> <span class="n">innov_ensemble</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensemble mean state vector.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the ensemble mean state.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">P</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensemble covariance matrix.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the ensemble covariance matrix.&quot;&quot;&quot;</span>
         <span class="n">anomalies_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">anomalies_x</span> <span class="o">@</span> <span class="n">anomalies_x</span><span class="o">.</span><span class="n">T</span><span class="p">))</span></div>
-
-
-
-
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+            <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_ensemble</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">anomalies_x</span> <span class="o">@</span> <span class="n">anomalies_x</span><span class="o">.</span><span class="n">T</span><span class="p">),</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 

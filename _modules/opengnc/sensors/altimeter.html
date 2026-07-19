@@ -76,33 +76,25 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.sensors.altimeter</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Radar / Altimeter sensor model.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Radar / altimeter sensor model.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span><span class="p">,</span> <span class="n">SensorMeasurement</span>
 
 
 <div class="viewcode-block" id="Altimeter">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.altimeter.Altimeter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Altimeter</span><span class="p">(</span><span class="n">Sensor</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Radar / Altimeter sensor model.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Radar / altimeter sensor model.&quot;&quot;&quot;</span>
 
-<span class="sd">    Measures height above a reference surface (altitude).</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    noise_std : float, optional</span>
-<span class="sd">        Standard deviation of measurement noise (m). Default is 1.0.</span>
-<span class="sd">    bias : float, optional</span>
-<span class="sd">        Constant bias in altitude (m). Default is 0.0.</span>
-<span class="sd">    name : str, optional</span>
-<span class="sd">        Sensor name. Default is &quot;Altimeter&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="s2">&quot;altitude&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;m&quot;</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;local_vertical&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">noise_std</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">bias</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Altimeter&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -111,33 +103,14 @@
 
 <div class="viewcode-block" id="Altimeter.measure">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.altimeter.Altimeter.measure">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_altitude</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate altitude measurement.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        true_altitude : float</span>
-<span class="sd">            True altitude above surface (m).</span>
-<span class="sd">        **kwargs : dict</span>
-<span class="sd">            Additional parameters.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        float</span>
-<span class="sd">            Measured altitude (m). Guaranteed to be non-negative.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_altitude</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SensorMeasurement</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">true_altitude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;true_altitude is required.&quot;</span><span class="p">)</span>
             <span class="n">true_altitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">measured_alt</span> <span class="o">=</span> <span class="n">true_altitude</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">measured_alt</span><span class="p">))</span></div>
+        <span class="n">measured_alt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">true_altitude</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_measurement</span><span class="p">(</span><span class="n">measured_alt</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

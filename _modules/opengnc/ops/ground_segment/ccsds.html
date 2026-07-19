@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opengnc.ops.ground_segment.ccsds &mdash; OpenGNC  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/jupyter-sphinx.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/thebelab.css" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../_static/thebelab-helper.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            OpenGNC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Navigation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/modules.html">opengnc</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OpenGNC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">opengnc.ops.ground_segment.ccsds</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opengnc.ops.ground_segment.ccsds</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CCSDS Space Packet Protocol (Blue Book 133.0-B-2) and time code formats.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntEnum</span>
+
+
+<div class="viewcode-block" id="PacketType">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.PacketType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PacketType</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">TELEMETRY</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">TELECOMMAND</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+
+
+<div class="viewcode-block" id="SequenceFlags">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SequenceFlags">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SequenceFlags</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">CONTINUATION</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">FIRST</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">LAST</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">UNSEGMENTED</span> <span class="o">=</span> <span class="mi">3</span></div>
+
+
+
+<div class="viewcode-block" id="SpacePacket">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SpacePacket</span><span class="p">:</span>
+    <span class="n">HEADER_SIZE</span> <span class="o">=</span> <span class="mi">6</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">apid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">packet_type</span><span class="p">:</span> <span class="n">PacketType</span> <span class="o">=</span> <span class="n">PacketType</span><span class="o">.</span><span class="n">TELEMETRY</span><span class="p">,</span>
+        <span class="n">sec_header_flag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">seq_flags</span><span class="p">:</span> <span class="n">SequenceFlags</span> <span class="o">=</span> <span class="n">SequenceFlags</span><span class="o">.</span><span class="n">UNSEGMENTED</span><span class="p">,</span>
+        <span class="n">seq_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">packet_type</span> <span class="o">=</span> <span class="n">packet_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sec_header_flag</span> <span class="o">=</span> <span class="n">sec_header_flag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apid</span> <span class="o">=</span> <span class="n">apid</span> <span class="o">&amp;</span> <span class="mh">0x07FF</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq_flags</span> <span class="o">=</span> <span class="n">seq_flags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seq_count</span> <span class="o">=</span> <span class="n">seq_count</span> <span class="o">&amp;</span> <span class="mh">0x3FFF</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">data_length_field</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SpacePacket.pack">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket.pack">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pack</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="n">word1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">&lt;&lt;</span> <span class="mi">13</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">packet_type</span> <span class="o">&lt;&lt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sec_header_flag</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">apid</span>
+        <span class="n">word2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seq_flags</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">)</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">seq_count</span>
+        <span class="n">word3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_length_field</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;HHH&quot;</span><span class="p">,</span> <span class="n">word1</span><span class="p">,</span> <span class="n">word2</span><span class="p">,</span> <span class="n">word3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">header</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="SpacePacket.unpack">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket.unpack">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unpack</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">buffer</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SpacePacket</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">cls</span><span class="o">.</span><span class="n">HEADER_SIZE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Buffer too short for CCSDS header.&quot;</span><span class="p">)</span>
+
+        <span class="n">word1</span><span class="p">,</span> <span class="n">word2</span><span class="p">,</span> <span class="n">word3</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;HHH&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">[:</span><span class="bp">cls</span><span class="o">.</span><span class="n">HEADER_SIZE</span><span class="p">])</span>
+
+        <span class="n">version</span> <span class="o">=</span> <span class="p">(</span><span class="n">word1</span> <span class="o">&gt;&gt;</span> <span class="mi">13</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x07</span>
+        <span class="n">packet_type</span> <span class="o">=</span> <span class="n">PacketType</span><span class="p">((</span><span class="n">word1</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x01</span><span class="p">)</span>
+        <span class="n">sec_header_flag</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">((</span><span class="n">word1</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x01</span><span class="p">)</span>
+        <span class="n">apid</span> <span class="o">=</span> <span class="n">word1</span> <span class="o">&amp;</span> <span class="mh">0x07FF</span>
+
+        <span class="n">seq_flags</span> <span class="o">=</span> <span class="n">SequenceFlags</span><span class="p">((</span><span class="n">word2</span> <span class="o">&gt;&gt;</span> <span class="mi">14</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x03</span><span class="p">)</span>
+        <span class="n">seq_count</span> <span class="o">=</span> <span class="n">word2</span> <span class="o">&amp;</span> <span class="mh">0x3FFF</span>
+
+        <span class="n">data_len</span> <span class="o">=</span> <span class="n">word3</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">HEADER_SIZE</span> <span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">HEADER_SIZE</span> <span class="o">+</span> <span class="n">data_len</span><span class="p">]</span>
+
+        <span class="n">packet</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">apid</span><span class="p">,</span> <span class="n">packet_type</span><span class="p">,</span> <span class="n">sec_header_flag</span><span class="p">,</span> <span class="n">seq_flags</span><span class="p">,</span> <span class="n">seq_count</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">packet</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
+        <span class="k">return</span> <span class="n">packet</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CUC">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.CUC">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CUC</span><span class="p">:</span>
+    <span class="n">SIZE</span> <span class="o">=</span> <span class="mi">6</span>
+
+<div class="viewcode-block" id="CUC.pack">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.CUC.pack">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pack</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">coarse</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">fine</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">coarse</span><span class="p">)</span> <span class="o">*</span> <span class="mi">65536</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span>
+        <span class="k">return</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;IH&quot;</span><span class="p">,</span> <span class="n">coarse</span><span class="p">,</span> <span class="n">fine</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CUC.unpack">
+<a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.CUC.unpack">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unpack</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;CUC data must be 6 bytes.&quot;</span><span class="p">)</span>
+
+        <span class="n">coarse</span><span class="p">,</span> <span class="n">fine</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;IH&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[:</span><span class="mi">6</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">coarse</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">fine</span><span class="p">)</span> <span class="o">/</span> <span class="mf">65536.0</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CUC&quot;</span><span class="p">,</span> <span class="s2">&quot;PacketType&quot;</span><span class="p">,</span> <span class="s2">&quot;SequenceFlags&quot;</span><span class="p">,</span> <span class="s2">&quot;SpacePacket&quot;</span><span class="p">]</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

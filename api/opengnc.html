@@ -59,15 +59,15 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
@@ -295,7 +295,27 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.classical_control.html#module-opengnc.classical_control">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.classical_control.html#module-opengnc.classical_control">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.BDot"><code class="docutils literal notranslate"><span class="pre">BDot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.BDot.calculate_control"><code class="docutils literal notranslate"><span class="pre">BDot.calculate_control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.BDot.calculate_control_discrete"><code class="docutils literal notranslate"><span class="pre">BDot.calculate_control_discrete()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.CrossProductLaw"><code class="docutils literal notranslate"><span class="pre">CrossProductLaw</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.CrossProductLaw.calculate_control"><code class="docutils literal notranslate"><span class="pre">CrossProductLaw.calculate_control()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.PID"><code class="docutils literal notranslate"><span class="pre">PID</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.PID.reset"><code class="docutils literal notranslate"><span class="pre">PID.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.PID.update"><code class="docutils literal notranslate"><span class="pre">PID.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.RateDampingControl"><code class="docutils literal notranslate"><span class="pre">RateDampingControl</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html#opengnc.classical_control.RateDampingControl.compute_torque"><code class="docutils literal notranslate"><span class="pre">RateDampingControl.compute_torque()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a><ul>
@@ -347,18 +367,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.disturbances.html#module-opengnc.disturbances">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.edl.html#module-opengnc.edl">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.edl.html#opengnc.edl.aerocapture_guidance"><code class="docutils literal notranslate"><span class="pre">aerocapture_guidance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.edl.html#opengnc.edl.ballistic_entry_dynamics"><code class="docutils literal notranslate"><span class="pre">ballistic_entry_dynamics()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.edl.html#opengnc.edl.calculate_g_load"><code class="docutils literal notranslate"><span class="pre">calculate_g_load()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.edl.html#opengnc.edl.hazard_avoidance"><code class="docutils literal notranslate"><span class="pre">hazard_avoidance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.edl.html#opengnc.edl.lifting_entry_dynamics"><code class="docutils literal notranslate"><span class="pre">lifting_entry_dynamics()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.edl.html#opengnc.edl.sutton_grave_heating"><code class="docutils literal notranslate"><span class="pre">sutton_grave_heating()</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a><ul>
@@ -450,94 +458,27 @@
 <li class="toctree-l2"><a class="reference internal" href="opengnc.environment.html#module-opengnc.environment">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.fdir.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.fdir.html#module-opengnc.fdir.failure_accommodation">opengnc.fdir.failure_accommodation module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.failure_accommodation.ActuatorAccommodation"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.failure_accommodation.ActuatorAccommodation.allocate"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation.allocate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.failure_accommodation.ActuatorAccommodation.set_health"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation.set_health()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.failure_accommodation.ActuatorAccommodation.update_allocation_matrix"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation.update_allocation_matrix()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.experimental.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.experimental.interfaces.html">opengnc.experimental.interfaces package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.interfaces.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.interfaces.html#module-opengnc.experimental.interfaces.gmat">opengnc.experimental.interfaces.gmat module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.interfaces.html#module-opengnc.experimental.interfaces">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.fdir.html#module-opengnc.fdir.parity_space">opengnc.fdir.parity_space module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.parity_space.ParitySpaceDetector"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.parity_space.ParitySpaceDetector.detect_fault"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector.detect_fault()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.parity_space.ParitySpaceDetector.get_parity_vector"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector.get_parity_vector()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.parity_space.ParitySpaceDetector.isolate_fault"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector.isolate_fault()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.experimental.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.experimental.html#module-opengnc.experimental.edl">opengnc.experimental.edl module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.experimental.html#opengnc.experimental.edl.aerocapture_guidance"><code class="docutils literal notranslate"><span class="pre">aerocapture_guidance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.experimental.html#opengnc.experimental.edl.ballistic_entry_dynamics"><code class="docutils literal notranslate"><span class="pre">ballistic_entry_dynamics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.experimental.html#opengnc.experimental.edl.calculate_g_load"><code class="docutils literal notranslate"><span class="pre">calculate_g_load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.experimental.html#opengnc.experimental.edl.hazard_avoidance"><code class="docutils literal notranslate"><span class="pre">hazard_avoidance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.experimental.html#opengnc.experimental.edl.lifting_entry_dynamics"><code class="docutils literal notranslate"><span class="pre">lifting_entry_dynamics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.experimental.html#opengnc.experimental.edl.sutton_grave_heating"><code class="docutils literal notranslate"><span class="pre">sutton_grave_heating()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.fdir.html#module-opengnc.fdir.residual_generation">opengnc.fdir.residual_generation module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.residual_generation.AnalyticalRedundancy"><code class="docutils literal notranslate"><span class="pre">AnalyticalRedundancy</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.residual_generation.AnalyticalRedundancy.check_threshold"><code class="docutils literal notranslate"><span class="pre">AnalyticalRedundancy.check_threshold()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.residual_generation.AnalyticalRedundancy.gyro_vs_quaternion_residual"><code class="docutils literal notranslate"><span class="pre">AnalyticalRedundancy.gyro_vs_quaternion_residual()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.residual_generation.ObserverResidualGenerator"><code class="docutils literal notranslate"><span class="pre">ObserverResidualGenerator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.residual_generation.ObserverResidualGenerator.step"><code class="docutils literal notranslate"><span class="pre">ObserverResidualGenerator.step()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.fdir.html#module-opengnc.fdir.safe_mode">opengnc.fdir.safe_mode module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SafeModeCondition"><code class="docutils literal notranslate"><span class="pre">SafeModeCondition</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SafeModeCondition.update"><code class="docutils literal notranslate"><span class="pre">SafeModeCondition.update()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SafeModeLogic"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SafeModeLogic.add_condition"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.add_condition()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SafeModeLogic.force_mode"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.force_mode()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SafeModeLogic.update"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.update()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SystemMode"><code class="docutils literal notranslate"><span class="pre">SystemMode</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SystemMode.NOMINAL"><code class="docutils literal notranslate"><span class="pre">SystemMode.NOMINAL</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SystemMode.RECOVERY"><code class="docutils literal notranslate"><span class="pre">SystemMode.RECOVERY</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.safe_mode.SystemMode.SAFE"><code class="docutils literal notranslate"><span class="pre">SystemMode.SAFE</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.fdir.html#module-opengnc.fdir">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ActuatorAccommodation"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ActuatorAccommodation.allocate"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation.allocate()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ActuatorAccommodation.set_health"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation.set_health()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ActuatorAccommodation.update_allocation_matrix"><code class="docutils literal notranslate"><span class="pre">ActuatorAccommodation.update_allocation_matrix()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.AnalyticalRedundancy"><code class="docutils literal notranslate"><span class="pre">AnalyticalRedundancy</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.AnalyticalRedundancy.check_threshold"><code class="docutils literal notranslate"><span class="pre">AnalyticalRedundancy.check_threshold()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.AnalyticalRedundancy.gyro_vs_quaternion_residual"><code class="docutils literal notranslate"><span class="pre">AnalyticalRedundancy.gyro_vs_quaternion_residual()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ObserverResidualGenerator"><code class="docutils literal notranslate"><span class="pre">ObserverResidualGenerator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ObserverResidualGenerator.step"><code class="docutils literal notranslate"><span class="pre">ObserverResidualGenerator.step()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ParitySpaceDetector"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ParitySpaceDetector.detect_fault"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector.detect_fault()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ParitySpaceDetector.get_parity_vector"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector.get_parity_vector()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.ParitySpaceDetector.isolate_fault"><code class="docutils literal notranslate"><span class="pre">ParitySpaceDetector.isolate_fault()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeCondition"><code class="docutils literal notranslate"><span class="pre">SafeModeCondition</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeCondition.update"><code class="docutils literal notranslate"><span class="pre">SafeModeCondition.update()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeCondition.violated_start_time"><code class="docutils literal notranslate"><span class="pre">SafeModeCondition.violated_start_time</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeLogic"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeLogic.add_condition"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.add_condition()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeLogic.conditions"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.conditions</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeLogic.force_mode"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.force_mode()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeLogic.history"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.history</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html#opengnc.fdir.SafeModeLogic.update"><code class="docutils literal notranslate"><span class="pre">SafeModeLogic.update()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.experimental.html#module-opengnc.experimental">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a><ul>
@@ -592,7 +533,26 @@
 <li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.rendezvous.tschauner_hempel_propagation"><code class="docutils literal notranslate"><span class="pre">tschauner_hempel_propagation()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.guidance.html#module-opengnc.guidance">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.guidance.html#module-opengnc.guidance">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.apollo_dps_guidance"><code class="docutils literal notranslate"><span class="pre">apollo_dps_guidance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.attitude_blending"><code class="docutils literal notranslate"><span class="pre">attitude_blending()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.bi_elliptic_transfer"><code class="docutils literal notranslate"><span class="pre">bi_elliptic_transfer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.combined_plane_change"><code class="docutils literal notranslate"><span class="pre">combined_plane_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.cw_equations"><code class="docutils literal notranslate"><span class="pre">cw_equations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.cw_targeting"><code class="docutils literal notranslate"><span class="pre">cw_targeting()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.eigenaxis_slew_path_planning"><code class="docutils literal notranslate"><span class="pre">eigenaxis_slew_path_planning()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.gravity_turn_guidance"><code class="docutils literal notranslate"><span class="pre">gravity_turn_guidance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.hohmann_transfer"><code class="docutils literal notranslate"><span class="pre">hohmann_transfer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.nadir_pointing_reference"><code class="docutils literal notranslate"><span class="pre">nadir_pointing_reference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.phasing_maneuver"><code class="docutils literal notranslate"><span class="pre">phasing_maneuver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.plane_change"><code class="docutils literal notranslate"><span class="pre">plane_change()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.q_law_guidance"><code class="docutils literal notranslate"><span class="pre">q_law_guidance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.solve_lambert"><code class="docutils literal notranslate"><span class="pre">solve_lambert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.sun_pointing_reference"><code class="docutils literal notranslate"><span class="pre">sun_pointing_reference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.target_tracking_reference"><code class="docutils literal notranslate"><span class="pre">target_tracking_reference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.guidance.html#opengnc.guidance.zem_zev_guidance"><code class="docutils literal notranslate"><span class="pre">zem_zev_guidance()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a><ul>
@@ -660,7 +620,43 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.integrators.html#module-opengnc.integrators">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.integrators.html#module-opengnc.integrators">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.AdamsBashforthMoultonIntegrator"><code class="docutils literal notranslate"><span class="pre">AdamsBashforthMoultonIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.AdamsBashforthMoultonIntegrator.integrate"><code class="docutils literal notranslate"><span class="pre">AdamsBashforthMoultonIntegrator.integrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.AdamsBashforthMoultonIntegrator.step"><code class="docutils literal notranslate"><span class="pre">AdamsBashforthMoultonIntegrator.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.GaussJacksonIntegrator"><code class="docutils literal notranslate"><span class="pre">GaussJacksonIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.GaussJacksonIntegrator.integrate"><code class="docutils literal notranslate"><span class="pre">GaussJacksonIntegrator.integrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.GaussJacksonIntegrator.step"><code class="docutils literal notranslate"><span class="pre">GaussJacksonIntegrator.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.Integrator"><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.Integrator.integrate"><code class="docutils literal notranslate"><span class="pre">Integrator.integrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.Integrator.step"><code class="docutils literal notranslate"><span class="pre">Integrator.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK4"><code class="docutils literal notranslate"><span class="pre">RK4</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK4.step"><code class="docutils literal notranslate"><span class="pre">RK4.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK45"><code class="docutils literal notranslate"><span class="pre">RK45</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK45.integrate"><code class="docutils literal notranslate"><span class="pre">RK45.integrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK45.step"><code class="docutils literal notranslate"><span class="pre">RK45.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK853"><code class="docutils literal notranslate"><span class="pre">RK853</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK853.integrate"><code class="docutils literal notranslate"><span class="pre">RK853.integrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.RK853.step"><code class="docutils literal notranslate"><span class="pre">RK853.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.SymplecticIntegrator"><code class="docutils literal notranslate"><span class="pre">SymplecticIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.SymplecticIntegrator.integrate"><code class="docutils literal notranslate"><span class="pre">SymplecticIntegrator.integrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html#opengnc.integrators.SymplecticIntegrator.step"><code class="docutils literal notranslate"><span class="pre">SymplecticIntegrator.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a><ul>
@@ -670,12 +666,6 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.ccsds.html#module-opengnc.interfaces.ccsds.oem">opengnc.interfaces.ccsds.oem module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.ccsds.html#module-opengnc.interfaces.ccsds.opm">opengnc.interfaces.ccsds.opm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.ccsds.html#module-opengnc.interfaces.ccsds">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.interfaces.gmat.html">opengnc.interfaces.gmat package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.gmat.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.gmat.html#module-opengnc.interfaces.gmat.gmat_interface">opengnc.interfaces.gmat.gmat_interface module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.gmat.html#module-opengnc.interfaces.gmat">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.interfaces.spice.html">opengnc.interfaces.spice package</a><ul>
@@ -719,6 +709,17 @@
 <li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.akf.AKF"><code class="docutils literal notranslate"><span class="pre">AKF</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.akf.AKF.predict"><code class="docutils literal notranslate"><span class="pre">AKF.predict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.akf.AKF.update"><code class="docutils literal notranslate"><span class="pre">AKF.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.kalman_filters.html#module-opengnc.kalman_filters.attitude_fusion">opengnc.kalman_filters.attitude_fusion module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion.bias"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.bias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion.predict"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion.quaternion"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.quaternion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion.update_from_measurement"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.update_from_measurement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion.update_from_measurements"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.update_from_measurements()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -773,8 +774,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.kalman_filters.html#module-opengnc.kalman_filters.mekf">opengnc.kalman_filters.mekf module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.mekf.MEKF"><code class="docutils literal notranslate"><span class="pre">MEKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.mekf.MEKF.VECTOR_QUANTITIES"><code class="docutils literal notranslate"><span class="pre">MEKF.VECTOR_QUANTITIES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.mekf.MEKF.predict"><code class="docutils literal notranslate"><span class="pre">MEKF.predict()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.mekf.MEKF.update"><code class="docutils literal notranslate"><span class="pre">MEKF.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.mekf.MEKF.update_quaternion"><code class="docutils literal notranslate"><span class="pre">MEKF.update_quaternion()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -812,10 +815,97 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ukf.UKF.update"><code class="docutils literal notranslate"><span class="pre">UKF.update()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ukf.UKF_Attitude"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ukf.UKF_Attitude"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ukf.UKF_Attitude.VECTOR_QUANTITIES"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude.VECTOR_QUANTITIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ukf.UKF_Attitude.predict"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ukf.UKF_Attitude.update"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude.update()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.kalman_filters.html#module-opengnc.kalman_filters">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.kalman_filters.html#module-opengnc.kalman_filters">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AKF"><code class="docutils literal notranslate"><span class="pre">AKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AKF.predict"><code class="docutils literal notranslate"><span class="pre">AKF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AKF.update"><code class="docutils literal notranslate"><span class="pre">AKF.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AttitudeSensorFusion"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AttitudeSensorFusion.bias"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.bias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AttitudeSensorFusion.predict"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AttitudeSensorFusion.quaternion"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.quaternion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AttitudeSensorFusion.update_from_measurement"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.update_from_measurement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.AttitudeSensorFusion.update_from_measurements"><code class="docutils literal notranslate"><span class="pre">AttitudeSensorFusion.update_from_measurements()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.CKF"><code class="docutils literal notranslate"><span class="pre">CKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.CKF.predict"><code class="docutils literal notranslate"><span class="pre">CKF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.CKF.update"><code class="docutils literal notranslate"><span class="pre">CKF.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EKF"><code class="docutils literal notranslate"><span class="pre">EKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EKF.predict"><code class="docutils literal notranslate"><span class="pre">EKF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EKF.update"><code class="docutils literal notranslate"><span class="pre">EKF.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EnKF"><code class="docutils literal notranslate"><span class="pre">EnKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EnKF.P"><code class="docutils literal notranslate"><span class="pre">EnKF.P</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EnKF.initialize_ensemble"><code class="docutils literal notranslate"><span class="pre">EnKF.initialize_ensemble()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EnKF.predict"><code class="docutils literal notranslate"><span class="pre">EnKF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EnKF.update"><code class="docutils literal notranslate"><span class="pre">EnKF.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.EnKF.x"><code class="docutils literal notranslate"><span class="pre">EnKF.x</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.IMM"><code class="docutils literal notranslate"><span class="pre">IMM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.IMM.mu"><code class="docutils literal notranslate"><span class="pre">IMM.mu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.IMM.predict"><code class="docutils literal notranslate"><span class="pre">IMM.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.IMM.update"><code class="docutils literal notranslate"><span class="pre">IMM.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.KF"><code class="docutils literal notranslate"><span class="pre">KF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.KF.predict"><code class="docutils literal notranslate"><span class="pre">KF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.KF.update"><code class="docutils literal notranslate"><span class="pre">KF.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.MEKF"><code class="docutils literal notranslate"><span class="pre">MEKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.MEKF.VECTOR_QUANTITIES"><code class="docutils literal notranslate"><span class="pre">MEKF.VECTOR_QUANTITIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.MEKF.predict"><code class="docutils literal notranslate"><span class="pre">MEKF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.MEKF.update"><code class="docutils literal notranslate"><span class="pre">MEKF.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.MEKF.update_quaternion"><code class="docutils literal notranslate"><span class="pre">MEKF.update_quaternion()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter"><code class="docutils literal notranslate"><span class="pre">ParticleFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter.P"><code class="docutils literal notranslate"><span class="pre">ParticleFilter.P</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter.initialize_particles"><code class="docutils literal notranslate"><span class="pre">ParticleFilter.initialize_particles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter.neff"><code class="docutils literal notranslate"><span class="pre">ParticleFilter.neff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter.predict"><code class="docutils literal notranslate"><span class="pre">ParticleFilter.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter.resample"><code class="docutils literal notranslate"><span class="pre">ParticleFilter.resample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter.update"><code class="docutils literal notranslate"><span class="pre">ParticleFilter.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.ParticleFilter.x"><code class="docutils literal notranslate"><span class="pre">ParticleFilter.x</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.PythonMEKF"><code class="docutils literal notranslate"><span class="pre">PythonMEKF</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.PythonUKF_Attitude"><code class="docutils literal notranslate"><span class="pre">PythonUKF_Attitude</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.RTS_smoother"><code class="docutils literal notranslate"><span class="pre">RTS_smoother()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.SRUKF"><code class="docutils literal notranslate"><span class="pre">SRUKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.SRUKF.P"><code class="docutils literal notranslate"><span class="pre">SRUKF.P</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.SRUKF.predict"><code class="docutils literal notranslate"><span class="pre">SRUKF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.SRUKF.update"><code class="docutils literal notranslate"><span class="pre">SRUKF.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF"><code class="docutils literal notranslate"><span class="pre">UKF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF.generate_sigma_points"><code class="docutils literal notranslate"><span class="pre">UKF.generate_sigma_points()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF.predict"><code class="docutils literal notranslate"><span class="pre">UKF.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF.update"><code class="docutils literal notranslate"><span class="pre">UKF.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF_Attitude"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF_Attitude.VECTOR_QUANTITIES"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude.VECTOR_QUANTITIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF_Attitude.predict"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html#opengnc.kalman_filters.UKF_Attitude.update"><code class="docutils literal notranslate"><span class="pre">UKF_Attitude.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a><ul>
@@ -987,6 +1077,26 @@
 <li class="toctree-l3"><a class="reference internal" href="opengnc.navigation.html#opengnc.navigation.map_relative_localization_update"><code class="docutils literal notranslate"><span class="pre">map_relative_localization_update()</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.dashboard.html">opengnc.ops.dashboard package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.dashboard.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.dashboard.html#module-opengnc.ops.dashboard.server">opengnc.ops.dashboard.server module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.dashboard.html#module-opengnc.ops.dashboard">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html">opengnc.ops.ground_segment package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#module-opengnc.ops.ground_segment.ccsds">opengnc.ops.ground_segment.ccsds module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#module-opengnc.ops.ground_segment.decom">opengnc.ops.ground_segment.decom module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#module-opengnc.ops.ground_segment">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.html#module-opengnc.ops">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a><ul>
@@ -1250,67 +1360,127 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.propagators.html#module-opengnc.propagators">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.propagators.html#module-opengnc.propagators">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.CowellPropagator"><code class="docutils literal notranslate"><span class="pre">CowellPropagator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.CowellPropagator.propagate"><code class="docutils literal notranslate"><span class="pre">CowellPropagator.propagate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.EnckePropagator"><code class="docutils literal notranslate"><span class="pre">EnckePropagator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.EnckePropagator.propagate"><code class="docutils literal notranslate"><span class="pre">EnckePropagator.propagate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.KeplerPropagator"><code class="docutils literal notranslate"><span class="pre">KeplerPropagator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.KeplerPropagator.propagate"><code class="docutils literal notranslate"><span class="pre">KeplerPropagator.propagate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.Propagator"><code class="docutils literal notranslate"><span class="pre">Propagator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.Propagator.propagate"><code class="docutils literal notranslate"><span class="pre">Propagator.propagate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.Sgp4Propagator"><code class="docutils literal notranslate"><span class="pre">Sgp4Propagator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.Sgp4Propagator.propagate"><code class="docutils literal notranslate"><span class="pre">Sgp4Propagator.propagate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html#opengnc.propagators.Sgp4Propagator.propagate_to_jd"><code class="docutils literal notranslate"><span class="pre">Sgp4Propagator.propagate_to_jd()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.altimeter">opengnc.sensors.altimeter module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.altimeter.Altimeter"><code class="docutils literal notranslate"><span class="pre">Altimeter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.altimeter.Altimeter.frame"><code class="docutils literal notranslate"><span class="pre">Altimeter.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.altimeter.Altimeter.measure"><code class="docutils literal notranslate"><span class="pre">Altimeter.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.altimeter.Altimeter.quantity"><code class="docutils literal notranslate"><span class="pre">Altimeter.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.altimeter.Altimeter.units"><code class="docutils literal notranslate"><span class="pre">Altimeter.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.camera">opengnc.sensors.camera module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.camera.Camera"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.camera.Camera.frame"><code class="docutils literal notranslate"><span class="pre">Camera.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.camera.Camera.measure"><code class="docutils literal notranslate"><span class="pre">Camera.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.camera.Camera.quantity"><code class="docutils literal notranslate"><span class="pre">Camera.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.camera.Camera.units"><code class="docutils literal notranslate"><span class="pre">Camera.units</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.factory">opengnc.sensors.factory module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.factory.build_sensor"><code class="docutils literal notranslate"><span class="pre">build_sensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.factory.load_sensor_suite"><code class="docutils literal notranslate"><span class="pre">load_sensor_suite()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.gnss_receiver">opengnc.sensors.gnss_receiver module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gnss_receiver.GNSSReceiver"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gnss_receiver.GNSSReceiver.frame"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gnss_receiver.GNSSReceiver.measure"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gnss_receiver.GNSSReceiver.measurement_bias"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.measurement_bias()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gnss_receiver.GNSSReceiver.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gnss_receiver.GNSSReceiver.quantity"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gnss_receiver.GNSSReceiver.units"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.gyroscope">opengnc.sensors.gyroscope module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gyroscope.Gyroscope"><code class="docutils literal notranslate"><span class="pre">Gyroscope</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gyroscope.Gyroscope.frame"><code class="docutils literal notranslate"><span class="pre">Gyroscope.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gyroscope.Gyroscope.measure"><code class="docutils literal notranslate"><span class="pre">Gyroscope.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gyroscope.Gyroscope.quantity"><code class="docutils literal notranslate"><span class="pre">Gyroscope.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.gyroscope.Gyroscope.units"><code class="docutils literal notranslate"><span class="pre">Gyroscope.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.horizon_sensor">opengnc.sensors.horizon_sensor module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.horizon_sensor.HorizonSensor"><code class="docutils literal notranslate"><span class="pre">HorizonSensor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.horizon_sensor.HorizonSensor.frame"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.horizon_sensor.HorizonSensor.measure"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.horizon_sensor.HorizonSensor.measurement_bias"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.measurement_bias()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.horizon_sensor.HorizonSensor.quantity"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.horizon_sensor.HorizonSensor.units"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.imu">opengnc.sensors.imu module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.Accelerometer"><code class="docutils literal notranslate"><span class="pre">Accelerometer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.Accelerometer.frame"><code class="docutils literal notranslate"><span class="pre">Accelerometer.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.Accelerometer.measure"><code class="docutils literal notranslate"><span class="pre">Accelerometer.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.Accelerometer.quantity"><code class="docutils literal notranslate"><span class="pre">Accelerometer.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.Accelerometer.units"><code class="docutils literal notranslate"><span class="pre">Accelerometer.units</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.IMU"><code class="docutils literal notranslate"><span class="pre">IMU</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.IMU.frame"><code class="docutils literal notranslate"><span class="pre">IMU.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.IMU.measure"><code class="docutils literal notranslate"><span class="pre">IMU.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.IMU.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">IMU.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.IMU.quantity"><code class="docutils literal notranslate"><span class="pre">IMU.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.imu.IMU.units"><code class="docutils literal notranslate"><span class="pre">IMU.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.lidar">opengnc.sensors.lidar module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.lidar.Lidar"><code class="docutils literal notranslate"><span class="pre">Lidar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.lidar.Lidar.frame"><code class="docutils literal notranslate"><span class="pre">Lidar.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.lidar.Lidar.measure"><code class="docutils literal notranslate"><span class="pre">Lidar.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.lidar.Lidar.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">Lidar.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.lidar.Lidar.quantity"><code class="docutils literal notranslate"><span class="pre">Lidar.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.lidar.Lidar.units"><code class="docutils literal notranslate"><span class="pre">Lidar.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.magnetometer">opengnc.sensors.magnetometer module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.magnetometer.Magnetometer"><code class="docutils literal notranslate"><span class="pre">Magnetometer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.magnetometer.Magnetometer.frame"><code class="docutils literal notranslate"><span class="pre">Magnetometer.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.magnetometer.Magnetometer.measure"><code class="docutils literal notranslate"><span class="pre">Magnetometer.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.magnetometer.Magnetometer.quantity"><code class="docutils literal notranslate"><span class="pre">Magnetometer.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.magnetometer.Magnetometer.units"><code class="docutils literal notranslate"><span class="pre">Magnetometer.units</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1321,7 +1491,39 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.apply_calibration"><code class="docutils literal notranslate"><span class="pre">Sensor.apply_calibration()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.apply_faults"><code class="docutils literal notranslate"><span class="pre">Sensor.apply_faults()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.apply_fogm_noise"><code class="docutils literal notranslate"><span class="pre">Sensor.apply_fogm_noise()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.build_measurement"><code class="docutils literal notranslate"><span class="pre">Sensor.build_measurement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.fault_state"><code class="docutils literal notranslate"><span class="pre">Sensor.fault_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.frame"><code class="docutils literal notranslate"><span class="pre">Sensor.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.measure"><code class="docutils literal notranslate"><span class="pre">Sensor.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.measurement_bias"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_bias()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.measurement_covariance"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_covariance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.measurement_metadata"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.noise_model"><code class="docutils literal notranslate"><span class="pre">Sensor.noise_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.noise_model_name"><code class="docutils literal notranslate"><span class="pre">Sensor.noise_model_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.quantity"><code class="docutils literal notranslate"><span class="pre">Sensor.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.stuck_value"><code class="docutils literal notranslate"><span class="pre">Sensor.stuck_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.Sensor.units"><code class="docutils literal notranslate"><span class="pre">Sensor.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.covariance"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.covariance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.frame"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.metadata"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.noise_model"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.noise_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.quantity"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.sensor_name"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.sensor_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.units"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.units</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorMeasurement.value"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorNoiseModel"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorNoiseModel.bias"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.bias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorNoiseModel.correlation_time"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.correlation_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorNoiseModel.covariance"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.covariance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorNoiseModel.metadata"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorNoiseModel.model"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sensor.SensorNoiseModel.std_dev"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.std_dev</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1336,26 +1538,172 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.star_tracker">opengnc.sensors.star_tracker module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.star_tracker.StarTracker"><code class="docutils literal notranslate"><span class="pre">StarTracker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.star_tracker.StarTracker.frame"><code class="docutils literal notranslate"><span class="pre">StarTracker.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.star_tracker.StarTracker.measure"><code class="docutils literal notranslate"><span class="pre">StarTracker.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.star_tracker.StarTracker.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">StarTracker.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.star_tracker.StarTracker.quantity"><code class="docutils literal notranslate"><span class="pre">StarTracker.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.star_tracker.StarTracker.units"><code class="docutils literal notranslate"><span class="pre">StarTracker.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.sun_sensor">opengnc.sensors.sun_sensor module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor.SunSensor"><code class="docutils literal notranslate"><span class="pre">SunSensor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor.SunSensor.frame"><code class="docutils literal notranslate"><span class="pre">SunSensor.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor.SunSensor.measure"><code class="docutils literal notranslate"><span class="pre">SunSensor.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor.SunSensor.quantity"><code class="docutils literal notranslate"><span class="pre">SunSensor.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor.SunSensor.units"><code class="docutils literal notranslate"><span class="pre">SunSensor.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors.sun_sensor_array">opengnc.sensors.sun_sensor_array module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray.frame"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.frame</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray.measure"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray.quantity"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray.units"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.units</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.sensors.html#module-opengnc.sensors">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Accelerometer"><code class="docutils literal notranslate"><span class="pre">Accelerometer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Accelerometer.frame"><code class="docutils literal notranslate"><span class="pre">Accelerometer.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Accelerometer.measure"><code class="docutils literal notranslate"><span class="pre">Accelerometer.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Accelerometer.quantity"><code class="docutils literal notranslate"><span class="pre">Accelerometer.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Accelerometer.units"><code class="docutils literal notranslate"><span class="pre">Accelerometer.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Altimeter"><code class="docutils literal notranslate"><span class="pre">Altimeter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Altimeter.frame"><code class="docutils literal notranslate"><span class="pre">Altimeter.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Altimeter.measure"><code class="docutils literal notranslate"><span class="pre">Altimeter.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Altimeter.quantity"><code class="docutils literal notranslate"><span class="pre">Altimeter.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Altimeter.units"><code class="docutils literal notranslate"><span class="pre">Altimeter.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Camera"><code class="docutils literal notranslate"><span class="pre">Camera</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Camera.frame"><code class="docutils literal notranslate"><span class="pre">Camera.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Camera.measure"><code class="docutils literal notranslate"><span class="pre">Camera.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Camera.quantity"><code class="docutils literal notranslate"><span class="pre">Camera.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Camera.units"><code class="docutils literal notranslate"><span class="pre">Camera.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.CoarseSunSensorArray"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.CoarseSunSensorArray.frame"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.CoarseSunSensorArray.measure"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.CoarseSunSensorArray.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.CoarseSunSensorArray.quantity"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.CoarseSunSensorArray.units"><code class="docutils literal notranslate"><span class="pre">CoarseSunSensorArray.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.GNSSReceiver"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.GNSSReceiver.frame"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.GNSSReceiver.measure"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.GNSSReceiver.measurement_bias"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.measurement_bias()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.GNSSReceiver.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.GNSSReceiver.quantity"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.GNSSReceiver.units"><code class="docutils literal notranslate"><span class="pre">GNSSReceiver.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Gyroscope"><code class="docutils literal notranslate"><span class="pre">Gyroscope</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Gyroscope.frame"><code class="docutils literal notranslate"><span class="pre">Gyroscope.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Gyroscope.measure"><code class="docutils literal notranslate"><span class="pre">Gyroscope.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Gyroscope.quantity"><code class="docutils literal notranslate"><span class="pre">Gyroscope.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Gyroscope.units"><code class="docutils literal notranslate"><span class="pre">Gyroscope.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.HorizonSensor"><code class="docutils literal notranslate"><span class="pre">HorizonSensor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.HorizonSensor.frame"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.HorizonSensor.measure"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.HorizonSensor.measurement_bias"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.measurement_bias()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.HorizonSensor.quantity"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.HorizonSensor.units"><code class="docutils literal notranslate"><span class="pre">HorizonSensor.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.IMU"><code class="docutils literal notranslate"><span class="pre">IMU</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.IMU.frame"><code class="docutils literal notranslate"><span class="pre">IMU.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.IMU.measure"><code class="docutils literal notranslate"><span class="pre">IMU.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.IMU.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">IMU.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.IMU.quantity"><code class="docutils literal notranslate"><span class="pre">IMU.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.IMU.units"><code class="docutils literal notranslate"><span class="pre">IMU.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Lidar"><code class="docutils literal notranslate"><span class="pre">Lidar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Lidar.frame"><code class="docutils literal notranslate"><span class="pre">Lidar.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Lidar.measure"><code class="docutils literal notranslate"><span class="pre">Lidar.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Lidar.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">Lidar.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Lidar.quantity"><code class="docutils literal notranslate"><span class="pre">Lidar.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Lidar.units"><code class="docutils literal notranslate"><span class="pre">Lidar.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Magnetometer"><code class="docutils literal notranslate"><span class="pre">Magnetometer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Magnetometer.frame"><code class="docutils literal notranslate"><span class="pre">Magnetometer.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Magnetometer.measure"><code class="docutils literal notranslate"><span class="pre">Magnetometer.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Magnetometer.quantity"><code class="docutils literal notranslate"><span class="pre">Magnetometer.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Magnetometer.units"><code class="docutils literal notranslate"><span class="pre">Magnetometer.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor"><code class="docutils literal notranslate"><span class="pre">Sensor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.add_gaussian_noise"><code class="docutils literal notranslate"><span class="pre">Sensor.add_gaussian_noise()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.apply_calibration"><code class="docutils literal notranslate"><span class="pre">Sensor.apply_calibration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.apply_faults"><code class="docutils literal notranslate"><span class="pre">Sensor.apply_faults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.apply_fogm_noise"><code class="docutils literal notranslate"><span class="pre">Sensor.apply_fogm_noise()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.build_measurement"><code class="docutils literal notranslate"><span class="pre">Sensor.build_measurement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.fault_state"><code class="docutils literal notranslate"><span class="pre">Sensor.fault_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.frame"><code class="docutils literal notranslate"><span class="pre">Sensor.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.measure"><code class="docutils literal notranslate"><span class="pre">Sensor.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.measurement_bias"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_bias()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.measurement_covariance"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_covariance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.measurement_metadata"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">Sensor.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.noise_model"><code class="docutils literal notranslate"><span class="pre">Sensor.noise_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.noise_model_name"><code class="docutils literal notranslate"><span class="pre">Sensor.noise_model_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.quantity"><code class="docutils literal notranslate"><span class="pre">Sensor.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.stuck_value"><code class="docutils literal notranslate"><span class="pre">Sensor.stuck_value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.Sensor.units"><code class="docutils literal notranslate"><span class="pre">Sensor.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.covariance"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.covariance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.frame"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.metadata"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.noise_model"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.noise_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.quantity"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.sensor_name"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.sensor_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.units"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.units</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorMeasurement.value"><code class="docutils literal notranslate"><span class="pre">SensorMeasurement.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorNoiseModel"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorNoiseModel.bias"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.bias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorNoiseModel.correlation_time"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.correlation_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorNoiseModel.covariance"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.covariance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorNoiseModel.metadata"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorNoiseModel.model"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SensorNoiseModel.std_dev"><code class="docutils literal notranslate"><span class="pre">SensorNoiseModel.std_dev</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.StarTracker"><code class="docutils literal notranslate"><span class="pre">StarTracker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.StarTracker.frame"><code class="docutils literal notranslate"><span class="pre">StarTracker.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.StarTracker.measure"><code class="docutils literal notranslate"><span class="pre">StarTracker.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.StarTracker.measurement_noise_std"><code class="docutils literal notranslate"><span class="pre">StarTracker.measurement_noise_std()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.StarTracker.quantity"><code class="docutils literal notranslate"><span class="pre">StarTracker.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.StarTracker.units"><code class="docutils literal notranslate"><span class="pre">StarTracker.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SunSensor"><code class="docutils literal notranslate"><span class="pre">SunSensor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SunSensor.frame"><code class="docutils literal notranslate"><span class="pre">SunSensor.frame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SunSensor.measure"><code class="docutils literal notranslate"><span class="pre">SunSensor.measure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SunSensor.quantity"><code class="docutils literal notranslate"><span class="pre">SunSensor.quantity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.SunSensor.units"><code class="docutils literal notranslate"><span class="pre">SunSensor.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.build_sensor"><code class="docutils literal notranslate"><span class="pre">build_sensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.sensors.html#opengnc.sensors.load_sensor_suite"><code class="docutils literal notranslate"><span class="pre">load_sensor_suite()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opengnc.simulation.html">opengnc.simulation package</a><ul>
@@ -1649,6 +1997,9 @@
 <li class="toctree-l3"><a class="reference internal" href="opengnc.utils.html#opengnc.utils.state_conversion.euler_to_quat"><code class="docutils literal notranslate"><span class="pre">euler_to_quat()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.utils.html#opengnc.utils.state_conversion.quat_to_dcm"><code class="docutils literal notranslate"><span class="pre">quat_to_dcm()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="opengnc.utils.html#opengnc.utils.state_conversion.quat_to_euler"><code class="docutils literal notranslate"><span class="pre">quat_to_euler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.utils.html#opengnc.utils.state_conversion.rot_x"><code class="docutils literal notranslate"><span class="pre">rot_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.utils.html#opengnc.utils.state_conversion.rot_y"><code class="docutils literal notranslate"><span class="pre">rot_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.utils.html#opengnc.utils.state_conversion.rot_z"><code class="docutils literal notranslate"><span class="pre">rot_z()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="opengnc.utils.html#module-opengnc.utils.state_to_elements">opengnc.utils.state_to_elements module</a><ul>

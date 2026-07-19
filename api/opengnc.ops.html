@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opengnc.ops package &mdash; OpenGNC  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/thebelab-helper.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opengnc.ops.dashboard package" href="opengnc.ops.dashboard.html" />
+    <link rel="prev" title="opengnc.navigation package" href="opengnc.navigation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpenGNC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Navigation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opengnc</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opengnc.html">opengnc package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opengnc.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="opengnc.actuators.html">opengnc.actuators package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_determination.html">opengnc.attitude_determination package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">opengnc.ops package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.simulation.html">opengnc.simulation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ssa.html">opengnc.ssa package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.utils.html">opengnc.utils package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.visualization.html">opengnc.visualization package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.html#module-opengnc">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenGNC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">opengnc</a></li>
+          <li class="breadcrumb-item"><a href="opengnc.html">opengnc package</a></li>
+      <li class="breadcrumb-item active">opengnc.ops package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/opengnc.ops.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="opengnc-ops-package">
+<h1>opengnc.ops package<a class="headerlink" href="#opengnc-ops-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="opengnc.ops.dashboard.html">opengnc.ops.dashboard package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.dashboard.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.dashboard.html#module-opengnc.ops.dashboard.server">opengnc.ops.dashboard.server module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.ConnectionManager"><code class="docutils literal notranslate"><span class="pre">ConnectionManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.ConnectionManager.broadcast"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.ConnectionManager.connect"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.connect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.ConnectionManager.disconnect"><code class="docutils literal notranslate"><span class="pre">ConnectionManager.disconnect()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.post_telemetry"><code class="docutils literal notranslate"><span class="pre">post_telemetry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.run_server"><code class="docutils literal notranslate"><span class="pre">run_server()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.server.websocket_endpoint"><code class="docutils literal notranslate"><span class="pre">websocket_endpoint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.dashboard.html#module-opengnc.ops.dashboard">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.dashboard.html#opengnc.ops.dashboard.run_server"><code class="docutils literal notranslate"><span class="pre">run_server()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="opengnc.ops.ground_segment.html">opengnc.ops.ground_segment package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.ground_segment.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.ground_segment.html#module-opengnc.ops.ground_segment.ccsds">opengnc.ops.ground_segment.ccsds module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.CUC"><code class="docutils literal notranslate"><span class="pre">CUC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.CUC.SIZE"><code class="docutils literal notranslate"><span class="pre">CUC.SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.CUC.pack"><code class="docutils literal notranslate"><span class="pre">CUC.pack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.CUC.unpack"><code class="docutils literal notranslate"><span class="pre">CUC.unpack()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.PacketType"><code class="docutils literal notranslate"><span class="pre">PacketType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.PacketType.TELECOMMAND"><code class="docutils literal notranslate"><span class="pre">PacketType.TELECOMMAND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.PacketType.TELEMETRY"><code class="docutils literal notranslate"><span class="pre">PacketType.TELEMETRY</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SequenceFlags"><code class="docutils literal notranslate"><span class="pre">SequenceFlags</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SequenceFlags.CONTINUATION"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.CONTINUATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SequenceFlags.FIRST"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.FIRST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SequenceFlags.LAST"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.LAST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SequenceFlags.UNSEGMENTED"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.UNSEGMENTED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket"><code class="docutils literal notranslate"><span class="pre">SpacePacket</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket.HEADER_SIZE"><code class="docutils literal notranslate"><span class="pre">SpacePacket.HEADER_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket.data_length_field"><code class="docutils literal notranslate"><span class="pre">SpacePacket.data_length_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket.pack"><code class="docutils literal notranslate"><span class="pre">SpacePacket.pack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.ccsds.SpacePacket.unpack"><code class="docutils literal notranslate"><span class="pre">SpacePacket.unpack()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.ground_segment.html#module-opengnc.ops.ground_segment.decom">opengnc.ops.ground_segment.decom module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.DecomEngine"><code class="docutils literal notranslate"><span class="pre">DecomEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.DecomEngine.TYPE_SIZES"><code class="docutils literal notranslate"><span class="pre">DecomEngine.TYPE_SIZES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.DecomEngine.decommutate"><code class="docutils literal notranslate"><span class="pre">DecomEngine.decommutate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.DecomEngine.from_dict"><code class="docutils literal notranslate"><span class="pre">DecomEngine.from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.TelemetryField"><code class="docutils literal notranslate"><span class="pre">TelemetryField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.TelemetryField.data_type"><code class="docutils literal notranslate"><span class="pre">TelemetryField.data_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.TelemetryField.name"><code class="docutils literal notranslate"><span class="pre">TelemetryField.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.TelemetryField.offset"><code class="docutils literal notranslate"><span class="pre">TelemetryField.offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.TelemetryField.offset_val"><code class="docutils literal notranslate"><span class="pre">TelemetryField.offset_val</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.TelemetryField.scale"><code class="docutils literal notranslate"><span class="pre">TelemetryField.scale</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opengnc.ops.ground_segment.html#module-opengnc.ops.ground_segment">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.CUC"><code class="docutils literal notranslate"><span class="pre">CUC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.CUC.SIZE"><code class="docutils literal notranslate"><span class="pre">CUC.SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.CUC.pack"><code class="docutils literal notranslate"><span class="pre">CUC.pack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.CUC.unpack"><code class="docutils literal notranslate"><span class="pre">CUC.unpack()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.DecomEngine"><code class="docutils literal notranslate"><span class="pre">DecomEngine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.DecomEngine.TYPE_SIZES"><code class="docutils literal notranslate"><span class="pre">DecomEngine.TYPE_SIZES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.DecomEngine.decommutate"><code class="docutils literal notranslate"><span class="pre">DecomEngine.decommutate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.DecomEngine.from_dict"><code class="docutils literal notranslate"><span class="pre">DecomEngine.from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.PacketType"><code class="docutils literal notranslate"><span class="pre">PacketType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.PacketType.TELECOMMAND"><code class="docutils literal notranslate"><span class="pre">PacketType.TELECOMMAND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.PacketType.TELEMETRY"><code class="docutils literal notranslate"><span class="pre">PacketType.TELEMETRY</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SequenceFlags"><code class="docutils literal notranslate"><span class="pre">SequenceFlags</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SequenceFlags.CONTINUATION"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.CONTINUATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SequenceFlags.FIRST"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.FIRST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SequenceFlags.LAST"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.LAST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SequenceFlags.UNSEGMENTED"><code class="docutils literal notranslate"><span class="pre">SequenceFlags.UNSEGMENTED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SpacePacket"><code class="docutils literal notranslate"><span class="pre">SpacePacket</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SpacePacket.HEADER_SIZE"><code class="docutils literal notranslate"><span class="pre">SpacePacket.HEADER_SIZE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SpacePacket.data_length_field"><code class="docutils literal notranslate"><span class="pre">SpacePacket.data_length_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SpacePacket.pack"><code class="docutils literal notranslate"><span class="pre">SpacePacket.pack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.SpacePacket.unpack"><code class="docutils literal notranslate"><span class="pre">SpacePacket.unpack()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.TelemetryField"><code class="docutils literal notranslate"><span class="pre">TelemetryField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.TelemetryField.data_type"><code class="docutils literal notranslate"><span class="pre">TelemetryField.data_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.TelemetryField.name"><code class="docutils literal notranslate"><span class="pre">TelemetryField.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.TelemetryField.offset"><code class="docutils literal notranslate"><span class="pre">TelemetryField.offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.TelemetryField.offset_val"><code class="docutils literal notranslate"><span class="pre">TelemetryField.offset_val</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.TelemetryField.scale"><code class="docutils literal notranslate"><span class="pre">TelemetryField.scale</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-opengnc.ops">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-opengnc.ops" title="Link to this heading"></a></h2>
+<p>Operational support modules that sit adjacent to the OpenGNC core.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opengnc.navigation.html" class="btn btn-neutral float-left" title="opengnc.navigation package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opengnc.ops.dashboard.html" class="btn btn-neutral float-right" title="opengnc.ops.dashboard package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

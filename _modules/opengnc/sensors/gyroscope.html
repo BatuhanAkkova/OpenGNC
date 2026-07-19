@@ -76,9 +76,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.sensors.gyroscope</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Gyroscope sensor model.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Gyroscope sensor model.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -86,17 +84,17 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span><span class="p">,</span> <span class="n">SensorMeasurement</span>
 
 
 <div class="viewcode-block" id="Gyroscope">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.gyroscope.Gyroscope">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Gyroscope</span><span class="p">(</span><span class="n">Sensor</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Gyroscope sensor model.</span>
-<span class="sd">    Measures angular velocity: w_meas = w_true + bias + noise</span>
-<span class="sd">    Includes bias instability (random walk).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gyroscope sensor model.&quot;&quot;&quot;</span>
+
+    <span class="n">quantity</span> <span class="o">=</span> <span class="s2">&quot;angular_rate&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;rad/s&quot;</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;body&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -108,59 +106,30 @@
         <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Gyroscope&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-<span class="sd">            noise_std (float): Angle Random Walk (ARW) coefficient or white noise std dev [rad/s].</span>
-<span class="sd">            bias_stability (float): Bias instability / Rate Random Walk std dev [rad/s/sqrt(s)].</span>
-<span class="sd">            initial_bias (np.ndarray): Initial constant bias [rad/s].</span>
-<span class="sd">            dt (float): Time step for bias propagation [s].</span>
-<span class="sd">            misalignment (np.ndarray): 3x3 misalignment matrix.</span>
-<span class="sd">            scale_factor (float or np.ndarray): Scale factor error.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span> <span class="o">=</span> <span class="n">noise_std</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bias_stability</span> <span class="o">=</span> <span class="n">bias_stability</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">current_bias</span> <span class="o">=</span> <span class="n">initial_bias</span> <span class="k">if</span> <span class="n">initial_bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">initial_bias</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="k">if</span> <span class="n">initial_bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">misalignment</span> <span class="o">=</span> <span class="n">misalignment</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">scale_factor</span>
 
 <div class="viewcode-block" id="Gyroscope.measure">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.gyroscope.Gyroscope.measure">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-<span class="sd">            true_omega (np.ndarray): True angular velocity [rad/s].</span>
-<span class="sd">            kwargs: Can contain &#39;dt&#39; to update time step if variable.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SensorMeasurement</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">true_omega</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;true_omega is required.&quot;</span><span class="p">)</span>
             <span class="n">true_omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">dt</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dt&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span><span class="p">)</span>
-
-        <span class="c1"># Propagate bias (Random Walk)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_stability</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">walk_std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_stability</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">current_bias</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">walk_std</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-
-        <span class="c1"># Apply calibration errors to the true signal</span>
         <span class="n">omega_cal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_calibration</span><span class="p">(</span><span class="n">true_omega</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">misalignment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">)</span>
-
-        <span class="c1"># Add noise (measurement noise / ARW)</span>
         <span class="n">measurement_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-
-        <span class="n">measured_omega</span> <span class="o">=</span> <span class="n">omega_cal</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_bias</span> <span class="o">+</span> <span class="n">measurement_noise</span>
-
-        <span class="c1"># Apply any faults</span>
-        <span class="n">measured_omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply_faults</span><span class="p">(</span><span class="n">measured_omega</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">measured_omega</span></div>
+        <span class="n">measured_omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply_faults</span><span class="p">(</span><span class="n">omega_cal</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_bias</span> <span class="o">+</span> <span class="n">measurement_noise</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_measurement</span><span class="p">(</span><span class="n">measured_omega</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sample_period_s&quot;</span><span class="p">:</span> <span class="n">dt</span><span class="p">,</span> <span class="s2">&quot;bias_random_walk_std&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_stability</span><span class="p">})</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

@@ -81,8 +81,9 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.disturbances.gravity</span><span class="w"> </span><span class="kn">import</span> <span class="n">TwoBodyGravity</span>
 
@@ -93,7 +94,7 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Differential Correction via Batch Least Squares for Orbit Determination.</span>
 
-<span class="sd">    Iteratively refines the spacecraft state by minimizing weighted residuals </span>
+<span class="sd">    Iteratively refines the spacecraft state by minimizing weighted residuals</span>
 <span class="sd">    over a batch of observations.</span>
 <span class="sd">    Normal Equations: $(\mathbf{H}^T \mathbf{W} \mathbf{H}) \Delta \mathbf{x} = \mathbf{H}^T \mathbf{W} \mathbf{b}$.</span>
 

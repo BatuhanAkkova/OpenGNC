@@ -59,15 +59,15 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">opengnc.classical_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
@@ -176,42 +176,20 @@ Units: $[A cdot m^2]$.</p>
 </section>
 <section id="module-opengnc.classical_control.momentum_dumping">
 <span id="opengnc-classical-control-momentum-dumping-module"></span><h2>opengnc.classical_control.momentum_dumping module<a class="headerlink" href="#module-opengnc.classical_control.momentum_dumping" title="Link to this heading"></a></h2>
-<p>Reaction wheel momentum desaturation using magnetic torque (Cross-Product Law).</p>
+<p>Reaction wheel momentum desaturation using magnetic torque.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="opengnc.classical_control.momentum_dumping.CrossProductLaw">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.classical_control.momentum_dumping.</span></span><span class="sig-name descname"><span class="pre">CrossProductLaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dipole</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/classical_control/momentum_dumping.html#CrossProductLaw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.momentum_dumping.CrossProductLaw" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Reaction wheel momentum desaturation using the Cross-Product Law.</p>
-<p>This controller calculates a magnetic dipole moment ‘m’ such that the
-resulting magnetic torque $T = m times B$ opposes the component of the
+<p>Reaction wheel momentum desaturation using the cross-product law.</p>
+<p>This controller calculates a magnetic dipole moment <code class="docutils literal notranslate"><span class="pre">m</span></code> such that the
+resulting magnetic torque <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">m</span> <span class="pre">x</span> <span class="pre">B</span></code> opposes the component of the
 angular momentum error perpendicular to the magnetic field.</p>
-<p>Control law: $m = k frac{H_{err} times B}{<a href="#id1"><span class="problematic" id="id2">|</span></a>B|^2}$</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gain</strong> (<em>float</em>) – Feedback gain $k$ ($k &gt; 0$). Units: $[s^{-1}]$.</p></li>
-<li><p><strong>max_dipole</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum magnetic dipole moment allowed (saturation) [Am^2].</p></li>
-</ul>
-</dd>
-</dl>
+<p>Control law: <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">k</span> <span class="pre">*</span> <span class="pre">(H_err</span> <span class="pre">x</span> <span class="pre">B)</span> <span class="pre">/</span> <span class="pre">||B||^2</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.classical_control.momentum_dumping.CrossProductLaw.calculate_control">
 <span class="sig-name descname"><span class="pre">calculate_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/momentum_dumping.html#CrossProductLaw.calculate_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.momentum_dumping.CrossProductLaw.calculate_control" title="Link to this definition"></a></dt>
 <dd><p>Calculate the required magnetic dipole moment.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>h_error</strong> (<em>np.ndarray</em><em> or </em><em>list</em>) – The angular momentum vector to be dumped (3,). Units: [Nms].</p></li>
-<li><p><strong>b_field</strong> (<em>np.ndarray</em><em> or </em><em>list</em>) – The local magnetic field vector in Body frame (3,). Units: [T].</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Magnetic dipole moment vector $m$ [Am^2] (3,).</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
@@ -277,26 +255,64 @@ $u(t) = K_p e(t) + K_i int_0^t e(tau) dtau + K_d frac{de(t)}{dt}$</p>
 <p>Proportional angular rate damping controller for spacecraft detumbling.</p>
 <p>Generates torque commands to reduce the spacecraft’s angular rates,
 typically using thrusters or other active actuators.</p>
-<p>Control law: $T = -K omega$</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>gain</strong> (<em>float</em>) – Proportional damping gain $K$ ($K &gt; 0$).</p></li>
-<li><p><strong>max_torque</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum torque command magnitude allowed (N-m). Default is None.</p></li>
-</ul>
-</dd>
-</dl>
+<p>Control law: <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">-K</span> <span class="pre">omega</span></code>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="opengnc.classical_control.rate_damping.RateDampingControl.compute_torque">
 <span class="sig-name descname"><span class="pre">compute_torque</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/rate_damping.html#RateDampingControl.compute_torque"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.rate_damping.RateDampingControl.compute_torque" title="Link to this definition"></a></dt>
 <dd><p>Compute the commanded damping torque.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-opengnc.classical_control">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-opengnc.classical_control" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.classical_control.BDot">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.classical_control.</span></span><span class="sig-name descname"><span class="pre">BDot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/classical_control/bdot.html#BDot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.BDot" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>B-Dot controller for magnetic detumbling.</p>
+<p>Control Law:
+$mathbf{m} = -K_{gain} dot{mathbf{B}}$</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>omega</strong> (<em>np.ndarray</em>) – Measured angular velocity vector in the body frame (3,).
-Units: [rad/s].</p>
+<dd class="field-odd"><p><strong>gain</strong> (<em>float</em>) – Feedback gain $K$ ($Am^2 s / T$).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.classical_control.BDot.calculate_control">
+<span class="sig-name descname"><span class="pre">calculate_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b_dot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/bdot.html#BDot.calculate_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.BDot.calculate_control" title="Link to this definition"></a></dt>
+<dd><p>Calculate the required magnetic dipole moment from the B-field rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>b_dot</strong> (<em>np.ndarray</em><em> or </em><em>list</em>) – The time derivative of the magnetic field vector ($dot{B}$) in
+the Body frame (3,). Units: [T/s].</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Commanded torque vector in the body frame (3,). Units: [N-m].</p>
+<dd class="field-even"><p>Magnetic dipole moment vector $m$ in Body frame (3,).
+Units: $[A cdot m^2]$.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.classical_control.BDot.calculate_control_discrete">
+<span class="sig-name descname"><span class="pre">calculate_control_discrete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b_field_curr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_field_prev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/bdot.html#BDot.calculate_control_discrete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.BDot.calculate_control_discrete" title="Link to this definition"></a></dt>
+<dd><p>Calculate B-Dot control using discrete finite differences.</p>
+<p>Useful when only B-field measurements are available instead of explicit rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>b_field_curr</strong> (<em>np.ndarray</em><em> or </em><em>list</em>) – Current magnetic field vector measurement (Body frame). Units: [T].</p></li>
+<li><p><strong>b_field_prev</strong> (<em>np.ndarray</em><em> or </em><em>list</em>) – Previous magnetic field vector measurement (Body frame). Units: [T].</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step between measurements (s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Magnetic dipole moment vector $m$ in Body frame (3,).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray</p>
@@ -306,9 +322,85 @@ Units: [rad/s].</p>
 
 </dd></dl>
 
-</section>
-<section id="module-opengnc.classical_control">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-opengnc.classical_control" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.classical_control.CrossProductLaw">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.classical_control.</span></span><span class="sig-name descname"><span class="pre">CrossProductLaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dipole</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/classical_control/momentum_dumping.html#CrossProductLaw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.CrossProductLaw" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Reaction wheel momentum desaturation using the cross-product law.</p>
+<p>This controller calculates a magnetic dipole moment <code class="docutils literal notranslate"><span class="pre">m</span></code> such that the
+resulting magnetic torque <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">m</span> <span class="pre">x</span> <span class="pre">B</span></code> opposes the component of the
+angular momentum error perpendicular to the magnetic field.</p>
+<p>Control law: <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">k</span> <span class="pre">*</span> <span class="pre">(H_err</span> <span class="pre">x</span> <span class="pre">B)</span> <span class="pre">/</span> <span class="pre">||B||^2</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.classical_control.CrossProductLaw.calculate_control">
+<span class="sig-name descname"><span class="pre">calculate_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/momentum_dumping.html#CrossProductLaw.calculate_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.CrossProductLaw.calculate_control" title="Link to this definition"></a></dt>
+<dd><p>Calculate the required magnetic dipole moment.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.classical_control.PID">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.classical_control.</span></span><span class="sig-name descname"><span class="pre">PID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ki</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_limits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anti_windup_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'clamping'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/classical_control/pid.html#PID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.PID" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generic PID controller with anti-windup.</p>
+<p>Control Law:
+$u(t) = K_p e(t) + K_i int_0^t e(tau) dtau + K_d frac{de(t)}{dt}$</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kp</strong> (<em>float</em>) – Proportional gain.</p></li>
+<li><p><strong>ki</strong> (<em>float</em>) – Integral gain.</p></li>
+<li><p><strong>kd</strong> (<em>float</em>) – Derivative gain.</p></li>
+<li><p><strong>output_limits</strong> (<em>tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – (min, max) saturation limits.</p></li>
+<li><p><strong>anti_windup_method</strong> (<em>str</em><em>, </em><em>optional</em>) – Method (e.g., “clamping”). Default “clamping”.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.classical_control.PID.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/pid.html#PID.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.PID.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the internal integrator and error states to zero.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.classical_control.PID.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/pid.html#PID.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.PID.update" title="Link to this definition"></a></dt>
+<dd><p>Update the PID control calculation for a single time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error</strong> (<em>float</em>) – The current error signal (setpoint - measured).</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step since the last update (s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed control output signal.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.classical_control.RateDampingControl">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.classical_control.</span></span><span class="sig-name descname"><span class="pre">RateDampingControl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_torque</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/classical_control/rate_damping.html#RateDampingControl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.RateDampingControl" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Proportional angular rate damping controller for spacecraft detumbling.</p>
+<p>Generates torque commands to reduce the spacecraft’s angular rates,
+typically using thrusters or other active actuators.</p>
+<p>Control law: <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">-K</span> <span class="pre">omega</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.classical_control.RateDampingControl.compute_torque">
+<span class="sig-name descname"><span class="pre">compute_torque</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">omega</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/classical_control/rate_damping.html#RateDampingControl.compute_torque"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.classical_control.RateDampingControl.compute_torque" title="Link to this definition"></a></dt>
+<dd><p>Compute the commanded damping torque.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 

@@ -1,0 +1,21 @@
+opengnc.experimental.interfaces package
+=======================================
+
+Submodules
+----------
+
+opengnc.experimental.interfaces.gmat module
+-------------------------------------------
+
+.. automodule:: opengnc.experimental.interfaces.gmat
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.experimental.interfaces
+   :members:
+   :show-inheritance:
+   :undoc-members:

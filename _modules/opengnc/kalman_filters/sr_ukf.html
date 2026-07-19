@@ -77,7 +77,7 @@
              
   <h1>Source code for opengnc.kalman_filters.sr_ukf</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Square-Root Unscented Kalman Filter (SR-UKF) algorithm.</span>
+<span class="sd">Square-root Unscented Kalman Filter (SR-UKF) algorithm.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
@@ -91,23 +91,10 @@
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.sr_ukf.SRUKF">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SRUKF</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Square-Root Unscented Kalman Filter (SR-UKF).</span>
+<span class="sd">    Square-root Unscented Kalman Filter.</span>
 
-<span class="sd">    Provides better numerical stability and efficiency than standard UKF</span>
-<span class="sd">    by propagating the Cholesky factor (S) of the covariance matrix, where $P = S S^T$.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    dim_x : int</span>
-<span class="sd">        Dimension of the state vector.</span>
-<span class="sd">    dim_z : int</span>
-<span class="sd">        Dimension of the measurement vector.</span>
-<span class="sd">    alpha : float, optional</span>
-<span class="sd">        Primary scaling parameter. Default is 1e-3.</span>
-<span class="sd">    beta : float, optional</span>
-<span class="sd">        Secondary scaling parameter (optimal for Gaussians = 2). Default is 2.0.</span>
-<span class="sd">    kappa : float, optional</span>
-<span class="sd">        Tertiary scaling parameter. Default is 0.0.</span>
+<span class="sd">    Propagates the Cholesky factor of the covariance matrix for improved</span>
+<span class="sd">    numerical stability relative to the standard UKF.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -120,74 +107,47 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span> <span class="o">=</span> <span class="n">dim_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span> <span class="o">=</span> <span class="n">dim_z</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kappa</span> <span class="o">=</span> <span class="n">kappa</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">lambda_</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim_x</span> <span class="o">+</span> <span class="n">kappa</span><span class="p">)</span> <span class="o">-</span> <span class="n">dim_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim_x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dim_x</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Wm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Wc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">Wm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_</span> <span class="o">/</span> <span class="p">(</span><span class="n">dim_x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Wm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span>
 
-        <span class="n">weight</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim_x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_</span><span class="p">))</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim_x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Wm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dim_x</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_x</span><span class="p">)</span>  <span class="c1"># Cholesky factor of covariance P</span>
-
-        <span class="c1"># Square-root noise covariances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_x</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_x</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim_z</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SRUKF.predict">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.sr_ukf.SRUKF.predict">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">fx_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">qs_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">fx_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+        <span class="n">qs_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Predict step.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        dt : float</span>
-<span class="sd">            Time step (s).</span>
-<span class="sd">        fx_func : Callable</span>
-<span class="sd">            State transition function $f(x, dt, **kwargs) \to x_{new}$.</span>
-<span class="sd">        qs_mat : np.ndarray, optional</span>
-<span class="sd">            Square-root process noise covariance (S_Q). If None, uses `self.Qs`.</span>
-<span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional arguments passed to transition function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform the SR-UKF predict step.&quot;&quot;&quot;</span>
         <span class="n">qs_curr</span> <span class="o">=</span> <span class="n">qs_mat</span> <span class="k">if</span> <span class="n">qs_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Qs</span>
-
-        <span class="c1"># Generate sigma points using S</span>
         <span class="n">sigmas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_sigma_points</span><span class="p">()</span>
-
-        <span class="c1"># Propagate sigma points</span>
         <span class="n">sigmas_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">):</span>
             <span class="n">sigmas_f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">fx_func</span><span class="p">(</span><span class="n">sigmas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="c1"># Predicted mean</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Wm</span> <span class="o">@</span> <span class="n">sigmas_f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
-
-        <span class="c1"># Update square-root covariance S</span>
-        <span class="c1"># Compute S- using QR decomposition</span>
         <span class="n">x_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigmas_f</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
-
-        <span class="c1"># QR decomposition</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">s_transpose</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">x_pts</span><span class="p">,</span> <span class="n">qs_curr</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;economic&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">s_transpose</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">,</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-
-        <span class="c1"># Cholesky rank-1 update for the first weight</span>
         <span class="n">dx_vec</span> <span class="o">=</span> <span class="n">sigmas_f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cholesky_update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">,</span> <span class="n">dx_vec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
 
@@ -195,58 +155,39 @@
 <div class="viewcode-block" id="SRUKF.update">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.sr_ukf.SRUKF.update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hx_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">rs_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">hx_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+        <span class="n">rs_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Update step.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        z : np.ndarray</span>
-<span class="sd">            Measurement vector (dim_z,).</span>
-<span class="sd">        hx_func : Callable</span>
-<span class="sd">            Measurement function $h(x, **kwargs) \to z_{pred}$.</span>
-<span class="sd">        rs_mat : np.ndarray, optional</span>
-<span class="sd">            Square-root measurement noise covariance (S_R). If None, uses `self.Rs`.</span>
-<span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional arguments passed to measurement function.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform the SR-UKF update step.&quot;&quot;&quot;</span>
         <span class="n">rs_curr</span> <span class="o">=</span> <span class="n">rs_mat</span> <span class="k">if</span> <span class="n">rs_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rs</span>
-
-        <span class="c1"># Regenerate sigma points</span>
         <span class="n">sigmas_f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_sigma_points</span><span class="p">()</span>
-
-        <span class="c1"># Transform to measurement space</span>
         <span class="n">sigmas_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">):</span>
             <span class="n">sigmas_h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">hx_func</span><span class="p">(</span><span class="n">sigmas_f</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="c1"># Mean measurement</span>
-        <span class="n">zp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Wm</span> <span class="o">@</span> <span class="n">sigmas_h</span>
-
-        <span class="c1"># Square-root innovation covariance Sy</span>
-        <span class="n">h_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigmas_h</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">zp</span><span class="p">)</span>
+        <span class="n">z_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Wm</span> <span class="o">@</span> <span class="n">sigmas_h</span>
+        <span class="n">h_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigmas_h</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">z_pred</span><span class="p">)</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">s_transpose_y</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">h_pts</span><span class="p">,</span> <span class="n">rs_curr</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;economic&quot;</span><span class="p">)</span>
         <span class="n">sy_mat</span> <span class="o">=</span> <span class="n">s_transpose_y</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">,</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-
-        <span class="c1"># Rank-1 update for first weight</span>
-        <span class="n">dz_0</span> <span class="o">=</span> <span class="n">sigmas_h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">zp</span>
+        <span class="n">dz_0</span> <span class="o">=</span> <span class="n">sigmas_h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">z_pred</span>
         <span class="n">sy_mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cholesky_update</span><span class="p">(</span><span class="n">sy_mat</span><span class="p">,</span> <span class="n">dz_0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="c1"># Cross-covariance Pxz</span>
         <span class="n">pxz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">):</span>
             <span class="n">dx_vec</span> <span class="o">=</span> <span class="n">sigmas_f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
-            <span class="n">dz_vec</span> <span class="o">=</span> <span class="n">sigmas_h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">zp</span>
+            <span class="n">dz_vec</span> <span class="o">=</span> <span class="n">sigmas_h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">z_pred</span>
             <span class="n">pxz</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Wc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">dx_vec</span><span class="p">,</span> <span class="n">dz_vec</span><span class="p">)</span>
 
-        <span class="c1"># Kalman gain</span>
         <span class="n">k_gain</span> <span class="o">=</span> <span class="n">solve_triangular</span><span class="p">(</span>
-            <span class="n">sy_mat</span><span class="p">,</span> <span class="n">solve_triangular</span><span class="p">(</span><span class="n">sy_mat</span><span class="p">,</span> <span class="n">pxz</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">trans</span><span class="o">=</span><span class="s2">&quot;T&quot;</span>
+            <span class="n">sy_mat</span><span class="p">,</span>
+            <span class="n">solve_triangular</span><span class="p">(</span><span class="n">sy_mat</span><span class="p">,</span> <span class="n">pxz</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">trans</span><span class="o">=</span><span class="s2">&quot;T&quot;</span><span class="p">,</span>
         <span class="p">)</span><span class="o">.</span><span class="n">T</span>
-
-        <span class="c1"># Correct mean and square-root covariance</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">k_gain</span> <span class="o">@</span> <span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">zp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">k_gain</span> <span class="o">@</span> <span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">z_pred</span><span class="p">)</span>
 
         <span class="n">u_mat</span> <span class="o">=</span> <span class="n">k_gain</span> <span class="o">@</span> <span class="n">sy_mat</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span><span class="p">):</span>
@@ -254,7 +195,7 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_generate_sigma_points</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate 2n+1 sigma points using the current Cholesky factor.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate sigma points from the current Cholesky factor.&quot;&quot;&quot;</span>
         <span class="n">sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sigmas</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">))</span>
         <span class="n">sigmas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">):</span>
@@ -263,44 +204,25 @@
         <span class="k">return</span> <span class="n">sigmas</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_cholesky_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs rank-1 Cholesky update or downdate.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        s_mat : np.ndarray</span>
-<span class="sd">            Current Cholesky factor (lower triangular).</span>
-<span class="sd">        vec : np.ndarray</span>
-<span class="sd">            Vector to update with.</span>
-<span class="sd">        weight : float</span>
-<span class="sd">            Scalar weight (positive for update, negative for downdate).</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Updated lower-triangular Cholesky factor.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a rank-1 Cholesky update or downdate.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">weight</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">v_scaled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span> <span class="o">*</span> <span class="n">vec</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">s_transpose</span> <span class="o">=</span> <span class="n">qr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">s_mat</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">v_scaled</span><span class="p">)),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;economic&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">s_transpose</span><span class="p">[:</span> <span class="n">s_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:</span> <span class="n">s_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">p_cov</span> <span class="o">=</span> <span class="n">s_mat</span> <span class="o">@</span> <span class="n">s_mat</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cholesky</span><span class="p">(</span><span class="n">p_cov</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-            <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
-                    <span class="n">cholesky</span><span class="p">(</span><span class="n">p_cov</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">s_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1e-12</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
-                <span class="p">)</span>
+
+        <span class="n">p_cov</span> <span class="o">=</span> <span class="n">s_mat</span> <span class="o">@</span> <span class="n">s_mat</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">vec</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cholesky</span><span class="p">(</span><span class="n">p_cov</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                <span class="n">cholesky</span><span class="p">(</span><span class="n">p_cov</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">s_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1e-12</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">P</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Full error covariance matrix P = S S^T.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the full covariance matrix ``P = S S^T``.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

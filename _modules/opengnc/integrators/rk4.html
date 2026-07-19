@@ -77,7 +77,7 @@
              
   <h1>Source code for opengnc.integrators.rk4</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Fixed-step Runge-Kutta 4th order integrator.</span>
+<span class="sd">Fixed-step fourth-order Runge-Kutta integrator.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
@@ -94,18 +94,10 @@
 <a class="viewcode-back" href="../../../api/opengnc.integrators.html#opengnc.integrators.rk4.RK4">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RK4</span><span class="p">(</span><span class="n">Integrator</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Fixed-step 4th Order Runge-Kutta (RK4).</span>
+<span class="sd">    Fixed-step fourth-order Runge-Kutta integrator.</span>
 
-<span class="sd">    Step Logic:</span>
-<span class="sd">    $k_1 = f(t_n, y_n)$</span>
-<span class="sd">    $k_2 = f(t_n + \frac{h}{2}, y_n + \frac{h}{2} k_1)$</span>
-<span class="sd">    $k_3 = f(t_n + \frac{h}{2}, y_n + \frac{h}{2} k_2)$</span>
-<span class="sd">    $k_4 = f(t_n + h, y_n + h k_3)$</span>
-<span class="sd">    $y_{n+1} = y_n + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)$</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    None</span>
+<span class="sd">    The method evaluates four stage derivatives and combines them into a</span>
+<span class="sd">    fourth-order accurate step update.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="RK4.step">
@@ -116,43 +108,17 @@
         <span class="n">t</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform a single RK4 step.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        f : Callable</span>
-<span class="sd">            Derivative function f(t, y, **kwargs).</span>
-<span class="sd">        t : float</span>
-<span class="sd">            Current time $t_n$ (s).</span>
-<span class="sd">        y : np.ndarray</span>
-<span class="sd">            Current state $y_n$.</span>
-<span class="sd">        dt : float</span>
-<span class="sd">            Time step $h$ (s).</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        tuple[np.ndarray, float, float]</span>
-<span class="sd">            (y_next, t_next, dt).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a single RK4 step.&quot;&quot;&quot;</span>
         <span class="n">y_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-
         <span class="n">k1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="n">k2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">k1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="n">k3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">k2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="n">k4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="n">dt</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">+</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">k3</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
-
         <span class="n">y_next</span> <span class="o">=</span> <span class="n">y_val</span> <span class="o">+</span> <span class="p">(</span><span class="n">dt</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k1</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">k2</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">k3</span> <span class="o">+</span> <span class="n">k4</span><span class="p">)</span>
-        <span class="n">t_next</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="n">dt</span>
-
-        <span class="k">return</span> <span class="n">y_next</span><span class="p">,</span> <span class="n">t_next</span><span class="p">,</span> <span class="n">dt</span></div>
+        <span class="k">return</span> <span class="n">y_next</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

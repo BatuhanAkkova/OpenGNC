@@ -80,8 +80,9 @@
 <span class="sd">Modified Rodrigues Parameters (MRP) kinematics and math utilities.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
 <div class="viewcode-block" id="quat_to_mrp">
@@ -176,7 +177,7 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the shadow set for the given MRP.</span>
 
-<span class="sd">    The shadow set represents the same rotation but stays within the </span>
+<span class="sd">    The shadow set represents the same rotation but stays within the</span>
 <span class="sd">    unit sphere ($|\sigma| \le 1$).</span>
 <span class="sd">    $\sigma_{shadow} = -\sigma / \|\sigma\|^2$.</span>
 

@@ -76,9 +76,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.sensors.magnetometer</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Magnetometer sensor model.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Magnetometer sensor model.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -86,30 +84,17 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.sensors.sensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sensor</span><span class="p">,</span> <span class="n">SensorMeasurement</span>
 
 
 <div class="viewcode-block" id="Magnetometer">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.magnetometer.Magnetometer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Magnetometer</span><span class="p">(</span><span class="n">Sensor</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Magnetometer sensor model.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Magnetometer sensor model.&quot;&quot;&quot;</span>
 
-<span class="sd">    Measures magnetic field vector in body frame.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    noise_std : float, optional</span>
-<span class="sd">        Standard deviation of measurement noise (Tesla). Default is 0.0.</span>
-<span class="sd">    bias : np.ndarray, optional</span>
-<span class="sd">        Hard-iron bias vector (Tesla). Default is zero vector.</span>
-<span class="sd">    misalignment : np.ndarray, optional</span>
-<span class="sd">        3x3 soft-iron / misalignment matrix. Default is None.</span>
-<span class="sd">    scale_factor : float | np.ndarray, optional</span>
-<span class="sd">        Scale factor error. Default is 1.0.</span>
-<span class="sd">    name : str, optional</span>
-<span class="sd">        Sensor name. Default is &quot;Magnetometer&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="s2">&quot;magnetic_field&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;T&quot;</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;body&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -121,51 +106,21 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span> <span class="o">=</span> <span class="n">noise_std</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span> <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">bias</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">misalignment</span> <span class="o">=</span> <span class="n">misalignment</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">scale_factor</span>
 
 <div class="viewcode-block" id="Magnetometer.measure">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.magnetometer.Magnetometer.measure">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">true_mag_vec_body</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate magnetic field measurement.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        true_mag_vec_body : np.ndarray</span>
-<span class="sd">            True magnetic field vector in body frame (Tesla).</span>
-<span class="sd">        **kwargs : dict</span>
-<span class="sd">            Additional parameters.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Measured magnetic field vector (Tesla).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Apply calibration (soft iron, misalignment, hard iron bias)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_mag_vec_body</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SensorMeasurement</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">true_mag_vec_body</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;true_mag_vec_body is required.&quot;</span><span class="p">)</span>
             <span class="n">true_mag_vec_body</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">calibrated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_calibration</span><span class="p">(</span>
-            <span class="n">true_mag_vec_body</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">misalignment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Add noise</span>
-        <span class="n">measured</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_gaussian_noise</span><span class="p">(</span><span class="n">calibrated</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span><span class="p">)</span>
-
-        <span class="c1"># Apply faults</span>
-        <span class="n">measured</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply_faults</span><span class="p">(</span><span class="n">measured</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">measured</span></div>
+        <span class="n">calibrated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_calibration</span><span class="p">(</span><span class="n">true_mag_vec_body</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">misalignment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+        <span class="n">measured</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply_faults</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_gaussian_noise</span><span class="p">(</span><span class="n">calibrated</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_measurement</span><span class="p">(</span><span class="n">measured</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

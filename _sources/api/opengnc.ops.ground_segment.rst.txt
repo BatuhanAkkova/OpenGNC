@@ -1,0 +1,29 @@
+opengnc.ops.ground\_segment package
+===================================
+
+Submodules
+----------
+
+opengnc.ops.ground\_segment.ccsds module
+----------------------------------------
+
+.. automodule:: opengnc.ops.ground_segment.ccsds
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+opengnc.ops.ground\_segment.decom module
+----------------------------------------
+
+.. automodule:: opengnc.ops.ground_segment.decom
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.ops.ground_segment
+   :members:
+   :show-inheritance:
+   :undoc-members:

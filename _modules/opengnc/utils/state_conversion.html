@@ -86,7 +86,6 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">euler_utils</span> <span class="k">as</span> <span class="n">eu</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">quat_utils</span> <span class="k">as</span> <span class="n">qu</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.utils.euler_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">rot_x</span><span class="p">,</span> <span class="n">rot_y</span><span class="p">,</span> <span class="n">rot_z</span>
 
 
 <div class="viewcode-block" id="quat_to_dcm">
@@ -248,9 +247,27 @@
     <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">euler_to_dcm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">angles</span><span class="p">),</span> <span class="n">sequence</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="rot_x">
+<a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.rot_x">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rot_x</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the x-axis rotation matrix for the given angle.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">rot_x</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
 
 
 
+<div class="viewcode-block" id="rot_y">
+<a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.rot_y">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rot_y</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the y-axis rotation matrix for the given angle.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">rot_y</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="rot_z">
+<a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.rot_z">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rot_z</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the z-axis rotation matrix for the given angle.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">rot_z</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
 
 
 </pre></div>

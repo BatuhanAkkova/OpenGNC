@@ -12,15 +12,15 @@ Subpackages
    opengnc.attitude_dynamics
    opengnc.classical_control
    opengnc.disturbances
-   opengnc.edl
    opengnc.environment
-   opengnc.fdir
+   opengnc.experimental
    opengnc.guidance
    opengnc.integrators
    opengnc.interfaces
    opengnc.kalman_filters
    opengnc.mission_design
    opengnc.navigation
+   opengnc.ops
    opengnc.optimal_control
    opengnc.propagators
    opengnc.sensors

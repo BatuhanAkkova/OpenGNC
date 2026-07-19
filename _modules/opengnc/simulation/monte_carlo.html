@@ -76,9 +76,14 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.simulation.monte_carlo</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Monte Carlo simulation harness and statistical analysis helpers.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">.monte_carlo_analyzer</span><span class="w"> </span><span class="kn">import</span> <span class="n">MonteCarloAnalyzer</span>
 
 
@@ -86,16 +91,16 @@
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.monte_carlo.MonteCarloSim">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MonteCarloSim</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Monte Carlo Simulation Harness.</span>
+<span class="sd">    Monte Carlo simulation harness.</span>
 
-<span class="sd">    Facilitates large-scale robustness analysis by executing multiple </span>
+<span class="sd">    Facilitates large-scale robustness analysis by executing multiple</span>
 <span class="sd">    simulation runs with stochastic variations.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    simulator_factory : Callable[..., MissionSimulator]</span>
-<span class="sd">        Generator function to produce specialized simulator instances.</span>
-<span class="sd">        Signature: `(seed, **kwargs) -&gt; MissionSimulator`.</span>
+<span class="sd">    simulator_factory : Callable[..., Any]</span>
+<span class="sd">        Generator function that produces simulator instances or direct results.</span>
+<span class="sd">        Signature: ``(seed, **kwargs) -&gt; simulator_or_result``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulator_factory</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -104,11 +109,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_run_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal worker for a single Monte Carlo trial.&quot;&quot;&quot;</span>
-        <span class="n">seed</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;seed&quot;</span><span class="p">)</span>
-        <span class="n">sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulator_factory</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="c1"># If the factory returns an object with a run() method, use it.</span>
-        <span class="c1"># Otherwise, assume the factory returned the result directly.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute a single Monte Carlo trial.&quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;seed&quot;</span><span class="p">)</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulator_factory</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">callable</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">sim</span>
@@ -123,12 +127,12 @@
 <span class="sd">        ----------</span>
 <span class="sd">        num_runs : int</span>
 <span class="sd">            Number of trials to execute.</span>
-<span class="sd">        **kwargs</span>
+<span class="sd">        **kwargs : Any</span>
 <span class="sd">            Variable parameters passed to the simulator factory.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        List[Any]</span>
+<span class="sd">        list[Any]</span>
 <span class="sd">            Aggregated results from all trials.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -145,7 +149,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">num_runs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">processes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Execute Monte Carlo iterations across multiple processor cores.</span>
@@ -154,37 +158,42 @@
 <span class="sd">        ----------</span>
 <span class="sd">        num_runs : int</span>
 <span class="sd">            Number of trials to execute.</span>
-<span class="sd">        processes : Optional[int]</span>
+<span class="sd">        processes : int | None, optional</span>
 <span class="sd">            Number of parallel workers. Defaults to machine CPU count.</span>
-<span class="sd">        **kwargs</span>
+<span class="sd">        **kwargs : Any</span>
 <span class="sd">            Parameters for simulation configuration.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        List[Any]</span>
+<span class="sd">        list[Any]</span>
 <span class="sd">            Aggregated results.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">pool_kwargs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pool_kwargs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_runs</span><span class="p">):</span>
             <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">params</span><span class="p">[</span><span class="s2">&quot;seed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
             <span class="n">pool_kwargs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
-        <span class="c1"># Attempt to use joblib for superior robustness in interactive environments (Jupyter)</span>
+        <span class="k">if</span> <span class="n">processes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_sequential</span><span class="p">(</span><span class="n">num_runs</span><span class="o">=</span><span class="n">num_runs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">joblib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">processes</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;loky&quot;</span><span class="p">)(</span>
                 <span class="n">delayed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_run_single</span><span class="p">)(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pool_kwargs</span>
             <span class="p">)</span>
-        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-            <span class="c1"># Fallback to standard multiprocessing</span>
-            <span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mp</span>
-            <span class="c1"># Use &#39;spawn&#39; or default context based on OS</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">,</span> <span class="ne">PermissionError</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_run_single</span><span class="p">,</span> <span class="n">pool_kwargs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span></div>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">PermissionError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_sequential</span><span class="p">(</span><span class="n">num_runs</span><span class="o">=</span><span class="n">num_runs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MonteCarloSim.get_analyzer">
@@ -192,11 +201,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MonteCarloAnalyzer</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Produce a statistical analyzer for the current simulation results.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        MonteCarloAnalyzer</span>
-<span class="sd">            Instance of the analyzer initialized with current trial data.</span>
+<span class="sd">            Analyzer initialized with the current trial data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">MonteCarloAnalyzer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span></div>
 </div>

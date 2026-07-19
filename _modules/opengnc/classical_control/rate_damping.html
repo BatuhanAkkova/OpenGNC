@@ -80,6 +80,7 @@
 <span class="sd">Proportional rate damping controller for torque-based detumbling.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -93,14 +94,7 @@
 <span class="sd">    Generates torque commands to reduce the spacecraft&#39;s angular rates,</span>
 <span class="sd">    typically using thrusters or other active actuators.</span>
 
-<span class="sd">    Control law: $T = -K \omega$</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    gain : float</span>
-<span class="sd">        Proportional damping gain $K$ ($K &gt; 0$).</span>
-<span class="sd">    max_torque : float, optional</span>
-<span class="sd">        Maximum torque command magnitude allowed (N-m). Default is None.</span>
+<span class="sd">    Control law: ``T = -K omega``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gain</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_torque</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -111,35 +105,18 @@
 <div class="viewcode-block" id="RateDampingControl.compute_torque">
 <a class="viewcode-back" href="../../../api/opengnc.classical_control.html#opengnc.classical_control.rate_damping.RateDampingControl.compute_torque">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_torque</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Compute the commanded damping torque.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the commanded damping torque.&quot;&quot;&quot;</span>
+        <span class="n">torque_raw</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gain</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        omega : np.ndarray</span>
-<span class="sd">            Measured angular velocity vector in the body frame (3,).</span>
-<span class="sd">            Units: [rad/s].</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Commanded torque vector in the body frame (3,). Units: [N-m].</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Linear damping: T = -k * omega</span>
-        <span class="n">torque_raw</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gain</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
-
-        <span class="c1"># Apply torque saturation</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">norm_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">torque_raw</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">norm_t</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">torque_raw</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span> <span class="o">/</span> <span class="n">norm_t</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">torque_raw</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span> <span class="o">/</span> <span class="n">norm_t</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">torque_raw</span></div>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">torque_raw</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

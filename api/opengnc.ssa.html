@@ -59,15 +59,15 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
@@ -155,24 +155,21 @@ below the specified limit.</p>
 </section>
 <section id="module-opengnc.ssa.conjunction">
 <span id="opengnc-ssa-conjunction-module"></span><h2>opengnc.ssa.conjunction module<a class="headerlink" href="#module-opengnc.ssa.conjunction" title="Link to this heading"></a></h2>
-<p>Conjunction Analysis and Probability of Collision (Pc) computation.</p>
+<p>Conjunction analysis and probability of collision utilities.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.ssa.conjunction.compute_pc_chan">
 <span class="sig-prename descclassname"><span class="pre">opengnc.ssa.conjunction.</span></span><span class="sig-name descname"><span class="pre">compute_pc_chan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hbr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/ssa/conjunction.html#compute_pc_chan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.ssa.conjunction.compute_pc_chan" title="Link to this definition"></a></dt>
-<dd><p>Probability of Collision (Pc) via Chan’s Analytical Approximation.</p>
-<p>Provides a fast, series-based solution to the 2D Gaussian integral over
-a circular region. Most accurate when the HBR is small compared to
-the standard deviation of the covariance.</p>
+<dd><p>Compute probability of collision via Chan’s analytical approximation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI Position vectors at TCA (m).</p></li>
-<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI Position vectors at TCA (m).</p></li>
-<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI Velocity vectors at TCA (m/s).</p></li>
-<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI Velocity vectors at TCA (m/s).</p></li>
-<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – $3times 3$ error covariance matrices ($m^2$).</p></li>
-<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – $3times 3$ error covariance matrices ($m^2$).</p></li>
-<li><p><strong>hbr</strong> (<em>float</em>) – Combined Hard Body Radius (m).</p></li>
+<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI position vectors at TCA in meters.</p></li>
+<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI position vectors at TCA in meters.</p></li>
+<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI velocity vectors at TCA in meters per second.</p></li>
+<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI velocity vectors at TCA in meters per second.</p></li>
+<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance matrices in square meters.</p></li>
+<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance matrices in square meters.</p></li>
+<li><p><strong>hbr</strong> (<em>float</em>) – Combined hard-body radius in meters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -187,23 +184,23 @@ the standard deviation of the covariance.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.ssa.conjunction.compute_pc_foster">
 <span class="sig-prename descclassname"><span class="pre">opengnc.ssa.conjunction.</span></span><span class="sig-name descname"><span class="pre">compute_pc_foster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hbr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/ssa/conjunction.html#compute_pc_foster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.ssa.conjunction.compute_pc_foster" title="Link to this definition"></a></dt>
-<dd><p>Compute Probability of Collision (Pc) via Foster’s method.</p>
-<p>Projects the encounter into a 2D plane and integrates the PDF:
-$P_c = iint_{HBR} frac{1}{2pi sqrt{<a href="#id1"><span class="problematic" id="id2">|\mathbf{C}|</span></a>}} expleft(-frac{1}{2} mathbf{x}^T mathbf{C}^{-1} mathbf{x}right) dA$</p>
+<dd><p>Compute probability of collision via Foster’s method.</p>
+<p>The encounter is projected into a 2D collision plane and the Gaussian
+probability density is integrated over the circular hard-body region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI state of Object 1 at TCA (m, m/s).</p></li>
-<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI state of Object 1 at TCA (m, m/s).</p></li>
-<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – $3 times 3$ covariance of Object 1 ($m^2$).</p></li>
-<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI state of Object 2 at TCA (m, m/s).</p></li>
-<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI state of Object 2 at TCA (m, m/s).</p></li>
-<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – $3 times 3$ covariance of Object 2 ($m^2$).</p></li>
-<li><p><strong>hbr</strong> (<em>float</em>) – Combined Hard Body Radius (m).</p></li>
+<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI state of object 1 at TCA in meters and meters per second.</p></li>
+<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI state of object 1 at TCA in meters and meters per second.</p></li>
+<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance of object 1 in square meters.</p></li>
+<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI state of object 2 at TCA in meters and meters per second.</p></li>
+<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI state of object 2 at TCA in meters and meters per second.</p></li>
+<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance of object 2 in square meters.</p></li>
+<li><p><strong>hbr</strong> (<em>float</em>) – Combined hard-body radius in meters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Probability of collision $P_c in [0, 1]$.</p>
+<dd class="field-even"><p>Probability of collision in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
@@ -213,15 +210,16 @@ $P_c = iint_{HBR} frac{1}{2pi sqrt{<a href="#id1"><span class="problematic" id="
 
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.ssa.conjunction.find_tca">
-<span class="sig-prename descclassname"><span class="pre">opengnc.ssa.conjunction.</span></span><span class="sig-name descname"><span class="pre">find_tca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/ssa/conjunction.html#find_tca"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.ssa.conjunction.find_tca" title="Link to this definition"></a></dt>
-<dd><p>Find Time of Closest Approach (TCA) between two objects.</p>
+<span class="sig-prename descclassname"><span class="pre">opengnc.ssa.conjunction.</span></span><span class="sig-name descname"><span class="pre">find_tca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/ssa/conjunction.html#find_tca"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.ssa.conjunction.find_tca" title="Link to this definition"></a></dt>
+<dd><p>Find the time of closest approach between two objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>r1_func</strong> (<em>callable</em>) – Functions that return ECI position at time t.</p></li>
-<li><p><strong>r2_func</strong> (<em>callable</em>) – Functions that return ECI position at time t.</p></li>
-<li><p><strong>t_start</strong> (<em>float</em>) – Search window (s).</p></li>
-<li><p><strong>t_end</strong> (<em>float</em>) – Search window (s).</p></li>
+<li><p><strong>r1_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>float</em><em>]</em><em>, </em><em>np.ndarray</em><em>]</em>) – Functions returning ECI position at time <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p></li>
+<li><p><strong>r2_func</strong> (<em>Callable</em><em>[</em><em>[</em><em>float</em><em>]</em><em>, </em><em>np.ndarray</em><em>]</em>) – Functions returning ECI position at time <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p></li>
+<li><p><strong>t_start</strong> (<em>float</em>) – Search window in seconds.</p></li>
+<li><p><strong>t_end</strong> (<em>float</em>) – Search window in seconds.</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>optional</em>) – Scalar search tolerance in seconds.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -236,23 +234,7 @@ $P_c = iint_{HBR} frac{1}{2pi sqrt{<a href="#id1"><span class="problematic" id="
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.ssa.conjunction.propagate_covariance">
 <span class="sig-prename descclassname"><span class="pre">opengnc.ssa.conjunction.</span></span><span class="sig-name descname"><span class="pre">propagate_covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cov0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/ssa/conjunction.html#propagate_covariance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.ssa.conjunction.propagate_covariance" title="Link to this definition"></a></dt>
-<dd><p>Linearly propagate a 3x3 position covariance using Keplerian motion.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cov0</strong> (<em>np.ndarray</em>) – Initial 3x3 position covariance (m^2).</p></li>
-<li><p><strong>r</strong> (<em>np.ndarray</em>) – Initial ECI state (m, m/s).</p></li>
-<li><p><strong>v</strong> (<em>np.ndarray</em>) – Initial ECI state (m, m/s).</p></li>
-<li><p><strong>dt</strong> (<em>float</em>) – Time step (s).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Propagated 3x3 position covariance.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
+<dd><p>Linearly propagate a <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> position covariance using a simple growth model.</p>
 </dd></dl>
 
 </section>
@@ -542,20 +524,17 @@ Formula: $d_M = sqrt{(mathbf{x}_1 - mathbf{x}_2)^T (mathbf{P}_1 + mathbf{P}_2)^{
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.ssa.compute_pc_chan">
 <span class="sig-prename descclassname"><span class="pre">opengnc.ssa.</span></span><span class="sig-name descname"><span class="pre">compute_pc_chan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hbr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/ssa/conjunction.html#compute_pc_chan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.ssa.compute_pc_chan" title="Link to this definition"></a></dt>
-<dd><p>Probability of Collision (Pc) via Chan’s Analytical Approximation.</p>
-<p>Provides a fast, series-based solution to the 2D Gaussian integral over
-a circular region. Most accurate when the HBR is small compared to
-the standard deviation of the covariance.</p>
+<dd><p>Compute probability of collision via Chan’s analytical approximation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI Position vectors at TCA (m).</p></li>
-<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI Position vectors at TCA (m).</p></li>
-<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI Velocity vectors at TCA (m/s).</p></li>
-<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI Velocity vectors at TCA (m/s).</p></li>
-<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – $3times 3$ error covariance matrices ($m^2$).</p></li>
-<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – $3times 3$ error covariance matrices ($m^2$).</p></li>
-<li><p><strong>hbr</strong> (<em>float</em>) – Combined Hard Body Radius (m).</p></li>
+<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI position vectors at TCA in meters.</p></li>
+<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI position vectors at TCA in meters.</p></li>
+<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI velocity vectors at TCA in meters per second.</p></li>
+<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI velocity vectors at TCA in meters per second.</p></li>
+<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance matrices in square meters.</p></li>
+<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance matrices in square meters.</p></li>
+<li><p><strong>hbr</strong> (<em>float</em>) – Combined hard-body radius in meters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -570,23 +549,23 @@ the standard deviation of the covariance.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="opengnc.ssa.compute_pc_foster">
 <span class="sig-prename descclassname"><span class="pre">opengnc.ssa.</span></span><span class="sig-name descname"><span class="pre">compute_pc_foster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hbr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/ssa/conjunction.html#compute_pc_foster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.ssa.compute_pc_foster" title="Link to this definition"></a></dt>
-<dd><p>Compute Probability of Collision (Pc) via Foster’s method.</p>
-<p>Projects the encounter into a 2D plane and integrates the PDF:
-$P_c = iint_{HBR} frac{1}{2pi sqrt{<a href="#id3"><span class="problematic" id="id4">|\mathbf{C}|</span></a>}} expleft(-frac{1}{2} mathbf{x}^T mathbf{C}^{-1} mathbf{x}right) dA$</p>
+<dd><p>Compute probability of collision via Foster’s method.</p>
+<p>The encounter is projected into a 2D collision plane and the Gaussian
+probability density is integrated over the circular hard-body region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI state of Object 1 at TCA (m, m/s).</p></li>
-<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI state of Object 1 at TCA (m, m/s).</p></li>
-<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – $3 times 3$ covariance of Object 1 ($m^2$).</p></li>
-<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI state of Object 2 at TCA (m, m/s).</p></li>
-<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI state of Object 2 at TCA (m, m/s).</p></li>
-<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – $3 times 3$ covariance of Object 2 ($m^2$).</p></li>
-<li><p><strong>hbr</strong> (<em>float</em>) – Combined Hard Body Radius (m).</p></li>
+<li><p><strong>r1</strong> (<em>np.ndarray</em>) – ECI state of object 1 at TCA in meters and meters per second.</p></li>
+<li><p><strong>v1</strong> (<em>np.ndarray</em>) – ECI state of object 1 at TCA in meters and meters per second.</p></li>
+<li><p><strong>cov1</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance of object 1 in square meters.</p></li>
+<li><p><strong>r2</strong> (<em>np.ndarray</em>) – ECI state of object 2 at TCA in meters and meters per second.</p></li>
+<li><p><strong>v2</strong> (<em>np.ndarray</em>) – ECI state of object 2 at TCA in meters and meters per second.</p></li>
+<li><p><strong>cov2</strong> (<em>np.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">x</span> <span class="pre">3</span></code> covariance of object 2 in square meters.</p></li>
+<li><p><strong>hbr</strong> (<em>float</em>) – Combined hard-body radius in meters.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Probability of collision $P_c in [0, 1]$.</p>
+<dd class="field-even"><p>Probability of collision in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>

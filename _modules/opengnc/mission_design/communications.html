@@ -82,37 +82,27 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="c1"># Speed of light in m/s</span>
 <span class="n">C</span> <span class="o">=</span> <span class="mf">299792458.0</span>
 
 
 <div class="viewcode-block" id="calculate_friis_link_budget">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.communications.calculate_friis_link_budget">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_friis_link_budget</span><span class="p">(</span>
-    <span class="n">p_tx_w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g_tx_db</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g_rx_db</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">distance_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">losses_misc_db</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">l_atm_db</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">p_tx_w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">g_tx_db</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">g_rx_db</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">distance_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">losses_misc_db</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">l_atm_db</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the link budget using Friis transmission equation.</span>
-
-<span class="sd">    Formula:</span>
-<span class="sd">        Pr (dBW) = Pt (dBW) + Gt (dB) + Gr (dB) - Lfs (dB) - Latm (dB) - Lmisc (dB)</span>
-<span class="sd">        Lfs = 20 * log10(d) + 20 * log10(f) + 20 * log10(4*pi/c)</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        p_tx_w (float): Transmitter power [W].</span>
-<span class="sd">        g_tx_db (float): Transmitter antenna gain [dB].</span>
-<span class="sd">        g_rx_db (float): Receiver antenna gain [dB].</span>
-<span class="sd">        frequency_hz (float): Carrier frequency [Hz].</span>
-<span class="sd">        distance_m (float): Distance between Tx and Rx [m].</span>
-<span class="sd">        losses_misc_db (float, optional): Miscellaneous losses (pointing, line, etc.) [dB]. Default 0.</span>
-<span class="sd">        l_atm_db (float, optional): Atmospheric attenuation [dB]. Default 0.</span>
+<span class="sd">    Calculate a link budget using the Friis transmission equation.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        dict: Containing:</span>
-<span class="sd">            &#39;p_rx_dbw&#39; (float): Received power [dBW].</span>
-<span class="sd">            &#39;p_rx_w&#39; (float): Received power [W].</span>
-<span class="sd">            &#39;l_fs_db&#39; (float): Free space path loss [dB].</span>
+<span class="sd">    dict[str, float]</span>
+<span class="sd">        Received power and free-space loss terms in linear and dB form.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">p_tx_w</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Transmitter power must be strictly positive.&quot;</span><span class="p">)</span>
@@ -121,46 +111,40 @@
     <span class="k">if</span> <span class="n">frequency_hz</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Frequency must be strictly positive.&quot;</span><span class="p">)</span>
 
-    <span class="n">p_tx_dbw</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">p_tx_w</span><span class="p">)</span>
-
-    <span class="c1"># Lfs = 20*log10(d) + 20*log10(f) + 20*log10(4*pi/c),  20*log10(4*pi/c) ≈ -147.554</span>
-    <span class="n">l_fs_db</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">distance_m</span><span class="p">)</span> <span class="o">+</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">)</span> <span class="o">-</span> <span class="mf">147.554</span>
+    <span class="n">p_tx_dbw</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">p_tx_w</span><span class="p">)</span>
+    <span class="n">l_fs_db</span> <span class="o">=</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">distance_m</span><span class="p">)</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">frequency_hz</span><span class="p">)</span> <span class="o">-</span> <span class="mf">147.554</span>
     <span class="n">p_rx_dbw</span> <span class="o">=</span> <span class="n">p_tx_dbw</span> <span class="o">+</span> <span class="n">g_tx_db</span> <span class="o">+</span> <span class="n">g_rx_db</span> <span class="o">-</span> <span class="n">l_fs_db</span> <span class="o">-</span> <span class="n">l_atm_db</span> <span class="o">-</span> <span class="n">losses_misc_db</span>
-    <span class="n">p_rx_w</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">p_rx_dbw</span> <span class="o">/</span> <span class="mf">10.0</span><span class="p">)</span>
+    <span class="n">p_rx_w</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="o">**</span> <span class="p">(</span><span class="n">p_rx_dbw</span> <span class="o">/</span> <span class="mf">10.0</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;p_rx_dbw&quot;</span><span class="p">:</span> <span class="n">p_rx_dbw</span><span class="p">,</span> <span class="s2">&quot;p_rx_w&quot;</span><span class="p">:</span> <span class="n">p_rx_w</span><span class="p">,</span> <span class="s2">&quot;l_fs_db&quot;</span><span class="p">:</span> <span class="n">l_fs_db</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;p_rx_dbw&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">p_rx_dbw</span><span class="p">),</span>
+        <span class="s2">&quot;p_rx_w&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">p_rx_w</span><span class="p">),</span>
+        <span class="s2">&quot;l_fs_db&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">l_fs_db</span><span class="p">),</span>
+    <span class="p">}</span></div>
 
 
 
 <div class="viewcode-block" id="calculate_doppler_shift">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.communications.calculate_doppler_shift">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">calculate_doppler_shift</span><span class="p">(</span><span class="n">f_tx_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r_ecef_rx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_ecef_rx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_ecef_tx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_ecef_tx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_doppler_shift</span><span class="p">(</span>
+    <span class="n">f_tx_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">r_ecef_rx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">v_ecef_rx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r_ecef_tx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">v_ecef_tx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the Doppler shift for a signal sent from TX to RX.</span>
-
-<span class="sd">    Formula:</span>
-<span class="sd">        delta_f = - f_tx * (v_rel / c)</span>
-<span class="sd">        where v_rel = dot(r_rel, v_rel_vec) / |r_rel|</span>
-<span class="sd">        r_rel = r_rx - r_tx</span>
-<span class="sd">        v_rel_vec = v_rx - v_tx</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        f_tx_hz (float): Transmitter frequency [Hz].</span>
-<span class="sd">        r_ecef_rx (np.ndarray): Receiver position in ECEF [m], shape (3,).</span>
-<span class="sd">        v_ecef_rx (np.ndarray): Receiver velocity in ECEF [m/s], shape (3,).</span>
-<span class="sd">        r_ecef_tx (np.ndarray): Transmitter position in ECEF [m], shape (3,).</span>
-<span class="sd">        v_ecef_tx (np.ndarray): Transmitter velocity in ECEF [m/s], shape (3,).</span>
+<span class="sd">    Calculate the Doppler shift for a signal sent from transmitter to receiver.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        dict: Containing:</span>
-<span class="sd">            &#39;f_rx_hz&#39; (float): Received frequency [Hz].</span>
-<span class="sd">            &#39;doppler_shift_hz&#39; (float): Doppler shift [Hz].</span>
+<span class="sd">    dict[str, float]</span>
+<span class="sd">        Received frequency and Doppler shift in hertz.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">r_rx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r_ecef_rx</span><span class="p">)</span>
-    <span class="n">v_rx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v_ecef_rx</span><span class="p">)</span>
-    <span class="n">r_tx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r_ecef_tx</span><span class="p">)</span>
-    <span class="n">v_tx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v_ecef_tx</span><span class="p">)</span>
+    <span class="n">r_rx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_ecef_rx</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">v_rx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_ecef_rx</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">r_tx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_ecef_tx</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">v_tx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_ecef_tx</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">r_rx</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">v_rx</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">r_tx</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span> <span class="ow">or</span> <span class="n">v_tx</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Positions and velocities must be vectors of length 3.&quot;</span><span class="p">)</span>
@@ -171,50 +155,32 @@
     <span class="k">if</span> <span class="n">distance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;f_rx_hz&quot;</span><span class="p">:</span> <span class="n">f_tx_hz</span><span class="p">,</span> <span class="s2">&quot;doppler_shift_hz&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
 
-    <span class="n">v_rel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r_rel</span><span class="p">,</span> <span class="n">v_rel_vec</span><span class="p">)</span> <span class="o">/</span> <span class="n">distance</span>  <span class="c1"># range rate</span>
-    <span class="n">doppler_shift_hz</span> <span class="o">=</span> <span class="o">-</span><span class="n">f_tx_hz</span> <span class="o">*</span> <span class="p">(</span><span class="n">v_rel</span> <span class="o">/</span> <span class="n">C</span><span class="p">)</span>
+    <span class="n">range_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r_rel</span><span class="p">,</span> <span class="n">v_rel_vec</span><span class="p">)</span> <span class="o">/</span> <span class="n">distance</span><span class="p">)</span>
+    <span class="n">doppler_shift_hz</span> <span class="o">=</span> <span class="o">-</span><span class="n">f_tx_hz</span> <span class="o">*</span> <span class="p">(</span><span class="n">range_rate</span> <span class="o">/</span> <span class="n">C</span><span class="p">)</span>
     <span class="n">f_rx_hz</span> <span class="o">=</span> <span class="n">f_tx_hz</span> <span class="o">+</span> <span class="n">doppler_shift_hz</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;f_rx_hz&quot;</span><span class="p">:</span> <span class="n">f_rx_hz</span><span class="p">,</span> <span class="s2">&quot;doppler_shift_hz&quot;</span><span class="p">:</span> <span class="n">doppler_shift_hz</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;f_rx_hz&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">f_rx_hz</span><span class="p">),</span>
+        <span class="s2">&quot;doppler_shift_hz&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">doppler_shift_hz</span><span class="p">),</span>
+    <span class="p">}</span></div>
 
 
 
 <div class="viewcode-block" id="calculate_atmospheric_attenuation">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.communications.calculate_atmospheric_attenuation">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_atmospheric_attenuation</span><span class="p">(</span><span class="n">elevation_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates atmospheric attenuation using a simplified cosecant model.</span>
-
-<span class="sd">    Formula:</span>
-<span class="sd">        L_atm = A_zenith / sin(elevation)</span>
-<span class="sd">        where A_zenith is a base attenuation dependent on frequency band.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        elevation_deg (float): Elevation angle [deg].</span>
-<span class="sd">        frequency_hz (float): Frequency [Hz].</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        float: Atmospheric attenuation [dB].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Zenith attenuation by frequency band (ballpark values)</span>
-    <span class="k">if</span> <span class="n">frequency_hz</span> <span class="o">&lt;</span> <span class="mf">3e9</span><span class="p">:</span>  <span class="c1"># S-band</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate atmospheric attenuation using a simplified cosecant model.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">frequency_hz</span> <span class="o">&lt;</span> <span class="mf">3e9</span><span class="p">:</span>
         <span class="n">a_zenith</span> <span class="o">=</span> <span class="mf">0.03</span>
-    <span class="k">elif</span> <span class="n">frequency_hz</span> <span class="o">&lt;</span> <span class="mf">10e9</span><span class="p">:</span>  <span class="c1"># C/X-band</span>
+    <span class="k">elif</span> <span class="n">frequency_hz</span> <span class="o">&lt;</span> <span class="mf">10e9</span><span class="p">:</span>
         <span class="n">a_zenith</span> <span class="o">=</span> <span class="mf">0.05</span>
-    <span class="k">elif</span> <span class="n">frequency_hz</span> <span class="o">&lt;</span> <span class="mf">18e9</span><span class="p">:</span>  <span class="c1"># Ku-band</span>
+    <span class="k">elif</span> <span class="n">frequency_hz</span> <span class="o">&lt;</span> <span class="mf">18e9</span><span class="p">:</span>
         <span class="n">a_zenith</span> <span class="o">=</span> <span class="mf">0.15</span>
-    <span class="k">else</span><span class="p">:</span>  <span class="c1"># Ka-band and above</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">a_zenith</span> <span class="o">=</span> <span class="mf">0.35</span>
 
-    <span class="c1"># Cosecant model valid for elevation &gt; 5 deg; clamp to avoid division singularity</span>
     <span class="n">elevation_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">elevation_deg</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">))</span>
-    <span class="n">l_atm_db</span> <span class="o">=</span> <span class="n">a_zenith</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">elevation_rad</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">l_atm_db</span><span class="p">)</span></div>
-
-
-
-
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">a_zenith</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">elevation_rad</span><span class="p">))</span></div>
 
 </pre></div>
 

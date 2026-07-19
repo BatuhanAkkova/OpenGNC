@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="opengnc.integrators package" href="opengnc.integrators.html" />
-    <link rel="prev" title="opengnc.fdir package" href="opengnc.fdir.html" /> 
+    <link rel="prev" title="opengnc.experimental.interfaces package" href="opengnc.experimental.interfaces.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,15 +59,15 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.edl.html">opengnc.edl package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
@@ -940,6 +940,425 @@ Yamanaka-Ankersen State Transition Matrix (STM).</p>
 </section>
 <section id="module-opengnc.guidance">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-opengnc.guidance" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.apollo_dps_guidance">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">apollo_dps_guidance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t_go</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accel_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/continuous_thrust.html#apollo_dps_guidance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.apollo_dps_guidance" title="Link to this definition"></a></dt>
+<dd><p>E-guidance (Apollo Descent Propulsion System style).</p>
+<p>A polynomial guidance law targeting specific state and acceleration conditions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t_go</strong> (<em>float</em>) – Time-to-go (s).</p></li>
+<li><p><strong>pos</strong> (<em>np.ndarray</em>) – Current position (m).</p></li>
+<li><p><strong>vel</strong> (<em>np.ndarray</em>) – Current velocity (m/s).</p></li>
+<li><p><strong>pos_t</strong> (<em>np.ndarray</em>) – Target position (m).</p></li>
+<li><p><strong>vel_t</strong> (<em>np.ndarray</em>) – Target velocity (m/s).</p></li>
+<li><p><strong>accel_t</strong> (<em>np.ndarray</em>) – Target acceleration (m/s^2).</p></li>
+<li><p><strong>gravity</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Local gravity acceleration (m/s^2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Commanded acceleration vector (m/s^2).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.attitude_blending">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">attitude_blending</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/attitude_guidance.html#attitude_blending"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.attitude_blending" title="Link to this definition"></a></dt>
+<dd><p>SLERP (Spherical Linear Interpolation) between two orientation quaternions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q1</strong> (<em>np.ndarray</em>) – First quaternion [x, y, z, w].</p></li>
+<li><p><strong>q2</strong> (<em>np.ndarray</em>) – Second quaternion [x, y, z, w].</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Blending factor [0, 1].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Blended/interpolated quaternion [x, y, z, w].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.bi_elliptic_transfer">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">bi_elliptic_transfer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">398600.4418</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/maneuvers.html#bi_elliptic_transfer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.bi_elliptic_transfer" title="Link to this definition"></a></dt>
+<dd><p>Calculate Bi-Elliptic transfer $Delta V$ and time.</p>
+<p>More efficient than Hohmann if $r_2/r_1 &gt; 15.58$.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r1</strong> (<em>float</em>) – Initial radius (km).</p></li>
+<li><p><strong>r2</strong> (<em>float</em>) – Final radius (km).</p></li>
+<li><p><strong>rb</strong> (<em>float</em>) – Intermediate apogee radius (km).</p></li>
+<li><p><strong>mu</strong> (<em>float</em><em>, </em><em>optional</em>) – Gravitational parameter ($km^3/s^2$).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(dv1, dv2, dv3, total_time).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[float, float, float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.combined_plane_change">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">combined_plane_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/maneuvers.html#combined_plane_change"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.combined_plane_change" title="Link to this definition"></a></dt>
+<dd><p>Calculate Delta-V for a combined maneuver (velocity magnitude + inclination).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v1</strong> (<em>float</em>) – Initial velocity magnitude (km/s).</p></li>
+<li><p><strong>v2</strong> (<em>float</em>) – Final velocity magnitude (km/s).</p></li>
+<li><p><strong>delta_i</strong> (<em>float</em>) – Plane change angle (radians).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Delta-V required (km/s).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.cw_equations">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">cw_equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/rendezvous.html#cw_equations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.cw_equations" title="Link to this definition"></a></dt>
+<dd><p>Propagate relative state via Clohessy-Wiltshire (CW) equations.</p>
+<p>The CW equations describe the relative motion of a deputy spacecraft
+with respect to a chief spacecraft in a circular orbit.</p>
+<p>The position components are given by:
+$x(t) = (4 - 3cos(nt))x_0 + frac{sin(nt)}{n}dot{x}_0 + frac{2(1-cos(nt))}{n}dot{y}_0$
+$y(t) = 6(sin(nt) - nt)x_0 + y_0 + frac{2(cos(nt)-1)}{n}dot{x}_0 + (frac{4sin(nt)}{n} - 3t)dot{y}_0$
+$z(t) = cos(nt)z_0 + frac{sin(nt)}{n}dot{z}_0$</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r0</strong> (<em>np.ndarray</em>) – Initial relative position [x, y, z] in LVLH frame (km).
+x: Radial, y: Along-track, z: Cross-track.</p></li>
+<li><p><strong>v0</strong> (<em>np.ndarray</em>) – Initial relative velocity [vx, vy, vz] in LVLH frame (km/s).</p></li>
+<li><p><strong>n_mean</strong> (<em>float</em>) – Mean motion of the target orbit (rad/s).</p></li>
+<li><p><strong>time</strong> (<em>float</em>) – Time interval to propagate (s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><dl class="simple">
+<dt>r_t<span class="classifier">np.ndarray</span></dt><dd><p>Relative position at time t (km).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>v_t<span class="classifier">np.ndarray</span></dt><dd><p>Relative velocity at time t (km/s).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.cw_targeting">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">cw_targeting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/rendezvous.html#cw_targeting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.cw_targeting" title="Link to this definition"></a></dt>
+<dd><p>Calculate required initial velocity to reach a target position in time t.</p>
+<p>Uses a two-impulse rendezvous first-burn logic within CW framework.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r0</strong> (<em>np.ndarray</em>) – Initial relative position [x, y, z] (km).</p></li>
+<li><p><strong>r_target</strong> (<em>np.ndarray</em>) – Target relative position at time t [x, y, z] (km).</p></li>
+<li><p><strong>time</strong> (<em>float</em>) – Transfer time (s).</p></li>
+<li><p><strong>n_mean</strong> (<em>float</em>) – Mean motion of target orbit (rad/s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Required initial relative velocity v0 (km/s).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.eigenaxis_slew_path_planning">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">eigenaxis_slew_path_planning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_initial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_final</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_span</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/attitude_guidance.html#eigenaxis_slew_path_planning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.eigenaxis_slew_path_planning" title="Link to this definition"></a></dt>
+<dd><p>Generate an eigenaxis slew profile using Spherical Linear Interpolation (SLERP).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q_initial</strong> (<em>np.ndarray</em>) – Initial quaternion [x, y, z, w].</p></li>
+<li><p><strong>q_final</strong> (<em>np.ndarray</em>) – Final quaternion [x, y, z, w].</p></li>
+<li><p><strong>time_span</strong> (<em>np.ndarray</em>) – Normalized time values [0, 1] (N,).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of interpolated quaternions along the path.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.gravity_turn_guidance">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">gravity_turn_guidance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accel_mag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'descent'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/continuous_thrust.html#gravity_turn_guidance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.gravity_turn_guidance" title="Link to this definition"></a></dt>
+<dd><p>Gravity turn steering law.</p>
+<p>Thrust is aligned with the velocity vector to minimize gravity losses and
+pointing errors during ascent or descent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vel</strong> (<em>np.ndarray</em>) – Current velocity vector (m/s).</p></li>
+<li><p><strong>accel_mag</strong> (<em>float</em>) – Thrust acceleration magnitude to apply (m/s^2).</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – ‘descent’ (anti-parallel to vel) or ‘ascent’ (parallel to vel).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Thrust acceleration vector (m/s^2).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.hohmann_transfer">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">hohmann_transfer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">398600.4418</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/maneuvers.html#hohmann_transfer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.hohmann_transfer" title="Link to this definition"></a></dt>
+<dd><p>Calculate Hohmann transfer $Delta V$ and time of flight.</p>
+<p>Equations:
+- $Delta V_1 = sqrt{frac{mu}{r_1}} left( sqrt{frac{2r_2}{r_1+r_2}} - 1 right)$
+- $Delta V_2 = sqrt{frac{mu}{r_2}} left( 1 - sqrt{frac{2r_1}{r_1+r_2}} right)$
+- $t_{trans} = pi sqrt{frac{(r_1+r_2)^3}{8mu}}$</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r1</strong> (<em>float</em>) – Initial circular radius (km).</p></li>
+<li><p><strong>r2</strong> (<em>float</em>) – Final circular radius (km).</p></li>
+<li><p><strong>mu</strong> (<em>float</em><em>, </em><em>optional</em>) – Gravitational parameter ($km^3/s^2$). Default Earth.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(dv1, dv2, time_of_flight) in km/s and s.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[float, float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.nadir_pointing_reference">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">nadir_pointing_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_eci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel_eci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/attitude_guidance.html#nadir_pointing_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.nadir_pointing_reference" title="Link to this definition"></a></dt>
+<dd><p>Generate a reference quaternion for Nadir pointing.</p>
+<p>The target frame is defined as:
+- Z-axis: Points towards Earth center (Nadir).
+- Y-axis: Aligned with the negative of the orbit normal.
+- X-axis: Completes the right-handed frame (approximately velocity direction).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_eci</strong> (<em>np.ndarray</em>) – ECI position vector [m] (3,).</p></li>
+<li><p><strong>vel_eci</strong> (<em>np.ndarray</em>) – ECI velocity vector [m/s] (3,).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reference quaternion [x, y, z, w].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.phasing_maneuver">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">phasing_maneuver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">398600.4418</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/maneuvers.html#phasing_maneuver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.phasing_maneuver" title="Link to this definition"></a></dt>
+<dd><p>Calculate Delta-V required for an orbital phasing maneuver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – Semi-major axis of the current circular orbit (km).</p></li>
+<li><p><strong>t_phase</strong> (<em>float</em>) – Desired time difference to generate (s).
+Positive to wait (increase period), negative to catch up.</p></li>
+<li><p><strong>mu</strong> (<em>float</em><em>, </em><em>optional</em>) – Gravitational parameter (km^3/s^2).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>total_dv: Total Delta-V (entry + exit) (km/s).</p></li>
+<li><p>t_wait: Duration of the phasing orbit (s).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.plane_change">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">plane_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v_mag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/maneuvers.html#plane_change"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.plane_change" title="Link to this definition"></a></dt>
+<dd><p>Calculate Delta-V for a simple inclination plane change maneuver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v_mag</strong> (<em>float</em>) – Current velocity magnitude (km/s).</p></li>
+<li><p><strong>delta_i</strong> (<em>float</em>) – Plane change angle (radians).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Delta-V required (km/s).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.q_law_guidance">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">q_law_guidance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r_eci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_eci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_oe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accel_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/continuous_thrust.html#q_law_guidance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.q_law_guidance" title="Link to this definition"></a></dt>
+<dd><p>Lyapunov-based Q-law guidance for low-thrust orbit transfers.</p>
+<p>Targets the primary Keplerian elements $[a, e, i, Omega, omega]$ by
+minimizing a Lyapunov function based on proximity to target elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r_eci</strong> (<em>np.ndarray</em>) – Position vector in ECI frame [m] (3,).</p></li>
+<li><p><strong>v_eci</strong> (<em>np.ndarray</em>) – Velocity vector in ECI frame [m/s] (3,).</p></li>
+<li><p><strong>target_oe</strong> (<em>np.ndarray</em>) – Target Keplerian elements $[a, e, i, Omega, omega]$ (5,).
+Units should be consistent (m for semi-major axis, rad for angles).</p></li>
+<li><p><strong>mu</strong> (<em>float</em>) – Gravitational parameter (m^3/s^2).</p></li>
+<li><p><strong>accel_max</strong> (<em>float</em>) – Maximum thrust acceleration magnitude available (m/s^2).</p></li>
+<li><p><strong>weights</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Weights for each orbital element in the Q function (5,).
+If None, default weights are applied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optimal thrust acceleration vector in ECI frame (m/s^2).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.solve_lambert">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">solve_lambert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">398600.4418</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/rendezvous.html#solve_lambert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.solve_lambert" title="Link to this definition"></a></dt>
+<dd><p>Solve Lambert’s problem using a Universal Variable formulation.</p>
+<p>Finds the required velocities at the initial and final positions for a
+given time of flight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r1</strong> (<em>np.ndarray</em>) – Initial position vector (km).</p></li>
+<li><p><strong>r2</strong> (<em>np.ndarray</em>) – Final position vector (km).</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time of flight (s).</p></li>
+<li><p><strong>mu</strong> (<em>float</em><em>, </em><em>optional</em>) – Gravitational parameter (km^3/s^2). Default is Earth.</p></li>
+<li><p><strong>tm</strong> (<em>int</em><em>, </em><em>optional</em>) – Transfer mode (+1 for short way, -1 for long way). Default is +1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>v1: Velocity vector at r1 (km/s).</p></li>
+<li><p>v2: Velocity vector at r2 (km/s).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the transfer angle is 180 degrees (singularity).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.sun_pointing_reference">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">sun_pointing_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sun_vec_eci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/attitude_guidance.html#sun_pointing_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.sun_pointing_reference" title="Link to this definition"></a></dt>
+<dd><p>Generate a reference quaternion for Sun pointing.</p>
+<p>Primary objective is to align the spacecraft body X-axis with the Sun vector.
+Secondary objective is to minimize rotation about the Sun vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sun_vec_eci</strong> (<em>np.ndarray</em>) – ECI Sun direction vector (3,).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reference quaternion [x, y, z, w].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.target_tracking_reference">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">target_tracking_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_eci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_pos_eci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/attitude_guidance.html#target_tracking_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.target_tracking_reference" title="Link to this definition"></a></dt>
+<dd><p>Generate a reference quaternion to track a target position.</p>
+<p>The target frame is defined with the Z-axis aligned with the boresight (towards target).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_eci</strong> (<em>np.ndarray</em>) – ECI position vector of the spacecraft [m] (3,).</p></li>
+<li><p><strong>target_pos_eci</strong> (<em>np.ndarray</em>) – ECI position vector of the target [m] (3,).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reference quaternion [x, y, z, w].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="opengnc.guidance.zem_zev_guidance">
+<span class="sig-prename descclassname"><span class="pre">opengnc.guidance.</span></span><span class="sig-name descname"><span class="pre">zem_zev_guidance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_go</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gravity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/guidance/continuous_thrust.html#zem_zev_guidance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.guidance.zem_zev_guidance" title="Link to this definition"></a></dt>
+<dd><p>Zero-Effort Miss (ZEM) and Zero-Effort Velocity (ZEV) feedback guidance.</p>
+<p>Commonly used for terminal intercept, rendezvous, or planetary landing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>np.ndarray</em>) – Current position vector (m).</p></li>
+<li><p><strong>vel</strong> (<em>np.ndarray</em>) – Current velocity vector (m/s).</p></li>
+<li><p><strong>pos_target</strong> (<em>np.ndarray</em>) – Target position vector (m).</p></li>
+<li><p><strong>vel_target</strong> (<em>np.ndarray</em>) – Target velocity vector (m/s).</p></li>
+<li><p><strong>t_go</strong> (<em>float</em>) – Time-to-go until intercept or landing (s).</p></li>
+<li><p><strong>gravity</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Local gravity acceleration vector (m/s^2). Default is zero.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Commanded acceleration vector (m/s^2).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -947,7 +1366,7 @@ Yamanaka-Ankersen State Transition Matrix (STM).</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opengnc.fdir.html" class="btn btn-neutral float-left" title="opengnc.fdir package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opengnc.experimental.interfaces.html" class="btn btn-neutral float-left" title="opengnc.experimental.interfaces package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="opengnc.integrators.html" class="btn btn-neutral float-right" title="opengnc.integrators package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

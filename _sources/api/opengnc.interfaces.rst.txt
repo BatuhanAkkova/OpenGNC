@@ -8,7 +8,6 @@ Subpackages
    :maxdepth: 4
 
    opengnc.interfaces.ccsds
-   opengnc.interfaces.gmat
    opengnc.interfaces.spice
 
 Submodules

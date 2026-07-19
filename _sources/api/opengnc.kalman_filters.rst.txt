@@ -12,6 +12,14 @@ opengnc.kalman\_filters.akf module
    :show-inheritance:
    :undoc-members:
 
+opengnc.kalman\_filters.attitude\_fusion module
+-----------------------------------------------
+
+.. automodule:: opengnc.kalman_filters.attitude_fusion
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 opengnc.kalman\_filters.ckf module
 ----------------------------------
 

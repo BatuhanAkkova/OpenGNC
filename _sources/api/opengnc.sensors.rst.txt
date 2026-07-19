@@ -20,6 +20,14 @@ opengnc.sensors.camera module
    :show-inheritance:
    :undoc-members:
 
+opengnc.sensors.factory module
+------------------------------
+
+.. automodule:: opengnc.sensors.factory
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 opengnc.sensors.gnss\_receiver module
 -------------------------------------
 
