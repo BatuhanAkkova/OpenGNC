@@ -9,7 +9,7 @@ This roadmap outlines the strategic development of **OpenGNC** to provide a high
 ## Strategic Objectives
 
 1.  **High-Fidelity Transparency**: Every algorithm and environment model must be fully documented and traceable to published aerospace standards.
-2.  **Mission Lifecycle Coverage**: Support a seamless path from fundamental research and conceptual design to embedded flight code and mission operations.
+2.  **Mission Lifecycle Coverage**: Support a seamless path from fundamental research and conceptual design to embedded flight code, while keeping the core package centered on spacecraft GNC.
 3.  **Performance & Portability**: Prioritize C++ acceleration, SIMD-optimized state management, and thread-safe, lock-free communication for high-performance computing.
 4.  **Autonomous Intelligence**: Integrate modern AI/ML methods for automated state estimation, decision-making, and fault isolation.
 
@@ -23,7 +23,7 @@ This roadmap outlines the strategic development of **OpenGNC** to provide a high
 - [x] **High-Fidelity Environment**: Integrated IGRF-13 magnetic fields and NRLMSISE-00 atmospheric density models.
 - [x] **Advanced Propagators**: Cowell’s Method, Keplerian elements, and Gauss-Variational Equations (GVE).
 - [x] **Professionality**: Established CI/CD pipeline, automated formatting, and performance benchmarking suite.
-- [x] **Interoperability**: Standardized interfaces for external tools like GMAT, Orekit, and STK (SPICE kernels).
+- [x] **Interoperability**: Standardized interfaces for external tools like STK/SPICE, with broader integrations staged behind optional namespaces until they are production-ready.
 
 ### Phase 2: Autonomy, AI & Advanced Research (Later)
 *Integrating modern control and state estimation techniques for autonomous missions.*
@@ -40,7 +40,7 @@ This roadmap outlines the strategic development of **OpenGNC** to provide a high
 
 ### Phase 4: Mission Operations & Space Situational Awareness
 *Supporting the platform in active operations and orbital safety.*
-- [x] **Ground Station Ops**: CCSDS packet parsing (Primary Header + CUC), de-commutation toolkits, and Real-time Plotting Dashboards.
+- [x] **Ground Station Ops**: CCSDS packet parsing (Primary Header + CUC), de-commutation toolkits, and real-time plotting dashboards via optional operational namespaces.
 - [x] **SSA/SDA**: Conjunction Assessment (CAT), TLE maintenance, and automated collision avoidance planning (CAM Optimization).
 - [x] **Mission Control API**: Specialized FastAPI/WebSocket interface for live telemetry monitoring and commanding.
 

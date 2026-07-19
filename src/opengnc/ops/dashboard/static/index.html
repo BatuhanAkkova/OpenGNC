@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenGNC - Mission Control Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <div class="logo">
+                <span class="highlight">OPEN</span>GNC
+            </div>
+            <div class="mission-info">
+                <span class="label">MISSION:</span> <span class="value">HORIZON-1</span>
+                <span class="label">STATUS:</span> <span class="value status-ok">OPERATIONAL</span>
+            </div>
+            <div class="time-container">
+                <span id="utc-time">00:00:00 UTC</span>
+            </div>
+        </header>
+
+        <main>
+            <section class="left-panel">
+                <div class="card telemetry-card">
+                    <h3>State Estimation</h3>
+                    <div class="grid-2">
+                        <div class="param">
+                            <label>Altitude</label>
+                            <span id="alt-val" class="value">---</span> <span class="unit">km</span>
+                        </div>
+                        <div class="param">
+                            <label>Velocity</label>
+                            <span id="vel-val" class="value">---</span> <span class="unit">km/s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card telemetry-card">
+                    <h3>Attitude (Quaternions)</h3>
+                    <div class="grid-4">
+                        <div class="param"><label>q0</label><span id="q0-val" class="value">---</span></div>
+                        <div class="param"><label>q1</label><span id="q1-val" class="value">---</span></div>
+                        <div class="param"><label>q2</label><span id="q2-val" class="value">---</span></div>
+                        <div class="param"><label>q3</label><span id="q3-val" class="value">---</span></div>
+                    </div>
+                </div>
+
+                <div class="card alert-card" id="pc-card">
+                    <h3>SSA Assessment</h3>
+                    <div class="pc-indicator">
+                        <label>Prob. Collision (Pc)</label>
+                        <span id="pc-val" class="value">0.000E-0</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="center-panel">
+                <div class="card map-card">
+                    <div id="map"></div>
+                </div>
+            </section>
+
+            <section class="right-panel">
+                <div class="card system-card">
+                    <h3>Subsystems</h3>
+                    <div class="subsystem">
+                        <span>OBDH</span> <div class="led led-on"></div>
+                    </div>
+                    <div class="subsystem">
+                        <span>EPS</span> <div class="led led-on"></div>
+                    </div>
+                    <div class="subsystem">
+                        <span>ADCS</span> <div class="led led-on"></div>
+                    </div>
+                    <div class="subsystem">
+                        <span>COMMS</span> <div class="led led-pulse"></div>
+                    </div>
+                </div>
+
+                <div class="card command-card">
+                    <h3>Command Console</h3>
+                    <div class="console-output" id="console">
+                        [INIT] Ground System Online...<br>
+                        [WS] Connecting to Satellite...
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="cmd-input" placeholder="Enter command...">
+                        <button id="send-btn">SEND</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

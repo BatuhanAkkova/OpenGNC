@@ -55,12 +55,9 @@
 ### Mission Design
 - **SSA (Space Situational Awareness)**: Conjunction Assessment (CAT), Maneuver Detection, and TLE interface.
 - **Mission Design**: $\Delta v$ Budgeting, Communication Link Budgets, and Ground Station Coverage tools.
-- **EDL (Entry, Descent, Landing)**: Ballistic & Lifting entry dynamics, heating models, and Aerocapture guidance.
-- **Ground Segment**: CCSDS packet formatting, decommutation, and telemetry data-link layers.
 
 ### Visualization & Analysis
 - **3D Trajectories**: Interactive Plotly-based orbital trajectory and attitude visualization.
-- **Telemetry Dashboards**: Web-based GNC dashboards using Dash for real-time like simulation monitoring.
 - **Coordinate Frames**: Visualizers for ECI, ECEF, Hill (RSW), and Body frame transformations.
 
 ### Real-Time Performance & Determinism
@@ -85,6 +82,16 @@ pip install opengnc
 #### With MPC support (Optional)
 ```bash
 pip install "opengnc[mpc]"
+```
+
+#### With Interoperability Support (Optional)
+```bash
+pip install "opengnc[interop]"
+```
+
+#### With Operational Tools (Optional)
+```bash
+pip install "opengnc[ops]"
 ```
 
 ### From Source (Development)
@@ -125,6 +132,14 @@ The fusion layer depends only on `SensorMeasurement`, not on any specific concre
 
 Use `opengnc.sensors.load_sensor_suite(...)` with JSON or YAML to select sensors without editing Python source.
 An example config is provided at `examples/configs/attitude_sensor_suite.yaml`.
+
+## Optional Namespaces
+
+The default `opengnc` install is centered on spacecraft GNC, simulation, and mission analysis.
+
+- Operational tooling now lives under `opengnc.ops`, including dashboard and ground-segment helpers.
+- Experimental modules now live under `opengnc.experimental`, including EDL and GMAT integration.
+- Legacy imports remain available for compatibility and emit deprecation warnings.
 
 ---
 

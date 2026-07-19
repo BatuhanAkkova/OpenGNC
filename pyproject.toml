@@ -18,7 +18,6 @@ dependencies = [
     "pymsis>=0.6.0",
     "ppigrf>=0.1.0",
     "pandas>=1.3.0",
-    "dash>=2.0.0",
     "numba>=0.56.0",
 ]
 
@@ -39,6 +38,17 @@ all = [
 mpc = [
     "casadi>=3.6.0",
 ]
+interop = [
+    "jplephem>=2.17",
+    "spiceypy>=5.0.0",
+]
+ops = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
+]
+experimental = [
+    "gmatpy",
+]
 dev = [
     "pytest",
     "pytest-mock",
@@ -52,7 +62,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-opengnc = ["*.csv"]
+opengnc = ["*.csv", "dashboard/static/*", "ops/dashboard/static/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

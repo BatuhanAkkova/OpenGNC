@@ -1,25 +1,37 @@
 import os
 import shutil
 import subprocess
+from pathlib import Path
 
-def build():
-    # 1. Skip tutorial copying as they are already in docs/tutorials/
+
+EXCLUDED_API_PATHS = [
+    "dashboard",
+    "edl",
+    "ground_segment",
+    "interfaces/gmat",
+]
+
+
+def build() -> None:
+    docs_dir = Path.cwd()
+    src_dir = (docs_dir.parent / "src" / "opengnc").resolve()
+    api_dir = docs_dir / "api"
+
     print("Detected tutorials directory in docs, skipping copy step...")
-    
-    # 2. Run sphinx-apidoc to generate API structure
+
+    if api_dir.exists():
+        shutil.rmtree(api_dir)
+
     print("Running sphinx-apidoc...")
-    subprocess.run(["sphinx-apidoc", "-o", "api", os.path.abspath("../src/opengnc"), "-f"], check=True)
-    
-    # 3. Run sphinx-build to generate HTML output
+    cmd = ["sphinx-apidoc", "-f", "-o", str(api_dir), str(src_dir)]
+    cmd.extend(str(src_dir / rel_path) for rel_path in EXCLUDED_API_PATHS)
+    subprocess.run(cmd, check=True)
+
     print("Running sphinx-build...")
-    subprocess.run(["sphinx-build", "-b", "html", ".", "_build/html"], check=True)
+    subprocess.run(["sphinx-build", "-W", "--keep-going", ".", "_build/html"], check=True)
     print("Build completed successfully!")
 
+
 if __name__ == "__main__":
-    # Ensure working directory is the docs folder
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     build()
-
-
-
-

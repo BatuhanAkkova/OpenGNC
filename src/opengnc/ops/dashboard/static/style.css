@@ -1,0 +1,212 @@
+:root {
+    --bg-color: #0b0e14;
+    --card-bg: rgba(20, 25, 35, 0.8);
+    --border-color: rgba(60, 80, 110, 0.3);
+    --accent-blue: #00d2ff;
+    --accent-glow: #00d4ff80;
+    --text-color: #e0e6ed;
+    --text-muted: #94a3b8;
+    --ok-color: #10b981;
+    --alert-color: #ef4444;
+    --font-main: 'Outfit', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+    --font-display: 'Orbitron', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.05), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05), transparent 40%);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    overflow: hidden;
+    height: 100vh;
+}
+
+.glass-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.highlight {
+    color: var(--accent-blue);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.mission-info .label {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.mission-info .value {
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.status-ok { color: var(--ok-color); }
+
+main {
+    display: grid;
+    grid-template-columns: 320px 1fr 320px;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+
+.param label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.param .value {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: #fff;
+}
+
+.param .unit {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.pc-indicator {
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.1);
+    text-align: center;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.pc-indicator .value {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    color: var(--alert-color);
+}
+
+.map-card {
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    background: #000;
+}
+
+.subsystem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.led-on { background: var(--ok-color); box-shadow: 0 0 5px var(--ok-color); }
+.led-pulse { 
+    background: var(--accent-blue); 
+    box-shadow: 0 0 5px var(--accent-blue); 
+    animation: pulse 1.5s infinite; 
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+.console-output {
+    background: rgba(0, 0, 0, 0.3);
+    height: 300px;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    overflow-y: auto;
+    color: #a5f3fc;
+    border: 1px solid var(--border-color);
+}
+
+.input-group {
+    display: flex;
+    margin-top: 10px;
+}
+
+input {
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 4px 0 0 4px;
+    padding: 8px;
+    color: #fff;
+    font-family: var(--font-mono);
+}
+
+button {
+    background: var(--accent-blue);
+    border: none;
+    border-radius: 0 4px 4px 0;
+    padding: 0 15px;
+    color: var(--bg-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Leaflet Overrides */
+.leaflet-container { background: #000 !important; }
+.leaflet-bar a { background-color: var(--card-bg) !important; color: white !important; border-color: var(--border-color) !important; }
