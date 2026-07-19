@@ -54,6 +54,7 @@ mathjax_config = {
 master_doc = "index"
 templates_path = ["_templates"]
 html_theme = "sphinx_rtd_theme"
+(Path(__file__).resolve().parent / "_static").mkdir(exist_ok=True)
 html_static_path = ["_static"]
 suppress_warnings = [
     "mystnb.unknown_mime_type",
