@@ -51,8 +51,8 @@ def run_example():
     v_sun_body_true = quat_rot(q_inv, v_sun_eci)
     v_mag_body_true = quat_rot(q_inv, v_mag_eci)
     
-    v_sun_meas = sun_sensor.measure(v_sun_body_true)
-    v_mag_meas = mag_sensor.measure(v_mag_body_true)
+    v_sun_meas = sun_sensor.measure(v_sun_body_true).value
+    v_mag_meas = mag_sensor.measure(v_mag_body_true).value
     
     body_vectors = [v_sun_meas, v_mag_meas]
     

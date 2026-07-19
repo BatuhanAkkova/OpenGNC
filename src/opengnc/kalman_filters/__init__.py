@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from .akf import AKF
+from .attitude_fusion import AttitudeSensorFusion
 from .ckf import CKF
 from .ekf import EKF
 from .enkf import EnKF
@@ -47,6 +48,7 @@ except ImportError:
 __all__ = [
     "ACCELERATION_AVAILABLE",
     "AKF",
+    "AttitudeSensorFusion",
     "CKF",
     "EKF",
     "IMM",

@@ -1,6 +1,4 @@
-"""
-Star Tracker sensor model.
-"""
+"""Star tracker sensor model."""
 
 from __future__ import annotations
 
@@ -8,56 +6,30 @@ from typing import Any
 
 import numpy as np
 
-from opengnc.sensors.sensor import Sensor
-from opengnc.utils.quat_utils import quat_mult
+from opengnc.sensors.sensor import Sensor, SensorMeasurement
+from opengnc.utils.quat_utils import quat_mult, quat_normalize
 
 
 class StarTracker(Sensor):
-    """
-    Star Tracker Attitude Sensor.
+    """Star tracker attitude sensor."""
 
-    Measures the attitude quaternion [x, y, z, w].
-
-    Parameters
-    ----------
-    noise_std : float, optional
-        Standard deviation of noise (rad). Default 0.0.
-    bias : np.ndarray | None, optional
-        Constant bias rotation vector (rad).
-    name : str, optional
-        Sensor name. Default "StarTracker".
-    """
+    quantity = "attitude_quaternion"
+    units = "quaternion"
+    frame = "body_to_inertial"
 
     def __init__(self, noise_std: float = 0.0, bias: np.ndarray | None = None, name: str = "StarTracker") -> None:
-        """Initialize star tracker."""
         super().__init__(name)
         self.noise_std = noise_std
-        self.bias = np.asarray(bias) if bias is not None else np.zeros(3)
+        self.bias = np.asarray(bias, dtype=float) if bias is not None else np.zeros(3)
 
-    def measure(self, true_quat: np.ndarray | None = None, *args: Any, **kwargs: Any) -> np.ndarray:
-        """
-        Simulate attitude measurement with error quaternion.
-
-        Parameters
-        ----------
-        true_quat : np.ndarray
-            True attitude quaternion [x, y, z, w].
-        **kwargs : Any
-            Additional parameters.
-
-        Returns
-        -------
-        np.ndarray
-            Measured quaternion [x, y, z, w].
-        """
+    def measure(self, true_quat: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
         if true_quat is None:
             if not args:
                 raise ValueError("true_quat is required.")
             true_quat = np.asarray(args[0])
-        tq = np.asarray(true_quat)
+        true_quaternion = quat_normalize(np.asarray(true_quat, dtype=float))
         noise = np.random.normal(0, self.noise_std, 3)
         error_vec = self.bias + noise
-
         angle = np.linalg.norm(error_vec)
         if angle > 1e-8:
             axis = error_vec / angle
@@ -65,18 +37,13 @@ class StarTracker(Sensor):
                 axis[0] * np.sin(angle / 2),
                 axis[1] * np.sin(angle / 2),
                 axis[2] * np.sin(angle / 2),
-                np.cos(angle / 2)
+                np.cos(angle / 2),
             ])
         else:
             q_err = np.array([0.0, 0.0, 0.0, 1.0])
+        q_meas = quat_normalize(np.asarray(self.apply_faults(quat_mult(true_quaternion, q_err)), dtype=float))
+        covariance = np.eye(3) * float(self.noise_std**2)
+        return self.build_measurement(q_meas, covariance=covariance, metadata={"error_parameterization": "small_angle_vector"})
 
-        q_meas = quat_mult(tq, q_err)
-        q_meas = q_meas / np.linalg.norm(q_meas)
-
-        # Apply faults from base class
-        q_meas = np.asarray(self.apply_faults(q_meas), dtype=float)
-        return np.asarray(q_meas / np.linalg.norm(q_meas), dtype=float)
-
-
-
-
+    def measurement_noise_std(self) -> np.ndarray:
+        return np.full(3, float(self.noise_std), dtype=float)

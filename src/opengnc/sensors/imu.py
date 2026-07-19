@@ -1,6 +1,4 @@
-"""
-Inertial Measurement Unit (IMU) with Accelerometer and Gyroscope.
-"""
+"""Inertial Measurement Unit (IMU) with accelerometer and gyroscope channels."""
 
 from __future__ import annotations
 
@@ -9,26 +7,15 @@ from typing import Any
 import numpy as np
 
 from opengnc.sensors.gyroscope import Gyroscope
-from opengnc.sensors.sensor import Sensor
+from opengnc.sensors.sensor import Sensor, SensorMeasurement
 
 
 class Accelerometer(Sensor):
-    """
-    Accelerometer sensor model.
+    """Accelerometer sensor model."""
 
-    Measures non-gravitational acceleration: a_meas = a_true + bias + noise.
-
-    Parameters
-    ----------
-    noise_std : float, optional
-        Standard deviation of measurement noise (m/s^2). Default is 0.0.
-    bias : np.ndarray, optional
-        Constant bias vector (m/s^2). Default is zero vector.
-    scale_factor : float, optional
-        Scale factor error (1.0 = no error). Default is 1.0.
-    name : str, optional
-        Sensor name. Default is "Accelerometer".
-    """
+    quantity = "specific_force"
+    units = "m/s^2"
+    frame = "body"
 
     def __init__(
         self,
@@ -37,68 +24,27 @@ class Accelerometer(Sensor):
         scale_factor: float = 1.0,
         name: str = "Accelerometer",
     ) -> None:
-        """
-        Initialize accelerometer parameters.
-
-        Parameters
-        ----------
-        noise_std : float, optional
-            Standard deviation of Gaussian noise ($m/s^2$). Default 0.0.
-        bias : np.ndarray | None, optional
-            Constant bias vector ($m/s^2$).
-        scale_factor : float, optional
-            Scale factor error. Default 1.0.
-        name : str, optional
-            Sensor name. Default "Accelerometer".
-        """
         super().__init__(name)
         self.noise_std = noise_std
-        self.bias = np.asarray(bias) if bias is not None else np.zeros(3)
+        self.bias = np.asarray(bias, dtype=float) if bias is not None else np.zeros(3)
         self.scale_factor = scale_factor
 
-    def measure(
-        self, true_accel: np.ndarray | None = None, *args: Any, **kwargs: Any
-    ) -> np.ndarray:
-        r"""
-        Generate acceleration measurement.
-
-        Equation:
-        $\mathbf{a}_{meas} = S \mathbf{a}_{true} + \mathbf{b} + \mathbf{\eta}$
-
-        Parameters
-        ----------
-        true_accel : np.ndarray
-            True non-gravitational acceleration ($m/s^2$).
-        **kwargs : Any
-            Additional parameters.
-
-        Returns
-        -------
-        np.ndarray
-            Measured acceleration vector ($m/s^2$).
-        """
+    def measure(self, true_accel: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
         if true_accel is None:
             if not args:
                 raise ValueError("true_accel is required.")
             true_accel = np.asarray(args[0])
         noise = np.random.normal(0, self.noise_std, 3)
         measured_accel = self.scale_factor * np.asarray(true_accel) + self.bias + noise
-        return measured_accel
+        return self.build_measurement(measured_accel)
 
 
 class IMU(Sensor):
-    """
-    Inertial Measurement Unit (IMU) combining Gyroscope and Accelerometer.
+    """IMU combining gyroscope and accelerometer channels."""
 
-    Parameters
-    ----------
-    gyro_params : dict, optional
-        Parameters for Gyroscope initialization.
-    accel_params : dict, optional
-        Parameters for Accelerometer initialization.
-    name : str, optional
-        Sensor name. Default is "IMU".
-    """
+    quantity = "imu"
+    units = ("rad/s", "m/s^2")
+    frame = "body"
 
     def __init__(
         self,
@@ -107,36 +53,16 @@ class IMU(Sensor):
         name: str = "IMU",
     ) -> None:
         super().__init__(name)
-        gyro_p = gyro_params if gyro_params is not None else {}
-        accel_p = accel_params if accel_params is not None else {}
-
-        self.gyro = Gyroscope(**gyro_p)
-        self.accel = Accelerometer(**accel_p)
+        self.gyro = Gyroscope(**(gyro_params or {}))
+        self.accel = Accelerometer(**(accel_params or {}))
 
     def measure(
         self,
         true_omega: np.ndarray | None = None,
         true_accel: np.ndarray | None = None,
         *args: Any,
-        **kwargs: Any
-    ) -> tuple[np.ndarray, np.ndarray]:
-        """
-        Generate dual IMU measurements.
-
-        Parameters
-        ----------
-        true_omega : np.ndarray
-            True angular velocity (rad/s).
-        true_accel : np.ndarray
-            True non-gravitational acceleration ($m/s^2$).
-        **kwargs : Any
-            Additional parameters.
-
-        Returns
-        -------
-        tuple[np.ndarray, np.ndarray]
-            (measured_omega, measured_accel).
-        """
+        **kwargs: Any,
+    ) -> SensorMeasurement:
         if true_omega is None:
             if not args:
                 raise ValueError("true_omega is required.")
@@ -145,10 +71,14 @@ class IMU(Sensor):
             if len(args) < 2:
                 raise ValueError("true_accel is required.")
             true_accel = np.asarray(args[1])
-        meas_omega = self.gyro.measure(true_omega, **kwargs)
-        meas_accel = self.accel.measure(true_accel, **kwargs)
-        return meas_omega, meas_accel
+        gyro_packet = self.gyro.measure(true_omega, **kwargs)
+        accel_packet = self.accel.measure(true_accel, **kwargs)
+        covariance = np.block([
+            [gyro_packet.covariance, np.zeros((3, 3))],
+            [np.zeros((3, 3)), accel_packet.covariance],
+        ])
+        value = np.concatenate([gyro_packet.value, accel_packet.value])
+        return self.build_measurement(value, covariance=covariance, metadata={"components": ["angular_rate", "specific_force"]})
 
-
-
-
+    def measurement_noise_std(self) -> np.ndarray:
+        return np.concatenate([self.gyro.measurement_noise_std(), self.accel.measurement_noise_std()])

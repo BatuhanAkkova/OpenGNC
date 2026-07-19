@@ -135,7 +135,7 @@ def simulation():
         q_inv = quat_conj(q_curr) # ECI -> Body
         
         b_body_true = quat_rot(q_inv, b_eci_true)
-        b_body_meas = mag_sensor.measure(b_body_true)
+        b_body_meas = mag_sensor.measure(b_body_true).value
         
         # Control
         if b_body_prev is None:

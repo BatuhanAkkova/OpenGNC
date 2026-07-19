@@ -27,30 +27,30 @@ class TestSensors:
     def test_star_tracker(self):
         st = StarTracker(noise_std=0.0, bias=np.array([0.1, 0, 0]))
         true_quat = np.array([0.0, 0.0, 0.0, 1.0]) # [x, y, z, w]
-        measured = st.measure(true_quat)
+        measured = st.measure(true_quat).value
         
         assert not np.allclose(measured, true_quat)
         assert measured[0] > 0
         
         st_noisy = StarTracker(noise_std=0.01)
-        m1 = st_noisy.measure(true_quat)
-        m2 = st_noisy.measure(true_quat)
+        m1 = st_noisy.measure(true_quat).value
+        m2 = st_noisy.measure(true_quat).value
         assert not np.allclose(m1, m2)
 
     def test_sun_sensor(self):
         ss = SunSensor(noise_std=0.0)
         vec = np.array([1.0, 0.0, 0.0])
-        meas = ss.measure(vec)
+        meas = ss.measure(vec).value
         assert np.allclose(meas, vec)
         
         ss_noisy = SunSensor(noise_std=0.1)
-        meas_noisy = ss_noisy.measure(vec)
+        meas_noisy = ss_noisy.measure(vec).value
         assert np.isclose(np.linalg.norm(meas_noisy), 1.0)
 
     def test_magnetometer(self):
         mag = Magnetometer(bias=np.array([1e-6, 0, 0]))
         true_b = np.array([20e-6, 0, 0])
-        meas = mag.measure(true_b)
+        meas = mag.measure(true_b).value
         assert np.allclose(meas, np.array([21e-6, 0, 0]))
 
     def test_gyroscope(self):
@@ -58,7 +58,7 @@ class TestSensors:
         w_true = np.zeros(3)
         
         b0 = gyro.current_bias.copy()
-        m1 = gyro.measure(w_true)
+        m1 = gyro.measure(w_true).value
         b1 = gyro.current_bias.copy()
         
         assert not np.allclose(b0, b1)
@@ -69,56 +69,59 @@ class TestSensors:
                              pos_bias=np.array([1, 2, 3]))
         r_true = np.array([7000e3, 0, 0])
         v_true = np.array([0, 7.5e3, 0])
-        r_meas, v_meas = gnss.measure(r_true, v_true)
+        gnss_packet = gnss.measure(r_true, v_true)
+        r_meas, v_meas = gnss_packet.value[:3], gnss_packet.value[3:]
         assert np.allclose(r_meas, r_true + np.array([1, 2, 3]))
         assert np.allclose(v_meas, v_true)
 
     def test_accelerometer(self):
         acc = Accelerometer(noise_std=0.0, bias=np.array([0.1, 0, 0]), scale_factor=1.1)
         a_true = np.array([1.0, 0.0, 0.0])
-        a_meas = acc.measure(a_true)
+        a_meas = acc.measure(a_true).value
         assert np.isclose(a_meas[0], 1.2)
 
     def test_imu(self):
         imu = IMU(gyro_params={'noise_std': 0.0}, accel_params={'noise_std': 0.0})
         w_true = np.array([0.1, 0, 0])
         a_true = np.array([0, 0, 9.8])
-        w_meas, a_meas = imu.measure(w_true, a_true)
+        imu_packet = imu.measure(w_true, a_true)
+        w_meas, a_meas = imu_packet.value[:3], imu_packet.value[3:]
         assert np.allclose(w_meas, w_true)
         assert np.allclose(a_meas, a_true)
 
     def test_css_array(self):
         css = CoarseSunSensorArray(noise_std=0.0)
         sun_vec = np.array([1.0, 0.0, 0.0])
-        meas = css.measure(sun_vec)
+        meas = css.measure(sun_vec).value
         assert np.isclose(meas[0], 1.0)
         assert np.all(meas[1:] == 0.0)
 
     def test_horizon_sensor(self):
         hs = HorizonSensor(noise_std=0.0)
         nadir = np.array([0, 0, 1.0])
-        meas = hs.measure(nadir)
+        meas = hs.measure(nadir).value
         assert np.allclose(meas, nadir)
 
     def test_altimeter(self):
         alt = Altimeter(noise_std=0.0, bias=10.0)
-        meas = alt.measure(500e3)
+        meas = alt.measure(500e3).value.item()
         assert np.isclose(meas, 500010.0)
 
     def test_lidar(self):
         lidar = Lidar(range_noise_std=0.0, los_noise_std=0.0)
         rel_pos = np.array([10.0, 0.0, 0.0])
-        r_meas, los_meas = lidar.measure(rel_pos)
+        lidar_packet = lidar.measure(rel_pos)
+        r_meas, los_meas = lidar_packet.value[0], lidar_packet.value[1:]
         assert np.isclose(r_meas, 10.0)
         assert np.allclose(los_meas, np.array([1.0, 0.0, 0.0]))
 
     def test_camera(self):
         cam = Camera(focal_length=1.0, resolution=(1000, 1000), sensor_size=(1.0, 1.0))
         p = np.array([0, 0, 10.0])
-        uv = cam.measure(p)
+        uv = cam.measure(p).value
         assert np.allclose(uv, np.array([500, 500]))
         p2 = np.array([0.1, 0, 10.0])
-        uv2 = cam.measure(p2)
+        uv2 = cam.measure(p2).value
         assert np.allclose(uv2, np.array([510, 500]))
 
     def test_star_catalog(self):
@@ -135,15 +138,18 @@ class TestSensors:
     def test_camera_fov_noise(self):
         cam = Camera(noise_std=1.0)
         p = np.array([0, 0, 10.0])
-        uv = cam.measure(p)
+        uv = cam.measure(p).value
         p_back = np.array([0, 0, -10.0])
-        assert cam.measure(p_back) is None
+        with pytest.raises(ValueError, match="behind the camera"):
+            cam.measure(p_back)
         p_outside = np.array([10.0, 10.0, 1.0])
-        assert cam.measure(p_outside) is None
+        with pytest.raises(ValueError, match="outside the image plane"):
+            cam.measure(p_outside)
 
     def test_sensor_base_features(self):
         class DummySensor(Sensor):
-            def measure(self, true_state): return true_state
+            def measure(self, true_state):
+                return self.build_measurement(true_state)
         s = DummySensor()
         res_cal = s.apply_calibration(np.array([1,2,3]), scale_factor=np.array([2,2,2]))
         assert np.allclose(res_cal, [2,4,6])
@@ -163,25 +169,26 @@ class TestSensors:
     def test_star_tracker_small_angle(self):
         st = StarTracker(noise_std=0.0)
         q = np.array([0, 0, 0, 1.0])
-        q_m = st.measure(q)
+        q_m = st.measure(q).value
         assert np.allclose(q_m, q)
 
     def test_horizon_sensor_bias(self):
         hs = HorizonSensor(noise_std=0.0, bias=np.array([0.1, 0.1]))
         nadir = np.array([0, 0, 1.0])
-        meas = hs.measure(nadir)
+        meas = hs.measure(nadir).value
         assert meas[0] != 0.0
 
     def test_lidar_zero_range(self):
         lidar = Lidar()
-        r_meas, los_meas = lidar.measure(np.zeros(3))
+        lidar_packet = lidar.measure(np.zeros(3))
+        r_meas, los_meas = lidar_packet.value[0], lidar_packet.value[1:]
         assert r_meas >= 0
         assert np.allclose(los_meas, np.zeros(3))
 
     def test_sun_sensor_array_coverage(self):
         ssa = CoarseSunSensorArray(boresights=[np.array([1, 0, 0])])
         assert len(ssa.boresights) == 1
-        res = ssa.measure(np.array([1, 0, 0]))
+        res = ssa.measure(np.array([1, 0, 0])).value
         assert res.shape == (1,)
 
 class TestActuators:

@@ -15,15 +15,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import os
-from datetime import datetime
-
 # Add src to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 from opengnc.kalman_filters.ukf import UKF_Attitude
 from opengnc.sensors.gyroscope import Gyroscope
 from opengnc.sensors.star_tracker import StarTracker
-from opengnc.utils.quat_utils import quat_mult, quat_normalize, axis_angle_to_quat, quat_rot, quat_conj
+from opengnc.utils.quat_utils import quat_mult, quat_normalize, axis_angle_to_quat, quat_conj
 
 def run_example():
     # Configuration
@@ -36,10 +34,10 @@ def run_example():
     st = StarTracker(noise_std=0.0001) # Very accurate
     
     # Filter Initialization
-    ukf = UKF_Attitude(alpha=1e-3, dim_z=9)
+    ukf = UKF_Attitude(alpha=1e-3)
     ukf.P *= 0.1
     ukf.Q = np.eye(6) * 1e-6
-    ukf.R = np.eye(9) * 1e-8 # Star tracker is very accurate
+    ukf.R = np.eye(3) * 1e-8 # Star tracker is very accurate
     
     # Truth state
     q_true = np.array([0, 0, 0, 1.0])
@@ -50,27 +48,6 @@ def run_example():
     results_q_err = []
     results_bias_err = []
     
-    # Custom process model for UKF
-    def fx(x, dt, omega_meas):
-        q = x[:4]
-        bias = x[4:]
-        omega = omega_meas - bias
-        
-        # Simple Euler integration for quaternion
-        dq = axis_angle_to_quat(omega * dt)
-        q_new = quat_normalize(quat_mult(q, dq))
-        
-        return np.concatenate([q_new, bias])
-        
-    def hx(x):
-        # ST measures 3 orthogonal vectors in inertial frame.
-        v_ref = np.eye(3)
-        q_conj = quat_conj(x[:4])
-        v_meas = []
-        for v in v_ref:
-            v_meas.append(quat_rot(q_conj, v))
-        return np.array(v_meas).flatten()
-
     print("Running UKF Attitude Estimation...")
     for t in time:
         # Step Truth
@@ -78,24 +55,18 @@ def run_example():
         q_true = quat_normalize(quat_mult(q_true, dq_true))
         
         # Measurements
-        omega_meas = gyro.measure(omega_true)
-        
+        gyro_packet = gyro.measure(omega_true, dt=dt)
+
         # Update ST at 1Hz
         st_available = (int(t/dt) % int(1.0/dt) == 0)
-        
+
         # Predict
-        ukf.predict(dt, fx, omega_meas=omega_meas)
-        
+        ukf.predict(gyro_packet)
+
         # Update
         if st_available:
-            q_conj_true = quat_conj(q_true)
-            v_meas = []
-            for v in np.eye(3):
-                v_body = quat_rot(q_conj_true, v)
-                v_noisy = v_body + np.random.normal(0, 0.0001, 3) 
-                v_meas.append(v_noisy / np.linalg.norm(v_noisy))
-            z = np.array(v_meas).flatten()
-            ukf.update(z, hx)
+            star_tracker_packet = st.measure(q_true)
+            ukf.update(star_tracker_packet)
             
         # Logging
         # Quaternion error (angle)

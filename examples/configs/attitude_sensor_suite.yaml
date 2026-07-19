@@ -1,0 +1,13 @@
+sensors:
+  - type: gyroscope
+    name: RateGyro
+    noise_std: 5.0e-4
+    bias_stability: 1.0e-5
+    initial_bias: [0.0, 0.0, 0.0]
+    dt: 0.1
+  - type: sun_sensor
+    name: CoarseSun
+    noise_std: 1.0e-3
+  - type: magnetometer
+    name: Mag
+    noise_std: 2.0e-7

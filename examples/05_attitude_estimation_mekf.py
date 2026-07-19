@@ -9,7 +9,7 @@ Scenario:
     - A spacecraft is tumbling freely.
     - Sensors:
         1. Gyroscope (High Rate, Biased, Noisy).
-        2. Star Tracker (Low Rate, Vector Measurements, Noisy).
+        2. Star Tracker (Low Rate, Quaternion Measurements, Noisy).
     - Filter estimates proper attitude (Quaternion) and Gyro Bias.
 
 Dynamics:
@@ -28,7 +28,7 @@ from opengnc.kalman_filters.mekf import MEKF
 from opengnc.attitude_dynamics.rigid_body import euler_equations
 from opengnc.sensors.gyroscope import Gyroscope
 from opengnc.sensors.star_tracker import StarTracker
-from opengnc.utils.quat_utils import quat_rot, quat_mult, quat_conj, quat_normalize, axis_angle_to_quat
+from opengnc.utils.quat_utils import quat_mult, quat_conj, quat_normalize, axis_angle_to_quat
 
 def simulation():
     # -------------------------------------------------------------------------
@@ -52,11 +52,8 @@ def simulation():
     gyro_bias_true = np.deg2rad(np.array([1.0, -1.0, 0.5])) # Large bias (1 deg/s)
     gyro_noise_std = np.deg2rad(0.1)  # 0.1 deg/s noise
     
-    # Star Tracker (Vectors)
-    st_noise_std = 0.005 # Vector noise
-    # Two inertial reference vectors
-    v1_ref = np.array([1.0, 0.0, 0.0])
-    v2_ref = np.array([0.0, 1.0, 0.0])
+    # Star Tracker (Quaternion packets)
+    st_noise_std = 0.005
     
     # Sensor Initialization
     gyro = Gyroscope(noise_std=gyro_noise_std, initial_bias=gyro_bias_true, dt=dt_sim)
@@ -97,25 +94,15 @@ def simulation():
         q_true = quat_normalize(quat_mult(q_true, curr_dq))
         
         # Gyro Measurement
-        w_meas = gyro.measure(w_true, dt=dt_sim)
-        
+        gyro_packet = gyro.measure(w_true, dt=dt_sim)
+
         # Filter Prediction (High Rate)
-        mekf.predict(w_meas, dt_sim)
-        
+        mekf.predict(gyro_packet)
+
         # Filter Update (Low Rate)
         if t > 0 and (t % dt_st < dt_sim):
-            # Star Tracker Measurement
-            q_st = st.measure(q_true) # Measure [x,y,z,w]
-            
-            # v_meas = R(q_st)^T * v_ref
-            q_inv_st = quat_conj(q_st)
-            
-            v1_meas = quat_rot(q_inv_st, v1_ref)
-            v2_meas = quat_rot(q_inv_st, v2_ref)
-            
-            # Update Filter
-            mekf.update(v1_meas, v1_ref)
-            mekf.update(v2_meas, v2_ref)
+            star_tracker_packet = st.measure(q_true)
+            mekf.update(star_tracker_packet)
 
         # Analysis
         # Attitude Error (Angle between q_est and q_true)

@@ -49,7 +49,7 @@
   - **Classic**: PID controllers and B-Dot detumbling logic.
   - **Optimal**: LQR (Linear Quadratic Regulator) and LQE (Kalman Filter design).
   - **Advanced**: Nonlinear MPC (Model Predictive Control) and Sliding Mode Control.
-- **Sensors**: Realistic Star Tracker, Sun Sensor, Magnetometer, and Gyroscope models with bias/noise.
+- **Sensors**: Realistic Star Tracker, Sun Sensor, Magnetometer, Gyroscope, IMU, GNSS, and ranging sensors with a shared measurement packet interface.
 - **Actuators**: Model Reaction Wheels (saturation/jitter) and Thrusters (Chemical/Electric).
 
 ### Mission Design
@@ -100,16 +100,31 @@ pip install -e ".[dev]"
 
 ```python
 import numpy as np
-from opengnc.environment.mag_field import igrf_field
-from opengnc.kalman_filters.mekf import MEKF
-from opengnc.utils.quat_utils import quat_rot
+from opengnc.kalman_filters import AttitudeSensorFusion
+from opengnc.sensors import Gyroscope, SunSensor
 
-# Get Earth's magnetic field at a specific ECI position
-B_vec = igrf_field(pos_eci=np.array([7000e3, 0, 0]), time="2024-01-01")
+fusion = AttitudeSensorFusion(backend="mekf")
+gyro = Gyroscope(noise_std=5e-4)
+sun_sensor = SunSensor(noise_std=1e-3)
 
-# Initialize a Multiplicative Extended Kalman Filter
-mekf = MEKF(q_init=np.array([0, 0, 0, 1]), covariance=1e-3 * np.eye(6))
+gyro_packet = gyro.measure(np.array([0.01, -0.02, 0.015]))
+fusion.predict(gyro_packet)
+
+sun_packet = sun_sensor.measure(np.array([1.0, 0.0, 0.0]))
+sun_packet.metadata["reference"] = np.array([1.0, 0.0, 0.0])
+fusion.update_from_measurement(sun_packet)
 ```
+
+## Sensor Interface
+
+Every sensor now uses one API: `measure(...)` returns a `SensorMeasurement` object with consistent `quantity`, `units`, `frame`, `covariance`, and `noise_model` fields.
+
+The fusion layer depends only on `SensorMeasurement`, not on any specific concrete sensor class.
+
+## Config-Driven Sensor Suites
+
+Use `opengnc.sensors.load_sensor_suite(...)` with JSON or YAML to select sensors without editing Python source.
+An example config is provided at `examples/configs/attitude_sensor_suite.yaml`.
 
 ---
 

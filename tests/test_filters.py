@@ -9,6 +9,7 @@ from opengnc.kalman_filters.fixed_interval_smoother import fixed_interval_smooth
 from unittest.mock import patch
 
 from opengnc.utils.quat_utils import quat_mult, quat_normalize, axis_angle_to_quat, quat_rot, quat_conj
+from opengnc.sensors.gyroscope import Gyroscope
 from opengnc.sensors.sun_sensor import SunSensor
 
 def test_kf_initialization():
@@ -90,7 +91,8 @@ def test_mekf_attitude_tracking():
     q_true = q0.copy()
     
     sun_sensor = SunSensor(noise_std=0.01)
-    
+    gyro = Gyroscope(noise_std=0.0, dt=dt)
+
     # Run for 100 steps to allow bias convergence
     for _ in range(100):
         dq_true = axis_angle_to_quat(omega_body * dt)
@@ -98,9 +100,11 @@ def test_mekf_attitude_tracking():
         
         z_body_true = quat_rot(quat_conj(q_true), z_ref_inertial)
         z_body_meas = sun_sensor.measure(z_body_true)
-        
-        mekf.predict(omega_body, dt)
-        mekf.update(z_body_meas, z_ref_inertial)
+        z_body_meas.metadata["reference"] = z_ref_inertial
+
+        gyro_packet = gyro.measure(omega_body)
+        mekf.predict(gyro_packet)
+        mekf.update(z_body_meas)
         
     error = 1.0 - np.abs(np.dot(q_true, mekf.q))
     assert error < 1e-3
@@ -140,33 +144,14 @@ def test_ukf_attitude_initialization():
 def test_ukf_attitude_prediction():
     ukf = UKF_Attitude()
     dt = 0.1
-    
-    ukf.x = np.array([0., 0., 0., 1., 0.1, 0.1, 0.1]) 
-    
-    def fx(x, dt, omega_meas):
-        q = x[:4]
-        bias = x[4:]
-        
-        omega = omega_meas - bias
-        
-        omega_norm = np.linalg.norm(omega)
-        if omega_norm > 1e-10:
-            axis = omega / omega_norm
-            angle = omega_norm * dt
-            dq = axis_angle_to_quat(axis * angle)
-            q_new = quat_mult(q, dq)
-            q_new = quat_normalize(q_new)
-        else:
-            q_new = q
-            
-        return np.concatenate([q_new, bias])
-    
-    omega_meas = np.array([0.1, 0.1, 0.1]) 
-    
-    ukf.predict(dt, fx, omega_meas=omega_meas)
-    
-    assert np.allclose(ukf.x[:4], np.array([0, 0, 0, 1]), atol=1e-5)
-    
+
+    ukf.x = np.array([0.0, 0.0, 0.0, 1.0, 0.1, 0.1, 0.1])
+    gyro = Gyroscope(noise_std=0.0, dt=dt)
+    omega_packet = gyro.measure(np.array([0.1, 0.1, 0.1]))
+
+    ukf.predict(omega_packet)
+
+    assert np.allclose(ukf.x[:4], np.array([0.0, 0.0, 0.0, 1.0]), atol=1e-5)
     assert np.allclose(ukf.x[4:], np.array([0.1, 0.1, 0.1]), atol=1e-5)
 
 def test_ukf_attitude_update():
@@ -185,14 +170,8 @@ def test_ukf_attitude_update():
     z_body_true = quat_rot(q_conj, z_ref)
     
     z_meas = sensor.measure(z_body_true)
-    
-    def hx(x, z_ref):
-        q = x[:4]
-        q_conj = quat_conj(q)
-        z_pred = quat_rot(q_conj, z_ref)
-        return z_pred
-        
-    ukf.update(z_meas, hx, z_ref=z_ref)
+    z_meas.metadata["reference"] = z_ref
+    ukf.update(z_meas)
     
     assert ukf.x.shape == (7,)
     assert np.isclose(np.linalg.norm(ukf.x[:4]), 1.0)
