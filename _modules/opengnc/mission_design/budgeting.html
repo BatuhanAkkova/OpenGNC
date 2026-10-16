@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.mission_design.budgeting</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Propellant budgeting and orbital lifetime prediction tools.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
@@ -92,7 +92,7 @@
 <div class="viewcode-block" id="calculate_propellant_mass">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.calculate_propellant_mass">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_propellant_mass</span><span class="p">(</span><span class="n">initial_mass</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dv</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Calculate required propellant mass via the Rocket Equation.</span>
 
 <span class="sd">    Equation:</span>
@@ -111,10 +111,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Required propellant mass (kg).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">g0</span> <span class="o">=</span> <span class="mf">0.00980665</span>  <span class="c1"># km/s^2</span>
     <span class="k">if</span> <span class="n">isp</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Isp must be positive.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Isp must be positive."</span><span class="p">)</span>
     <span class="n">mass_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">dv</span> <span class="o">/</span> <span class="p">(</span><span class="n">isp</span> <span class="o">*</span> <span class="n">g0</span><span class="p">))</span>
     <span class="n">final_mass</span> <span class="o">=</span> <span class="n">initial_mass</span> <span class="o">/</span> <span class="n">mass_ratio</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">initial_mass</span> <span class="o">-</span> <span class="n">final_mass</span><span class="p">)</span></div>
@@ -124,7 +124,7 @@
 <div class="viewcode-block" id="calculate_delta_v">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.calculate_delta_v">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_delta_v</span><span class="p">(</span><span class="n">initial_mass</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">propellant_mass</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Calculate available Delta-V from propellant mass.</span>
 
 <span class="sd">    Equation:</span>
@@ -143,12 +143,12 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Available Delta-V (km/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">g0</span> <span class="o">=</span> <span class="mf">0.00980665</span>  <span class="c1"># km/s^2</span>
     <span class="k">if</span> <span class="n">propellant_mass</span> <span class="o">&gt;=</span> <span class="n">initial_mass</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Propellant mass cannot exceed or equal initial mass.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Propellant mass cannot exceed or equal initial mass."</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">isp</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Isp must be positive.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Isp must be positive."</span><span class="p">)</span>
     <span class="n">final_mass</span> <span class="o">=</span> <span class="n">initial_mass</span> <span class="o">-</span> <span class="n">propellant_mass</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">isp</span> <span class="o">*</span> <span class="n">g0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">initial_mass</span> <span class="o">/</span> <span class="n">final_mass</span><span class="p">))</span></div>
 
@@ -157,7 +157,7 @@
 <div class="viewcode-block" id="calculate_staged_delta_v">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.calculate_staged_delta_v">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_staged_delta_v</span><span class="p">(</span><span class="n">stages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Calculate total Delta-V for a multi-stage system.</span>
 
 <span class="sd">    Summation:</span>
@@ -167,13 +167,13 @@
 <span class="sd">    ----------</span>
 <span class="sd">    stages : list[dict]</span>
 <span class="sd">        List of stage definitions (ordered 1 to N).</span>
-<span class="sd">        Each dict requires &#39;m_dry&#39;, &#39;m_prop&#39;, &#39;isp&#39;.</span>
+<span class="sd">        Each dict requires 'm_dry', 'm_prop', 'isp'.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Total Delta-V (km/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Calculate masses from top to bottom</span>
     <span class="n">total_dv</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">current_payload</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># Starts with the final payload</span>
@@ -182,9 +182,9 @@
     <span class="c1"># Process stages in reverse order (top stage first)</span>
     <span class="n">reversed_stages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">stages</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stage</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reversed_stages</span><span class="p">):</span>
-        <span class="n">m_dry</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s2">&quot;m_dry&quot;</span><span class="p">]</span>
-        <span class="n">m_prop</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s2">&quot;m_prop&quot;</span><span class="p">]</span>
-        <span class="n">isp</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s2">&quot;isp&quot;</span><span class="p">]</span>
+        <span class="n">m_dry</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s2">"m_dry"</span><span class="p">]</span>
+        <span class="n">m_prop</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s2">"m_prop"</span><span class="p">]</span>
+        <span class="n">isp</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s2">"isp"</span><span class="p">]</span>
 
         <span class="c1"># Initial mass of this stage including all stages above it (current_payload)</span>
         <span class="n">m0_stage</span> <span class="o">=</span> <span class="n">m_dry</span> <span class="o">+</span> <span class="n">m_prop</span> <span class="o">+</span> <span class="n">current_payload</span>
@@ -203,18 +203,18 @@
 <div class="viewcode-block" id="ManeuverSequence">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.ManeuverSequence">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ManeuverSequence</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Tracks a sequence of maneuvers and accurately budgets propellant consumption over time.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_mass</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the ManeuverSequence.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            initial_mass (float): Initial total mass of the spacecraft (kg).</span>
 <span class="sd">            isp (float): Specific impulse of the main propulsion system (s).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initial_mass</span> <span class="o">=</span> <span class="n">initial_mass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_mass</span> <span class="o">=</span> <span class="n">initial_mass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">isp</span> <span class="o">=</span> <span class="n">isp</span>
@@ -222,28 +222,28 @@
 
 <div class="viewcode-block" id="ManeuverSequence.add_maneuver">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.ManeuverSequence.add_maneuver">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_maneuver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dv</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_maneuver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dv</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Adds a maneuver to the sequence and updates the current mass.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            name (str): Name of the maneuver.</span>
 <span class="sd">            dv (float): Delta-V of the maneuver (km/s).</span>
 <span class="sd">            description (str): Optional description.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">dv</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Delta-V must be non-negative.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Delta-V must be non-negative."</span><span class="p">)</span>
 
         <span class="n">m_prop</span> <span class="o">=</span> <span class="n">calculate_propellant_mass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_mass</span><span class="p">,</span> <span class="n">dv</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">isp</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current_mass</span> <span class="o">-=</span> <span class="n">m_prop</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">maneuvers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-                <span class="s2">&quot;dv&quot;</span><span class="p">:</span> <span class="n">dv</span><span class="p">,</span>
-                <span class="s2">&quot;m_prop_consumed&quot;</span><span class="p">:</span> <span class="n">m_prop</span><span class="p">,</span>
-                <span class="s2">&quot;m_final&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mass</span><span class="p">,</span>
-                <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s2">"dv"</span><span class="p">:</span> <span class="n">dv</span><span class="p">,</span>
+                <span class="s2">"m_prop_consumed"</span><span class="p">:</span> <span class="n">m_prop</span><span class="p">,</span>
+                <span class="s2">"m_final"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mass</span><span class="p">,</span>
+                <span class="s2">"description"</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span></div>
 
@@ -251,27 +251,27 @@
 <div class="viewcode-block" id="ManeuverSequence.get_budget_history">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.ManeuverSequence.get_budget_history">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_budget_history</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the history of the maneuver budget.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">            list[dict]: List of dictionaries with installment details.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maneuvers</span></div>
 
 
 <div class="viewcode-block" id="ManeuverSequence.get_total_dv">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.ManeuverSequence.get_total_dv">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_total_dv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total Delta-V applied.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;dv&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">maneuvers</span><span class="p">))</span></div>
+<span class="w">        </span><span class="sd">"""Total Delta-V applied."""</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">"dv"</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">maneuvers</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="ManeuverSequence.get_total_propellant">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.budgeting.ManeuverSequence.get_total_propellant">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_total_propellant</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total propellant consumed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Total propellant consumed."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_mass</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mass</span></div>
 </div>
 
@@ -290,7 +290,7 @@
     <span class="n">max_days</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
     <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Predicts the orbital lifetime due to atmospheric drag using numerical integration.</span>
 <span class="sd">    Saves and returns the time of reentry (altitude &lt; 100km).</span>
 
@@ -308,11 +308,11 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">        dict: Breakdown of prediction results:</span>
-<span class="sd">              - &#39;reentry_detected&#39; (bool)</span>
-<span class="sd">              - &#39;lifetime_days&#39; (float)</span>
-<span class="sd">              - &#39;final_altitude&#39; (float)</span>
-<span class="sd">              - &#39;trajectory&#39; (dict with &#39;t&#39;, &#39;r&#39;, &#39;v&#39;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">              - 'reentry_detected' (bool)</span>
+<span class="sd">              - 'lifetime_days' (float)</span>
+<span class="sd">              - 'final_altitude' (float)</span>
+<span class="sd">              - 'trajectory' (dict with 't', 'r', 'v')</span>
+<span class="sd">    """</span>
     <span class="n">drag_model</span> <span class="o">=</span> <span class="n">LumpedDrag</span><span class="p">(</span><span class="n">density_model</span><span class="p">,</span> <span class="n">co_rotate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># LumpedDrag uses SI units (m, m/s)</span>
 
     <span class="n">MU</span> <span class="o">=</span> <span class="mf">398600.4418</span>  <span class="c1"># km^3/s^2</span>
@@ -352,7 +352,7 @@
         <span class="n">equations_of_motion</span><span class="p">,</span>
         <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_max</span><span class="p">),</span>
         <span class="n">y0</span><span class="p">,</span>
-        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;RK45&quot;</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">"RK45"</span><span class="p">,</span>
         <span class="n">events</span><span class="o">=</span><span class="n">reentry_event</span><span class="p">,</span>
         <span class="n">dense_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">max_step</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span>  <span class="c1"># Limit step size to avoid missing entry or accurate drag</span>
@@ -365,15 +365,11 @@
     <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">final_h</span> <span class="o">=</span> <span class="n">eci2geodetic</span><span class="p">(</span><span class="n">final_r</span> <span class="o">*</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">jd_epoch</span> <span class="o">+</span> <span class="n">lifetime_s</span> <span class="o">/</span> <span class="mf">86400.0</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;reentry_detected&quot;</span><span class="p">:</span> <span class="n">reentry_detected</span><span class="p">,</span>
-        <span class="s2">&quot;lifetime_days&quot;</span><span class="p">:</span> <span class="n">lifetime_s</span> <span class="o">/</span> <span class="mf">86400.0</span><span class="p">,</span>
-        <span class="s2">&quot;final_altitude&quot;</span><span class="p">:</span> <span class="n">final_h</span><span class="p">,</span>
-        <span class="s2">&quot;trajectory&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s2">&quot;v&quot;</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">},</span>
+        <span class="s2">"reentry_detected"</span><span class="p">:</span> <span class="n">reentry_detected</span><span class="p">,</span>
+        <span class="s2">"lifetime_days"</span><span class="p">:</span> <span class="n">lifetime_s</span> <span class="o">/</span> <span class="mf">86400.0</span><span class="p">,</span>
+        <span class="s2">"final_altitude"</span><span class="p">:</span> <span class="n">final_h</span><span class="p">,</span>
+        <span class="s2">"trajectory"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"t"</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">},</span>
     <span class="p">}</span></div>
-
-
-
-
 
 </pre></div>
 

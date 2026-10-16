@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.ephemeris</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">JPL Ephemeris integration using jplephem.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
@@ -87,6 +87,7 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">jplephem.spk</span><span class="w"> </span><span class="kn">import</span> <span class="n">SPK</span>
+
     <span class="n">JPLEPHEM_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">JPLEPHEM_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
@@ -95,7 +96,7 @@
 <div class="viewcode-block" id="JPLEphemeris">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.ephemeris.JPLEphemeris">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">JPLEphemeris</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Handler for JPL SPK (Space Property Kernel) files.</span>
 
 <span class="sd">    Provides high-precision position and velocity for planets, Sun, and Moon.</span>
@@ -104,10 +105,10 @@
 <span class="sd">    ----------</span>
 <span class="sd">    spk_path : str, optional</span>
 <span class="sd">        Path to the .bsp SPK file (e.g., de421.bsp).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spk_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize SPK kernel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize SPK kernel."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">JPLEPHEM_AVAILABLE</span><span class="p">:</span>
             <span class="k">return</span>
@@ -117,14 +118,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Look for default in package directory if available</span>
             <span class="n">base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
-            <span class="n">default_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">&quot;de421.bsp&quot;</span><span class="p">)</span>
+            <span class="n">default_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"de421.bsp"</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">default_path</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">SPK</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">default_path</span><span class="p">)</span>
 
 <div class="viewcode-block" id="JPLEphemeris.get_position">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.ephemeris.JPLEphemeris.get_position">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Get body position in km (usually relative to solar system barycenter).</span>
 
 <span class="sd">        Parameters</span>
@@ -138,14 +139,14 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Position vector [x, y, z] in meters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">JPLEPHEM_AVAILABLE</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;jplephem is required for JPL Ephemeris. Install via &#39;pip install OpenGNC[spk]&#39;&quot;</span>
+                <span class="s2">"jplephem is required for JPL Ephemeris. Install via 'pip install OpenGNC[spk]'"</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;SPK Kernel not loaded. Provide a valid .bsp file.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"SPK Kernel not loaded. Provide a valid .bsp file."</span><span class="p">)</span>
 
         <span class="c1"># jplephem returns km</span>
         <span class="n">pos_km</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">body_id</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span>
@@ -155,7 +156,7 @@
 <div class="viewcode-block" id="JPLEphemeris.get_state">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.ephemeris.JPLEphemeris.get_state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Get body position and velocity.</span>
 
 <span class="sd">        Parameters</span>
@@ -169,14 +170,14 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            State vector [x, y, z, vx, vy, vz] in m, m/s.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">JPLEPHEM_AVAILABLE</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;jplephem is required for JPL Ephemeris. Install via &#39;pip install OpenGNC[spk]&#39;&quot;</span>
+                <span class="s2">"jplephem is required for JPL Ephemeris. Install via 'pip install OpenGNC[spk]'"</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;SPK Kernel not loaded.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"SPK Kernel not loaded."</span><span class="p">)</span>
 
         <span class="c1"># compute_and_differentiate returns [x, y, z, vx, vy, vz] in km, km/day</span>
         <span class="n">state_km</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">body_id</span><span class="p">]</span><span class="o">.</span><span class="n">compute_and_differentiate</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span>

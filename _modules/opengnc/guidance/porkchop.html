@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.guidance.porkchop</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Porkchop plot grid generation for interplanetary transfers.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 
@@ -98,10 +98,10 @@
     <span class="n">v_arr_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generate a grid of C3 and V-infinity values for interplanetary transfers.</span>
 
-<span class="sd">    Computes a &#39;porkchop&#39; plot grid by solving Lambert&#39;s problem for every</span>
+<span class="sd">    Computes a 'porkchop' plot grid by solving Lambert's problem for every</span>
 <span class="sd">    combination of departure and arrival dates.</span>
 
 <span class="sd">    Parameters</span>
@@ -111,13 +111,13 @@
 <span class="sd">    arrival_dates : array-like</span>
 <span class="sd">        List or array of arrival times (e.g., seconds from J2000).</span>
 <span class="sd">    r_dep_func : Callable</span>
-<span class="sd">        Function returning the planet&#39;s position vector [3] at departure time t.</span>
+<span class="sd">        Function returning the planet's position vector [3] at departure time t.</span>
 <span class="sd">    v_dep_func : Callable</span>
-<span class="sd">        Function returning the planet&#39;s velocity vector [3] at departure time t.</span>
+<span class="sd">        Function returning the planet's velocity vector [3] at departure time t.</span>
 <span class="sd">    r_arr_func : Callable</span>
-<span class="sd">        Function returning the destination&#39;s position vector [3] at arrival time t.</span>
+<span class="sd">        Function returning the destination's position vector [3] at arrival time t.</span>
 <span class="sd">    v_arr_func : Callable</span>
-<span class="sd">        Function returning the destination&#39;s velocity vector [3] at arrival time t.</span>
+<span class="sd">        Function returning the destination's velocity vector [3] at arrival time t.</span>
 <span class="sd">    mu : float, optional</span>
 <span class="sd">        Gravitational parameter of the central body. Default is Earth.</span>
 
@@ -125,12 +125,12 @@
 <span class="sd">    -------</span>
 <span class="sd">    Dict</span>
 <span class="sd">        Dictionary containing:</span>
-<span class="sd">        - &#39;departure_dates&#39;: Copy of departure axes.</span>
-<span class="sd">        - &#39;arrival_dates&#39;: Copy of arrival axes.</span>
-<span class="sd">        - &#39;c3&#39;: (N_arr, N_dep) grid of Launch C3 values ($km^2/s^2$).</span>
-<span class="sd">        - &#39;v_inf_arr&#39;: (N_arr, N_dep) grid of Arrival V-infinity ($km/s$).</span>
-<span class="sd">        - &#39;tof&#39;: (N_arr, N_dep) grid of Time-of-flight (s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        - 'departure_dates': Copy of departure axes.</span>
+<span class="sd">        - 'arrival_dates': Copy of arrival axes.</span>
+<span class="sd">        - 'c3': (N_arr, N_dep) grid of Launch C3 values ($km^2/s^2$).</span>
+<span class="sd">        - 'v_inf_arr': (N_arr, N_dep) grid of Arrival V-infinity ($km/s$).</span>
+<span class="sd">        - 'tof': (N_arr, N_dep) grid of Time-of-flight (s).</span>
+<span class="sd">    """</span>
     <span class="n">n_dep</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">departure_dates</span><span class="p">)</span>
     <span class="n">n_arr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrival_dates</span><span class="p">)</span>
 
@@ -169,16 +169,12 @@
                 <span class="k">continue</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;departure_dates&quot;</span><span class="p">:</span> <span class="n">departure_dates</span><span class="p">,</span>
-        <span class="s2">&quot;arrival_dates&quot;</span><span class="p">:</span> <span class="n">arrival_dates</span><span class="p">,</span>
-        <span class="s2">&quot;c3&quot;</span><span class="p">:</span> <span class="n">c3_grid</span><span class="p">,</span>
-        <span class="s2">&quot;v_inf_arr&quot;</span><span class="p">:</span> <span class="n">v_inf_arr_grid</span><span class="p">,</span>
-        <span class="s2">&quot;tof&quot;</span><span class="p">:</span> <span class="n">tof_grid</span><span class="p">,</span>
+        <span class="s2">"departure_dates"</span><span class="p">:</span> <span class="n">departure_dates</span><span class="p">,</span>
+        <span class="s2">"arrival_dates"</span><span class="p">:</span> <span class="n">arrival_dates</span><span class="p">,</span>
+        <span class="s2">"c3"</span><span class="p">:</span> <span class="n">c3_grid</span><span class="p">,</span>
+        <span class="s2">"v_inf_arr"</span><span class="p">:</span> <span class="n">v_inf_arr_grid</span><span class="p">,</span>
+        <span class="s2">"tof"</span><span class="p">:</span> <span class="n">tof_grid</span><span class="p">,</span>
     <span class="p">}</span></div>
-
-
-
-
 
 </pre></div>
 

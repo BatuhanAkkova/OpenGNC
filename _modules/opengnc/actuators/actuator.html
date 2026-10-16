@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.actuators.actuator</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Abstract base class for actuator models.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -91,38 +91,38 @@
 <div class="viewcode-block" id="Actuator">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.actuator.Actuator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Actuator</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Abstract base class for all actuators.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Actuator name. Default is &quot;Actuator&quot;.</span>
+<span class="sd">        Actuator name. Default is "Actuator".</span>
 <span class="sd">    saturation : float | tuple[float, float], optional</span>
 <span class="sd">        Max output magnitude (scalar) or (min, max) range.</span>
 <span class="sd">    deadband : float, optional</span>
 <span class="sd">        Input values below this magnitude result in zero output.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Actuator&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Actuator"</span><span class="p">,</span>
         <span class="n">saturation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">deadband</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Initialize actuator base.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str, optional</span>
-<span class="sd">            Actuator name. Default &quot;Actuator&quot;.</span>
+<span class="sd">            Actuator name. Default "Actuator".</span>
 <span class="sd">        saturation : float | tuple[float, float] | None, optional</span>
 <span class="sd">            Saturation limit. Scalar for symmetric $[\text{-limit}, \text{limit}]$</span>
 <span class="sd">            or tuple for $[\min, \max]$.</span>
 <span class="sd">        deadband : float | None, optional</span>
 <span class="sd">            Deadband threshold.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">saturation</span> <span class="o">=</span> <span class="n">saturation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deadband</span> <span class="o">=</span> <span class="n">deadband</span>
@@ -131,7 +131,7 @@
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.actuator.Actuator.command">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate the actuator output based on the command signal.</span>
 
 <span class="sd">        Parameters</span>
@@ -145,14 +145,14 @@
 <span class="sd">        -------</span>
 <span class="sd">        Any</span>
 <span class="sd">            The actual output applied to the system.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="Actuator.apply_saturation">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.actuator.Actuator.apply_saturation">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_saturation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Apply saturation limits.</span>
 
 <span class="sd">        Parameters</span>
@@ -164,7 +164,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray | float</span>
 <span class="sd">            Saturated signal.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">saturation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">value</span>
 
@@ -179,7 +179,7 @@
 <div class="viewcode-block" id="Actuator.apply_deadband">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.actuator.Actuator.apply_deadband">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">apply_deadband</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Apply deadband to value.</span>
 
 <span class="sd">        Parameters</span>
@@ -191,7 +191,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Value after deadband application.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">deadband</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">deadband</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">value</span>
 
@@ -199,10 +199,6 @@
             <span class="k">return</span> <span class="mf">0.0</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

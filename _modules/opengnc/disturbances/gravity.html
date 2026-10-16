@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.disturbances.gravity</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Gravitational acceleration models (Two-Body, J2, Harmonics) and Gradient Torques.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -94,7 +94,7 @@
 <div class="viewcode-block" id="TwoBodyGravity">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.TwoBodyGravity">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TwoBodyGravity</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Standard Point-Mass Gravity.</span>
 
 <span class="sd">    Acceleration:</span>
@@ -104,16 +104,16 @@
 <span class="sd">    ----------</span>
 <span class="sd">    mu : float, optional</span>
 <span class="sd">        Gravitational parameter ($m^3/s^2$). Default Earth.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418e9</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with gravitational constant.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize with gravitational constant."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
 
 <div class="viewcode-block" id="TwoBodyGravity.get_acceleration">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.TwoBodyGravity.get_acceleration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_acceleration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate point mass acceleration.</span>
 
 <span class="sd">        Parameters</span>
@@ -127,7 +127,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Acceleration ($m/s^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">r_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">r_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_vec</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r_mag</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">r_vec</span><span class="p">)</span></div>
@@ -138,7 +138,7 @@
 <div class="viewcode-block" id="J2Gravity">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.J2Gravity">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">J2Gravity</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Oblateness Perturbation ($J_2$).</span>
 
 <span class="sd">    Specific Acceleration:</span>
@@ -152,10 +152,12 @@
 <span class="sd">        J2 coefficient.</span>
 <span class="sd">    re : float, optional</span>
 <span class="sd">        Equatorial radius (m).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418e9</span><span class="p">,</span> <span class="n">j2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.001082635855</span><span class="p">,</span> <span class="n">re</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6378137.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize J2 parameters.&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418e9</span><span class="p">,</span> <span class="n">j2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.001082635855</span><span class="p">,</span> <span class="n">re</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6378137.0</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Initialize J2 parameters."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">j2</span> <span class="o">=</span> <span class="n">j2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">=</span> <span class="n">re</span>
@@ -163,7 +165,7 @@
 <div class="viewcode-block" id="J2Gravity.get_acceleration">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.J2Gravity.get_acceleration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_acceleration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate acceleration including $J_2$ perturbation.</span>
 
 <span class="sd">        Formula:</span>
@@ -180,18 +182,20 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Acceleration vector ($m/s^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">r_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">r_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_vec</span><span class="p">)</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">r_vec</span>
 
         <span class="n">factor</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">j2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_mag</span><span class="o">**</span><span class="mi">5</span><span class="p">)</span>
 
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">ay</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">az</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ay</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">az</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">az</span><span class="p">])</span> <span class="o">+</span> <span class="n">TwoBodyGravity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">(</span><span class="n">r_vec</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">az</span><span class="p">])</span> <span class="o">+</span> <span class="n">TwoBodyGravity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">(</span><span class="n">r_vec</span><span class="p">)</span>
+        <span class="p">)</span></div>
 </div>
 
 
@@ -199,7 +203,7 @@
 <div class="viewcode-block" id="HarmonicsGravity">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.HarmonicsGravity">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">HarmonicsGravity</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    High-Fidelity Spherical Harmonics Model (EGM2008).</span>
 
 <span class="sd">    Calculates the fine-grained gravitational acceleration by expanding the</span>
@@ -218,7 +222,7 @@
 <span class="sd">        Maximum expansion order.</span>
 <span class="sd">    file_path : Optional[str], optional</span>
 <span class="sd">        Path to harmonic coefficients CSV.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -226,9 +230,9 @@
         <span class="n">re</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6378137.0</span><span class="p">,</span>
         <span class="n">n_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
         <span class="n">m_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load potential coefficients and initialize recursion workspace.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Load potential coefficients and initialize recursion workspace."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">=</span> <span class="n">re</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_max</span> <span class="o">=</span> <span class="n">n_max</span>
@@ -239,17 +243,17 @@
 
         <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
-            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">&quot;egm2008.csv&quot;</span><span class="p">)</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"egm2008.csv"</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_load_coefficients</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_coefficients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Internal parser for harmonic datasets.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Internal parser for harmonic datasets."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Gravity coefficient file not found&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Warning: Gravity coefficient file not found"</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
             <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
@@ -262,7 +266,7 @@
 <div class="viewcode-block" id="HarmonicsGravity.get_acceleration">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.HarmonicsGravity.get_acceleration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_acceleration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate harmonic acceleration vector in ECI.</span>
 
 <span class="sd">        Implements Pines-style or Cunningham recursion for high-order gravity.</span>
@@ -279,7 +283,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Total acceleration vector ($m/s^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">r_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="n">r_ecef</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">eci2ecef</span><span class="p">(</span><span class="n">r_val</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">jd</span><span class="p">)</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">r_ecef</span>
@@ -306,10 +310,10 @@
     <span class="n">C</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">S</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Numba-accelerated spherical harmonics recursion.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">r_sq</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="o">*</span><span class="n">z</span>
+<span class="sd">    """</span>
+    <span class="n">r_sq</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span>
     <span class="n">r_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r_sq</span><span class="p">)</span>
 
     <span class="n">rho</span> <span class="o">=</span> <span class="n">re</span> <span class="o">/</span> <span class="n">r_mag</span>
@@ -326,17 +330,19 @@
     <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="c1"># m = 0</span>
         <span class="n">an0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">bn0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">)))</span>
-        <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">an0</span> <span class="o">*</span> <span class="n">sin_phi</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">bn0</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">bn0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">)))</span>
+        <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">an0</span> <span class="o">*</span> <span class="n">sin_phi</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">bn0</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
                 <span class="n">cnn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-                <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnn</span> <span class="o">*</span> <span class="n">cos_phi_approx</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnn</span> <span class="o">*</span> <span class="n">cos_phi_approx</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">anm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-                <span class="n">bnm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
-                <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">anm</span> <span class="o">*</span> <span class="n">sin_phi</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">-</span> <span class="n">bnm</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span>
+                <span class="n">bnm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                    <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="p">)</span>
+                <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">anm</span> <span class="o">*</span> <span class="n">sin_phi</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">-</span> <span class="n">bnm</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span>
 
     <span class="n">du_dr</span> <span class="o">=</span> <span class="o">-</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r_sq</span>
     <span class="n">du_dlat</span><span class="p">,</span> <span class="n">du_dlon</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
@@ -364,7 +370,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">anm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">m</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">))</span>
                 <span class="n">cos_phi_sq</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">1e-15</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">sin_phi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-                <span class="n">dp</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">sin_phi</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">-</span> <span class="n">anm</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cos_phi_sq</span><span class="p">)</span>
+                <span class="n">dp</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">sin_phi</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">-</span> <span class="n">anm</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cos_phi_sq</span><span class="p">)</span>
 
             <span class="n">s_r</span> <span class="o">+=</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">*</span> <span class="n">gt</span>
             <span class="n">s_lat</span> <span class="o">+=</span> <span class="n">dp</span> <span class="o">*</span> <span class="n">gt</span>
@@ -378,7 +384,7 @@
 
     <span class="n">term_r</span> <span class="o">=</span> <span class="n">du_dr</span> <span class="o">*</span> <span class="n">cos_phi_approx</span>
     <span class="n">term_lat</span> <span class="o">=</span> <span class="p">(</span><span class="n">du_dlat</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">sin_phi</span><span class="p">)</span>
-    <span class="n">term_lon</span> <span class="o">=</span> <span class="p">(</span><span class="n">du_dlon</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_mag</span> <span class="o">*</span> <span class="n">safe_cos</span><span class="p">))</span>
+    <span class="n">term_lon</span> <span class="o">=</span> <span class="n">du_dlon</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_mag</span> <span class="o">*</span> <span class="n">safe_cos</span><span class="p">)</span>
 
     <span class="n">ax_ecef</span> <span class="o">=</span> <span class="p">(</span><span class="n">term_r</span> <span class="o">+</span> <span class="n">term_lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">clon</span> <span class="o">+</span> <span class="n">term_lon</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">slon</span><span class="p">)</span>
     <span class="n">ay_ecef</span> <span class="o">=</span> <span class="p">(</span><span class="n">term_r</span> <span class="o">+</span> <span class="n">term_lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">slon</span> <span class="o">+</span> <span class="n">term_lon</span> <span class="o">*</span> <span class="n">clon</span>
@@ -390,7 +396,7 @@
 <div class="viewcode-block" id="GradientTorque">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.GradientTorque">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GradientTorque</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Gravity Gradient Pointing Restoration Torque.</span>
 
 <span class="sd">    Models the restorative moment acting on an asymmetric rigid body</span>
@@ -400,16 +406,18 @@
 <span class="sd">    ----------</span>
 <span class="sd">    mu : float, optional</span>
 <span class="sd">        Gravitational parameter ($m^3/s^2$).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418e9</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize torque solver.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize torque solver."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
 
 <div class="viewcode-block" id="GradientTorque.gravity_gradient_torque">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.GradientTorque.gravity_gradient_torque">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">gravity_gradient_torque</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">J</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">q_body2eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gravity_gradient_torque</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">J</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">q_body2eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate Gravity Gradient torque in Body frame.</span>
 
 <span class="sd">        Equation:</span>
@@ -428,7 +436,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Reaction torque vector (3,) (Nm).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">r_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="n">rm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_val</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">rm</span> <span class="o">&lt;</span> <span class="mf">1e-3</span><span class="p">:</span>
@@ -446,7 +454,7 @@
 <div class="viewcode-block" id="ThirdBodyGravity">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.ThirdBodyGravity">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ThirdBodyGravity</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Solar and Lunar Gravitational Perturbation Model.</span>
 
 <span class="sd">    Calculates the point-mass acceleration acting on the spacecraft due</span>
@@ -458,21 +466,22 @@
 <span class="sd">        Solar gravitational parameter.</span>
 <span class="sd">    mu_moon : float, optional</span>
 <span class="sd">        Lunar gravitational parameter.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu_sun</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.32712440018e20</span><span class="p">,</span> <span class="n">mu_moon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4902.800066e9</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize planetary ephemeris models.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize planetary ephemeris models."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu_sun</span> <span class="o">=</span> <span class="n">mu_sun</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu_moon</span> <span class="o">=</span> <span class="n">mu_moon</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.environment.moon</span><span class="w"> </span><span class="kn">import</span> <span class="n">Moon</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.environment.solar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sun</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">sun_model</span> <span class="o">=</span> <span class="n">Sun</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">moon_model</span> <span class="o">=</span> <span class="n">Moon</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ThirdBodyGravity.get_acceleration">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.ThirdBodyGravity.get_acceleration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_acceleration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate combined third-body acceleration.</span>
 
 <span class="sd">        Parameters</span>
@@ -486,14 +495,16 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Acceleration vector ($m/s^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="n">rss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_model</span><span class="o">.</span><span class="n">calculate_sun_eci</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span>
         <span class="n">rms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">moon_model</span><span class="o">.</span><span class="n">calculate_moon_eci</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">body_acc</span><span class="p">(</span><span class="n">s_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">s_vec</span> <span class="o">-</span> <span class="n">rv</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">d</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">s_vec</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">s_vec</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">d</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">s_vec</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">s_vec</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">body_acc</span><span class="p">(</span><span class="n">rss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_sun</span><span class="p">)</span> <span class="o">+</span> <span class="n">body_acc</span><span class="p">(</span><span class="n">rms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_moon</span><span class="p">))</span></div>
 </div>
@@ -503,7 +514,7 @@
 <div class="viewcode-block" id="RelativisticCorrection">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.RelativisticCorrection">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RelativisticCorrection</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    General Relativistic Gravitational Correction.</span>
 
 <span class="sd">    Includes static Schwarzschild and dynamic Lense-Thirring</span>
@@ -515,10 +526,10 @@
 <span class="sd">        Gravitational parameter.</span>
 <span class="sd">    J_earth : Optional[np.ndarray], optional</span>
 <span class="sd">        Angular momentum vector of the planet.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418e9</span><span class="p">,</span> <span class="n">J_earth</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with physical constants.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize with physical constants."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="mf">299792458.0</span>
         <span class="k">if</span> <span class="n">J_earth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -530,7 +541,7 @@
 <div class="viewcode-block" id="RelativisticCorrection.get_acceleration">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.RelativisticCorrection.get_acceleration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_acceleration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate relativistic acceleration correction.</span>
 
 <span class="sd">        Parameters</span>
@@ -542,15 +553,19 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Correction vector ($m/s^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">r</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_eci</span><span class="p">)</span>
         <span class="n">rm</span><span class="p">,</span> <span class="n">vm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 
         <span class="c1"># Schwarzschild static correction</span>
-        <span class="n">sch</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">rm</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="o">/</span><span class="n">rm</span> <span class="o">-</span> <span class="n">vm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">r</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">v</span><span class="p">)</span><span class="o">*</span><span class="n">v</span> <span class="p">)</span>
+        <span class="n">sch</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">rm</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="n">rm</span> <span class="o">-</span> <span class="n">vm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="n">v</span>
+        <span class="p">)</span>
 
         <span class="c1"># Lense-Thirring dynamic correction</span>
-        <span class="n">lt_term</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">rm</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span> <span class="p">(</span><span class="mf">3.0</span><span class="o">/</span><span class="n">rm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">S_vec</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">S_vec</span> <span class="p">)</span>
+        <span class="n">lt_term</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">rm</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">3.0</span> <span class="o">/</span> <span class="n">rm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">S_vec</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">S_vec</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sch</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">lt_term</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span></div>
 </div>
@@ -560,7 +575,7 @@
 <div class="viewcode-block" id="OceanTidesGravity">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.OceanTidesGravity">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">OceanTidesGravity</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Spherical Harmonic Ocean Tide Model (Simplified).</span>
 
 <span class="sd">    Applies periodic corrections to the potential field due to</span>
@@ -572,22 +587,23 @@
 <span class="sd">        Gravitational parameter.</span>
 <span class="sd">    re : float, optional</span>
 <span class="sd">        Reference radius.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418e9</span><span class="p">,</span> <span class="n">re</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6378137.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with IERS constituent coefficients.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize with IERS constituent coefficients."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">=</span> <span class="n">re</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coefs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;M2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;C+&quot;</span><span class="p">:</span> <span class="mf">3.090e-11</span><span class="p">,</span> <span class="s2">&quot;S+&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.155e-11</span><span class="p">},</span>
-            <span class="s2">&quot;S2&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;C+&quot;</span><span class="p">:</span> <span class="mf">0.573e-11</span><span class="p">,</span> <span class="s2">&quot;S+&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.134e-11</span><span class="p">},</span>
-            <span class="s2">&quot;K1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;C+&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.155e-11</span><span class="p">,</span> <span class="s2">&quot;S+&quot;</span><span class="p">:</span> <span class="mf">0.621e-11</span><span class="p">},</span>
-            <span class="s2">&quot;O1&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;C+&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.177e-11</span><span class="p">,</span> <span class="s2">&quot;S+&quot;</span><span class="p">:</span> <span class="mf">0.055e-11</span><span class="p">},</span>
+            <span class="s2">"M2"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"m"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"C+"</span><span class="p">:</span> <span class="mf">3.090e-11</span><span class="p">,</span> <span class="s2">"S+"</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.155e-11</span><span class="p">},</span>
+            <span class="s2">"S2"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"m"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"C+"</span><span class="p">:</span> <span class="mf">0.573e-11</span><span class="p">,</span> <span class="s2">"S+"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.134e-11</span><span class="p">},</span>
+            <span class="s2">"K1"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"m"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"C+"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.155e-11</span><span class="p">,</span> <span class="s2">"S+"</span><span class="p">:</span> <span class="mf">0.621e-11</span><span class="p">},</span>
+            <span class="s2">"O1"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"n"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"m"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"C+"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.177e-11</span><span class="p">,</span> <span class="s2">"S+"</span><span class="p">:</span> <span class="mf">0.055e-11</span><span class="p">},</span>
         <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_doodson_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute Doodson harmonic arguments for the given epoch.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute Doodson harmonic arguments for the given epoch."""</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.utils.time_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">calc_gmst</span>
+
         <span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">jd</span> <span class="o">-</span> <span class="mf">2451545.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">36525.0</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">jd</span> <span class="o">-</span> <span class="mf">2451545.0</span>
         <span class="n">gmst</span> <span class="o">=</span> <span class="n">calc_gmst</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span>
@@ -595,16 +611,16 @@
         <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">((</span><span class="mf">280.459</span> <span class="o">+</span> <span class="mf">0.98564736</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;M2&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">s</span><span class="p">),</span>
-            <span class="s2">&quot;S2&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">h</span><span class="p">),</span>
-            <span class="s2">&quot;K1&quot;</span><span class="p">:</span> <span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
-            <span class="s2">&quot;O1&quot;</span><span class="p">:</span> <span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span>
+            <span class="s2">"M2"</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">s</span><span class="p">),</span>
+            <span class="s2">"S2"</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">h</span><span class="p">),</span>
+            <span class="s2">"K1"</span><span class="p">:</span> <span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
+            <span class="s2">"O1"</span><span class="p">:</span> <span class="n">gmst</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span>
         <span class="p">}</span>
 
 <div class="viewcode-block" id="OceanTidesGravity.get_acceleration">
 <a class="viewcode-back" href="../../../api/opengnc.disturbances.html#opengnc.disturbances.gravity.OceanTidesGravity.get_acceleration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_acceleration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate tidal acceleration contribution in ECI.</span>
 
 <span class="sd">        Parameters</span>
@@ -618,16 +634,16 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Correction vector ($m/s^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_doodson_arguments</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span>
 
         <span class="n">dc</span><span class="p">,</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">])</span>
+            <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">"m"</span><span class="p">])</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
-            <span class="n">dc</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;C+&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;S+&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-            <span class="n">ds</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;S+&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;C+&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="n">dc</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span><span class="p">[</span><span class="s2">"C+"</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">v</span><span class="p">[</span><span class="s2">"S+"</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+            <span class="n">ds</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v</span><span class="p">[</span><span class="s2">"S+"</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="n">v</span><span class="p">[</span><span class="s2">"C+"</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
         <span class="n">r_ecef</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">eci2ecef</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">jd</span><span class="p">)</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">r_ecef</span>
@@ -635,21 +651,17 @@
         <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">rm</span><span class="p">)</span>
         <span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-        <span class="n">rho</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">/</span> <span class="n">rm</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">rho</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">/</span> <span class="n">rm</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
         <span class="n">p_21</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
-        <span class="n">p_22</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">p_22</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">15</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 
         <span class="n">u_21</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">p_21</span> <span class="o">*</span> <span class="p">(</span><span class="n">dc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span>
-        <span class="n">u_22</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">p_22</span> <span class="o">*</span> <span class="p">(</span><span class="n">dc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">lon</span><span class="p">)</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">lon</span><span class="p">))</span>
+        <span class="n">u_22</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">p_22</span> <span class="o">*</span> <span class="p">(</span><span class="n">dc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lon</span><span class="p">)</span> <span class="o">+</span> <span class="n">ds</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lon</span><span class="p">))</span>
 
-        <span class="n">acc_ecef</span> <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="n">rm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">u_21</span> <span class="o">+</span> <span class="n">u_22</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_ecef</span> <span class="o">/</span> <span class="n">rm</span><span class="p">)</span>
+        <span class="n">acc_ecef</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="n">rm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">u_21</span> <span class="o">+</span> <span class="n">u_22</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_ecef</span> <span class="o">/</span> <span class="n">rm</span><span class="p">)</span>
         <span class="n">aeci</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ecef2eci</span><span class="p">(</span><span class="n">acc_ecef</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">jd</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">aeci</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

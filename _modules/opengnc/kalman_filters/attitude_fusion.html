@@ -76,7 +76,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.kalman_filters.attitude_fusion</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Sensor-agnostic attitude fusion wrapper built on MEKF or UKF_Attitude.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Sensor-agnostic attitude fusion wrapper built on MEKF or UKF_Attitude."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -92,43 +92,45 @@
 <div class="viewcode-block" id="AttitudeSensorFusion">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AttitudeSensorFusion</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decouple attitude filters from specific sensor combinations.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Decouple attitude filters from specific sensor combinations."""</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mekf&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"mekf"</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">backend_key</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">:</span> <span class="n">MEKF</span> <span class="o">|</span> <span class="n">UKF_Attitude</span>
-        <span class="k">if</span> <span class="n">backend_key</span> <span class="o">==</span> <span class="s2">&quot;mekf&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">backend_key</span> <span class="o">==</span> <span class="s2">"mekf"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">MEKF</span><span class="p">(</span><span class="o">**</span><span class="n">filter_kwargs</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">backend_key</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;ukf&quot;</span><span class="p">,</span> <span class="s2">&quot;ukf_attitude&quot;</span><span class="p">}:</span>
+        <span class="k">elif</span> <span class="n">backend_key</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"ukf"</span><span class="p">,</span> <span class="s2">"ukf_attitude"</span><span class="p">}:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">UKF_Attitude</span><span class="p">(</span><span class="o">**</span><span class="n">filter_kwargs</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported attitude fusion backend: </span><span class="si">{</span><span class="n">backend</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported attitude fusion backend: </span><span class="si">{</span><span class="n">backend</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="n">backend_key</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">quaternion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="s2">&quot;q&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="s2">"q"</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">q</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">x</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">bias</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="s2">&quot;beta&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="s2">"beta"</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">7</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AttitudeSensorFusion.predict">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion.predict">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measurement</span><span class="p">:</span> <span class="n">SensorMeasurement</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Propagate the attitude state from an angular-rate sensor packet.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Propagate the attitude state from an angular-rate sensor packet."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">measurement</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="AttitudeSensorFusion.update_from_measurement">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.attitude_fusion.AttitudeSensorFusion.update_from_measurement">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_from_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measurement</span><span class="p">:</span> <span class="n">SensorMeasurement</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">==</span> <span class="s2">&quot;angular_rate&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Angular-rate measurements belong in the predict step, not the update step.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">==</span> <span class="s2">"angular_rate"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Angular-rate measurements belong in the predict step, not the update step."</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">measurement</span><span class="p">)</span></div>
 
 

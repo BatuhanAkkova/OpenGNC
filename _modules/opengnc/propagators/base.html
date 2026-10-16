@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.propagators.base</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Abstract base class for orbit propagators.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -91,9 +91,9 @@
 <div class="viewcode-block" id="Propagator">
 <a class="viewcode-back" href="../../../api/opengnc.propagators.html#opengnc.propagators.base.Propagator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Propagator</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Abstract base class for orbit propagators.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="Propagator.propagate">
 <a class="viewcode-back" href="../../../api/opengnc.propagators.html#opengnc.propagators.base.Propagator.propagate">[docs]</a>
@@ -101,7 +101,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_i</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Propagates the state vector (position and velocity) forward in time.</span>
 
 <span class="sd">        Parameters</span>
@@ -121,13 +121,9 @@
 <span class="sd">            (r_f, v_f).</span>
 <span class="sd">            r_f : Final position vector (m).</span>
 <span class="sd">            v_f : Final velocity vector (m/s).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">pass</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

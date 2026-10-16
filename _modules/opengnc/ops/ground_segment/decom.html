@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.ops.ground_segment.decom</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Telemetry de-commutation engine.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -103,16 +103,16 @@
 <a class="viewcode-back" href="../../../../api/opengnc.ops.ground_segment.html#opengnc.ops.ground_segment.decom.DecomEngine">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DecomEngine</span><span class="p">:</span>
     <span class="n">TYPE_SIZES</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;f&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">&quot;I&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="s2">&quot;i&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-        <span class="s2">&quot;Q&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-        <span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">"f"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">"d"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">"H"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"h"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"B"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"I"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">"i"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s2">"Q"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="s2">"q"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TelemetryField</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -127,7 +127,7 @@
             <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
                 <span class="k">continue</span>
 
-            <span class="n">fmt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&gt;</span><span class="si">{</span><span class="n">field</span><span class="o">.</span><span class="n">data_type</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">fmt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"&gt;</span><span class="si">{</span><span class="n">field</span><span class="o">.</span><span class="n">data_type</span><span class="si">}</span><span class="s2">"</span>
             <span class="n">raw_val</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack_from</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">offset</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">results</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">raw_val</span> <span class="o">*</span> <span class="n">field</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span> <span class="o">+</span> <span class="n">field</span><span class="o">.</span><span class="n">offset_val</span>
 
@@ -144,7 +144,7 @@
 
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DecomEngine&quot;</span><span class="p">,</span> <span class="s2">&quot;TelemetryField&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"DecomEngine"</span><span class="p">,</span> <span class="s2">"TelemetryField"</span><span class="p">]</span>
 </pre></div>
 
            </div>

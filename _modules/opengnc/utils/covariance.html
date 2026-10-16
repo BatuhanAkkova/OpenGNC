@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.covariance</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Covariance transformation and reachability analysis tools.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -90,15 +90,15 @@
 <div class="viewcode-block" id="CovarianceTransform">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.covariance.CovarianceTransform">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CovarianceTransform</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Tools for transforming state covariances between various frames.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="CovarianceTransform.eci_to_ric">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.covariance.CovarianceTransform.eci_to_ric">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">eci_to_ric</span><span class="p">(</span><span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">P_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Transform covariance from ECI to RIC (Radial, In-Track, Cross-Track).</span>
 
 <span class="sd">        Parameters</span>
@@ -114,7 +114,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            $6 \times 6$ Covariance matrix in RIC.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># 1. Define RIC Unit Vectors</span>
         <span class="n">u_r</span> <span class="o">=</span> <span class="n">r_eci</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">)</span>
@@ -137,7 +137,7 @@
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.covariance.CovarianceTransform.ric_to_eci">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">ric_to_eci</span><span class="p">(</span><span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">P_ric</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Transform covariance from RIC back to ECI.</span>
 
 <span class="sd">        Parameters</span>
@@ -153,7 +153,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            $6 \times 6$ Covariance matrix in ECI.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">u_r</span> <span class="o">=</span> <span class="n">r_eci</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">)</span>
         <span class="n">u_c</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
@@ -173,12 +173,12 @@
 <div class="viewcode-block" id="ReachabilityAnalysis">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.covariance.ReachabilityAnalysis">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ReachabilityAnalysis</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Orbital maneuver reachability analysis.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418e9</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with gravity constant.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize with gravity constant."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
 
 <div class="viewcode-block" id="ReachabilityAnalysis.get_reachable_delta_elements">
@@ -186,7 +186,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_reachable_delta_elements</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dv_total</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate maximum possible changes in orbital elements for a total delta-V.</span>
 
 <span class="sd">        Based on impulsive GVE approximations.</span>
@@ -202,7 +202,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
 <span class="sd">            Max theoretical $\Delta a, \Delta e, \Delta i$.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">v_circ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span>
 
         <span class="c1"># Max delta-a: Apply all delta-V along the velocity vector (Hohmann-like)</span>
@@ -218,9 +218,9 @@
         <span class="n">max_di</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">dv_total</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">v_circ</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;max_delta_a&quot;</span><span class="p">:</span> <span class="n">max_da</span><span class="p">,</span>
-            <span class="s2">&quot;max_delta_e&quot;</span><span class="p">:</span> <span class="n">max_de</span><span class="p">,</span>
-            <span class="s2">&quot;max_delta_i&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">max_di</span><span class="p">),</span>
+            <span class="s2">"max_delta_a"</span><span class="p">:</span> <span class="n">max_da</span><span class="p">,</span>
+            <span class="s2">"max_delta_e"</span><span class="p">:</span> <span class="n">max_de</span><span class="p">,</span>
+            <span class="s2">"max_delta_i"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">max_di</span><span class="p">),</span>
         <span class="p">}</span></div>
 </div>
 

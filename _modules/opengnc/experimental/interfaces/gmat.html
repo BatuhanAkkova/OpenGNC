@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.experimental.interfaces.gmat</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">GMAT Python API integration for high-fidelity truth propagation.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">importlib.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_spec</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
@@ -87,15 +87,15 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.interfaces.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExternalPropagator</span>
 
-<span class="n">GMAT_AVAILABLE</span> <span class="o">=</span> <span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;gmatpy&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="n">GMAT_AVAILABLE</span> <span class="o">=</span> <span class="n">find_spec</span><span class="p">(</span><span class="s2">"gmatpy"</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
 
 <div class="viewcode-block" id="GMATInterface">
 <a class="viewcode-back" href="../../../../api/opengnc.experimental.interfaces.html#opengnc.experimental.interfaces.gmat.GMATInterface">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GMATInterface</span><span class="p">(</span><span class="n">ExternalPropagator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Standardized interface for the NASA GMAT Python API.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="kc">False</span>
@@ -127,12 +127,12 @@
         <span class="n">step_sec</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;GMAT not connected. Check GMAT installation and environment.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"GMAT not connected. Check GMAT installation and environment."</span><span class="p">)</span>
 
         <span class="n">num_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">duration_sec</span> <span class="o">/</span> <span class="n">step_sec</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start_jd</span><span class="p">,</span> <span class="n">start_jd</span> <span class="o">+</span> <span class="n">duration_sec</span> <span class="o">/</span> <span class="mf">86400.0</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">)</span>
         <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="p">(</span><span class="n">num_steps</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;times&quot;</span><span class="p">:</span> <span class="n">times</span><span class="p">,</span> <span class="s2">&quot;states&quot;</span><span class="p">:</span> <span class="n">states</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"times"</span><span class="p">:</span> <span class="n">times</span><span class="p">,</span> <span class="s2">"states"</span><span class="p">:</span> <span class="n">states</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="GMATInterface.setup_force_model">

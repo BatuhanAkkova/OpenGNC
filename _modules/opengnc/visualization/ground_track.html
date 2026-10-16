@@ -76,8 +76,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.visualization.ground_track</h1><div class="highlight"><pre>
-<span></span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
 
 
@@ -87,9 +86,9 @@
     <span class="n">latitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">longitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">times</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Satellite Ground Track&quot;</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Satellite Ground Track"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    2D Sub-Satellite Point (SSP) Visualization.</span>
 
 <span class="sd">    Projects the spacecraft trajectory onto a 2D equirectangular map tracking</span>
@@ -115,12 +114,12 @@
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If coordinate arrays have mismatched lengths.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">lats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">latitudes</span><span class="p">)</span>
     <span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">longitudes</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">lats</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">lons</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Latitudes and longitudes must have the same length.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Latitudes and longitudes must have the same length."</span><span class="p">)</span>
 
     <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 
@@ -129,40 +128,43 @@
     <span class="k">if</span> <span class="n">times</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">t_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">t_vals</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">):</span>
-            <span class="n">hover_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;T: </span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">s&lt;br&gt;Lat: </span><span class="si">{</span><span class="n">lat</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">&lt;br&gt;Lon: </span><span class="si">{</span><span class="n">lon</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">hover_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"T: </span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">s&lt;br&gt;Lat: </span><span class="si">{</span><span class="n">lat</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">&lt;br&gt;Lon: </span><span class="si">{</span><span class="n">lon</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lats</span><span class="p">,</span> <span class="n">lons</span><span class="p">):</span>
-            <span class="n">hover_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lat: </span><span class="si">{</span><span class="n">lat</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">&lt;br&gt;Lon: </span><span class="si">{</span><span class="n">lon</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">hover_text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Lat: </span><span class="si">{</span><span class="n">lat</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">&lt;br&gt;Lon: </span><span class="si">{</span><span class="n">lon</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="se">\u00b0</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="c1"># 2. Main Ground Track Trace</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
         <span class="n">go</span><span class="o">.</span><span class="n">Scattergeo</span><span class="p">(</span>
-            <span class="n">lat</span><span class="o">=</span><span class="n">lats</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lons</span><span class="p">,</span>
-            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines+markers&quot;</span><span class="p">,</span>
-            <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">),</span>
-            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+            <span class="n">lat</span><span class="o">=</span><span class="n">lats</span><span class="p">,</span>
+            <span class="n">lon</span><span class="o">=</span><span class="n">lons</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">"lines+markers"</span><span class="p">,</span>
+            <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"darkorange"</span><span class="p">),</span>
+            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"darkorange"</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
             <span class="n">hovertext</span><span class="o">=</span><span class="n">hover_text</span><span class="p">,</span>
-            <span class="n">hoverinfo</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ground Track&quot;</span><span class="p">,</span>
+            <span class="n">hoverinfo</span><span class="o">=</span><span class="s2">"text"</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Ground Track"</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="p">)</span>
 
     <span class="c1"># 3. Markers</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
         <span class="n">go</span><span class="o">.</span><span class="n">Scattergeo</span><span class="p">(</span>
-            <span class="n">lat</span><span class="o">=</span><span class="p">[</span><span class="n">lats</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">lon</span><span class="o">=</span><span class="p">[</span><span class="n">lons</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
-            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
-            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">),</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Start&quot;</span><span class="p">,</span>
+            <span class="n">lat</span><span class="o">=</span><span class="p">[</span><span class="n">lats</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="n">lon</span><span class="o">=</span><span class="p">[</span><span class="n">lons</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">"markers"</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"circle"</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Start"</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="p">)</span>
 
     <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
         <span class="n">go</span><span class="o">.</span><span class="n">Scattergeo</span><span class="p">(</span>
-            <span class="n">lat</span><span class="o">=</span><span class="p">[</span><span class="n">lats</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">lon</span><span class="o">=</span><span class="p">[</span><span class="n">lons</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
-            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
-            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;square&quot;</span><span class="p">),</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;End&quot;</span><span class="p">,</span>
+            <span class="n">lat</span><span class="o">=</span><span class="p">[</span><span class="n">lats</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+            <span class="n">lon</span><span class="o">=</span><span class="p">[</span><span class="n">lons</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">"markers"</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">"square"</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"End"</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="p">)</span>
 
@@ -172,24 +174,20 @@
         <span class="n">geo</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">showland</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">showcoastlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">projection_type</span><span class="o">=</span><span class="s2">&quot;equirectangular&quot;</span><span class="p">,</span>
-            <span class="n">coastlinecolor</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
-            <span class="n">landcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-            <span class="n">lakecolor</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
-            <span class="n">rivercolor</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
+            <span class="n">projection_type</span><span class="o">=</span><span class="s2">"equirectangular"</span><span class="p">,</span>
+            <span class="n">coastlinecolor</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span>
+            <span class="n">landcolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+            <span class="n">lakecolor</span><span class="o">=</span><span class="s2">"lightblue"</span><span class="p">,</span>
+            <span class="n">rivercolor</span><span class="o">=</span><span class="s2">"lightblue"</span><span class="p">,</span>
             <span class="n">showocean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">oceancolor</span><span class="o">=</span><span class="s2">&quot;aliceblue&quot;</span><span class="p">,</span>
-            <span class="n">lataxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">),</span>
-            <span class="n">lonaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">),</span>
+            <span class="n">oceancolor</span><span class="o">=</span><span class="s2">"aliceblue"</span><span class="p">,</span>
+            <span class="n">lataxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">),</span>
+            <span class="n">lonaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">),</span>
         <span class="p">),</span>
         <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">fig</span></div>
-
-
-
-
 
 </pre></div>
 

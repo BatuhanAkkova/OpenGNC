@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.optimal_control.mpc_casadi</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Nonlinear Model Predictive Control (NMPC) using CasADi with Multiple Shooting.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -89,6 +89,7 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">casadi</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ca</span>
+
     <span class="n">CASADI_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">CASADI_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
@@ -96,9 +97,11 @@
 <div class="viewcode-block" id="ca">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.mpc_casadi.ca">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">ca</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Placeholder for CasADi types when not installed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Placeholder for CasADi types when not installed."""</span>
+
         <span class="n">MX</span> <span class="o">=</span> <span class="n">Any</span>
         <span class="n">SX</span> <span class="o">=</span> <span class="n">Any</span>
+
         <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Any</span></div>
 
@@ -107,14 +110,14 @@
 <div class="viewcode-block" id="CasadiNMPC">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.mpc_casadi.CasadiNMPC">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CasadiNMPC</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    High-performance Nonlinear Model Predictive Controller (NMPC) using CasADi.</span>
 
 <span class="sd">    Optimizes a finite-horizon cost function subject to nonlinear dynamics and</span>
 <span class="sd">    algebraic constraints using a Multiple Shooting formulation for numerical</span>
 <span class="sd">    stability and parallelism.</span>
 
-<span class="sd">    NOTE: Requires the &#39;casadi&#39; package (`pip install opengnc[mpc]`).</span>
+<span class="sd">    NOTE: Requires the 'casadi' package (`pip install opengnc[mpc]`).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -139,7 +142,7 @@
 <span class="sd">    discrete : bool, optional</span>
 <span class="sd">        If True, the dynamics function is assumed discrete. If False, RK4</span>
 <span class="sd">        integration is performed internally. Default is False.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -156,11 +159,11 @@
         <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">discrete</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize and formulate the CasADi NLP problem.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize and formulate the CasADi NLP problem."""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">CASADI_AVAILABLE</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;CasADi is not installed. Please install with &#39;pip install opengnc[mpc]&#39; &quot;</span>
-                <span class="s2">&quot;to use the CasadiNMPC controller.&quot;</span>
+                <span class="s2">"CasADi is not installed. Please install with 'pip install opengnc[mpc]' "</span>
+                <span class="s2">"to use the CasadiNMPC controller."</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nx</span><span class="p">)</span>
@@ -183,19 +186,21 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_setup_solver</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default_val</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper to convert scalar or array bounds to full-dimension arrays.&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_setup_bounds</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">bound</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default_val</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Helper to convert scalar or array bounds to full-dimension arrays."""</span>
         <span class="k">if</span> <span class="n">bound</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">default_val</span><span class="p">)</span>
         <span class="n">bound_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bound</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bound_arr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">bound_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bound_arr</span><span class="p">)</span> <span class="o">!=</span> <span class="n">dim</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bound dimension mismatch. Expected </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">bound_arr</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Bound dimension mismatch. Expected </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">bound_arr</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">bound_arr</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_rk4_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="p">,</span> <span class="n">u</span><span class="p">:</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a 4th-order Runge-Kutta integration step.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Perform a 4th-order Runge-Kutta integration step."""</span>
         <span class="n">k1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
         <span class="n">k2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">k1</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
         <span class="n">k3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">k2</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
@@ -203,11 +208,11 @@
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dt</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k1</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">k2</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">k3</span> <span class="o">+</span> <span class="n">k4</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_setup_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Formulate the NLP and instantiate the IPOPT solver.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Formulate the NLP and instantiate the IPOPT solver."""</span>
         <span class="c1"># Symbolic decision variables</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># State variables</span>
-        <span class="n">U</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>       <span class="c1"># Control variables</span>
-        <span class="n">X0</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s2">&quot;X0&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">)</span>             <span class="c1"># Initial state parameter</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s2">"X"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># State variables</span>
+        <span class="n">U</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s2">"U"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># Control variables</span>
+        <span class="n">X0</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">MX</span><span class="o">.</span><span class="n">sym</span><span class="p">(</span><span class="s2">"X0"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="p">)</span>  <span class="c1"># Initial state parameter</span>
 
         <span class="n">cost</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">g</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Constraints (Multiple Shooting)</span>
@@ -216,7 +221,9 @@
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
             <span class="n">cost</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">],</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
 
-            <span class="n">x_next_sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rk4_step</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">],</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">discrete</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">],</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
+            <span class="n">x_next_sim</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_rk4_step</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">],</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">discrete</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">],</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span>
+            <span class="p">)</span>
             <span class="n">g</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_next_sim</span><span class="p">)</span>
 
         <span class="n">cost</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">])</span>
@@ -224,16 +231,11 @@
         <span class="c1"># Formulate decision vector and symbolic NLP</span>
         <span class="n">v_decision</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">vertcat</span><span class="p">(</span><span class="n">ca</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ca</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">g_constraints</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">vertcat</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">)</span>
-        <span class="n">nlp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">v_decision</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">:</span> <span class="n">cost</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">:</span> <span class="n">g_constraints</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="n">X0</span><span class="p">}</span>
+        <span class="n">nlp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">v_decision</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">:</span> <span class="n">cost</span><span class="p">,</span> <span class="s2">"g"</span><span class="p">:</span> <span class="n">g_constraints</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">:</span> <span class="n">X0</span><span class="p">}</span>
 
         <span class="c1"># Solver configuration (IPOPT)</span>
-        <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;ipopt.print_level&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;print_time&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;ipopt.tol&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
-            <span class="s2">&quot;ipopt.max_iter&quot;</span><span class="p">:</span> <span class="mi">150</span>
-        <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">nlpsol</span><span class="p">(</span><span class="s2">&quot;solver&quot;</span><span class="p">,</span> <span class="s2">&quot;ipopt&quot;</span><span class="p">,</span> <span class="n">nlp</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"ipopt.print_level"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"print_time"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"ipopt.tol"</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="s2">"ipopt.max_iter"</span><span class="p">:</span> <span class="mi">150</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="n">ca</span><span class="o">.</span><span class="n">nlpsol</span><span class="p">(</span><span class="s2">"solver"</span><span class="p">,</span> <span class="s2">"ipopt"</span><span class="p">,</span> <span class="n">nlp</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
 
         <span class="c1"># Build concatenated bound vectors for X and U</span>
         <span class="n">lbx_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -253,7 +255,7 @@
 <div class="viewcode-block" id="CasadiNMPC.solve">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.mpc_casadi.CasadiNMPC.solve">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">u_guess</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Solve the NMPC problem for the given initial state.</span>
 
 <span class="sd">        Parameters</span>
@@ -267,7 +269,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Optimal control trajectory (N, nu).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">x_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
         <span class="c1"># Warm start guess</span>
@@ -285,9 +287,9 @@
             <span class="n">x0</span><span class="o">=</span><span class="n">v_start</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">x_init</span><span class="p">,</span> <span class="n">lbx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lbx</span><span class="p">,</span> <span class="n">ubx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ubx</span><span class="p">,</span> <span class="n">lbg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lbg</span><span class="p">,</span> <span class="n">ubg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ubg</span>
         <span class="p">)</span>
 
-        <span class="n">v_opt</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">full</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">v_opt</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[</span><span class="s2">"x"</span><span class="p">]</span><span class="o">.</span><span class="n">full</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
         <span class="c1"># Extract controls (located after all state variables in decision vector)</span>
-        <span class="n">u_opt_flat</span> <span class="o">=</span> <span class="n">v_opt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):]</span>
+        <span class="n">u_opt_flat</span> <span class="o">=</span> <span class="n">v_opt</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">nx</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">:]</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">u_opt_flat</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">)))</span></div>
 </div>
 

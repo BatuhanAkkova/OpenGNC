@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.time_utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Time system conversions (UTC, TAI, GPS, TT, TDB) and Julian date utilities.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -88,14 +88,9 @@
 <div class="viewcode-block" id="calc_jd">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.calc_jd">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_jd</span><span class="p">(</span>
-    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">minute</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">sec</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sec</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate the Julian Date (JD) from a Gregorian date and time.</span>
 
 <span class="sd">    Standard epoch is Noon, January 1, 4713 BC.</span>
@@ -119,7 +114,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float]</span>
 <span class="sd">        (JD integer part, JD fractional part).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">y_adj</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">m_adj</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)</span> <span class="o">+</span> <span class="mi">12</span>
@@ -147,7 +142,7 @@
 <div class="viewcode-block" id="jd_to_datetime">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.jd_to_datetime">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">jd_to_datetime</span><span class="p">(</span><span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">jd_frac</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Julian Date to Gregorian date and time.</span>
 
 <span class="sd">    Parameters</span>
@@ -161,7 +156,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[int, int, int, int, int, float]</span>
 <span class="sd">        (Year, Month, Day, Hour, Minute, Second).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">jd_total</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">jd_frac</span><span class="p">)</span>
     <span class="n">z_val</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">jd_total</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
     <span class="n">f_val</span> <span class="o">=</span> <span class="n">jd_total</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="n">z_val</span>
@@ -189,6 +184,18 @@
     <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">time_frac</span> <span class="o">-</span> <span class="n">hour</span> <span class="o">*</span> <span class="mf">3600.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">)</span>
     <span class="n">second</span> <span class="o">=</span> <span class="n">time_frac</span> <span class="o">-</span> <span class="n">hour</span> <span class="o">*</span> <span class="mf">3600.0</span> <span class="o">-</span> <span class="n">minute</span> <span class="o">*</span> <span class="mf">60.0</span>
 
+    <span class="c1"># Handle floating point inaccuracies (e.g. 59.999999s -&gt; 00s with minute increment)</span>
+    <span class="n">second</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">second</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">second</span> <span class="o">&gt;=</span> <span class="mf">60.0</span><span class="p">:</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">minute</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">minute</span> <span class="o">&gt;=</span> <span class="mi">60</span><span class="p">:</span>
+        <span class="n">minute</span> <span class="o">-=</span> <span class="mi">60</span>
+        <span class="n">hour</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">hour</span> <span class="o">&gt;=</span> <span class="mi">24</span><span class="p">:</span>
+        <span class="n">hour</span> <span class="o">-=</span> <span class="mi">24</span>
+        <span class="n">day_int</span> <span class="o">+=</span> <span class="mi">1</span>
+
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">),</span> <span class="n">day_int</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span></div>
 
 
@@ -196,7 +203,7 @@
 <div class="viewcode-block" id="day_to_mdtime">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.day_to_mdtime">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">day_to_mdtime</span><span class="p">(</span><span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">doy_frac</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert day-of-year (DOY) to month, day, and time.</span>
 
 <span class="sd">    Parameters</span>
@@ -210,8 +217,8 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[int, int, int, int, float]</span>
 <span class="sd">        (Month, Day, Hour, Minute, Second).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">is_leap</span> <span class="o">=</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+<span class="sd">    """</span>
+    <span class="n">is_leap</span> <span class="o">=</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">mon_days</span> <span class="o">=</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="mi">29</span> <span class="k">if</span> <span class="n">is_leap</span> <span class="k">else</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
 
     <span class="n">doy</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">doy_frac</span><span class="p">)</span>
@@ -233,7 +240,7 @@
 <div class="viewcode-block" id="calc_gmst">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.calc_gmst">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_gmst</span><span class="p">(</span><span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates Greenwich Mean Sidereal Time from Julian Date and DUT1.</span>
 
 <span class="sd">    Parameters</span>
@@ -247,7 +254,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Greenwich Mean Sidereal Time in radians.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">jd_ut1</span> <span class="o">=</span> <span class="n">jd</span> <span class="o">+</span> <span class="n">dut1</span> <span class="o">/</span> <span class="mf">86400.0</span>
     <span class="n">ut1</span> <span class="o">=</span> <span class="p">(</span><span class="n">jd_ut1</span> <span class="o">-</span> <span class="mf">2451545.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">36525.0</span>
     <span class="n">gmst</span> <span class="o">=</span> <span class="p">(</span>
@@ -261,7 +268,7 @@
 <div class="viewcode-block" id="calc_last">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.calc_last">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_last</span><span class="p">(</span><span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates Local Apparent Sidereal Time from Julian Date and Longitude.</span>
 
 <span class="sd">    Parameters</span>
@@ -277,14 +284,14 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Local Apparent Sidereal Time in radians.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">ut1</span> <span class="o">=</span> <span class="p">(</span><span class="n">jd</span> <span class="o">-</span> <span class="mf">2451545.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">36525.0</span>
     <span class="n">gmst</span> <span class="o">=</span> <span class="n">calc_gmst</span><span class="p">(</span><span class="n">jd</span> <span class="o">+</span> <span class="n">dut1</span> <span class="o">/</span> <span class="mf">86400.0</span><span class="p">)</span>
 
     <span class="n">eps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">23.439291</span> <span class="o">-</span> <span class="mf">0.0130042</span> <span class="o">*</span> <span class="n">ut1</span><span class="p">)</span>  <span class="c1"># Obliquity of ecliptic</span>
     <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span>
         <span class="mf">125.04452</span> <span class="o">-</span> <span class="mf">1934.136261</span> <span class="o">*</span> <span class="n">ut1</span>
-    <span class="p">)</span>  <span class="c1"># Nutation in Longitude of the ascending node of the Moon&#39;s orbit</span>
+    <span class="p">)</span>  <span class="c1"># Nutation in Longitude of the ascending node of the Moon's orbit</span>
     <span class="n">l_sun</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span>
         <span class="mf">280.4665</span> <span class="o">+</span> <span class="mf">36000.7698</span> <span class="o">*</span> <span class="n">ut1</span> <span class="o">+</span> <span class="mf">0.0003032</span> <span class="o">*</span> <span class="n">ut1</span><span class="o">**</span><span class="mi">2</span>
     <span class="p">)</span>  <span class="c1"># Mean longitude of the Sun</span>
@@ -304,7 +311,7 @@
 <div class="viewcode-block" id="calc_lst">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.calc_lst">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_lst</span><span class="p">(</span><span class="n">gmst</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates Local Sidereal Time from GMST and Longitude.</span>
 
 <span class="sd">    Parameters</span>
@@ -320,7 +327,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Local Sidereal Time in radians.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">gmst</span> <span class="o">+</span> <span class="n">lon</span> <span class="o">+</span> <span class="n">dut1</span> <span class="o">/</span> <span class="mf">86400.0</span></div>
 
 
@@ -328,7 +335,7 @@
 <div class="viewcode-block" id="calc_doy">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.calc_doy">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_doy</span><span class="p">(</span><span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates the day of the year.</span>
 
 <span class="sd">    Parameters</span>
@@ -344,7 +351,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    int</span>
 <span class="sd">        Day of the year (1-366).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">is_leap_year</span><span class="p">(</span><span class="n">year</span><span class="p">):</span>
         <span class="n">months</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">29</span>
@@ -357,7 +364,7 @@
 <div class="viewcode-block" id="is_leap_year">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.time_utils.is_leap_year">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">is_leap_year</span><span class="p">(</span><span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Checks if a year is a leap year.</span>
 
 <span class="sd">    Parameters</span>
@@ -369,7 +376,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        True if the year is a leap year, False otherwise.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
     <span class="k">else</span><span class="p">:</span>
@@ -413,7 +420,7 @@
     <span class="nb">float</span><span class="p">,</span>
     <span class="nb">float</span><span class="p">,</span>
 <span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Converts UTC to any time system.</span>
 
 <span class="sd">    Parameters</span>
@@ -444,7 +451,7 @@
 <span class="sd">    tuple</span>
 <span class="sd">        A tuple containing converted time values for various systems:</span>
 <span class="sd">        (ut1, tut1, jdut1, jdut1frac, utc, tai, gps, tt, ttt, jdtt, jdttfrac, tdb, ttdb, jdtdb, jdtdbfrac)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">utc</span> <span class="o">=</span> <span class="n">hour</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="n">minute</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">sec</span>
 
     <span class="n">ut1</span> <span class="o">=</span> <span class="n">utc</span> <span class="o">+</span> <span class="n">dut1</span>
@@ -508,10 +515,6 @@
         <span class="n">jdtdb</span><span class="p">,</span>
         <span class="n">jdtdbfrac</span><span class="p">,</span>
     <span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

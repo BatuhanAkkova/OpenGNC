@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.environment.solar</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Solar position models based on Julian Date.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -86,10 +86,10 @@
 <div class="viewcode-block" id="Sun">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.solar.Sun">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Sun</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Solar Position Model (Astronomical Almanac).</span>
 
-<span class="sd">    Provides the Sun&#39;s position vector in the Earth-Centered Inertial (ECI)</span>
+<span class="sd">    Provides the Sun's position vector in the Earth-Centered Inertial (ECI)</span>
 <span class="sd">    frame (J2000).</span>
 
 <span class="sd">    Calculation:</span>
@@ -99,16 +99,16 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize solar model.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize solar model."""</span>
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="Sun.calculate_sun_eci">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.solar.Sun.calculate_sun_eci">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_sun_eci</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate Sun vector in ECI J2000.</span>
 
 <span class="sd">        Parameters</span>
@@ -120,7 +120,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Sun position $[x, y, z]$ (m).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># 1. Days since J2000 epoch</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jd</span><span class="p">)</span> <span class="o">-</span> <span class="mf">2451545.0</span>
 
@@ -146,10 +146,6 @@
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span> <span class="o">*</span> <span class="n">au_m</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

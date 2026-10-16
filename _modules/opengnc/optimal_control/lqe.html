@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.optimal_control.lqe</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Linear Quadratic Estimator (LQE) / Kalman Filter.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_continuous_are</span>
@@ -87,7 +87,7 @@
 <div class="viewcode-block" id="LQE">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.lqe.LQE">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LQE</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Linear Quadratic Estimator (LQE) / Kalman Filter gain designer.</span>
 
 <span class="sd">    Computes the optimal steady-state observer gain $L$ for a continuous-time</span>
@@ -120,7 +120,7 @@
 <span class="sd">        Steady-state estimation error covariance matrix.</span>
 <span class="sd">    L : np.ndarray</span>
 <span class="sd">        Optimal observer gain matrix (nx x ny).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -130,7 +130,7 @@
         <span class="n">Q</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">R</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the LQE parameters.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize the LQE parameters."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
@@ -142,7 +142,7 @@
 <div class="viewcode-block" id="LQE.solve">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.lqe.LQE.solve">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Solve the Estimation Algebraic Riccati Equation (ARE).</span>
 
 <span class="sd">        $A P + P A^T - P C^T R^{-1} C P + G Q G^T = 0$</span>
@@ -151,7 +151,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            The unique positive-definite solution matrix P.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Mapping to solve_continuous_are:</span>
         <span class="c1"># A_eff = A.T, B_eff = C.T, Q_eff = G*Q*G.T, R_eff = R</span>
         <span class="n">a_eff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="o">.</span><span class="n">T</span>
@@ -166,7 +166,7 @@
 <div class="viewcode-block" id="LQE.compute_gain">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.lqe.LQE.compute_gain">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_gain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Compute the optimal observer gain matrix L.</span>
 
 <span class="sd">        $L = P C^T R^{-1}$</span>
@@ -175,11 +175,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Observer gain matrix L (nx x ny).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Riccati solution not available.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Riccati solution not available."</span><span class="p">)</span>
 
         <span class="c1"># Numerically stable solve for R*L.T = C*P</span>
         <span class="n">term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
@@ -187,10 +187,6 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

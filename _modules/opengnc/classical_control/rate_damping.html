@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.classical_control.rate_damping</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Proportional rate damping controller for torque-based detumbling.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
 
@@ -88,24 +88,24 @@
 <div class="viewcode-block" id="RateDampingControl">
 <a class="viewcode-back" href="../../../api/opengnc.classical_control.html#opengnc.classical_control.rate_damping.RateDampingControl">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RateDampingControl</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Proportional angular rate damping controller for spacecraft detumbling.</span>
 
-<span class="sd">    Generates torque commands to reduce the spacecraft&#39;s angular rates,</span>
+<span class="sd">    Generates torque commands to reduce the spacecraft's angular rates,</span>
 <span class="sd">    typically using thrusters or other active actuators.</span>
 
 <span class="sd">    Control law: ``T = -K omega``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gain</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_torque</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the rate damping controller.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize the rate damping controller."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gain</span> <span class="o">=</span> <span class="n">gain</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span> <span class="o">=</span> <span class="n">max_torque</span>
 
 <div class="viewcode-block" id="RateDampingControl.compute_torque">
 <a class="viewcode-back" href="../../../api/opengnc.classical_control.html#opengnc.classical_control.rate_damping.RateDampingControl.compute_torque">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_torque</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the commanded damping torque.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the commanded damping torque."""</span>
         <span class="n">torque_raw</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gain</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_torque</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

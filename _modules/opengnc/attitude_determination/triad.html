@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.attitude_determination.triad</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">TRIAD algorithm for attitude determination from two vectors.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -93,7 +93,7 @@
     <span class="n">v_ref1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">v_ref2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Compute the DCM from reference to body frame using TRIAD.</span>
 
 <span class="sd">    TRIAD (Tri-Axial Attitude Determination) construction:</span>
@@ -124,7 +124,7 @@
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If vectors are collinear or zero-length.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Normalize inputs</span>
     <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_body1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v_body1</span><span class="p">)</span>
     <span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_body2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v_body2</span><span class="p">)</span>
@@ -137,7 +137,7 @@
     <span class="n">norm_t2b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">t2b_raw</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">norm_t2b</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Body vectors are collinear or nearly collinear.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Body vectors are collinear or nearly collinear."</span><span class="p">)</span>
 
     <span class="n">t2b</span> <span class="o">=</span> <span class="n">t2b_raw</span> <span class="o">/</span> <span class="n">norm_t2b</span>
     <span class="n">t3b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">t1b</span><span class="p">,</span> <span class="n">t2b</span><span class="p">)</span>
@@ -148,7 +148,7 @@
     <span class="n">norm_t2r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">t2r_raw</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">norm_t2r</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Reference vectors are collinear or nearly collinear.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Reference vectors are collinear or nearly collinear."</span><span class="p">)</span>
 
     <span class="n">t2r</span> <span class="o">=</span> <span class="n">t2r_raw</span> <span class="o">/</span> <span class="n">norm_t2r</span>
     <span class="n">t3r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">t1r</span><span class="p">,</span> <span class="n">t2r</span><span class="p">)</span>
@@ -158,10 +158,6 @@
     <span class="n">m_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">t1r</span><span class="p">,</span> <span class="n">t2r</span><span class="p">,</span> <span class="n">t3r</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">m_b</span> <span class="o">@</span> <span class="n">m_r</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

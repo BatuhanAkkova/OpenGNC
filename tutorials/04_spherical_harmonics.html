@@ -22,8 +22,8 @@
       <script src="../_static/thebelab-helper.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
-      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}})</script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -155,7 +155,7 @@ U = \frac{\mu}{r} \sum_{n=0}^{N} \left(\frac{R_E}{r}\right)^n \sum_{m=0}^{n} P_{
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.disturbances.gravity</span><span class="w"> </span><span class="kn">import</span> <span class="n">TwoBodyGravity</span><span class="p">,</span> <span class="n">J2Gravity</span><span class="p">,</span> <span class="n">HarmonicsGravity</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.propagators.cowell</span><span class="w"> </span><span class="kn">import</span> <span class="n">CowellPropagator</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gravity modules loaded.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Gravity modules loaded."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -186,15 +186,15 @@ U = \frac{\mu}{r} \sum_{n=0}^{N} \left(\frac{R_E}{r}\right)^n \sum_{m=0}^{n} P_{
 <span class="n">a_j2</span> <span class="o">=</span> <span class="n">gravity_j2</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
 <span class="n">a_har</span> <span class="o">=</span> <span class="n">gravity_harmonics</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">jd_epoch</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Two-Body Accel Magnitude:  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_2b</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;J2 Gravity Accel Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_j2</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Degree 10 Accel Magnitude:  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_har</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Two-Body Accel Magnitude:  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_2b</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"J2 Gravity Accel Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_j2</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Degree 10 Accel Magnitude:  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_har</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
 
 <span class="c1"># Delta metrics</span>
 <span class="n">delta_j2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_j2</span> <span class="o">-</span> <span class="n">a_2b</span><span class="p">)</span>
 <span class="n">delta_har</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_har</span> <span class="o">-</span> <span class="n">a_j2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Effect of J2 alone: </span><span class="si">{</span><span class="n">delta_j2</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Effect of Higher Order (10x10) over J2: </span><span class="si">{</span><span class="n">delta_har</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Effect of J2 alone: </span><span class="si">{</span><span class="n">delta_j2</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Effect of Higher Order (10x10) over J2: </span><span class="si">{</span><span class="n">delta_har</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -245,7 +245,7 @@ Effect of Higher Order (10x10) over J2: 8.420463e+00 m/s^2
     <span class="n">curr_r</span><span class="p">,</span> <span class="n">curr_v</span> <span class="o">=</span> <span class="n">propagator</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">curr_r</span><span class="p">,</span> <span class="n">curr_v</span><span class="p">,</span> <span class="n">dt_step</span><span class="p">,</span> <span class="n">perturbation_acc_fn</span><span class="o">=</span><span class="n">j2_perturbation</span><span class="p">)</span>
 
 <span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Propagated over </span><span class="si">{</span><span class="n">steps</span><span class="si">}</span><span class="s2"> discrete steps.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Propagated over </span><span class="si">{</span><span class="n">steps</span><span class="si">}</span><span class="s2"> discrete steps."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -262,7 +262,7 @@ Effect of Higher Order (10x10) over J2: 8.420463e+00 m/s^2
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Render the orbit in 3D</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_orbit_3d</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;LEO orbit under J2 Disturbances&quot;</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_orbit_3d</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"LEO orbit under J2 Disturbances"</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>

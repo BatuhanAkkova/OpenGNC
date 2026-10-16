@@ -76,10 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.state_to_elements</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Conversions between ECI position/velocity and Keplerian orbital elements.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -87,10 +86,9 @@
 <div class="viewcode-block" id="eci2kepler">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_to_elements.eci2kepler">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2kepler</span><span class="p">(</span>
-    <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert ECI Cartesian state to Keplerian orbital elements.</span>
 
 <span class="sd">    Parameters</span>
@@ -116,7 +114,7 @@
 <span class="sd">        - arglat: Argument of Latitude (rad)</span>
 <span class="sd">        - truelon: True Longitude (rad)</span>
 <span class="sd">        - lonper: Longitude of Perigee (rad)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># 1. Earth Gravitational Parameter (m^3/s^2)</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
 
@@ -140,7 +138,7 @@
 
     <span class="c1"># 5. Semi-major axis and Semi-latus rectum</span>
     <span class="n">energy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">((</span><span class="n">v_mag</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r_mag</span><span class="p">))</span>
-    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">energy</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span> <span class="c1"># Parabolic</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">energy</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>  <span class="c1"># Parabolic</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">a</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">mu</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">energy</span><span class="p">))</span>
@@ -159,7 +157,7 @@
 
     <span class="c1"># 8. Argument of Perigee</span>
     <span class="k">if</span> <span class="n">n_mag</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
-        <span class="n">argp</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># Placeholder for equatorial orbits</span>
+        <span class="n">argp</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># Placeholder for equatorial orbits</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">ecc</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
             <span class="n">argp</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -170,7 +168,7 @@
 
     <span class="c1"># 9. True Anomaly</span>
     <span class="k">if</span> <span class="n">ecc</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
-        <span class="n">nu</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="c1"># Circular orbit placeholder</span>
+        <span class="n">nu</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># Circular orbit placeholder</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">nu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">e_vec</span><span class="p">,</span> <span class="n">rv</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">ecc</span> <span class="o">*</span> <span class="n">r_mag</span><span class="p">),</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)))</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">vv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -208,14 +206,9 @@
 <div class="viewcode-block" id="kepler2eci">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_to_elements.kepler2eci">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">kepler2eci</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">ecc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">incl</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">raan</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">argp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">nu</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ecc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">incl</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">raan</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">argp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nu</span><span class="p">:</span> <span class="nb">float</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Keplerian elements to ECI Cartesian state.</span>
 
 <span class="sd">    Parameters</span>
@@ -237,7 +230,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (Position vector (m), Velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">ecc</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
@@ -247,8 +240,8 @@
     <span class="n">v_pqw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">sin_nu</span><span class="p">,</span> <span class="n">ecc</span> <span class="o">+</span> <span class="n">cos_nu</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span>
 
     <span class="c1"># 2. Rotation Matrix: Perifocal to ECI</span>
-    <span class="c1"># R = Rz(-raan) * Rx(-incl) * Rz(-argp)</span>
-    <span class="n">r_mat</span> <span class="o">=</span> <span class="n">rot_z</span><span class="p">(</span><span class="o">-</span><span class="n">raan</span><span class="p">)</span> <span class="o">@</span> <span class="n">rot_x</span><span class="p">(</span><span class="o">-</span><span class="n">incl</span><span class="p">)</span> <span class="o">@</span> <span class="n">rot_z</span><span class="p">(</span><span class="o">-</span><span class="n">argp</span><span class="p">)</span>
+    <span class="c1"># R = Rz(raan) * Rx(incl) * Rz(argp)</span>
+    <span class="n">r_mat</span> <span class="o">=</span> <span class="n">rot_z</span><span class="p">(</span><span class="n">raan</span><span class="p">)</span> <span class="o">@</span> <span class="n">rot_x</span><span class="p">(</span><span class="n">incl</span><span class="p">)</span> <span class="o">@</span> <span class="n">rot_z</span><span class="p">(</span><span class="n">argp</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">r_mat</span> <span class="o">@</span> <span class="n">r_pqw</span><span class="p">,</span> <span class="n">r_mat</span> <span class="o">@</span> <span class="n">v_pqw</span></div>
 
@@ -257,7 +250,7 @@
 <div class="viewcode-block" id="anomalies">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_to_elements.anomalies">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">anomalies</span><span class="p">(</span><span class="n">ecc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">nu</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Compute Eccentric and Mean anomaly from True anomaly.</span>
 
 <span class="sd">    Parameters</span>
@@ -271,28 +264,28 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float]</span>
 <span class="sd">        (Eccentric Anomaly, Mean Anomaly) in radians.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">ecc</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span> <span class="c1"># Circular</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">ecc</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>  <span class="c1"># Circular</span>
         <span class="k">return</span> <span class="n">nu</span><span class="p">,</span> <span class="n">nu</span>
 
-    <span class="k">if</span> <span class="n">ecc</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span> <span class="c1"># Elliptical</span>
+    <span class="k">if</span> <span class="n">ecc</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>  <span class="c1"># Elliptical</span>
         <span class="n">e_anom</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ecc</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">ecc</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">nu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
         <span class="n">m_anom</span> <span class="o">=</span> <span class="n">e_anom</span> <span class="o">-</span> <span class="n">ecc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">e_anom</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">ecc</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span> <span class="c1"># Hyperbolic</span>
+    <span class="k">elif</span> <span class="n">ecc</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>  <span class="c1"># Hyperbolic</span>
         <span class="n">e_anom</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">ecc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">ecc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">nu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
         <span class="n">m_anom</span> <span class="o">=</span> <span class="n">ecc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">e_anom</span><span class="p">)</span> <span class="o">-</span> <span class="n">e_anom</span>
-    <span class="k">else</span><span class="p">:</span> <span class="c1"># Parabolic</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># Parabolic</span>
         <span class="n">e_anom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">nu</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">m_anom</span> <span class="o">=</span> <span class="n">e_anom</span> <span class="o">+</span> <span class="p">(</span><span class="n">e_anom</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mf">3.0</span>
 
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">e_anom</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="n">m_anom</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">e_anom</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="n">m_anom</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span></div>
 
 
 
 <div class="viewcode-block" id="rot_x">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_to_elements.rot_x">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_x</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Rotation matrix for rotation about x-axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -304,7 +297,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 rotation matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
         <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)]]</span>
     <span class="p">)</span></div>
@@ -314,7 +307,7 @@
 <div class="viewcode-block" id="rot_y">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_to_elements.rot_y">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_y</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Rotation matrix for rotation about y-axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -326,7 +319,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 rotation matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
         <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)]]</span>
     <span class="p">)</span></div>
@@ -336,7 +329,7 @@
 <div class="viewcode-block" id="rot_z">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_to_elements.rot_z">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_z</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Rotation matrix for rotation about z-axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -348,14 +341,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 rotation matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
         <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
     <span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

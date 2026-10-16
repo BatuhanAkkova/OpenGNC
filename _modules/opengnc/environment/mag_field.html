@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.environment.mag_field</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Earth magnetic field models (IGRF, WMM, Tilted Dipole).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 
@@ -92,13 +92,8 @@
 
 <div class="viewcode-block" id="igrf_field">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.mag_field.igrf_field">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">igrf_field</span><span class="p">(</span>
-    <span class="n">lat</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">lon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">alt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">igrf_field</span><span class="p">(</span><span class="n">lat</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">alt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get the International Geomagnetic Reference Field (IGRF) vector.</span>
 
 <span class="sd">    Parameters</span>
@@ -121,9 +116,9 @@
 <span class="sd">    ------</span>
 <span class="sd">    ImportError</span>
 <span class="sd">        If `ppigrf` dependency is not installed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">ppigrf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;ppigrf not installed&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">"ppigrf not installed"</span><span class="p">)</span>
 
     <span class="c1"># ppigrf expects (lon, lat, alt, time)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ppigrf</span><span class="o">.</span><span class="n">igrf</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">alt</span><span class="p">,</span> <span class="n">time</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
@@ -132,13 +127,8 @@
 
 <div class="viewcode-block" id="wmm_field">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.mag_field.wmm_field">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">wmm_field</span><span class="p">(</span>
-    <span class="n">lat</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">lon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">alt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wmm_field</span><span class="p">(</span><span class="n">lat</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">alt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">date</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get the World Magnetic Model (WMM) field vector.</span>
 
 <span class="sd">    Proxied via IGRF in this implementation for GNC simulation balance.</span>
@@ -158,7 +148,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Magnetic field vector $[B_{North}, B_{East}, B_{Down}]$ (nT).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">igrf_field</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">alt</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span></div>
 
 
@@ -166,10 +156,10 @@
 <div class="viewcode-block" id="tilted_dipole_field">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.mag_field.tilted_dipole_field">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">tilted_dipole_field</span><span class="p">(</span><span class="n">r_ecef</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Tilted Dipole Geomagnetic Approximation.</span>
 
-<span class="sd">    A simplified model useful for fast orbit propagation. Approximates Earth&#39;s</span>
+<span class="sd">    A simplified model useful for fast orbit propagation. Approximates Earth's</span>
 <span class="sd">    field as a dipole tilted relative to the geographic poles.</span>
 
 <span class="sd">    Equation:</span>
@@ -184,10 +174,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Magnetic field vector in ECEF frame (T).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># 1. Earth magnetic constants (Epoch 2020 approx)</span>
     <span class="n">b0</span> <span class="o">=</span> <span class="mf">3.12e-5</span>  <span class="c1"># Equator field strength (T)</span>
-    <span class="n">re_m</span> <span class="o">=</span> <span class="mf">6371200.0</span>  <span class="c1"># Earth&#39;s mean magnetic radius (m)</span>
+    <span class="n">re_m</span> <span class="o">=</span> <span class="mf">6371200.0</span>  <span class="c1"># Earth's mean magnetic radius (m)</span>
 
     <span class="c1"># 2. Magnetic Pole location</span>
     <span class="n">mag_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">78.3</span><span class="p">)</span>
@@ -197,11 +187,9 @@
     <span class="n">phi_p</span> <span class="o">=</span> <span class="n">mag_lon</span>
 
     <span class="c1"># 3. Dipole Moment unit vector in ECEF</span>
-    <span class="n">moment_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi_p</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi_p</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span>
-    <span class="p">])</span>
+    <span class="n">moment_u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi_p</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi_p</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta_p</span><span class="p">)]</span>
+    <span class="p">)</span>
 
     <span class="c1"># 4. Strength factor k = B0 * Re^3</span>
     <span class="n">k_mag</span> <span class="o">=</span> <span class="n">b0</span> <span class="o">*</span> <span class="p">(</span><span class="n">re_m</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
@@ -218,10 +206,6 @@
     <span class="n">b_ecef</span> <span class="o">=</span> <span class="p">(</span><span class="n">k_mag</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_mag</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">moment_u</span><span class="p">,</span> <span class="n">r_unit</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_unit</span> <span class="o">-</span> <span class="n">moment_u</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="o">-</span><span class="n">b_ecef</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

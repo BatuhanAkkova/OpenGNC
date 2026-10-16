@@ -76,10 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.attitude_determination.request</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Recursive QUEST (REQUEST) algorithm for recursive attitude estimation.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
@@ -91,7 +90,7 @@
 <div class="viewcode-block" id="RequestFilter">
 <a class="viewcode-back" href="../../../api/opengnc.attitude_determination.html#opengnc.attitude_determination.request.RequestFilter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RequestFilter</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Recursive QUEST (REQUEST) filter.</span>
 
 <span class="sd">    Enables recursive attitude estimation by updating the Davenport</span>
@@ -102,12 +101,12 @@
 <span class="sd">    ----------</span>
 <span class="sd">    initial_k : np.ndarray | None, optional</span>
 <span class="sd">        Initial $4 \times 4$ K-matrix. Default zero.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize filter state.&quot;&quot;&quot;</span>
-        <span class="c1"># Support both &#39;initial_k&#39; and &#39;initial_K&#39;</span>
-        <span class="n">k_val</span> <span class="o">=</span> <span class="n">initial_k</span> <span class="k">if</span> <span class="n">initial_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;initial_K&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Initialize filter state."""</span>
+        <span class="c1"># Support both 'initial_k' and 'initial_K'</span>
+        <span class="n">k_val</span> <span class="o">=</span> <span class="n">initial_k</span> <span class="k">if</span> <span class="n">initial_k</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"initial_K"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">k_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">k_val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -116,7 +115,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">K</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Alias for the accumulated $4 \times 4$ K-matrix.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Alias for the accumulated $4 \times 4$ K-matrix."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
 
     <span class="nd">@K</span><span class="o">.</span><span class="n">setter</span>
@@ -132,7 +131,7 @@
         <span class="n">weights</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Update the accumulated K-matrix with new vector observations.</span>
 
 <span class="sd">        Parameters</span>
@@ -150,7 +149,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            The updated $4\\times 4$ K-matrix.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">b_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">body_vectors</span><span class="p">)</span>
         <span class="n">r_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ref_vectors</span><span class="p">)</span>
         <span class="n">n_vecs</span> <span class="o">=</span> <span class="n">b_vecs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -167,11 +166,13 @@
 
         <span class="n">ds_matrix</span> <span class="o">=</span> <span class="n">db_matrix</span> <span class="o">+</span> <span class="n">db_matrix</span><span class="o">.</span><span class="n">T</span>
         <span class="n">d_sigma</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">db_matrix</span><span class="p">))</span>
-        <span class="n">dz_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-            <span class="n">db_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">db_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-            <span class="n">db_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">db_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-            <span class="n">db_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">db_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="p">])</span>
+        <span class="n">dz_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">db_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">db_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="n">db_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">db_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="n">db_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">db_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
 
         <span class="c1"># Form incremental dK matrix</span>
         <span class="n">dk_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -188,14 +189,14 @@
 <div class="viewcode-block" id="RequestFilter.get_quaternion">
 <a class="viewcode-back" href="../../../api/opengnc.attitude_determination.html#opengnc.attitude_determination.request.RequestFilter.get_quaternion">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_quaternion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Extract the optimal normalized quaternion from the current K-matrix.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Optimal quaternion $[x, y, z, w]$ (Inertial -&gt; Body).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">vals</span><span class="p">,</span> <span class="n">vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
         <span class="n">q_opt</span> <span class="o">=</span> <span class="n">vecs</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">vals</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">quat_normalize</span><span class="p">(</span><span class="n">q_opt</span><span class="p">)</span></div>
@@ -212,7 +213,7 @@
     <span class="n">initial_k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    One-shot REQUEST update helper.</span>
 
 <span class="sd">    Parameters</span>
@@ -232,14 +233,10 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Optimal quaternion $[x, y, z, w]$.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rf</span> <span class="o">=</span> <span class="n">RequestFilter</span><span class="p">(</span><span class="n">initial_k</span><span class="p">)</span>
     <span class="n">rf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">body_vectors</span><span class="p">,</span> <span class="n">ref_vectors</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rf</span><span class="o">.</span><span class="n">get_quaternion</span><span class="p">()</span></div>
-
-
-
-
 
 </pre></div>
 

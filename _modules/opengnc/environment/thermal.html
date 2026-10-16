@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.environment.thermal</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Spacecraft thermal environment flux models (Solar, Albedo, Earth IR).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -86,7 +86,7 @@
 <div class="viewcode-block" id="ThermalEnvironment">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.thermal.ThermalEnvironment">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ThermalEnvironment</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Spacecraft External Thermal Environment Models.</span>
 
 <span class="sd">    Calculates heat fluxes from direct solar radiation, planetary albedo, and</span>
@@ -98,10 +98,10 @@
 <span class="sd">        Planetary mean spherical albedo [0, 1]. Default 0.3.</span>
 <span class="sd">    earth_ir : float, optional</span>
 <span class="sd">        Mean outgoing longwave radiation (W/m^2). Default 230.0.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">albedo_coeff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">earth_ir</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">230.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize thermal constants.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize thermal constants."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">albedo_coeff</span> <span class="o">=</span> <span class="n">albedo_coeff</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">earth_ir</span> <span class="o">=</span> <span class="n">earth_ir</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solar_constant</span> <span class="o">=</span> <span class="mf">1361.0</span>  <span class="c1"># W/m^2 at 1 AU</span>
@@ -109,7 +109,7 @@
 <div class="viewcode-block" id="ThermalEnvironment.get_solar_flux">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.thermal.ThermalEnvironment.get_solar_flux">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_solar_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_au</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate direct solar flux.</span>
 
 <span class="sd">        Equation: $F_{sun} = S / d^2$</span>
@@ -123,14 +123,14 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Solar flux ($W/m^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solar_constant</span> <span class="o">/</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">distance_au</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solar_constant</span> <span class="o">/</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">distance_au</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="ThermalEnvironment.get_albedo_flux">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.thermal.ThermalEnvironment.get_albedo_flux">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_albedo_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_sat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_sun</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate planet-reflected solar flux (Albedo).</span>
 
 <span class="sd">        Uses a Lambertian reflection model.</span>
@@ -146,7 +146,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Albedo flux on a nadir-facing surface ($W/m^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_sat</span><span class="p">)</span>
         <span class="n">rn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_sun</span><span class="p">)</span>
 
@@ -164,20 +164,16 @@
 <div class="viewcode-block" id="ThermalEnvironment.get_earth_ir_flux">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.thermal.ThermalEnvironment.get_earth_ir_flux">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_earth_ir_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Get standard Earth IR flux.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Planetary IR flux ($W/m^2$).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">earth_ir</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

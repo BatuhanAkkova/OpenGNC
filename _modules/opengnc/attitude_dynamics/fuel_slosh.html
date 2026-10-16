@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.attitude_dynamics.fuel_slosh</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Fuel slosh dynamics using equivalent pendulum models.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -94,7 +94,7 @@
     <span class="n">r_base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">g_equiv</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Compute slosh pendulum angular acceleration $\ddot{\theta}$.</span>
 
 <span class="sd">    The pendulum is subject to base acceleration:</span>
@@ -121,7 +121,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Pendulum acceleration $\ddot{\theta}$ (rad/s$^2$).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
     <span class="n">odot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">omega_dot</span><span class="p">)</span>
     <span class="n">rb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_base</span><span class="p">)</span>
@@ -142,14 +142,9 @@
 <div class="viewcode-block" id="fuel_slosh_torque">
 <a class="viewcode-back" href="../../../api/opengnc.attitude_dynamics.html#opengnc.attitude_dynamics.fuel_slosh.fuel_slosh_torque">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">fuel_slosh_torque</span><span class="p">(</span>
-    <span class="n">m_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">L</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">theta_dot</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">theta_ddot</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">r_base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">m_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">L</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">theta_dot</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">theta_ddot</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r_base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Compute reaction torque from slosh bob.</span>
 
 <span class="sd">    Parameters</span>
@@ -171,7 +166,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Reaction torque vector (3,) (Nm).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_base</span><span class="p">)</span>
 
     <span class="c1"># Relative unit vectors for pendulum bob</span>
@@ -187,10 +182,6 @@
     <span class="c1"># Torque: r_bob x F_react</span>
     <span class="n">r_bob</span> <span class="o">=</span> <span class="n">rb</span> <span class="o">+</span> <span class="n">L</span> <span class="o">*</span> <span class="n">e_r</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">r_bob</span><span class="p">,</span> <span class="n">force_react</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

@@ -1,0 +1,37 @@
+opengnc.fdir package
+====================
+
+Submodules
+----------
+
+opengnc.fdir.actuator\_fdir module
+----------------------------------
+
+.. automodule:: opengnc.fdir.actuator_fdir
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+opengnc.fdir.executive module
+-----------------------------
+
+.. automodule:: opengnc.fdir.executive
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+opengnc.fdir.sensor\_fdir module
+--------------------------------
+
+.. automodule:: opengnc.fdir.sensor_fdir
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: opengnc.fdir
+   :members:
+   :show-inheritance:
+   :undoc-members:

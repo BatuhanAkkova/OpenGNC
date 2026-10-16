@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.attitude_dynamics.rigid_body</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Rigid body Attitude dynamics based on Euler&#39;s equations of motion.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
+<span class="sd">Rigid body Attitude dynamics based on Euler's equations of motion.</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -88,8 +88,8 @@
 <div class="viewcode-block" id="euler_equations">
 <a class="viewcode-back" href="../../../api/opengnc.attitude_dynamics.html#opengnc.attitude_dynamics.rigid_body.euler_equations">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">euler_equations</span><span class="p">(</span><span class="n">J</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torque</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute rigid body angular acceleration via Euler&#39;s equations.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+<span class="sd">    Compute rigid body angular acceleration via Euler's equations.</span>
 
 <span class="sd">    Equation of Motion:</span>
 <span class="sd">    $\mathbf{J} \dot{\omega} + \mathbf{\omega} \times (\mathbf{J} \omega) = \mathbf{\tau}$</span>
@@ -112,14 +112,14 @@
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If input dimensions are invalid.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Input validation</span>
     <span class="k">if</span> <span class="n">J</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inertia tensor J must be shape (3, 3), got </span><span class="si">{</span><span class="n">J</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Inertia tensor J must be shape (3, 3), got </span><span class="si">{</span><span class="n">J</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">omega</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Angular velocity omega must be shape (3,), got </span><span class="si">{</span><span class="n">omega</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Angular velocity omega must be shape (3,), got </span><span class="si">{</span><span class="n">omega</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">torque</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Torque vector must be shape (3,), got </span><span class="si">{</span><span class="n">torque</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Torque vector must be shape (3,), got </span><span class="si">{</span><span class="n">torque</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="c1"># Solve for omega_dot: J * omega_dot = torque - omega x (J * omega)</span>
     <span class="n">h_vec</span> <span class="o">=</span> <span class="n">J</span> <span class="o">@</span> <span class="n">omega</span>
@@ -127,10 +127,6 @@
     <span class="n">rhs</span> <span class="o">=</span> <span class="n">torque</span> <span class="o">-</span> <span class="n">gyro_term</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

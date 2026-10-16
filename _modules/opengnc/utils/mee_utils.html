@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.mee_utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Modified Equinoctial Elements (MEE) kinematics and conversions.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -92,9 +92,9 @@
     <span class="n">raan</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">argp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">nu</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Keplerian elements to Modified Equinoctial Elements (MEE).</span>
 
 <span class="sd">    MEE are non-singular for circular and equatorial orbits.</span>
@@ -121,7 +121,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float, float, float, float]</span>
 <span class="sd">        MEE elements (p, f, g, h, k, L).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">p_mee</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">ecc</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">ecc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">raan</span> <span class="o">+</span> <span class="n">argp</span><span class="p">)</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">ecc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">raan</span> <span class="o">+</span> <span class="n">argp</span><span class="p">)</span>
@@ -129,29 +129,16 @@
     <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">incl</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">raan</span><span class="p">)</span>
     <span class="n">l_true</span> <span class="o">=</span> <span class="n">raan</span> <span class="o">+</span> <span class="n">argp</span> <span class="o">+</span> <span class="n">nu</span>
 
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="nb">float</span><span class="p">(</span><span class="n">p_mee</span><span class="p">),</span>
-        <span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="p">),</span>
-        <span class="nb">float</span><span class="p">(</span><span class="n">g</span><span class="p">),</span>
-        <span class="nb">float</span><span class="p">(</span><span class="n">h</span><span class="p">),</span>
-        <span class="nb">float</span><span class="p">(</span><span class="n">k</span><span class="p">),</span>
-        <span class="nb">float</span><span class="p">(</span><span class="n">l_true</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
-    <span class="p">)</span></div>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">p_mee</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">h</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">l_true</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)))</span></div>
 
 
 
 <div class="viewcode-block" id="mee2eci">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.mee_utils.mee2eci">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mee2eci</span><span class="p">(</span>
-    <span class="n">p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">f</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">h</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">l_true</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">l_true</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Modified Equinoctial Elements to ECI Cartesian state.</span>
 
 <span class="sd">    Parameters</span>
@@ -165,7 +152,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (Position vector (m), Velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">sin_l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">l_true</span><span class="p">)</span>
     <span class="n">cos_l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">l_true</span><span class="p">)</span>
 
@@ -174,18 +161,36 @@
 
     <span class="n">s2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span>
 
-    <span class="n">r_eci</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="n">s2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="n">cos_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">sin_l</span><span class="p">,</span>
-        <span class="n">sin_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">cos_l</span><span class="p">,</span>
-        <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">sin_l</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">cos_l</span><span class="p">),</span>
-    <span class="p">])</span>
+    <span class="n">r_eci</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="n">s2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">cos_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">sin_l</span><span class="p">,</span>
+            <span class="n">sin_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">cos_l</span><span class="p">,</span>
+            <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">sin_l</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">cos_l</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
 
     <span class="n">v_coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">s2</span>
-    <span class="n">v_eci</span> <span class="o">=</span> <span class="n">v_coeff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="o">-</span><span class="p">(</span><span class="n">sin_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">cos_l</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">cos_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">sin_l</span> <span class="o">+</span> <span class="n">f</span> <span class="o">-</span> <span class="n">f</span> <span class="o">*</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">f</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span><span class="p">),</span>
-        <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">cos_l</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span> <span class="o">*</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">sin_l</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span>
-    <span class="p">])</span>
+    <span class="n">v_eci</span> <span class="o">=</span> <span class="n">v_coeff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="o">-</span><span class="p">(</span>
+                <span class="n">sin_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">cos_l</span>
+                <span class="o">+</span> <span class="n">g</span>
+                <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+                <span class="o">-</span> <span class="n">g</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span>
+                <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span>
+            <span class="p">),</span>
+            <span class="p">(</span>
+                <span class="n">cos_l</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="n">sin_l</span>
+                <span class="o">+</span> <span class="n">f</span>
+                <span class="o">-</span> <span class="n">f</span> <span class="o">*</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+                <span class="o">+</span> <span class="n">f</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span>
+                <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">g</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">k</span>
+            <span class="p">),</span>
+            <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">cos_l</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span> <span class="o">*</span> <span class="n">h</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">sin_l</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">r_eci</span><span class="p">,</span> <span class="n">v_eci</span></div>
 
@@ -194,11 +199,9 @@
 <div class="viewcode-block" id="eci2mee">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.mee_utils.eci2mee">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2mee</span><span class="p">(</span>
-    <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert ECI Cartesian state to Modified Equinoctial Elements.</span>
 
 <span class="sd">    Parameters</span>
@@ -214,7 +217,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float, float, float, float]</span>
 <span class="sd">        MEE elements (p, f, g, h, k, L).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">.state_to_elements</span><span class="w"> </span><span class="kn">import</span> <span class="n">eci2kepler</span>
 
     <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
@@ -223,10 +226,6 @@
     <span class="n">a</span><span class="p">,</span> <span class="n">ecc</span><span class="p">,</span> <span class="n">incl</span><span class="p">,</span> <span class="n">raan</span><span class="p">,</span> <span class="n">argp</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">eci2kepler</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">vv</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">kepler2mee</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">ecc</span><span class="p">,</span> <span class="n">incl</span><span class="p">,</span> <span class="n">raan</span><span class="p">,</span> <span class="n">argp</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

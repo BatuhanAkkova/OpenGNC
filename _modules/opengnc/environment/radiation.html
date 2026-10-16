@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.environment.radiation</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Radiation environment models for TID and SEU rates estimation.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -86,26 +86,23 @@
 <div class="viewcode-block" id="RadiationModel">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.radiation.RadiationModel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RadiationModel</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Parametric Space Radiation Environment Models.</span>
 
 <span class="sd">    Estimates Total Ionizing Dose (TID) and Single Event Upset (SEU) rates</span>
 <span class="sd">    for spacecraft electronic components in Low Earth Orbit (LEO).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize radiation model.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize radiation model."""</span>
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="RadiationModel.estimate_tid">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.radiation.RadiationModel.estimate_tid">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">estimate_tid</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">altitude_km</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">inclination_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">duration_days</span><span class="p">:</span> <span class="nb">float</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">altitude_km</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">inclination_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">duration_days</span><span class="p">:</span> <span class="nb">float</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Estimate cumulative Total Ionizing Dose (TID).</span>
 
 <span class="sd">        Uses a parametric fit for LEO orbits assuming 2.5 mm Aluminum shielding.</span>
@@ -123,7 +120,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Estimated TID in kRad(Si).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Base rate (400km)</span>
         <span class="n">base_rate</span> <span class="o">=</span> <span class="mf">1.0e-4</span>
         <span class="c1"># Altitude scaling (Van Allen belt proxy)</span>
@@ -136,12 +133,8 @@
 
 <div class="viewcode-block" id="RadiationModel.estimate_seu_rate">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.radiation.RadiationModel.estimate_seu_rate">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_seu_rate</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">altitude_km</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">device_cross_section</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0e-12</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_seu_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">altitude_km</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">device_cross_section</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0e-12</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Estimate Single Event Upset (SEU) rate from proton flux.</span>
 
 <span class="sd">        Parameters</span>
@@ -155,17 +148,13 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Estimated SEUs per bit-day.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Proton flux proxy (&gt; 10 MeV)</span>
         <span class="n">flux_p</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">altitude_km</span><span class="p">)</span> <span class="o">-</span> <span class="mf">400.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">600.0</span><span class="p">)</span>
         <span class="c1"># 86400 s/day</span>
         <span class="n">rate</span> <span class="o">=</span> <span class="n">flux_p</span> <span class="o">*</span> <span class="n">device_cross_section</span> <span class="o">*</span> <span class="mf">86400.0</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

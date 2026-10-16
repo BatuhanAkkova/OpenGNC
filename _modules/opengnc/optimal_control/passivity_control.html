@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.optimal_control.passivity_control</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Passivity-Based Controller for Euler-Lagrange mechanical systems.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
@@ -89,7 +89,7 @@
 <div class="viewcode-block" id="PassivityBasedController">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.passivity_control.PassivityBasedController">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PassivityBasedController</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Passivity-Based Controller for Euler-Lagrange mechanical systems.</span>
 
 <span class="sd">    Exploits the energy and passivity properties of mechanical systems to</span>
@@ -110,7 +110,7 @@
 <span class="sd">        Dissipative (damping) gain matrix (n x n).</span>
 <span class="sd">    Lambda : Union[float, np.ndarray]</span>
 <span class="sd">        Proportional error convergence matrix (n x n).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -120,7 +120,7 @@
         <span class="n">K_d</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">Lambda</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize controller gains and model functions.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize controller gains and model functions."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="n">M_func</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C_func</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">G_func</span>
@@ -137,7 +137,7 @@
         <span class="n">q_dot_d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">q_ddot_d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Compute the passivity-based control torque output.</span>
 
 <span class="sd">        Parameters</span>
@@ -153,7 +153,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Control input vector $u$ (n,).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">q_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
         <span class="n">v_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q_dot</span><span class="p">)</span>
         <span class="n">qd_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q_d</span><span class="p">)</span>
@@ -167,10 +167,14 @@
         <span class="c1"># 2. Reference velocity trajectory (v_r)</span>
         <span class="c1"># v_r defines the manifold for asymptotic convergence</span>
         <span class="c1"># v_r = q_dot_d - Lambda * e_q</span>
-        <span class="n">v_r</span> <span class="o">=</span> <span class="n">vd_vec</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">@</span> <span class="n">e_q</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">*</span> <span class="n">e_q</span><span class="p">)</span>
+        <span class="n">v_r</span> <span class="o">=</span> <span class="n">vd_vec</span> <span class="o">-</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">@</span> <span class="n">e_q</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">*</span> <span class="n">e_q</span>
+        <span class="p">)</span>
 
         <span class="c1"># 3. Reference acceleration trajectory (v_r_dot)</span>
-        <span class="n">v_r_dot</span> <span class="o">=</span> <span class="n">ad_vec</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">@</span> <span class="n">e_v</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">*</span> <span class="n">e_v</span><span class="p">)</span>
+        <span class="n">v_r_dot</span> <span class="o">=</span> <span class="n">ad_vec</span> <span class="o">-</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">@</span> <span class="n">e_v</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Lambda</span> <span class="o">*</span> <span class="n">e_v</span>
+        <span class="p">)</span>
 
         <span class="c1"># 4. Tracking surface / sliding error (s)</span>
         <span class="c1"># s = q_dot - v_r = e_dot + Lambda * e</span>
@@ -188,10 +192,6 @@
 
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">ff_term</span> <span class="o">-</span> <span class="n">damp_term</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

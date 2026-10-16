@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.actuators.thruster</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Thruster models including Chemical, Electric, and Multi-thruster clusters.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -92,7 +92,7 @@
 <div class="viewcode-block" id="Thruster">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.Thruster">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Thruster</span><span class="p">(</span><span class="n">Actuator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Base Thruster model.</span>
 
 <span class="sd">    Produces thrust force and consumes mass based on Isp.</span>
@@ -106,17 +106,17 @@
 <span class="sd">    isp : float, optional</span>
 <span class="sd">        Specific Impulse (s). Default is None.</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Actuator name. Default is &quot;Thruster&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Actuator name. Default is "Thruster".</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">max_thrust</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="n">min_impulse_bit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
         <span class="n">isp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Thruster&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Thruster"</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize thruster base.</span>
 
 <span class="sd">        Parameters</span>
@@ -128,8 +128,8 @@
 <span class="sd">        isp : float | None, optional</span>
 <span class="sd">            Specific Impulse (s).</span>
 <span class="sd">        name : str, optional</span>
-<span class="sd">            Actuator name. Default &quot;Thruster&quot;.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            Actuator name. Default "Thruster".</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">saturation</span><span class="o">=</span><span class="n">max_thrust</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_thrust</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">max_thrust</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_impulse_bit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">min_impulse_bit</span>
@@ -138,13 +138,9 @@
 <div class="viewcode-block" id="Thruster.command">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.Thruster.command">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">thrust_cmd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">thrust_cmd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate delivered thrust.</span>
 
 <span class="sd">        Parameters</span>
@@ -160,11 +156,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Delivered thrust (N).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Saturation (clip to max thrust)</span>
         <span class="k">if</span> <span class="n">thrust_cmd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;thrust_cmd is required.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"thrust_cmd is required."</span><span class="p">)</span>
             <span class="n">thrust_cmd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">thrust</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply_saturation</span><span class="p">(</span><span class="n">thrust_cmd</span><span class="p">))</span>
 
@@ -182,7 +178,7 @@
 <div class="viewcode-block" id="Thruster.get_mass_flow">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.Thruster.get_mass_flow">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_mass_flow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thrust</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate mass flow rate.</span>
 
 <span class="sd">        Equation:</span>
@@ -197,7 +193,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Mass flow rate (kg/s).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isp</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isp</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">g0</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">9.80665</span>
             <span class="k">return</span> <span class="n">thrust</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">isp</span> <span class="o">*</span> <span class="n">g0</span><span class="p">)</span>
@@ -209,7 +205,7 @@
 <div class="viewcode-block" id="ChemicalThruster">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.ChemicalThruster">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ChemicalThruster</span><span class="p">(</span><span class="n">Thruster</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Chemical Thruster model.</span>
 
 <span class="sd">    Models On/Off behavior or PWM-averaged thrust with minimum on-time constraints.</span>
@@ -223,17 +219,17 @@
 <span class="sd">    min_on_time : float, optional</span>
 <span class="sd">        Minimum valve open time (s). Default is 0.010.</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Actuator name. Default is &quot;ChemThruster&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Actuator name. Default is "ChemThruster".</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">max_thrust</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
         <span class="n">isp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">300.0</span><span class="p">,</span>
         <span class="n">min_on_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.010</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ChemThruster&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ChemThruster"</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize chemical thruster.</span>
 
 <span class="sd">        Parameters</span>
@@ -245,8 +241,8 @@
 <span class="sd">        min_on_time : float, optional</span>
 <span class="sd">            Minimum valve open time (s). Default 0.010.</span>
 <span class="sd">        name : str, optional</span>
-<span class="sd">            Actuator name. Default &quot;ChemThruster&quot;.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            Actuator name. Default "ChemThruster".</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_on_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">min_on_time</span>
         <span class="n">mib</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">max_thrust</span> <span class="o">*</span> <span class="n">min_on_time</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">max_thrust</span><span class="o">=</span><span class="n">max_thrust</span><span class="p">,</span> <span class="n">isp</span><span class="o">=</span><span class="n">isp</span><span class="p">,</span> <span class="n">min_impulse_bit</span><span class="o">=</span><span class="n">mib</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
@@ -254,13 +250,9 @@
 <div class="viewcode-block" id="ChemicalThruster.command">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.ChemicalThruster.command">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">thrust_cmd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">thrust_cmd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Considers PWM constraints for chemical valve.</span>
 
 <span class="sd">        If the commanded thrust implies an on-time &lt; min_on_time, it is zeroed.</span>
@@ -278,7 +270,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Delivered thrust (N).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">thrust_cmd</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">args</span><span class="p">:</span>
             <span class="n">thrust_cmd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">thrust</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">thrust_cmd</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -297,7 +289,7 @@
 <div class="viewcode-block" id="ElectricThruster">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.ElectricThruster">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ElectricThruster</span><span class="p">(</span><span class="n">Thruster</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Electric Thruster model (e.g., Hall Effect, Ion).</span>
 
 <span class="sd">    Power-limited thrust generation.</span>
@@ -311,17 +303,17 @@
 <span class="sd">    power_efficiency : float, optional</span>
 <span class="sd">        Electrical to Jet power efficiency (eta). Default is 0.6.</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Actuator name. Default is &quot;ElecThruster&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Actuator name. Default is "ElecThruster".</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">max_thrust</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
         <span class="n">isp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1500.0</span><span class="p">,</span>
         <span class="n">power_efficiency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ElecThruster&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ElecThruster"</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize electric thruster.</span>
 
 <span class="sd">        Parameters</span>
@@ -333,8 +325,8 @@
 <span class="sd">        power_efficiency : float, optional</span>
 <span class="sd">            Electrical to Jet power efficiency (eta). Default 0.6.</span>
 <span class="sd">        name : str, optional</span>
-<span class="sd">            Actuator name. Default &quot;ElecThruster&quot;.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            Actuator name. Default "ElecThruster".</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">max_thrust</span><span class="o">=</span><span class="n">max_thrust</span><span class="p">,</span> <span class="n">isp</span><span class="o">=</span><span class="n">isp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">power_efficiency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">power_efficiency</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">g0</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">9.80665</span>
@@ -342,7 +334,7 @@
 <div class="viewcode-block" id="ElectricThruster.get_power_consumption">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.ElectricThruster.get_power_consumption">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_power_consumption</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thrust</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate electrical power requirement.</span>
 
 <span class="sd">        Equation:</span>
@@ -357,9 +349,9 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Electrical power consumption (W).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">power_efficiency</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="mf">0.0</span>
@@ -372,7 +364,7 @@
 <div class="viewcode-block" id="ThrusterCluster">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.ThrusterCluster">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ThrusterCluster</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A collection of thrusters with defined allocation logic.</span>
 
 <span class="sd">    Maps generalized 6-DOF force/torque commands to individual thruster outputs.</span>
@@ -385,9 +377,11 @@
 <span class="sd">        (N, 3) positions of thrusters in body frame (m).</span>
 <span class="sd">    directions : np.ndarray</span>
 <span class="sd">        (N, 3) thrust unit vectors in body frame.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thrusters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Thruster</span><span class="p">],</span> <span class="n">positions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">directions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">thrusters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Thruster</span><span class="p">],</span> <span class="n">positions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">directions</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thrusters</span> <span class="o">=</span> <span class="n">thrusters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">thrusters</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
@@ -408,12 +402,9 @@
 <div class="viewcode-block" id="ThrusterCluster.command">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.thruster.ThrusterCluster.command">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">force_torque_cmd</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">force_torque_cmd</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Distribute 6-DOF force/torque command to individual thrusters.</span>
 
 <span class="sd">        Parameters</span>
@@ -427,10 +418,10 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Delivered thrusts for each thruster in the cluster (N).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">force_torque_cmd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;force_torque_cmd is required.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"force_torque_cmd is required."</span><span class="p">)</span>
             <span class="n">force_torque_cmd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">thrust_cmds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">force_torque_cmd</span><span class="p">)</span>
 
@@ -443,10 +434,6 @@
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">delivered_thrusts</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

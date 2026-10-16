@@ -22,8 +22,8 @@
       <script src="../_static/thebelab-helper.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
-      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}})</script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -152,7 +152,7 @@ where <span class="math notranslate nohighlight">\(q = \frac{\delta\mathbf{r} \c
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.disturbances.gravity</span><span class="w"> </span><span class="kn">import</span> <span class="n">J2Gravity</span><span class="p">,</span> <span class="n">TwoBodyGravity</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.integrators.rk4</span><span class="w"> </span><span class="kn">import</span> <span class="n">RK4</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Propagator modules loaded.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Propagator modules loaded."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -193,8 +193,8 @@ where <span class="math notranslate nohighlight">\(q = \frac{\delta\mathbf{r} \c
 <span class="n">r_f_cowell</span><span class="p">,</span> <span class="n">v_f_cowell</span> <span class="o">=</span> <span class="n">cowell</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">r_0</span><span class="p">,</span> <span class="n">v_0</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">perturbation_acc_fn</span><span class="o">=</span><span class="n">j2_perturbation</span><span class="p">,</span> <span class="n">dt_step</span><span class="o">=</span><span class="n">dt_step</span><span class="p">)</span>
 <span class="n">t_cowell</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cowell Final Pos:  </span><span class="si">{</span><span class="n">r_f_cowell</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cowell Execution Time: </span><span class="si">{</span><span class="n">t_cowell</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cowell Final Pos:  </span><span class="si">{</span><span class="n">r_f_cowell</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cowell Execution Time: </span><span class="si">{</span><span class="n">t_cowell</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -216,8 +216,8 @@ Cowell Execution Time: 0.096331 seconds
 <span class="n">r_f_encke</span><span class="p">,</span> <span class="n">v_f_encke</span> <span class="o">=</span> <span class="n">encke</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">r_0</span><span class="p">,</span> <span class="n">v_0</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">perturbation_acc_fn</span><span class="o">=</span><span class="n">j2_perturbation</span><span class="p">,</span> <span class="n">dt_step</span><span class="o">=</span><span class="n">dt_step</span><span class="p">)</span>
 <span class="n">t_encke</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encke Final Pos:  </span><span class="si">{</span><span class="n">r_f_encke</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encke Execution Time: </span><span class="si">{</span><span class="n">t_encke</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Encke Final Pos:  </span><span class="si">{</span><span class="n">r_f_encke</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Encke Execution Time: </span><span class="si">{</span><span class="n">t_encke</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -237,9 +237,9 @@ Encke Execution Time: 0.337163 seconds
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pos_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_f_cowell</span> <span class="o">-</span> <span class="n">r_f_encke</span><span class="p">)</span>
 <span class="n">speedup</span> <span class="o">=</span> <span class="n">t_cowell</span> <span class="o">/</span> <span class="n">t_encke</span> <span class="k">if</span> <span class="n">t_encke</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final Position Difference: </span><span class="si">{</span><span class="n">pos_diff</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Speed Advantage (Cowell/Encke ratio): </span><span class="si">{</span><span class="n">speedup</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Note: Encke is often faster/more accurate over long continuous orbits because it integrates smaller variables, reducing numerical noise limits on large loops.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Final Position Difference: </span><span class="si">{</span><span class="n">pos_diff</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Speed Advantage (Cowell/Encke ratio): </span><span class="si">{</span><span class="n">speedup</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Note: Encke is often faster/more accurate over long continuous orbits because it integrates smaller variables, reducing numerical noise limits on large loops."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

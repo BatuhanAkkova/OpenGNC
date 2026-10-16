@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.integrators.taylor</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Taylor Series Numerical Integrator.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
@@ -91,7 +91,7 @@
 <div class="viewcode-block" id="TaylorIntegrator">
 <a class="viewcode-back" href="../../../api/opengnc.integrators.html#opengnc.integrators.taylor.TaylorIntegrator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">TaylorIntegrator</span><span class="p">(</span><span class="n">Integrator</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Taylor Series expansion-based numerical integrator.</span>
 
 <span class="sd">    Solves $\dot{y} = f(t, y)$ by expanding $y$ as a Taylor series</span>
@@ -101,23 +101,18 @@
 <span class="sd">    ----------</span>
 <span class="sd">    order : int, optional</span>
 <span class="sd">        Taylor expansion order (1-4). Default 2.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with expansion order.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize with expansion order."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="n">order</span>
 
 <div class="viewcode-block" id="TaylorIntegrator.step">
 <a class="viewcode-back" href="../../../api/opengnc.integrators.html#opengnc.integrators.taylor.TaylorIntegrator.step">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-        <span class="n">t</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Perform a single Taylor series step.</span>
 
 <span class="sd">        Parameters</span>
@@ -135,7 +130,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        tuple[np.ndarray, float, float]</span>
 <span class="sd">            (y_next, t_next, dt_suggested).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">y_next</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
         <span class="c1"># 1st order term (Euler)</span>
@@ -154,7 +149,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
             <span class="c1"># 3rd order term approx</span>
             <span class="n">h</span> <span class="o">=</span> <span class="mf">1e-6</span>
-            <span class="n">f_dot_next</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">f1</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-</span> <span class="n">f_next</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span>
+            <span class="n">f_dot_next</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">f1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">h</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-</span> <span class="n">f_next</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span>
             <span class="n">f_ddot</span> <span class="o">=</span> <span class="p">(</span><span class="n">f_dot_next</span> <span class="o">-</span> <span class="n">f_dot</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span>
             <span class="n">y_next</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">f_ddot</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">3</span>
 

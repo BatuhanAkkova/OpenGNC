@@ -120,12 +120,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.propagators.sgp4_propagator</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sgp4Propagator</span>
 
 <span class="c1"># 1. Define two satellites using TLEs (simplified ISS data and debris)</span>
-<span class="n">tle1</span> <span class="o">=</span> <span class="n">TLEEntity</span><span class="p">(</span><span class="s2">&quot;ISS&quot;</span><span class="p">,</span> 
-                 <span class="s2">&quot;1 25544U 98067A   24001.00000000  .00016717  00000-0  10270-3 0  9011&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.50030391432358&quot;</span><span class="p">)</span>
-<span class="n">tle2</span> <span class="o">=</span> <span class="n">TLEEntity</span><span class="p">(</span><span class="s2">&quot;DEBRIS&quot;</span><span class="p">,</span> 
-                 <span class="s2">&quot;1 99999U 24001A   24001.00000000  .00000000  00000-0  00000-0 0  9990&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;2 99999  51.6420 247.4630 0006700 130.5000 325.0000 15.50000000000000&quot;</span><span class="p">)</span>
+<span class="n">tle1</span> <span class="o">=</span> <span class="n">TLEEntity</span><span class="p">(</span><span class="s2">"ISS"</span><span class="p">,</span> 
+                 <span class="s2">"1 25544U 98067A   24001.00000000  .00016717  00000-0  10270-3 0  9011"</span><span class="p">,</span>
+                 <span class="s2">"2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.50030391432358"</span><span class="p">)</span>
+<span class="n">tle2</span> <span class="o">=</span> <span class="n">TLEEntity</span><span class="p">(</span><span class="s2">"DEBRIS"</span><span class="p">,</span> 
+                 <span class="s2">"1 99999U 24001A   24001.00000000  .00000000  00000-0  00000-0 0  9990"</span><span class="p">,</span>
+                 <span class="s2">"2 99999  51.6420 247.4630 0006700 130.5000 325.0000 15.50000000000000"</span><span class="p">)</span>
 
 <span class="c1"># 2. Setup Propagators</span>
 <span class="n">prop1</span> <span class="o">=</span> <span class="n">tle1</span><span class="o">.</span><span class="n">get_propagator</span><span class="p">()</span>
@@ -140,8 +140,8 @@
 <span class="n">tca</span> <span class="o">=</span> <span class="n">find_tca</span><span class="p">(</span><span class="n">pos1</span><span class="p">,</span> <span class="n">pos2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">86400</span><span class="p">)</span>
 <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">pos1</span><span class="p">(</span><span class="n">tca</span><span class="p">)</span> <span class="o">-</span> <span class="n">pos2</span><span class="p">(</span><span class="n">tca</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time of Closest Approach (TCA): </span><span class="si">{</span><span class="n">tca</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds after epoch&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum Separation Distance: </span><span class="si">{</span><span class="n">dist</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000.0</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> km&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Time of Closest Approach (TCA): </span><span class="si">{</span><span class="n">tca</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds after epoch"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Minimum Separation Distance: </span><span class="si">{</span><span class="n">dist</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000.0</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> km"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -177,9 +177,9 @@ Minimum Separation Distance: 7.665 km
     <span class="n">pc_limit</span><span class="o">=</span><span class="mf">1e-6</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required COLA Delta-V Vector (m/s): </span><span class="si">{</span><span class="n">dv</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dv</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> m/s&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final Pc: </span><span class="si">{</span><span class="n">final_pc</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Required COLA Delta-V Vector (m/s): </span><span class="si">{</span><span class="n">dv</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dv</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> m/s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Final Pc: </span><span class="si">{</span><span class="n">final_pc</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.propagators.encke</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Encke&#39;s method propagator.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
+<span class="sd">Encke's method propagator.</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -96,8 +96,8 @@
 <div class="viewcode-block" id="EnckePropagator">
 <a class="viewcode-back" href="../../../api/opengnc.propagators.html#opengnc.propagators.encke.EnckePropagator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EnckePropagator</span><span class="p">(</span><span class="n">Propagator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Encke&#39;s method propagator.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Encke's method propagator.</span>
 
 <span class="sd">    Integrates the deviation from a reference Keplerian orbit and is suitable</span>
 <span class="sd">    for orbit propagation with small disturbances.</span>
@@ -110,7 +110,7 @@
 <span class="sd">        Gravitational parameter in cubic meters per square second.</span>
 <span class="sd">    rect_tol : float, optional</span>
 <span class="sd">        Rectification tolerance based on ``norm(dr) / norm(r_ref)``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -133,8 +133,8 @@
         <span class="n">perturbation_acc_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Propagate a state using Encke&#39;s method.&quot;&quot;&quot;</span>
-        <span class="n">step_size</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dt_step&quot;</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
+<span class="w">        </span><span class="sd">"""Propagate a state using Encke's method."""</span>
+        <span class="n">step_size</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"dt_step"</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">step_size</span> <span class="o">&gt;</span> <span class="n">dt</span><span class="p">:</span>
             <span class="n">step_size</span> <span class="o">=</span> <span class="n">dt</span>
 
@@ -157,7 +157,7 @@
                 <span class="n">v_tot</span> <span class="o">=</span> <span class="n">v_r</span> <span class="o">+</span> <span class="n">d_v</span>
                 <span class="n">q_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">d_r</span><span class="p">,</span> <span class="n">d_r</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">r_r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_r_mag</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
-                <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">):</span>
                     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">q_val</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
                         <span class="n">f_q_val</span> <span class="o">=</span> <span class="mf">0.0</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -165,7 +165,7 @@
                             <span class="n">q_val</span> <span class="o">*</span> <span class="p">(</span><span class="mf">3.0</span> <span class="o">+</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">q_val</span> <span class="o">+</span> <span class="n">q_val</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">q_val</span><span class="p">)</span> <span class="o">**</span> <span class="mf">1.5</span><span class="p">)</span>
                         <span class="p">)</span>
 
-                <span class="n">a_pt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                <span class="n">a_pt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">perturbation_acc_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">a_pt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
                         <span class="n">perturbation_acc_fn</span><span class="p">(</span><span class="n">curr_t</span> <span class="o">+</span> <span class="n">t_local</span><span class="p">,</span> <span class="n">r_tot</span><span class="p">,</span> <span class="n">v_tot</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>

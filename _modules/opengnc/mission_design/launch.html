@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.mission_design.launch</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Launch window and injection state computation utilities.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
@@ -89,8 +89,16 @@
 
 <div class="viewcode-block" id="calculate_launch_windows">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.launch.calculate_launch_windows">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">calculate_launch_windows</span><span class="p">(</span><span class="n">jd_start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">jd_end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">inc_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">raan_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lat_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lon_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">step_sec</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_launch_windows</span><span class="p">(</span>
+    <span class="n">jd_start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">jd_end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">inc_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">raan_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">lat_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">lon_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">step_sec</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates launch windows by finding times when the launch site intersects the target orbit plane.</span>
 
 <span class="sd">    Args:</span>
@@ -104,8 +112,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        dict: list of dicts with &#39;jd&#39;, &#39;type&#39; (Ascending/Descending), and &#39;azimuth_deg&#39;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        dict: list of dicts with 'jd', 'type' (Ascending/Descending), and 'azimuth_deg'.</span>
+<span class="sd">    """</span>
     <span class="n">lat_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat_deg</span><span class="p">)</span>
     <span class="n">lon_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lon_deg</span><span class="p">)</span>
 
@@ -156,7 +164,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">azimuth_deg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>  <span class="c1"># No launching directly</span>
 
-            <span class="n">windows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;jd&quot;</span><span class="p">:</span> <span class="n">jd_cross</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="n">rate</span><span class="p">,</span> <span class="s2">&quot;azimuth_approx_deg&quot;</span><span class="p">:</span> <span class="n">azimuth_deg</span><span class="p">})</span>
+            <span class="n">windows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"jd"</span><span class="p">:</span> <span class="n">jd_cross</span><span class="p">,</span> <span class="s2">"rate"</span><span class="p">:</span> <span class="n">rate</span><span class="p">,</span> <span class="s2">"azimuth_approx_deg"</span><span class="p">:</span> <span class="n">azimuth_deg</span><span class="p">})</span>
 
     <span class="k">return</span> <span class="n">windows</span></div>
 
@@ -165,7 +173,7 @@
 <div class="viewcode-block" id="eci2_ecef_or_inverse_wrapper">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.launch.eci2_ecef_or_inverse_wrapper">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2_ecef_or_inverse_wrapper</span><span class="p">(</span><span class="n">recef</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Temporary local wrapper to use ecef2eci avoiding import loop or correct usage&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Temporary local wrapper to use ecef2eci avoiding import loop or correct usage"""</span>
     <span class="k">return</span> <span class="n">ecef2eci</span><span class="p">(</span><span class="n">recef</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">jd</span><span class="p">)</span></div>
 
 
@@ -173,9 +181,15 @@
 <div class="viewcode-block" id="compute_injection_state">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.launch.compute_injection_state">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_injection_state</span><span class="p">(</span>
-    <span class="n">lat_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lon_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">alt_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">azimuth_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">flight_path_angle_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">speed_mps</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">lat_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">lon_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">alt_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">azimuth_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">flight_path_angle_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">speed_mps</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Computes ECI state vector at insertion.</span>
 
 <span class="sd">    Args:</span>
@@ -190,7 +204,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">        tuple: (r_eci [m], v_eci [m/s])</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">lat_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat_deg</span><span class="p">)</span>
     <span class="n">lon_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lon_deg</span><span class="p">)</span>
     <span class="n">az_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">azimuth_deg</span><span class="p">)</span>
@@ -234,9 +248,14 @@
 <div class="viewcode-block" id="calculate_deployment_sequence">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.launch.calculate_deployment_sequence">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_deployment_sequence</span><span class="p">(</span>
-    <span class="n">planes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sats_per_plane</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">phasing_parameter_f</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">inc_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">base_raan_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">base_ta_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">planes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">sats_per_plane</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">phasing_parameter_f</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">inc_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">base_raan_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">base_ta_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Computes target RAAN and True Anomaly for each satellite in a Walker-Delta Constellation (T/P/F).</span>
 
 <span class="sd">    Args:</span>
@@ -249,8 +268,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        list of dict: Each satellite&#39;s parameters including &#39;plane_id&#39;, &#39;sat_id&#39;, &#39;global_id&#39;, &#39;raan_deg&#39;, &#39;ta_deg&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        list of dict: Each satellite's parameters including 'plane_id', 'sat_id', 'global_id', 'raan_deg', 'ta_deg'</span>
+<span class="sd">    """</span>
     <span class="n">total_sats</span> <span class="o">=</span> <span class="n">planes</span> <span class="o">*</span> <span class="n">sats_per_plane</span>
 
     <span class="n">delta_raan</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">/</span> <span class="n">planes</span>
@@ -267,15 +286,11 @@
             <span class="n">ta</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_ta_deg</span> <span class="o">+</span> <span class="n">s</span> <span class="o">*</span> <span class="n">delta_ta_in_plane</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">delta_ta_between_planes</span><span class="p">)</span> <span class="o">%</span> <span class="mf">360.0</span>
 
             <span class="n">sequence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="p">{</span><span class="s2">&quot;global_id&quot;</span><span class="p">:</span> <span class="n">global_id</span><span class="p">,</span> <span class="s2">&quot;plane_id&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s2">&quot;sat_id&quot;</span><span class="p">:</span> <span class="n">s</span><span class="p">,</span> <span class="s2">&quot;raan_deg&quot;</span><span class="p">:</span> <span class="n">raan</span><span class="p">,</span> <span class="s2">&quot;ta_deg&quot;</span><span class="p">:</span> <span class="n">ta</span><span class="p">}</span>
+                <span class="p">{</span><span class="s2">"global_id"</span><span class="p">:</span> <span class="n">global_id</span><span class="p">,</span> <span class="s2">"plane_id"</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span> <span class="s2">"sat_id"</span><span class="p">:</span> <span class="n">s</span><span class="p">,</span> <span class="s2">"raan_deg"</span><span class="p">:</span> <span class="n">raan</span><span class="p">,</span> <span class="s2">"ta_deg"</span><span class="p">:</span> <span class="n">ta</span><span class="p">}</span>
             <span class="p">)</span>
             <span class="n">global_id</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">return</span> <span class="n">sequence</span></div>
-
-
-
-
 
 </pre></div>
 

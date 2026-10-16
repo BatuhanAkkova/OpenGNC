@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.environment.wind</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Atmospheric wind and earth co-rotation modeling.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -86,26 +86,26 @@
 <div class="viewcode-block" id="AtmosphereCoRotation">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.wind.AtmosphereCoRotation">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AtmosphereCoRotation</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Atmospheric Wind Model (Strict Co-Rotation).</span>
 
-<span class="sd">    Assumes that the atmosphere rotates perfectly in sync with the planet&#39;s</span>
+<span class="sd">    Assumes that the atmosphere rotates perfectly in sync with the planet's</span>
 <span class="sd">    Earth-Centered Earth-Fixed (ECEF) frame.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    omega_e : float, optional</span>
 <span class="sd">        Planetary angular rate (rad/s). Default Earth WGS84 rate.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega_e</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">7.2921151467e-5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize Earth rotation vector.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize Earth rotation vector."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">omega_earth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">omega_e</span><span class="p">)])</span>
 
 <div class="viewcode-block" id="AtmosphereCoRotation.get_wind_velocity">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.wind.AtmosphereCoRotation.get_wind_velocity">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_wind_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate local wind velocity vector in ECI.</span>
 
 <span class="sd">        Equation:</span>
@@ -122,20 +122,15 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Wind velocity vector (m/s).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">omega_earth</span><span class="p">,</span> <span class="n">rv</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="AtmosphereCoRotation.get_relative_velocity">
 <a class="viewcode-back" href="../../../api/opengnc.environment.html#opengnc.environment.wind.AtmosphereCoRotation.get_relative_velocity">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_relative_velocity</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_relative_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate spacecraft velocity relative to the atmosphere (Airspeed).</span>
 
 <span class="sd">        Equation:</span>
@@ -154,16 +149,12 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Relative velocity vector (m/s).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
         <span class="n">vv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_eci</span><span class="p">)</span>
         <span class="n">v_wind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_wind_velocity</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">jd</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">vv</span> <span class="o">-</span> <span class="n">v_wind</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

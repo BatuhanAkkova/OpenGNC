@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.propagators.sgp4_propagator</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">SGP4/SDP4 Analytical Propagator.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -88,6 +88,7 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">sgp4.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Satrec</span>
+
     <span class="n">SGP4_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">SGP4_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
@@ -98,7 +99,7 @@
 <div class="viewcode-block" id="Sgp4Propagator">
 <a class="viewcode-back" href="../../../api/opengnc.propagators.html#opengnc.propagators.sgp4_propagator.Sgp4Propagator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Sgp4Propagator</span><span class="p">(</span><span class="n">Propagator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    SGP4/SDP4 Analytical Propagator.</span>
 
 <span class="sd">    Wraps the `sgp4` library to propagate orbits using Two-Line Elements (TLEs).</span>
@@ -110,12 +111,12 @@
 <span class="sd">        First line of the TLE.</span>
 <span class="sd">    line2 : str</span>
 <span class="sd">        Second line of the TLE.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">SGP4_AVAILABLE</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;sgp4 is required for Sgp4Propagator. Install via &#39;pip install OpenGNC[sat]&#39;&quot;</span>
+                <span class="s2">"sgp4 is required for Sgp4Propagator. Install via 'pip install OpenGNC[sat]'"</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sat</span> <span class="o">=</span> <span class="n">Satrec</span><span class="o">.</span><span class="n">twoline2rv</span><span class="p">(</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">)</span>
         <span class="c1"># TLE Epoch Julian Date</span>
@@ -127,7 +128,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">propagate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_i</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Propagates the satellite state from TLE epoch forward by dt.</span>
 
 <span class="sd">        Note: initial position/velocity input (r_i, v_i) is IGNORED,</span>
@@ -150,7 +151,7 @@
 <span class="sd">            (r_f, v_f).</span>
 <span class="sd">            r_f : Position in TEME frame (m).</span>
 <span class="sd">            v_f : Velocity in TEME frame (m/s).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># SGP4 takes time in minutes from epoch</span>
         <span class="n">minutes_from_epoch</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="mf">60.0</span>
 
@@ -162,7 +163,7 @@
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SGP4 error code </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">: Propagation failed.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SGP4 error code </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">: Propagation failed."</span><span class="p">)</span>
 
         <span class="c1"># Convert to SI units [m, m/s]</span>
         <span class="n">r_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r_km</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span>
@@ -174,7 +175,7 @@
 <div class="viewcode-block" id="Sgp4Propagator.propagate_to_jd">
 <a class="viewcode-back" href="../../../api/opengnc.propagators.html#opengnc.propagators.sgp4_propagator.Sgp4Propagator.propagate_to_jd">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">propagate_to_jd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jd_f</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">jd_f_frac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Propagate to a specific Julian Date.</span>
 
 <span class="sd">        Parameters</span>
@@ -193,16 +194,12 @@
 <span class="sd">        ------</span>
 <span class="sd">        RuntimeError</span>
 <span class="sd">            If SGP4 propagation fails.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">err</span><span class="p">,</span> <span class="n">r_km</span><span class="p">,</span> <span class="n">v_kms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sat</span><span class="o">.</span><span class="n">sgp4</span><span class="p">(</span><span class="n">jd_f</span><span class="p">,</span> <span class="n">jd_f_frac</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SGP4 error code </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SGP4 error code </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r_km</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">v_kms</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

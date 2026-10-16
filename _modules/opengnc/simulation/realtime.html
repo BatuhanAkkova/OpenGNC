@@ -85,13 +85,13 @@
 <div class="viewcode-block" id="RealTimeSimulator">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.realtime.RealTimeSimulator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RealTimeSimulator</span><span class="p">(</span><span class="n">MissionSimulator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Real-time simulation synchronizing simulation time to wall-clock time.</span>
 <span class="sd">    Supports Hardware-In-the-Loop (HIL) or Software-In-the-Loop (SIL) testing.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">rtf</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize real-time simulator.</span>
 
 <span class="sd">        Parameters</span>
@@ -104,7 +104,7 @@
 <span class="sd">            Passed to MissionSimulator.</span>
 <span class="sd">        **kwargs : Any</span>
 <span class="sd">            Passed to MissionSimulator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rtf</span> <span class="o">=</span> <span class="n">rtf</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wall_clock_start</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -121,7 +121,7 @@
 <div class="viewcode-block" id="RealTimeSimulator.run">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.realtime.RealTimeSimulator.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t_end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Runs the simulation loop until the end time, matching wall-clock pace.</span>
 
 <span class="sd">        Parameters</span>
@@ -130,7 +130,7 @@
 <span class="sd">            Simulation end time.</span>
 <span class="sd">        dt : float</span>
 <span class="sd">            Simulation time step.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;=</span> <span class="n">t_end</span><span class="p">:</span>
             <span class="c1"># step logic</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
@@ -146,12 +146,8 @@
                 <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">sleep_time</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">dt</span><span class="p">:</span>
                 <span class="c1"># Issue a warning if we consistenty fall behind schedule</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Real-time deadline missed by </span><span class="si">{</span><span class="o">-</span><span class="n">sleep_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span></div>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Warning: Real-time deadline missed by </span><span class="si">{</span><span class="o">-</span><span class="n">sleep_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s"</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

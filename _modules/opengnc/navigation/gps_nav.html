@@ -76,10 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.navigation.gps_nav</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Navigation using GNSS (GPS) position and velocity measurements.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
@@ -91,13 +90,13 @@
 <div class="viewcode-block" id="GPSNavigation">
 <a class="viewcode-back" href="../../../api/opengnc.navigation.html#opengnc.navigation.gps_nav.GPSNavigation">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GPSNavigation</span><span class="p">(</span><span class="n">OrbitDeterminationEKF</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    GNSS-based Navigation using absolute Position and Velocity measurements.</span>
 
 <span class="sd">    Processes PVT (Position, Velocity, Time) solutions from a receiver</span>
 <span class="sd">    to correct the integrated orbital state. Inherits dynamics from</span>
 <span class="sd">    `OrbitDeterminationEKF`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="GPSNavigation.update_gps">
 <a class="viewcode-back" href="../../../api/opengnc.navigation.html#opengnc.navigation.gps_nav.GPSNavigation.update_gps">[docs]</a>
@@ -106,9 +105,9 @@
         <span class="n">r_meas</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">v_meas</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">gps_cov</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Update state estimate using GNSS Cartesian measurements.</span>
 
 <span class="sd">        Parameters</span>
@@ -121,11 +120,11 @@
 <span class="sd">            Direct measurement covariance matrix.</span>
 <span class="sd">        **kwargs : dict</span>
 <span class="sd">            Additional parameters (e.g., R_gps).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_meas</span><span class="p">)</span>
 
         <span class="c1"># Handle custom R passed via kwargs or gps_cov</span>
-        <span class="n">r_custom</span> <span class="o">=</span> <span class="n">gps_cov</span> <span class="k">if</span> <span class="n">gps_cov</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;R_gps&quot;</span><span class="p">)</span>
+        <span class="n">r_custom</span> <span class="o">=</span> <span class="n">gps_cov</span> <span class="k">if</span> <span class="n">gps_cov</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"R_gps"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">v_meas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">vv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_meas</span><span class="p">)</span>
@@ -143,7 +142,9 @@
                 <span class="c1"># Scaled default covariance</span>
                 <span class="n">r_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
                 <span class="c1"># Ensure self.ekf.R is captured correctly even if not initialized as expected</span>
-                <span class="n">r_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ekf</span><span class="o">.</span><span class="n">R</span> <span class="k">if</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ekf</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ekf</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                <span class="n">r_pos</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ekf</span><span class="o">.</span><span class="n">R</span> <span class="k">if</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ekf</span><span class="p">,</span> <span class="s2">"R"</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ekf</span><span class="o">.</span><span class="n">R</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                <span class="p">)</span>
                 <span class="n">r_mat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">r_pos</span>
                 <span class="n">r_mat</span><span class="p">[</span><span class="mi">3</span><span class="p">:,</span> <span class="mi">3</span><span class="p">:]</span> <span class="o">=</span> <span class="n">r_pos</span> <span class="o">*</span> <span class="mf">0.1</span>  <span class="c1"># Velocity noise heuristic</span>
 
@@ -152,10 +153,6 @@
             <span class="c1"># Position only update</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

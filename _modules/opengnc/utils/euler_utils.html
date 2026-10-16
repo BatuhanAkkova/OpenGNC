@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.euler_utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Euler angle kinematics and Direction Cosine Matrix (DCM) utilities.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -90,7 +90,7 @@
 <div class="viewcode-block" id="rot_x">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.euler_utils.rot_x">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_x</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Elementary rotation matrix about the X-axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -102,20 +102,16 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 rotation matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span>   <span class="n">c</span><span class="p">,</span>  <span class="o">-</span><span class="n">s</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span>   <span class="n">s</span><span class="p">,</span>   <span class="n">c</span><span class="p">]</span>
-    <span class="p">]))</span></div>
+    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">]]))</span></div>
 
 
 
 <div class="viewcode-block" id="rot_y">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.euler_utils.rot_y">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_y</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Elementary rotation matrix about the Y-axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -127,20 +123,16 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 rotation matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span>  <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>  <span class="n">s</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-        <span class="p">[</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>  <span class="n">c</span><span class="p">]</span>
-    <span class="p">]))</span></div>
+    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">s</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="p">]]))</span></div>
 
 
 
 <div class="viewcode-block" id="rot_z">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.euler_utils.rot_z">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_z</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Elementary rotation matrix about the Z-axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -152,20 +144,16 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 rotation matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span>  <span class="n">c</span><span class="p">,</span>  <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-        <span class="p">[</span>  <span class="n">s</span><span class="p">,</span>   <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
-        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-    <span class="p">]))</span></div>
+    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]))</span></div>
 
 
 
 <div class="viewcode-block" id="euler_to_dcm">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.euler_utils.euler_to_dcm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">euler_to_dcm</span><span class="p">(</span><span class="n">angles</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Convert Euler angles to a 3x3 Direction Cosine Matrix (DCM).</span>
 
 <span class="sd">    Standard convention for satellite dynamics is the Body-to-Inertial</span>
@@ -176,7 +164,7 @@
 <span class="sd">    angles : np.ndarray</span>
 <span class="sd">        Three Euler angles in radians $[\theta_1, \theta_2, \theta_3]$.</span>
 <span class="sd">    sequence : str</span>
-<span class="sd">        Rotation sequence (e.g., &#39;321&#39;, &#39;313&#39;). Must be 3 characters.</span>
+<span class="sd">        Rotation sequence (e.g., '321', '313'). Must be 3 characters.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -187,19 +175,19 @@
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If the sequence is invalid or length is not 3.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sequence must be a string of length 3.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Sequence must be a string of length 3."</span><span class="p">)</span>
 
     <span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
-    <span class="n">rot_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="n">rot_x</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="n">rot_y</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="n">rot_z</span><span class="p">}</span>
+    <span class="n">rot_fns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"1"</span><span class="p">:</span> <span class="n">rot_x</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">:</span> <span class="n">rot_y</span><span class="p">,</span> <span class="s2">"3"</span><span class="p">:</span> <span class="n">rot_z</span><span class="p">}</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">r1</span> <span class="o">=</span> <span class="n">rot_fns</span><span class="p">[</span><span class="n">sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]](</span><span class="n">av</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">r2</span> <span class="o">=</span> <span class="n">rot_fns</span><span class="p">[</span><span class="n">sequence</span><span class="p">[</span><span class="mi">1</span><span class="p">]](</span><span class="n">av</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">r3</span> <span class="o">=</span> <span class="n">rot_fns</span><span class="p">[</span><span class="n">sequence</span><span class="p">[</span><span class="mi">2</span><span class="p">]](</span><span class="n">av</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid axis &#39;</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; in sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid axis '</span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">' in sequence '</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">'."</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
     <span class="c1"># Composite rotation: last rotation applied first in matrix product</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r3</span> <span class="o">@</span> <span class="n">r2</span> <span class="o">@</span> <span class="n">r1</span><span class="p">)</span></div>
@@ -209,7 +197,7 @@
 <div class="viewcode-block" id="dcm_to_euler">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.euler_utils.dcm_to_euler">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">dcm_to_euler</span><span class="p">(</span><span class="n">dcm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Extract Euler angles from a 3x3 Direction Cosine Matrix.</span>
 
 <span class="sd">    Supports all 12 standard rotation sequences (Symmetric and Asymmetric).</span>
@@ -220,15 +208,15 @@
 <span class="sd">    dcm : np.ndarray</span>
 <span class="sd">        3x3 Direction Cosine Matrix.</span>
 <span class="sd">    sequence : str</span>
-<span class="sd">        Sequence of rotations (e.g., &#39;321&#39;, &#39;313&#39;).</span>
+<span class="sd">        Sequence of rotations (e.g., '321', '313').</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Euler angles $[\theta_1, \theta_2, \theta_3]$ in radians.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sequence must be a string of length 3.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Sequence must be a string of length 3."</span><span class="p">)</span>
 
     <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dcm</span><span class="p">)</span>
 
@@ -273,10 +261,6 @@
             <span class="n">theta3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">parity</span> <span class="o">*</span> <span class="n">mat</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">theta3</span><span class="p">]))</span></div>
-
-
-
-
 
 </pre></div>
 

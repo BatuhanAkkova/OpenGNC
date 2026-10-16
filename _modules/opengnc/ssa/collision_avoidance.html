@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.ssa.collision_avoidance</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Collision Avoidance Maneuver (CAM) Planning.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -101,7 +101,7 @@
     <span class="n">t_man_before_tca</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">pc_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Plan an impulsive Collision Avoidance Maneuver (CAM).</span>
 
 <span class="sd">    Finds the minimum Delta-V magnitude to reduce Probability of Collision (Pc)</span>
@@ -131,7 +131,7 @@
 <span class="sd">    Tuple[np.ndarray, float]</span>
 <span class="sd">        - Delta-V vector in ECI (m/s).</span>
 <span class="sd">        - Probability of Collision after maneuver.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># 1. State Transition Matrix (STM) Approximation (Keplerian)</span>
     <span class="c1"># For short durations, we can use the STM Phi_rv (sensitivity to velocity)</span>
     <span class="c1"># A simple Hill-Clohessy-Wiltshire (HCW) or Keplerian STM can be used.</span>
@@ -139,7 +139,7 @@
 
     <span class="n">mu</span> <span class="o">=</span> <span class="mf">3.986004418e14</span>
     <span class="n">r_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_sat_tca</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r_mag</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># Mean motion</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r_mag</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Mean motion</span>
 
     <span class="c1"># We want Phi_rv(t_tca, t_man)</span>
     <span class="n">tau</span> <span class="o">=</span> <span class="n">t_man_before_tca</span>
@@ -155,9 +155,13 @@
         <span class="c1"># dr_t = (2/n) * (cos(n*t)-1) * dv_r + (1/n) * (4*sin(n*t)-3*n*t) * dv_t</span>
         <span class="c1"># dr_n = (1/n) * sin(n*t) * dv_n</span>
 
-        <span class="n">dr_r</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">tau</span><span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">tau</span><span class="p">))</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">dr_t</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">tau</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">tau</span><span class="p">)</span> <span class="o">-</span> <span class="mf">3.0</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="n">tau</span><span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">dr_n</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">tau</span><span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">dr_r</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">tau</span><span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">tau</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dr_t</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">tau</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="mf">4.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">tau</span><span class="p">)</span> <span class="o">-</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">tau</span>
+        <span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dr_n</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">tau</span><span class="p">)</span> <span class="o">*</span> <span class="n">dv_rtn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
         <span class="n">dr_rtn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dr_r</span><span class="p">,</span> <span class="n">dr_t</span><span class="p">,</span> <span class="n">dr_n</span><span class="p">])</span>
 
@@ -176,9 +180,7 @@
 
         <span class="c1"># Compute Pc</span>
         <span class="n">pc</span> <span class="o">=</span> <span class="n">compute_pc_chan</span><span class="p">(</span>
-            <span class="n">r_sat_new</span><span class="p">,</span> <span class="n">v_sat_tca</span><span class="p">,</span> <span class="n">cov_sat_tca</span><span class="p">,</span>
-            <span class="n">r_deb_tca</span><span class="p">,</span> <span class="n">v_deb_tca</span><span class="p">,</span> <span class="n">cov_deb_tca</span><span class="p">,</span>
-            <span class="n">hbr</span>
+            <span class="n">r_sat_new</span><span class="p">,</span> <span class="n">v_sat_tca</span><span class="p">,</span> <span class="n">cov_sat_tca</span><span class="p">,</span> <span class="n">r_deb_tca</span><span class="p">,</span> <span class="n">v_deb_tca</span><span class="p">,</span> <span class="n">cov_deb_tca</span><span class="p">,</span> <span class="n">hbr</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">pc</span>
 
@@ -187,9 +189,9 @@
 
     <span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
         <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
-        <span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span> <span class="c1"># Small along-track start</span>
-        <span class="n">constraints</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pc_limit</span> <span class="o">-</span> <span class="n">get_cam_pc</span><span class="p">(</span><span class="n">x</span><span class="p">)},</span>
-        <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)]</span> <span class="c1"># Limit to 10cm/s for safety</span>
+        <span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>  <span class="c1"># Small along-track start</span>
+        <span class="n">constraints</span><span class="o">=</span><span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"ineq"</span><span class="p">,</span> <span class="s2">"fun"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pc_limit</span> <span class="o">-</span> <span class="n">get_cam_pc</span><span class="p">(</span><span class="n">x</span><span class="p">)},</span>
+        <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)],</span>  <span class="c1"># Limit to 10cm/s for safety</span>
     <span class="p">)</span>
 
     <span class="n">dv_rtn_opt</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span>

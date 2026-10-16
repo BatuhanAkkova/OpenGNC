@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.actuators.allocation</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Control allocation algorithms mapping generalized forces to actuator commands.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -91,7 +91,7 @@
 <div class="viewcode-block" id="ControlAllocator">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.ControlAllocator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ControlAllocator</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Abstract base class for control allocation logic.</span>
 
 <span class="sd">    Maps desired generalized forces (force/torque) to individual actuator commands.</span>
@@ -102,7 +102,7 @@
 <span class="sd">        The (m x n) matrix A where Y = A * u.</span>
 <span class="sd">        m = degrees of freedom (e.g., 3 for torque).</span>
 <span class="sd">        n = number of actuators.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actuator_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">actuator_matrix</span><span class="p">)</span>
@@ -112,7 +112,7 @@
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.ControlAllocator.allocate">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_torque_cmd</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Allocate generalized force/torque to individual actuators.</span>
 
 <span class="sd">        Parameters</span>
@@ -124,7 +124,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Individual actuator commands.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">pass</span></div>
 </div>
 
@@ -133,7 +133,7 @@
 <div class="viewcode-block" id="PseudoInverseAllocator">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.PseudoInverseAllocator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PseudoInverseAllocator</span><span class="p">(</span><span class="n">ControlAllocator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Control allocation using the Moore-Penrose pseudo-inverse.</span>
 
 <span class="sd">    Suitable for over-determined systems (more actuators than DOFs).</span>
@@ -143,7 +143,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    effectiveness_matrix : np.ndarray</span>
 <span class="sd">        The (m x n) matrix mapping actuator outputs to forces/torques.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">effectiveness_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">effectiveness_matrix</span>
@@ -153,7 +153,7 @@
 <div class="viewcode-block" id="PseudoInverseAllocator.allocate">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.PseudoInverseAllocator.allocate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_torque_cmd</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Perform allocation using pseudo-inverse.</span>
 
 <span class="sd">        Parameters</span>
@@ -165,7 +165,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Actuator commands vector.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A_pinv</span> <span class="o">@</span> <span class="n">force_torque_cmd</span><span class="p">)</span></div>
 </div>
 
@@ -174,7 +174,7 @@
 <div class="viewcode-block" id="SingularRobustAllocator">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.SingularRobustAllocator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SingularRobustAllocator</span><span class="p">(</span><span class="n">ControlAllocator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Singular Robust Inverse (SR-Inverse) allocator for CMGs.</span>
 
 <span class="sd">    Adds a regularization term to avoid extremely high actuator rates near singularities.</span>
@@ -188,17 +188,21 @@
 <span class="sd">        Threshold for manipulability measure. Default is 0.01.</span>
 <span class="sd">    lambda0 : float, optional</span>
 <span class="sd">        Maximum regularization weight. Default is 0.01.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actuator_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">lambda0</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">actuator_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">lambda0</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actuator_matrix</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lambda0</span> <span class="o">=</span> <span class="n">lambda0</span>
 
 <div class="viewcode-block" id="SingularRobustAllocator.allocate">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.SingularRobustAllocator.allocate">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desired_output</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">A_current</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">desired_output</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">A_current</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Perform SR-Inverse allocation.</span>
 
 <span class="sd">        Parameters</span>
@@ -212,7 +216,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Actuator rate commands.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">A_current</span> <span class="k">if</span> <span class="n">A_current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span>
 
         <span class="c1"># Calculate manipulability measure (determinant of AA^T)</span>
@@ -236,7 +240,7 @@
 <div class="viewcode-block" id="NullMotionManager">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.NullMotionManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NullMotionManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Manages null-motion to redistribute actuator states without affecting net output.</span>
 
 <span class="sd">    u_net = u_alloc + u_null</span>
@@ -246,7 +250,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    actuator_matrix : np.ndarray</span>
 <span class="sd">        The control effectiveness matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actuator_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">actuator_matrix</span><span class="p">)</span>
@@ -256,7 +260,7 @@
 <div class="viewcode-block" id="NullMotionManager.get_null_projection">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.NullMotionManager.get_null_projection">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_null_projection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A_current</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate the null-space projection matrix (I - A+ * A).</span>
 
 <span class="sd">        Parameters</span>
@@ -268,7 +272,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Null-space projection matrix.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">A_current</span> <span class="k">if</span> <span class="n">A_current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span>
         <span class="n">A_pinv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="o">-</span> <span class="n">A_pinv</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span></div>
@@ -276,8 +280,10 @@
 
 <div class="viewcode-block" id="NullMotionManager.apply_null_command">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.allocation.NullMotionManager.apply_null_command">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">apply_null_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u_base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">A_current</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_null_command</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">u_base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">A_current</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Add null-motion component to base command.</span>
 
 <span class="sd">        Parameters</span>
@@ -293,14 +299,10 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Combined actuator command.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_null_projection</span><span class="p">(</span><span class="n">A_current</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">u_base</span> <span class="o">+</span> <span class="n">P</span> <span class="o">@</span> <span class="n">z</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

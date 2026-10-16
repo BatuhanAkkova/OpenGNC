@@ -91,7 +91,7 @@
 <div class="viewcode-block" id="ConstellationSimulator">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.multibody.ConstellationSimulator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ConstellationSimulator</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Multi-Agent / Constellation Simulator.</span>
 
 <span class="sd">    Manages simultaneous simulation of multiple spacecraft, enabling</span>
@@ -111,7 +111,7 @@
 <span class="sd">        Coordinating control logic.</span>
 <span class="sd">    logger : Optional[SimulationLogger]</span>
 <span class="sd">        Data recording utility.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -122,7 +122,7 @@
         <span class="n">controller</span><span class="p">:</span> <span class="n">ControllerFunc</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">logger</span><span class="p">:</span> <span class="n">SimulationLogger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize simulation for spacecraft N members.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize simulation for spacecraft N members."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_satellites</span> <span class="o">=</span> <span class="n">num_satellites</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">simulator</span> <span class="o">=</span> <span class="n">MissionSimulator</span><span class="p">(</span>
             <span class="n">propagator</span><span class="o">=</span><span class="n">propagator</span><span class="p">,</span>
@@ -135,7 +135,7 @@
 <div class="viewcode-block" id="ConstellationSimulator.initialize">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.multibody.ConstellationSimulator.initialize">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">initial_states</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize starting conditions for all members.</span>
 
 <span class="sd">        Parameters</span>
@@ -144,10 +144,10 @@
 <span class="sd">            Start simulation time (s).</span>
 <span class="sd">        initial_states : List[Any]</span>
 <span class="sd">            Container of starting states for each spacecraft.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_states</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_satellites</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_satellites</span><span class="si">}</span><span class="s2"> initial states, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">initial_states</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_satellites</span><span class="si">}</span><span class="s2"> initial states, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">initial_states</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">initial_states</span><span class="p">)</span></div>
@@ -156,7 +156,7 @@
 <div class="viewcode-block" id="ConstellationSimulator.run">
 <a class="viewcode-back" href="../../../api/opengnc.simulation.html#opengnc.simulation.multibody.ConstellationSimulator.run">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t_end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Execute the constrained multi-body simulation.</span>
 
 <span class="sd">        Parameters</span>
@@ -170,13 +170,9 @@
 <span class="sd">        -------</span>
 <span class="sd">        Any</span>
 <span class="sd">            Aggregate simulation results.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">t_end</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

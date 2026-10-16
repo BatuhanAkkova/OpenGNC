@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.crp_utils</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Classical Rodrigues Parameters (CRP) kinematics and composition.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -90,7 +90,7 @@
 <div class="viewcode-block" id="quat_to_crp">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.crp_utils.quat_to_crp">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">quat_to_crp</span><span class="p">(</span><span class="n">q</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Convert a quaternion to Classical Rodrigues Parameters (CRP/Gibbs).</span>
 
 <span class="sd">    Mathematical form: $\mathbf{q}_{vec} / q_w$.</span>
@@ -110,11 +110,11 @@
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If the rotation is 180 degrees.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">qv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">qv</span>
     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;CRP is singular for 180-degree rotations.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"CRP is singular for 180-degree rotations."</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span> <span class="o">/</span> <span class="n">w</span><span class="p">)</span></div>
 
 
@@ -122,7 +122,7 @@
 <div class="viewcode-block" id="crp_to_quat">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.crp_utils.crp_to_quat">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">crp_to_quat</span><span class="p">(</span><span class="n">q_crp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Classical Rodrigues Parameters to a quaternion.</span>
 
 <span class="sd">    Parameters</span>
@@ -134,7 +134,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Unit quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">cv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q_crp</span><span class="p">)</span>
     <span class="n">norm_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cv</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">norm_sq</span><span class="p">)</span>
@@ -145,7 +145,7 @@
 <div class="viewcode-block" id="crp_to_dcm">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.crp_utils.crp_to_dcm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">crp_to_dcm</span><span class="p">(</span><span class="n">q_crp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Classical Rodrigues Parameters to a Direction Cosine Matrix.</span>
 
 <span class="sd">    Parameters</span>
@@ -157,16 +157,12 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 Direction Cosine Matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">cv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q_crp</span><span class="p">)</span>
     <span class="n">norm_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cv</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">cv</span>
 
-    <span class="n">s_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">q3</span><span class="p">,</span>  <span class="n">q2</span><span class="p">],</span>
-        <span class="p">[</span><span class="n">q3</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">q1</span><span class="p">],</span>
-        <span class="p">[</span><span class="o">-</span><span class="n">q2</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span>  <span class="mf">0.0</span><span class="p">]</span>
-    <span class="p">])</span>
+    <span class="n">s_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">q3</span><span class="p">,</span> <span class="n">q2</span><span class="p">],</span> <span class="p">[</span><span class="n">q3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">q1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">q2</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
 
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">s_mat</span> <span class="o">@</span> <span class="n">s_mat</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">s_mat</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">norm_sq</span><span class="p">))</span></div>
 
@@ -175,7 +171,7 @@
 <div class="viewcode-block" id="crp_addition">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.crp_utils.crp_addition">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">crp_addition</span><span class="p">(</span><span class="n">q1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Compose two rotations represented by Classical Rodrigues Parameters.</span>
 
 <span class="sd">    $\mathbf{q}_{res} = \frac{\mathbf{q}_1 + \mathbf{q}_2 + \mathbf{q}_2 \times \mathbf{q}_1}{1 - \mathbf{q}_1 \cdot \mathbf{q}_2}$</span>
@@ -196,19 +192,15 @@
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If the denominator is near zero.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">qv1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
     <span class="n">qv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
 
     <span class="n">dot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">qv1</span><span class="p">,</span> <span class="n">qv2</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">dot</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;CRP addition is singular (rotation equals 180 degrees).&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"CRP addition is singular (rotation equals 180 degrees)."</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="p">(</span><span class="n">qv1</span> <span class="o">+</span> <span class="n">qv2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">qv2</span><span class="p">,</span> <span class="n">qv1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">dot</span><span class="p">))</span></div>
-
-
-
-
 
 </pre></div>
 

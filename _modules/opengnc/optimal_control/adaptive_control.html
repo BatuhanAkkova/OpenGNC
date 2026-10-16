@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.optimal_control.adaptive_control</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Model Reference Adaptive Control (MRAC) for state-space systems.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
@@ -90,7 +90,7 @@
 <div class="viewcode-block" id="ModelReferenceAdaptiveControl">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.adaptive_control.ModelReferenceAdaptiveControl">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ModelReferenceAdaptiveControl</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Model Reference Adaptive Controller (MRAC) for linear state-space systems.</span>
 
 <span class="sd">    Implements a direct MRAC scheme where controller parameters are updated to</span>
@@ -120,7 +120,7 @@
 <span class="sd">        Positive-definite matrix for the Lyapunov equation (nx x nx).</span>
 <span class="sd">    phi_func : Callable[[np.ndarray], np.ndarray]</span>
 <span class="sd">        Regressor function $\Phi(x)$ returning a vector of basis functions (nk,).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -131,7 +131,7 @@
         <span class="n">Q_lyap</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">phi_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the MRAC parameters and solve the Lyapunov equation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize the MRAC parameters and solve the Lyapunov equation."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A_m</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">B_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">B_m</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -163,7 +163,7 @@
         <span class="n">kx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">kr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Compute the adaptive control input and the parameter update rate.</span>
 
 <span class="sd">        Parameters</span>
@@ -183,7 +183,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Control input vector $u$ (nu,).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">x_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">xm_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_m</span><span class="p">)</span>
         <span class="n">r_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
@@ -207,7 +207,7 @@
 <div class="viewcode-block" id="ModelReferenceAdaptiveControl.update_theta">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.adaptive_control.ModelReferenceAdaptiveControl.update_theta">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_theta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Integrate the parameter estimates using the computed update rate.</span>
 
 <span class="sd">        Should be called once per simulation step after compute_control.</span>
@@ -216,13 +216,9 @@
 <span class="sd">        ----------</span>
 <span class="sd">        dt : float</span>
 <span class="sd">            Simulation time step (s).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theta_hat</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_theta_hat</span> <span class="o">*</span> <span class="n">dt</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

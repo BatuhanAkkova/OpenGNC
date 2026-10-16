@@ -1,0 +1,1248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opengnc.fdir package &mdash; OpenGNC  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/thebelab.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/thebelab-helper.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="opengnc.guidance package" href="opengnc.guidance.html" />
+    <link rel="prev" title="opengnc.experimental.interfaces package" href="opengnc.experimental.interfaces.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            OpenGNC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Navigation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opengnc</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opengnc.html">opengnc package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="opengnc.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="opengnc.actuators.html">opengnc.actuators package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_determination.html">opengnc.attitude_determination package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.attitude_dynamics.html">opengnc.attitude_dynamics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.classical_control.html">opengnc.classical_control package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">opengnc.fdir package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.kalman_filters.html">opengnc.kalman_filters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.mission_design.html">opengnc.mission_design package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.navigation.html">opengnc.navigation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ops.html">opengnc.ops package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.optimal_control.html">opengnc.optimal_control package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.propagators.html">opengnc.propagators package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.sensors.html">opengnc.sensors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.simulation.html">opengnc.simulation package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.ssa.html">opengnc.ssa package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.utils.html">opengnc.utils package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.visualization.html">opengnc.visualization package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="opengnc.html#module-opengnc">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">OpenGNC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">opengnc</a></li>
+          <li class="breadcrumb-item"><a href="opengnc.html">opengnc package</a></li>
+      <li class="breadcrumb-item active">opengnc.fdir package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/opengnc.fdir.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="opengnc-fdir-package">
+<h1>opengnc.fdir package<a class="headerlink" href="#opengnc-fdir-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-opengnc.fdir.actuator_fdir">
+<span id="opengnc-fdir-actuator-fdir-module"></span><h2>opengnc.fdir.actuator_fdir module<a class="headerlink" href="#module-opengnc.fdir.actuator_fdir" title="Link to this heading"></a></h2>
+<p>Actuator Fault Detection, Isolation, and Reconfiguration (FTC).</p>
+<p>Provides health monitoring for reaction wheels and thrusters, dynamic weighted
+pseudo-inverse control allocation with health masking, and underactuated
+attitude control for 2-wheel degraded recovery.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorFaultDetector">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.actuator_fdir.</span></span><span class="sig-name descname"><span class="pre">ActuatorFaultDetector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_wheel_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">600.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_tolerance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistence_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorFaultDetector" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Monitors reaction wheel and thruster health states.</p>
+<p>Detects motor lockup, friction torque spikes, tachometer runaway,
+and command-to-telemetry tracking error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_wheel_speed</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable reaction wheel speed (rad/s). Default is 600.0 (~5700 RPM).</p></li>
+<li><p><strong>torque_tolerance</strong> (<em>float</em><em>, </em><em>optional</em>) – Allowable torque discrepancy between command and telemetry (N*m).
+Default is 0.02.</p></li>
+<li><p><strong>persistence_steps</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of consecutive timesteps with violation before marking FAILED.
+Default is 5.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorFaultDetector.check_wheel">
+<span class="sig-name descname"><span class="pre">check_wheel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd_torque</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_torque</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><span class="pre">ActuatorHealth</span></a></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector.check_wheel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorFaultDetector.check_wheel" title="Link to this definition"></a></dt>
+<dd><p>Evaluate wheel telemetry against health thresholds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Actuator identifier.</p></li>
+<li><p><strong>cmd_torque</strong> (<em>float</em>) – Commanded torque (N*m).</p></li>
+<li><p><strong>actual_torque</strong> (<em>float</em>) – Measured/estimated torque output (N*m).</p></li>
+<li><p><strong>current_speed</strong> (<em>float</em>) – Current wheel spin rate (rad/s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated health status.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth">ActuatorHealth</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorFaultDetector.register_actuator">
+<span class="sig-name descname"><span class="pre">register_actuator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector.register_actuator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorFaultDetector.register_actuator" title="Link to this definition"></a></dt>
+<dd><p>Register a new actuator to monitor.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorFaultDetector.set_failed">
+<span class="sig-name descname"><span class="pre">set_failed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector.set_failed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorFaultDetector.set_failed" title="Link to this definition"></a></dt>
+<dd><p>Manually mark an actuator as FAILED.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorHealth">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.actuator_fdir.</span></span><span class="sig-name descname"><span class="pre">ActuatorHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorHealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Health classification for spacecraft actuators.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorHealth.DEGRADED">
+<span class="sig-name descname"><span class="pre">DEGRADED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEGRADED'</span></span><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorHealth.DEGRADED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorHealth.FAILED">
+<span class="sig-name descname"><span class="pre">FAILED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FAILED'</span></span><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorHealth.FAILED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.ActuatorHealth.HEALTHY">
+<span class="sig-name descname"><span class="pre">HEALTHY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HEALTHY'</span></span><a class="headerlink" href="#opengnc.fdir.actuator_fdir.ActuatorHealth.HEALTHY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.UnderactuatedAttitudeController">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.actuator_fdir.</span></span><span class="sig-name descname"><span class="pre">UnderactuatedAttitudeController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actuated_axes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">km</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#UnderactuatedAttitudeController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.UnderactuatedAttitudeController" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Underactuated Spacecraft Attitude Controller (2-Reaction-Wheel Recovery).</p>
+<p>When one or two reaction wheels fail, leaving only 2 functional reaction
+wheels, full 3-axis instantaneous controllability via wheels alone is lost.
+This controller stabilizes the two actuated body axes using high-gain PD
+control and uses auxiliary magnetic torquers (or cross-coupling precession)
+to asymptotically damp momentum along the unactuated body axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actuated_axes</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Indices of the two functional body axes (e.g. (0, 1) for X and Y).</p></li>
+<li><p><strong>kp</strong> (<em>float</em><em>, </em><em>optional</em>) – Proportional attitude error gain. Default is 0.5.</p></li>
+<li><p><strong>kd</strong> (<em>float</em><em>, </em><em>optional</em>) – Derivative angular rate damping gain. Default is 2.0.</p></li>
+<li><p><strong>km</strong> (<em>float</em><em>, </em><em>optional</em>) – Magnetic dipole cross-product gain for unactuated axis. Default is 1000.0.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.UnderactuatedAttitudeController.compute_control">
+<span class="sig-name descname"><span class="pre">compute_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_field_body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#UnderactuatedAttitudeController.compute_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.UnderactuatedAttitudeController.compute_control" title="Link to this definition"></a></dt>
+<dd><p>Compute control torques for the 2 functional wheels and auxiliary magnetic dipole.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q_err</strong> (<em>np.ndarray</em>) – Attitude quaternion error vector $[q_1, q_2, q_3, q_4]^T$ (vector part first 3).</p></li>
+<li><p><strong>w_err</strong> (<em>np.ndarray</em>) – Body angular velocity error $[w_x, w_y, w_z]^T$ (rad/s).</p></li>
+<li><p><strong>b_field_body</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Local geomagnetic field vector in body frame (Tesla).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(tau_wheels, magnetic_dipole)
+- tau_wheels: 3-element torque vector with zero along the unactuated axis.
+- magnetic_dipole: 3-element commanded magnetic dipole moment $mathbf{m}$ ($A cdot m^2$).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.WeightedControlAllocator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.actuator_fdir.</span></span><span class="sig-name descname"><span class="pre">WeightedControlAllocator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#WeightedControlAllocator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.WeightedControlAllocator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dynamic Weighted Control Allocator (WQP / Weighted Pseudo-Inverse).</p>
+<p>Maps commanded 3-axis control torque $boldsymbol{tau}_c in mathbb{R}^3$
+to actuator commands $mathbf{u} in mathbb{R}^n$ via:
+$$min_{mathbf{u}} frac{1}{2} mathbf{u}^T mathbf{W}_u mathbf{u} quad text{s.t.} quad mathbf{B} mathbf{u} = boldsymbol{tau}_c$$
+subject to $mathbf{u}_{min} le mathbf{u} le mathbf{u}_{max}$.</p>
+<p>When an actuator fails, its weight $W_{u, ii}$ is scaled to $infty$ (or
+its column in $mathbf{B}$ is masked to zero), redistributing torque
+instantly to remaining functional actuators without perturbing the attitude loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>b_matrix</strong> (<em>np.ndarray</em>) – Actuator geometry/effectiveness matrix $mathbf{B} in mathbb{R}^{3 times n}$.</p></li>
+<li><p><strong>u_min</strong> (<em>np.ndarray</em><em> | </em><em>float</em><em>, </em><em>optional</em>) – Minimum torque limit per actuator (N*m). Default is -0.1 N*m.</p></li>
+<li><p><strong>u_max</strong> (<em>np.ndarray</em><em> | </em><em>float</em><em>, </em><em>optional</em>) – Maximum torque limit per actuator (N*m). Default is +0.1 N*m.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.WeightedControlAllocator.allocate">
+<span class="sig-name descname"><span class="pre">allocate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau_cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#WeightedControlAllocator.allocate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.WeightedControlAllocator.allocate" title="Link to this definition"></a></dt>
+<dd><p>Allocate commanded 3-axis torque to individual actuators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tau_cmd</strong> (<em>np.ndarray</em>) – Commanded torque vector $boldsymbol{tau}_c in mathbb{R}^3$ (N*m).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Actuator torque vector $mathbf{u} in mathbb{R}^n$ (N*m).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.WeightedControlAllocator.set_actuator_health">
+<span class="sig-name descname"><span class="pre">set_actuator_health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><span class="pre">ActuatorHealth</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#WeightedControlAllocator.set_actuator_health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.actuator_fdir.WeightedControlAllocator.set_actuator_health" title="Link to this definition"></a></dt>
+<dd><p>Update weighting and active masking based on actuator health.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – Actuator channel index ($0 le i &lt; n$).</p></li>
+<li><p><strong>health</strong> (<a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><em>ActuatorHealth</em></a>) – Health state from FDI monitor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.WeightedControlAllocator.u_max">
+<span class="sig-name descname"><span class="pre">u_max</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#opengnc.fdir.actuator_fdir.WeightedControlAllocator.u_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.actuator_fdir.WeightedControlAllocator.u_min">
+<span class="sig-name descname"><span class="pre">u_min</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#opengnc.fdir.actuator_fdir.WeightedControlAllocator.u_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-opengnc.fdir.executive">
+<span id="opengnc-fdir-executive-module"></span><h2>opengnc.fdir.executive module<a class="headerlink" href="#module-opengnc.fdir.executive" title="Link to this heading"></a></h2>
+<p>Autonomous FDIR Executive and GNC Mission Health State Machine.</p>
+<p>Coordinates sensor fault isolation, actuator control reconfiguration, and
+autonomous transitions between Nominal, Degraded, Underactuated, and Safe Modes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRExecutive">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.executive.</span></span><span class="sig-name descname"><span class="pre">FDIRExecutive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode"><span class="pre">FDIRMode</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">FDIRMode.NOMINAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rate_runaway</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pointing_error_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">45.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.executive.FDIRExecutive" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Finite State Machine governing autonomous Spacecraft FDIR transitions.</p>
+<p>Evaluates collective sensor health, actuator integrity, and dynamic pointing
+metrics to deterministically transition between operational modes:
+- NOMINAL: Full sensor fusion and nominal 3-axis control.
+- DEGRADED_POINTING: Maintained 3-axis pointing with isolated sensor/actuator.
+- UNDERACTUATED_CONTROL: 2-RW stabilization with auxiliary magnetic damping.
+- SAFE_MODE_SUN_POINTING: Power preservation &amp; tumbling damping fallback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_mode</strong> (<a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode"><em>FDIRMode</em></a><em>, </em><em>optional</em>) – Starting mode for the executive. Default is FDIRMode.NOMINAL.</p></li>
+<li><p><strong>max_rate_runaway</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable angular velocity (rad/s) before forcing Safe Mode.
+Default is 0.1 rad/s (~5.7 deg/s).</p></li>
+<li><p><strong>max_pointing_error_deg</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable pointing error (deg) before flagging attitude loss.
+Default is 45.0 degrees.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRExecutive.evaluate_state">
+<span class="sig-name descname"><span class="pre">evaluate_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth"><span class="pre">SensorHealth</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actuator_health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><span class="pre">ActuatorHealth</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointing_error_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode"><span class="pre">FDIRMode</span></a></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.evaluate_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.executive.FDIRExecutive.evaluate_state" title="Link to this definition"></a></dt>
+<dd><p>Evaluate system health telemetry and perform mode transitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_s</strong> (<em>float</em>) – Simulation/mission elapsed time (s).</p></li>
+<li><p><strong>sensor_health</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth"><em>SensorHealth</em></a><em>]</em>) – Dictionary of sensor states {sensor_name: SensorHealth}.</p></li>
+<li><p><strong>actuator_health</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><em>ActuatorHealth</em></a><em>]</em>) – Dictionary of actuator states {actuator_name: ActuatorHealth}.</p></li>
+<li><p><strong>pointing_error_deg</strong> (<em>float</em><em>, </em><em>optional</em>) – Current pointing error in degrees. Default is 0.0.</p></li>
+<li><p><strong>rate_norm</strong> (<em>float</em><em>, </em><em>optional</em>) – Current angular rate magnitude ||omega|| in rad/s. Default is 0.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Current active FDIR operational mode.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode">FDIRMode</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRExecutive.force_safe_mode">
+<span class="sig-name descname"><span class="pre">force_safe_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Manual</span> <span class="pre">override'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.force_safe_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.executive.FDIRExecutive.force_safe_mode" title="Link to this definition"></a></dt>
+<dd><p>Manually force executive into Safe Mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRExecutive.get_telemetry">
+<span class="sig-name descname"><span class="pre">get_telemetry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.get_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.executive.FDIRExecutive.get_telemetry" title="Link to this definition"></a></dt>
+<dd><p>Generate diagnostic telemetry summary of FDIR status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing current mode, transition history, and log.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRExecutive.reset_to_nominal">
+<span class="sig-name descname"><span class="pre">reset_to_nominal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.reset_to_nominal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.executive.FDIRExecutive.reset_to_nominal" title="Link to this definition"></a></dt>
+<dd><p>Reset executive back to Nominal Mode after recovery.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.executive.</span></span><span class="sig-name descname"><span class="pre">FDIRMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.executive.FDIRMode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Spacecraft GNC operational modes governed by FDIR.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRMode.DEGRADED_POINTING">
+<span class="sig-name descname"><span class="pre">DEGRADED_POINTING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEGRADED_POINTING'</span></span><a class="headerlink" href="#opengnc.fdir.executive.FDIRMode.DEGRADED_POINTING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRMode.NOMINAL">
+<span class="sig-name descname"><span class="pre">NOMINAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NOMINAL'</span></span><a class="headerlink" href="#opengnc.fdir.executive.FDIRMode.NOMINAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRMode.SAFE_MODE_SUN_POINTING">
+<span class="sig-name descname"><span class="pre">SAFE_MODE_SUN_POINTING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SAFE_MODE_SUN_POINTING'</span></span><a class="headerlink" href="#opengnc.fdir.executive.FDIRMode.SAFE_MODE_SUN_POINTING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.executive.FDIRMode.UNDERACTUATED_CONTROL">
+<span class="sig-name descname"><span class="pre">UNDERACTUATED_CONTROL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNDERACTUATED_CONTROL'</span></span><a class="headerlink" href="#opengnc.fdir.executive.FDIRMode.UNDERACTUATED_CONTROL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-opengnc.fdir.sensor_fdir">
+<span id="opengnc-fdir-sensor-fdir-module"></span><h2>opengnc.fdir.sensor_fdir module<a class="headerlink" href="#module-opengnc.fdir.sensor_fdir" title="Link to this heading"></a></h2>
+<p>Sensor Fault Detection, Isolation, and Characterization (FDIC) for spacecraft GNC.</p>
+<p>Implements innovation-based Chi-Square statistical monitors, Generalized
+Likelihood Ratio Test (GLRT) / CUSUM drift detectors, and analytical redundancy
+cross-sensor isolation managers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.ChiSquareMonitor">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.sensor_fdir.</span></span><span class="sig-name descname"><span class="pre">ChiSquareMonitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistence_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#ChiSquareMonitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.ChiSquareMonitor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Statistical Innovation Chi-Square ($chi^2$) Fault Monitor.</p>
+<p>Evaluates the Normalized Innovation Squared (NIS):
+$$gamma_k = mathbf{r}_k^T mathbf{S}_k^{-1} mathbf{r}_k$$
+Under the null hypothesis $H_0$ (nominal sensor operation), $gamma_k$
+follows a central chi-square distribution with $m$ degrees of freedom,
+where $m = dim(mathbf{r}_k)$.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>int</em>) – Dimension of the measurement residual vector ($m$).</p></li>
+<li><p><strong>confidence</strong> (<em>float</em><em>, </em><em>optional</em>) – Confidence level for the statistical hypothesis test (e.g., 0.99 for 1% $P_{FA}$).
+Default is 0.99.</p></li>
+<li><p><strong>window_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Sliding window size for cumulative hypothesis testing. Default is 5.</p></li>
+<li><p><strong>persistence_threshold</strong> (<em>int</em><em>, </em><em>optional</em>) – Consecutive violations required before triggering a persistent alarm.
+Default is 3.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.ChiSquareMonitor.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#ChiSquareMonitor.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.ChiSquareMonitor.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset internal history and violation counters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.ChiSquareMonitor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">innovation_cov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#ChiSquareMonitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.ChiSquareMonitor.update" title="Link to this definition"></a></dt>
+<dd><p>Update monitor with new innovation residual and covariance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>residual</strong> (<em>np.ndarray</em>) – Measurement innovation residual $mathbf{r}_k = mathbf{z}_k - hat{mathbf{z}}_k$.</p></li>
+<li><p><strong>innovation_cov</strong> (<em>np.ndarray</em>) – Innovation covariance matrix $mathbf{S}_k = mathbf{H}_k mathbf{P}_k^- mathbf{H}_k^T + mathbf{R}_k$.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(is_fault, current_stat, threshold_used)
+- is_fault: True if fault condition detected.
+- current_stat: Computed statistical test metric ($gamma_k$ or window sum).
+- threshold_used: Threshold corresponding to the test.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[bool, float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.GLRTMonitor">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.sensor_fdir.</span></span><span class="sig-name descname"><span class="pre">GLRTMonitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift_allowance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alarm_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nominal_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#GLRTMonitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.GLRTMonitor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generalized Likelihood Ratio Test (GLRT) / Page’s CUSUM Drift Monitor.</p>
+<p>Detects insidious, low-amplitude sensor drift, temperature ramps, or slow
+random walks that stay below instantaneous $chi^2$ single-step thresholds.</p>
+<p>Evaluates two-sided Cumulative Sum (CUSUM) statistics per channel:
+$$S_k^+ = max(0, S_{k-1}^+ + r_k - mu_0 - K)$$
+$$S_k^- = max(0, S_{k-1}^- - r_k + mu_0 - K)$$</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>int</em>) – Dimension of the monitored signal.</p></li>
+<li><p><strong>drift_allowance</strong> (<em>float</em><em>, </em><em>optional</em>) – Allowance constant $K$ (slack parameter). Default is 0.5.</p></li>
+<li><p><strong>alarm_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Decision threshold $H$. Default is 5.0.</p></li>
+<li><p><strong>nominal_mean</strong> (<em>float</em><em>, </em><em>optional</em>) – Expected nominal mean $mu_0$ under $H_0$. Default is 0.0.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.GLRTMonitor.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#GLRTMonitor.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.GLRTMonitor.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset cumulative sum registers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.GLRTMonitor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#GLRTMonitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.GLRTMonitor.update" title="Link to this definition"></a></dt>
+<dd><p>Update CUSUM statistics with a new measurement residual.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>residual</strong> (<em>np.ndarray</em><em> | </em><em>float</em>) – Measurement residual or scalar.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(is_fault, max_cusum_stat)
+- is_fault: True if any channel exceeds the decision threshold $H$.
+- max_cusum_stat: Maximum cumulative statistic across positive/negative detectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[bool, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorHealth">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.sensor_fdir.</span></span><span class="sig-name descname"><span class="pre">SensorHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorHealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Health classification for spacecraft sensors.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorHealth.DEGRADED">
+<span class="sig-name descname"><span class="pre">DEGRADED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEGRADED'</span></span><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorHealth.DEGRADED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorHealth.HEALTHY">
+<span class="sig-name descname"><span class="pre">HEALTHY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HEALTHY'</span></span><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorHealth.HEALTHY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorHealth.ISOLATED">
+<span class="sig-name descname"><span class="pre">ISOLATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ISOLATED'</span></span><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorHealth.ISOLATED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.sensor_fdir.</span></span><span class="sig-name descname"><span class="pre">SensorIsolationManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_consecutive_faults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covariance_inflation_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Analytical Redundancy and Cross-Sensor Isolation Manager.</p>
+<p>Coordinates health tracking across redundant sensors, performs pairwise
+consistency voting to identify out-of-family sensors, and provides dynamic
+measurement covariance inflation ($R_{eff} = s cdot R$) to prevent filter
+divergence before hard isolation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor_names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of unique sensor identifiers.</p></li>
+<li><p><strong>max_consecutive_faults</strong> (<em>int</em><em>, </em><em>optional</em>) – Consecutive faults before a sensor is isolated. Default is 5.</p></li>
+<li><p><strong>covariance_inflation_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor $s$ applied to degraded sensor covariance. Default is 10.0.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager.cross_consistency_vote">
+<span class="sig-name descname"><span class="pre">cross_consistency_vote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angular_tol_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.cross_consistency_vote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager.cross_consistency_vote" title="Link to this definition"></a></dt>
+<dd><p>Perform 2-out-of-N cross-consistency voting among vector sensors.</p>
+<p>Identifies sensors whose output diverges significantly from the consensus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurements</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>]</em>) – Dictionary of unit vector measurements {sensor_name: unit_vector}.</p></li>
+<li><p><strong>angular_tol_deg</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable angular divergence in degrees. Default is 2.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of suspect sensor names that failed consensus voting.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager.fault_counters">
+<span class="sig-name descname"><span class="pre">fault_counters</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager.fault_counters" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager.get_effective_covariance">
+<span class="sig-name descname"><span class="pre">get_effective_covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_cov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.get_effective_covariance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager.get_effective_covariance" title="Link to this definition"></a></dt>
+<dd><p>Calculate effective covariance matrix $R_{eff}$ for the sensor.</p>
+<p>For healthy sensors, returns $R$. For degraded sensors, returns
+$s cdot R$. For isolated sensors, returns $infty cdot I$.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor_name</strong> (<em>str</em>) – Identifier of the sensor.</p></li>
+<li><p><strong>base_cov</strong> (<em>np.ndarray</em>) – Nominal measurement covariance matrix $R$.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Adjusted effective covariance matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager.isolate_sensor">
+<span class="sig-name descname"><span class="pre">isolate_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.isolate_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager.isolate_sensor" title="Link to this definition"></a></dt>
+<dd><p>Manually force a sensor into the ISOLATED state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager.report_status">
+<span class="sig-name descname"><span class="pre">report_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_fault</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth"><span class="pre">SensorHealth</span></a></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.report_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager.report_status" title="Link to this definition"></a></dt>
+<dd><p>Report detection result for a given sensor and update health state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor_name</strong> (<em>str</em>) – Identifier of the reporting sensor.</p></li>
+<li><p><strong>has_fault</strong> (<em>bool</em>) – True if FDI monitor detected an anomaly on this sensor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated health status of the sensor.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth">SensorHealth</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager.reset_sensor">
+<span class="sig-name descname"><span class="pre">reset_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.reset_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager.reset_sensor" title="Link to this definition"></a></dt>
+<dd><p>Manually restore a sensor to HEALTHY state.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.sensor_fdir.SensorIsolationManager.sensors">
+<span class="sig-name descname"><span class="pre">sensors</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth"><span class="pre">SensorHealth</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.sensor_fdir.SensorIsolationManager.sensors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-opengnc.fdir">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-opengnc.fdir" title="Link to this heading"></a></h2>
+<p>OpenGNC Fault Detection, Isolation, and Recovery (FDIR) Subsystem.</p>
+<p>Provides autonomous sensor fault detection, statistical innovation testing,
+actuator fault-tolerant control reallocation, underactuated attitude stabilization,
+and mission-level operational health management.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorFaultDetector">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">ActuatorFaultDetector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_wheel_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">600.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torque_tolerance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistence_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ActuatorFaultDetector" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Monitors reaction wheel and thruster health states.</p>
+<p>Detects motor lockup, friction torque spikes, tachometer runaway,
+and command-to-telemetry tracking error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_wheel_speed</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable reaction wheel speed (rad/s). Default is 600.0 (~5700 RPM).</p></li>
+<li><p><strong>torque_tolerance</strong> (<em>float</em><em>, </em><em>optional</em>) – Allowable torque discrepancy between command and telemetry (N*m).
+Default is 0.02.</p></li>
+<li><p><strong>persistence_steps</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of consecutive timesteps with violation before marking FAILED.
+Default is 5.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorFaultDetector.actuator_status">
+<span class="sig-name descname"><span class="pre">actuator_status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><span class="pre">ActuatorHealth</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.ActuatorFaultDetector.actuator_status" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorFaultDetector.check_wheel">
+<span class="sig-name descname"><span class="pre">check_wheel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd_torque</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_torque</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><span class="pre">ActuatorHealth</span></a></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector.check_wheel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ActuatorFaultDetector.check_wheel" title="Link to this definition"></a></dt>
+<dd><p>Evaluate wheel telemetry against health thresholds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Actuator identifier.</p></li>
+<li><p><strong>cmd_torque</strong> (<em>float</em>) – Commanded torque (N*m).</p></li>
+<li><p><strong>actual_torque</strong> (<em>float</em>) – Measured/estimated torque output (N*m).</p></li>
+<li><p><strong>current_speed</strong> (<em>float</em>) – Current wheel spin rate (rad/s).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated health status.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opengnc.fdir.ActuatorHealth" title="opengnc.fdir.ActuatorHealth">ActuatorHealth</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorFaultDetector.register_actuator">
+<span class="sig-name descname"><span class="pre">register_actuator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector.register_actuator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ActuatorFaultDetector.register_actuator" title="Link to this definition"></a></dt>
+<dd><p>Register a new actuator to monitor.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorFaultDetector.set_failed">
+<span class="sig-name descname"><span class="pre">set_failed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorFaultDetector.set_failed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ActuatorFaultDetector.set_failed" title="Link to this definition"></a></dt>
+<dd><p>Manually mark an actuator as FAILED.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorFaultDetector.violation_counts">
+<span class="sig-name descname"><span class="pre">violation_counts</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.ActuatorFaultDetector.violation_counts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorHealth">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">ActuatorHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#ActuatorHealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ActuatorHealth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Health classification for spacecraft actuators.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorHealth.DEGRADED">
+<span class="sig-name descname"><span class="pre">DEGRADED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEGRADED'</span></span><a class="headerlink" href="#opengnc.fdir.ActuatorHealth.DEGRADED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorHealth.FAILED">
+<span class="sig-name descname"><span class="pre">FAILED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FAILED'</span></span><a class="headerlink" href="#opengnc.fdir.ActuatorHealth.FAILED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.ActuatorHealth.HEALTHY">
+<span class="sig-name descname"><span class="pre">HEALTHY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HEALTHY'</span></span><a class="headerlink" href="#opengnc.fdir.ActuatorHealth.HEALTHY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.ChiSquareMonitor">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">ChiSquareMonitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persistence_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#ChiSquareMonitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ChiSquareMonitor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Statistical Innovation Chi-Square ($chi^2$) Fault Monitor.</p>
+<p>Evaluates the Normalized Innovation Squared (NIS):
+$$gamma_k = mathbf{r}_k^T mathbf{S}_k^{-1} mathbf{r}_k$$
+Under the null hypothesis $H_0$ (nominal sensor operation), $gamma_k$
+follows a central chi-square distribution with $m$ degrees of freedom,
+where $m = dim(mathbf{r}_k)$.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>int</em>) – Dimension of the measurement residual vector ($m$).</p></li>
+<li><p><strong>confidence</strong> (<em>float</em><em>, </em><em>optional</em>) – Confidence level for the statistical hypothesis test (e.g., 0.99 for 1% $P_{FA}$).
+Default is 0.99.</p></li>
+<li><p><strong>window_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Sliding window size for cumulative hypothesis testing. Default is 5.</p></li>
+<li><p><strong>persistence_threshold</strong> (<em>int</em><em>, </em><em>optional</em>) – Consecutive violations required before triggering a persistent alarm.
+Default is 3.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.ChiSquareMonitor.consecutive_violations">
+<span class="sig-name descname"><span class="pre">consecutive_violations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#opengnc.fdir.ChiSquareMonitor.consecutive_violations" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.ChiSquareMonitor.history">
+<span class="sig-name descname"><span class="pre">history</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">deque</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.ChiSquareMonitor.history" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.ChiSquareMonitor.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#ChiSquareMonitor.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ChiSquareMonitor.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset internal history and violation counters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.ChiSquareMonitor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">innovation_cov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#ChiSquareMonitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.ChiSquareMonitor.update" title="Link to this definition"></a></dt>
+<dd><p>Update monitor with new innovation residual and covariance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>residual</strong> (<em>np.ndarray</em>) – Measurement innovation residual $mathbf{r}_k = mathbf{z}_k - hat{mathbf{z}}_k$.</p></li>
+<li><p><strong>innovation_cov</strong> (<em>np.ndarray</em>) – Innovation covariance matrix $mathbf{S}_k = mathbf{H}_k mathbf{P}_k^- mathbf{H}_k^T + mathbf{R}_k$.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(is_fault, current_stat, threshold_used)
+- is_fault: True if fault condition detected.
+- current_stat: Computed statistical test metric ($gamma_k$ or window sum).
+- threshold_used: Threshold corresponding to the test.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[bool, float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">FDIRExecutive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode"><span class="pre">FDIRMode</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">FDIRMode.NOMINAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rate_runaway</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pointing_error_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">45.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.FDIRExecutive" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Finite State Machine governing autonomous Spacecraft FDIR transitions.</p>
+<p>Evaluates collective sensor health, actuator integrity, and dynamic pointing
+metrics to deterministically transition between operational modes:
+- NOMINAL: Full sensor fusion and nominal 3-axis control.
+- DEGRADED_POINTING: Maintained 3-axis pointing with isolated sensor/actuator.
+- UNDERACTUATED_CONTROL: 2-RW stabilization with auxiliary magnetic damping.
+- SAFE_MODE_SUN_POINTING: Power preservation &amp; tumbling damping fallback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_mode</strong> (<a class="reference internal" href="#opengnc.fdir.FDIRMode" title="opengnc.fdir.FDIRMode"><em>FDIRMode</em></a><em>, </em><em>optional</em>) – Starting mode for the executive. Default is FDIRMode.NOMINAL.</p></li>
+<li><p><strong>max_rate_runaway</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable angular velocity (rad/s) before forcing Safe Mode.
+Default is 0.1 rad/s (~5.7 deg/s).</p></li>
+<li><p><strong>max_pointing_error_deg</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable pointing error (deg) before flagging attitude loss.
+Default is 45.0 degrees.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive.current_mode">
+<span class="sig-name descname"><span class="pre">current_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode"><span class="pre">FDIRMode</span></a></span><a class="headerlink" href="#opengnc.fdir.FDIRExecutive.current_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive.evaluate_state">
+<span class="sig-name descname"><span class="pre">evaluate_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth"><span class="pre">SensorHealth</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actuator_health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><span class="pre">ActuatorHealth</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointing_error_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode"><span class="pre">FDIRMode</span></a></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.evaluate_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.FDIRExecutive.evaluate_state" title="Link to this definition"></a></dt>
+<dd><p>Evaluate system health telemetry and perform mode transitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_s</strong> (<em>float</em>) – Simulation/mission elapsed time (s).</p></li>
+<li><p><strong>sensor_health</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#opengnc.fdir.SensorHealth" title="opengnc.fdir.SensorHealth"><em>SensorHealth</em></a><em>]</em>) – Dictionary of sensor states {sensor_name: SensorHealth}.</p></li>
+<li><p><strong>actuator_health</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#opengnc.fdir.ActuatorHealth" title="opengnc.fdir.ActuatorHealth"><em>ActuatorHealth</em></a><em>]</em>) – Dictionary of actuator states {actuator_name: ActuatorHealth}.</p></li>
+<li><p><strong>pointing_error_deg</strong> (<em>float</em><em>, </em><em>optional</em>) – Current pointing error in degrees. Default is 0.0.</p></li>
+<li><p><strong>rate_norm</strong> (<em>float</em><em>, </em><em>optional</em>) – Current angular rate magnitude ||omega|| in rad/s. Default is 0.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Current active FDIR operational mode.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opengnc.fdir.FDIRMode" title="opengnc.fdir.FDIRMode">FDIRMode</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive.force_safe_mode">
+<span class="sig-name descname"><span class="pre">force_safe_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Manual</span> <span class="pre">override'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.force_safe_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.FDIRExecutive.force_safe_mode" title="Link to this definition"></a></dt>
+<dd><p>Manually force executive into Safe Mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive.get_telemetry">
+<span class="sig-name descname"><span class="pre">get_telemetry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.get_telemetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.FDIRExecutive.get_telemetry" title="Link to this definition"></a></dt>
+<dd><p>Generate diagnostic telemetry summary of FDIR status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing current mode, transition history, and log.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive.mode_history">
+<span class="sig-name descname"><span class="pre">mode_history</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.executive.FDIRMode" title="opengnc.fdir.executive.FDIRMode"><span class="pre">FDIRMode</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.FDIRExecutive.mode_history" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive.reset_to_nominal">
+<span class="sig-name descname"><span class="pre">reset_to_nominal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRExecutive.reset_to_nominal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.FDIRExecutive.reset_to_nominal" title="Link to this definition"></a></dt>
+<dd><p>Reset executive back to Nominal Mode after recovery.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRExecutive.transition_log">
+<span class="sig-name descname"><span class="pre">transition_log</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.FDIRExecutive.transition_log" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">FDIRMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/executive.html#FDIRMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.FDIRMode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Spacecraft GNC operational modes governed by FDIR.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRMode.DEGRADED_POINTING">
+<span class="sig-name descname"><span class="pre">DEGRADED_POINTING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEGRADED_POINTING'</span></span><a class="headerlink" href="#opengnc.fdir.FDIRMode.DEGRADED_POINTING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRMode.NOMINAL">
+<span class="sig-name descname"><span class="pre">NOMINAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NOMINAL'</span></span><a class="headerlink" href="#opengnc.fdir.FDIRMode.NOMINAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRMode.SAFE_MODE_SUN_POINTING">
+<span class="sig-name descname"><span class="pre">SAFE_MODE_SUN_POINTING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SAFE_MODE_SUN_POINTING'</span></span><a class="headerlink" href="#opengnc.fdir.FDIRMode.SAFE_MODE_SUN_POINTING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.FDIRMode.UNDERACTUATED_CONTROL">
+<span class="sig-name descname"><span class="pre">UNDERACTUATED_CONTROL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNDERACTUATED_CONTROL'</span></span><a class="headerlink" href="#opengnc.fdir.FDIRMode.UNDERACTUATED_CONTROL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.GLRTMonitor">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">GLRTMonitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift_allowance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alarm_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nominal_mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#GLRTMonitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.GLRTMonitor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generalized Likelihood Ratio Test (GLRT) / Page’s CUSUM Drift Monitor.</p>
+<p>Detects insidious, low-amplitude sensor drift, temperature ramps, or slow
+random walks that stay below instantaneous $chi^2$ single-step thresholds.</p>
+<p>Evaluates two-sided Cumulative Sum (CUSUM) statistics per channel:
+$$S_k^+ = max(0, S_{k-1}^+ + r_k - mu_0 - K)$$
+$$S_k^- = max(0, S_{k-1}^- - r_k + mu_0 - K)$$</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<em>int</em>) – Dimension of the monitored signal.</p></li>
+<li><p><strong>drift_allowance</strong> (<em>float</em><em>, </em><em>optional</em>) – Allowance constant $K$ (slack parameter). Default is 0.5.</p></li>
+<li><p><strong>alarm_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Decision threshold $H$. Default is 5.0.</p></li>
+<li><p><strong>nominal_mean</strong> (<em>float</em><em>, </em><em>optional</em>) – Expected nominal mean $mu_0$ under $H_0$. Default is 0.0.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.GLRTMonitor.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#GLRTMonitor.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.GLRTMonitor.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset cumulative sum registers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.GLRTMonitor.s_neg">
+<span class="sig-name descname"><span class="pre">s_neg</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#opengnc.fdir.GLRTMonitor.s_neg" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.GLRTMonitor.s_pos">
+<span class="sig-name descname"><span class="pre">s_pos</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#opengnc.fdir.GLRTMonitor.s_pos" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.GLRTMonitor.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">residual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#GLRTMonitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.GLRTMonitor.update" title="Link to this definition"></a></dt>
+<dd><p>Update CUSUM statistics with a new measurement residual.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>residual</strong> (<em>np.ndarray</em><em> | </em><em>float</em>) – Measurement residual or scalar.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(is_fault, max_cusum_stat)
+- is_fault: True if any channel exceeds the decision threshold $H$.
+- max_cusum_stat: Maximum cumulative statistic across positive/negative detectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[bool, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorHealth">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">SensorHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorHealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.SensorHealth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Health classification for spacecraft sensors.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorHealth.DEGRADED">
+<span class="sig-name descname"><span class="pre">DEGRADED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEGRADED'</span></span><a class="headerlink" href="#opengnc.fdir.SensorHealth.DEGRADED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorHealth.HEALTHY">
+<span class="sig-name descname"><span class="pre">HEALTHY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HEALTHY'</span></span><a class="headerlink" href="#opengnc.fdir.SensorHealth.HEALTHY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorHealth.ISOLATED">
+<span class="sig-name descname"><span class="pre">ISOLATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ISOLATED'</span></span><a class="headerlink" href="#opengnc.fdir.SensorHealth.ISOLATED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">SensorIsolationManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_consecutive_faults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covariance_inflation_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Analytical Redundancy and Cross-Sensor Isolation Manager.</p>
+<p>Coordinates health tracking across redundant sensors, performs pairwise
+consistency voting to identify out-of-family sensors, and provides dynamic
+measurement covariance inflation ($R_{eff} = s cdot R$) to prevent filter
+divergence before hard isolation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor_names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of unique sensor identifiers.</p></li>
+<li><p><strong>max_consecutive_faults</strong> (<em>int</em><em>, </em><em>optional</em>) – Consecutive faults before a sensor is isolated. Default is 5.</p></li>
+<li><p><strong>covariance_inflation_factor</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor $s$ applied to degraded sensor covariance. Default is 10.0.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager.cross_consistency_vote">
+<span class="sig-name descname"><span class="pre">cross_consistency_vote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angular_tol_deg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.cross_consistency_vote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager.cross_consistency_vote" title="Link to this definition"></a></dt>
+<dd><p>Perform 2-out-of-N cross-consistency voting among vector sensors.</p>
+<p>Identifies sensors whose output diverges significantly from the consensus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurements</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>]</em>) – Dictionary of unit vector measurements {sensor_name: unit_vector}.</p></li>
+<li><p><strong>angular_tol_deg</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum allowable angular divergence in degrees. Default is 2.0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of suspect sensor names that failed consensus voting.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager.fault_counters">
+<span class="sig-name descname"><span class="pre">fault_counters</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager.fault_counters" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager.get_effective_covariance">
+<span class="sig-name descname"><span class="pre">get_effective_covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_cov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.get_effective_covariance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager.get_effective_covariance" title="Link to this definition"></a></dt>
+<dd><p>Calculate effective covariance matrix $R_{eff}$ for the sensor.</p>
+<p>For healthy sensors, returns $R$. For degraded sensors, returns
+$s cdot R$. For isolated sensors, returns $infty cdot I$.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor_name</strong> (<em>str</em>) – Identifier of the sensor.</p></li>
+<li><p><strong>base_cov</strong> (<em>np.ndarray</em>) – Nominal measurement covariance matrix $R$.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Adjusted effective covariance matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager.isolate_sensor">
+<span class="sig-name descname"><span class="pre">isolate_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.isolate_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager.isolate_sensor" title="Link to this definition"></a></dt>
+<dd><p>Manually force a sensor into the ISOLATED state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager.report_status">
+<span class="sig-name descname"><span class="pre">report_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_fault</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth"><span class="pre">SensorHealth</span></a></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.report_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager.report_status" title="Link to this definition"></a></dt>
+<dd><p>Report detection result for a given sensor and update health state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor_name</strong> (<em>str</em>) – Identifier of the reporting sensor.</p></li>
+<li><p><strong>has_fault</strong> (<em>bool</em>) – True if FDI monitor detected an anomaly on this sensor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated health status of the sensor.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opengnc.fdir.SensorHealth" title="opengnc.fdir.SensorHealth">SensorHealth</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager.reset_sensor">
+<span class="sig-name descname"><span class="pre">reset_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/sensor_fdir.html#SensorIsolationManager.reset_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager.reset_sensor" title="Link to this definition"></a></dt>
+<dd><p>Manually restore a sensor to HEALTHY state.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.SensorIsolationManager.sensors">
+<span class="sig-name descname"><span class="pre">sensors</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#opengnc.fdir.sensor_fdir.SensorHealth" title="opengnc.fdir.sensor_fdir.SensorHealth"><span class="pre">SensorHealth</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#opengnc.fdir.SensorIsolationManager.sensors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.UnderactuatedAttitudeController">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">UnderactuatedAttitudeController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actuated_axes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">km</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#UnderactuatedAttitudeController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.UnderactuatedAttitudeController" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Underactuated Spacecraft Attitude Controller (2-Reaction-Wheel Recovery).</p>
+<p>When one or two reaction wheels fail, leaving only 2 functional reaction
+wheels, full 3-axis instantaneous controllability via wheels alone is lost.
+This controller stabilizes the two actuated body axes using high-gain PD
+control and uses auxiliary magnetic torquers (or cross-coupling precession)
+to asymptotically damp momentum along the unactuated body axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actuated_axes</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Indices of the two functional body axes (e.g. (0, 1) for X and Y).</p></li>
+<li><p><strong>kp</strong> (<em>float</em><em>, </em><em>optional</em>) – Proportional attitude error gain. Default is 0.5.</p></li>
+<li><p><strong>kd</strong> (<em>float</em><em>, </em><em>optional</em>) – Derivative angular rate damping gain. Default is 2.0.</p></li>
+<li><p><strong>km</strong> (<em>float</em><em>, </em><em>optional</em>) – Magnetic dipole cross-product gain for unactuated axis. Default is 1000.0.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.UnderactuatedAttitudeController.compute_control">
+<span class="sig-name descname"><span class="pre">compute_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_err</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_field_body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#UnderactuatedAttitudeController.compute_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.UnderactuatedAttitudeController.compute_control" title="Link to this definition"></a></dt>
+<dd><p>Compute control torques for the 2 functional wheels and auxiliary magnetic dipole.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q_err</strong> (<em>np.ndarray</em>) – Attitude quaternion error vector $[q_1, q_2, q_3, q_4]^T$ (vector part first 3).</p></li>
+<li><p><strong>w_err</strong> (<em>np.ndarray</em>) – Body angular velocity error $[w_x, w_y, w_z]^T$ (rad/s).</p></li>
+<li><p><strong>b_field_body</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Local geomagnetic field vector in body frame (Tesla).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>(tau_wheels, magnetic_dipole)
+- tau_wheels: 3-element torque vector with zero along the unactuated axis.
+- magnetic_dipole: 3-element commanded magnetic dipole moment $mathbf{m}$ ($A cdot m^2$).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[np.ndarray, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.fdir.WeightedControlAllocator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.fdir.</span></span><span class="sig-name descname"><span class="pre">WeightedControlAllocator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#WeightedControlAllocator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.WeightedControlAllocator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Dynamic Weighted Control Allocator (WQP / Weighted Pseudo-Inverse).</p>
+<p>Maps commanded 3-axis control torque $boldsymbol{tau}_c in mathbb{R}^3$
+to actuator commands $mathbf{u} in mathbb{R}^n$ via:
+$$min_{mathbf{u}} frac{1}{2} mathbf{u}^T mathbf{W}_u mathbf{u} quad text{s.t.} quad mathbf{B} mathbf{u} = boldsymbol{tau}_c$$
+subject to $mathbf{u}_{min} le mathbf{u} le mathbf{u}_{max}$.</p>
+<p>When an actuator fails, its weight $W_{u, ii}$ is scaled to $infty$ (or
+its column in $mathbf{B}$ is masked to zero), redistributing torque
+instantly to remaining functional actuators without perturbing the attitude loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>b_matrix</strong> (<em>np.ndarray</em>) – Actuator geometry/effectiveness matrix $mathbf{B} in mathbb{R}^{3 times n}$.</p></li>
+<li><p><strong>u_min</strong> (<em>np.ndarray</em><em> | </em><em>float</em><em>, </em><em>optional</em>) – Minimum torque limit per actuator (N*m). Default is -0.1 N*m.</p></li>
+<li><p><strong>u_max</strong> (<em>np.ndarray</em><em> | </em><em>float</em><em>, </em><em>optional</em>) – Maximum torque limit per actuator (N*m). Default is +0.1 N*m.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.WeightedControlAllocator.allocate">
+<span class="sig-name descname"><span class="pre">allocate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tau_cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#WeightedControlAllocator.allocate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.WeightedControlAllocator.allocate" title="Link to this definition"></a></dt>
+<dd><p>Allocate commanded 3-axis torque to individual actuators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tau_cmd</strong> (<em>np.ndarray</em>) – Commanded torque vector $boldsymbol{tau}_c in mathbb{R}^3$ (N*m).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Actuator torque vector $mathbf{u} in mathbb{R}^n$ (N*m).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.fdir.WeightedControlAllocator.set_actuator_health">
+<span class="sig-name descname"><span class="pre">set_actuator_health</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#opengnc.fdir.actuator_fdir.ActuatorHealth" title="opengnc.fdir.actuator_fdir.ActuatorHealth"><span class="pre">ActuatorHealth</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/fdir/actuator_fdir.html#WeightedControlAllocator.set_actuator_health"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.fdir.WeightedControlAllocator.set_actuator_health" title="Link to this definition"></a></dt>
+<dd><p>Update weighting and active masking based on actuator health.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>int</em>) – Actuator channel index ($0 le i &lt; n$).</p></li>
+<li><p><strong>health</strong> (<a class="reference internal" href="#opengnc.fdir.ActuatorHealth" title="opengnc.fdir.ActuatorHealth"><em>ActuatorHealth</em></a>) – Health state from FDI monitor.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.WeightedControlAllocator.u_max">
+<span class="sig-name descname"><span class="pre">u_max</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#opengnc.fdir.WeightedControlAllocator.u_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="opengnc.fdir.WeightedControlAllocator.u_min">
+<span class="sig-name descname"><span class="pre">u_min</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></span><a class="headerlink" href="#opengnc.fdir.WeightedControlAllocator.u_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="opengnc.experimental.interfaces.html" class="btn btn-neutral float-left" title="opengnc.experimental.interfaces package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="opengnc.guidance.html" class="btn btn-neutral float-right" title="opengnc.guidance package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.navigation.iod</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Initial Orbit Determination (IOD) methods (Gibbs, Gauss, Laplace).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -90,12 +90,9 @@
 <div class="viewcode-block" id="gibbs_iod">
 <a class="viewcode-back" href="../../../api/opengnc.navigation.html#opengnc.navigation.iod.gibbs_iod">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">gibbs_iod</span><span class="p">(</span>
-    <span class="n">r1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">r2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">r3</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">r1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r3</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Initial Orbit Determination (IOD) via Gibbs method.</span>
 
 <span class="sd">    Suitable for three position vectors with angular separation &gt; 5 degrees.</span>
@@ -112,7 +109,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Velocity vector at the second observation time $\mathbf{v}_2$ (m/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rv1</span><span class="p">,</span> <span class="n">rv2</span><span class="p">,</span> <span class="n">rv3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r3</span><span class="p">)</span>
     <span class="n">r1m</span><span class="p">,</span> <span class="n">r2m</span><span class="p">,</span> <span class="n">r3m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">rv1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">rv2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">rv3</span><span class="p">)</span>
 
@@ -139,9 +136,9 @@
     <span class="n">r3</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">dt21</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">dt32</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Initial Orbit Determination via Herrick-Gibbs method.</span>
 
 <span class="sd">    Best for short-arc observations (angular separation &lt; 5 degrees).</span>
@@ -161,13 +158,13 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Velocity vector $\mathbf{v}_2$ (m/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r3</span><span class="p">)</span>
     <span class="n">dt31</span> <span class="o">=</span> <span class="n">dt21</span> <span class="o">+</span> <span class="n">dt32</span>
 
     <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p3</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="mf">1e-12</span> <span class="ow">or</span> <span class="n">n2</span> <span class="o">&lt;</span> <span class="mf">1e-12</span> <span class="ow">or</span> <span class="n">n3</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Position vectors must be non-zero.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Position vectors must be non-zero."</span><span class="p">)</span>
 
     <span class="n">term1</span> <span class="o">=</span> <span class="o">-</span><span class="n">dt32</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">dt21</span> <span class="o">*</span> <span class="n">dt31</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">n1</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="n">p1</span>
     <span class="n">term2</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt32</span> <span class="o">-</span> <span class="n">dt21</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">dt21</span> <span class="o">*</span> <span class="n">dt32</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">n2</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="n">p2</span>
@@ -191,7 +188,7 @@
     <span class="n">r_obs3</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Angles-only IOD via Gauss method with iterative refinement.</span>
 
 <span class="sd">    Solves for slant ranges using an 8th-order polynomial and performs</span>
@@ -212,7 +209,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        ECI State vector $[r, v]$ at $t_2$ (m, m/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">tau1</span><span class="p">,</span> <span class="n">tau3</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span> <span class="o">-</span> <span class="n">t2</span>
     <span class="n">tau</span> <span class="o">=</span> <span class="n">tau3</span> <span class="o">-</span> <span class="n">tau1</span>
 
@@ -222,7 +219,7 @@
     <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">l2</span><span class="p">,</span> <span class="n">l3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l3</span><span class="p">)</span>
     <span class="n">d0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">p1</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-18</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;LOS vectors are nearly coplanar.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"LOS vectors are nearly coplanar."</span><span class="p">)</span>
 
     <span class="n">d12</span><span class="p">,</span> <span class="n">d22</span><span class="p">,</span> <span class="n">d32</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R2</span><span class="p">,</span> <span class="n">p2</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R3</span><span class="p">,</span> <span class="n">p2</span><span class="p">))</span>
 
@@ -238,22 +235,25 @@
     <span class="n">R2_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R2</span><span class="p">,</span> <span class="n">R2</span><span class="p">)</span>
 
     <span class="n">poly_coeffs</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">1.0</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
         <span class="o">-</span><span class="p">(</span><span class="n">a_term</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">a_term</span> <span class="o">*</span> <span class="n">e_dot</span> <span class="o">+</span> <span class="n">R2_sq</span><span class="p">),</span>
-        <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
         <span class="o">-</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">*</span> <span class="n">b_term</span> <span class="o">*</span> <span class="p">(</span><span class="n">a_term</span> <span class="o">+</span> <span class="n">e_dot</span><span class="p">),</span>
-        <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="o">-</span><span class="p">(</span><span class="n">mu</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b_term</span><span class="o">**</span><span class="mi">2</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="o">-</span><span class="p">(</span><span class="n">mu</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b_term</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">]</span>
     <span class="n">roots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">poly_coeffs</span><span class="p">)</span>
     <span class="n">real_positive_roots</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isreal</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">roots</span><span class="o">.</span><span class="n">real</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">real_positive_roots</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No physical radius solution found.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No physical radius solution found."</span><span class="p">)</span>
 
     <span class="n">r2_mag</span> <span class="o">=</span> <span class="n">real_positive_roots</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">r2_mag</span> <span class="o">&gt;</span> <span class="mf">1e11</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Radius out of bounds.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Radius out of bounds."</span><span class="p">)</span>
 
     <span class="c1"># Pick root that gives positive range</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">real_positive_roots</span><span class="p">):</span>
@@ -267,8 +267,8 @@
     <span class="c1"># Initial solver refinement (One-pass stable refinement)</span>
     <span class="c1"># Using the polynomial magnitude to fix the curvature, solve for rhos</span>
     <span class="n">u</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">r2_mag</span><span class="o">**</span><span class="mi">3</span>
-    <span class="n">c1</span> <span class="o">=</span> <span class="n">c1_init</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">u</span><span class="o">/</span><span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">tau3</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">c3</span> <span class="o">=</span> <span class="n">c3_init</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">u</span><span class="o">/</span><span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">tau1</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">c1_init</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">u</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">tau3</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">c3</span> <span class="o">=</span> <span class="n">c3_init</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">u</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">tau1</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c1</span> <span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="o">-</span><span class="n">l2</span><span class="p">,</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">l3</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
@@ -301,9 +301,9 @@
     <span class="n">r_obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">v_obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">a_obs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Orbit determination from line-of-sight derivatives (Laplace method).</span>
 
 <span class="sd">    Parameters</span>
@@ -319,14 +319,18 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        ECI State vector $[r, v]$ at epoch.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">rho_hat_vec</span><span class="p">,</span> <span class="n">rho_dot_vec</span><span class="p">,</span> <span class="n">rho_ddot_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rho_hat</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rho_dot</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rho_ddot</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">rho_hat_vec</span><span class="p">,</span> <span class="n">rho_dot_vec</span><span class="p">,</span> <span class="n">rho_ddot_vec</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rho_hat</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rho_dot</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rho_ddot</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">r_o</span><span class="p">,</span> <span class="n">v_o</span><span class="p">,</span> <span class="n">a_o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_obs</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_obs</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a_obs</span><span class="p">)</span>
 
     <span class="n">d_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rho_hat_vec</span><span class="p">,</span> <span class="n">rho_dot_vec</span><span class="p">,</span> <span class="n">rho_ddot_vec</span><span class="p">])</span>
     <span class="n">det_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">d_mat</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">det_d</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-15</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Determinant D is too small for Laplace IOD.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Determinant D is too small for Laplace IOD."</span><span class="p">)</span>
 
     <span class="n">d1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rho_hat_vec</span><span class="p">,</span> <span class="n">rho_dot_vec</span><span class="p">,</span> <span class="n">a_o</span><span class="p">]))</span>
     <span class="n">d2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rho_hat_vec</span><span class="p">,</span> <span class="n">rho_dot_vec</span><span class="p">,</span> <span class="n">r_o</span><span class="p">]))</span>
@@ -336,13 +340,22 @@
     <span class="n">cos_phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rho_hat_vec</span><span class="p">,</span> <span class="n">r_o</span><span class="p">)</span> <span class="o">/</span> <span class="n">r_mag_o</span>
 
     <span class="c1"># Solve radius equation</span>
-    <span class="n">poly</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">a_lap</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">r_mag_o</span><span class="o">*</span><span class="n">a_lap</span><span class="o">*</span><span class="n">cos_phi</span> <span class="o">+</span> <span class="n">r_mag_o</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
-            <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">a_lap</span><span class="o">*</span><span class="n">b_lap</span> <span class="o">+</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">r_mag_o</span><span class="o">*</span><span class="n">b_lap</span><span class="o">*</span><span class="n">cos_phi</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">b_lap</span><span class="o">**</span><span class="mi">2</span><span class="p">)]</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="mf">1.0</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="o">-</span><span class="p">(</span><span class="n">a_lap</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">r_mag_o</span> <span class="o">*</span> <span class="n">a_lap</span> <span class="o">*</span> <span class="n">cos_phi</span> <span class="o">+</span> <span class="n">r_mag_o</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="o">-</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">a_lap</span> <span class="o">*</span> <span class="n">b_lap</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">r_mag_o</span> <span class="o">*</span> <span class="n">b_lap</span> <span class="o">*</span> <span class="n">cos_phi</span><span class="p">),</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="mf">0.0</span><span class="p">,</span>
+        <span class="o">-</span><span class="p">(</span><span class="n">b_lap</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">]</span>
 
     <span class="n">roots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
     <span class="n">real_positive_roots</span> <span class="o">=</span> <span class="n">roots</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isreal</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">roots</span><span class="o">.</span><span class="n">real</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">real</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">real_positive_roots</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No physical radius solution found (Laplace).&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No physical radius solution found (Laplace)."</span><span class="p">)</span>
     <span class="n">r_mag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">real_positive_roots</span><span class="p">))</span>
     <span class="n">rho_mag</span> <span class="o">=</span> <span class="n">a_lap</span> <span class="o">+</span> <span class="n">b_lap</span> <span class="o">/</span> <span class="n">r_mag</span><span class="o">**</span><span class="mi">3</span>
 
@@ -364,9 +377,9 @@
     <span class="n">rho_hats</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="n">rs_obs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Perform Laplace IOD from three standard LOS observations.</span>
 
 <span class="sd">    Estimates derivatives using Lagrange interpolation.</span>
@@ -386,7 +399,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        State vector at $t_2$ (6,) (m, m/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span> <span class="o">=</span> <span class="n">times</span>
     <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">,</span> <span class="n">l3</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rh</span><span class="p">)</span> <span class="k">for</span> <span class="n">rh</span> <span class="ow">in</span> <span class="n">rho_hats</span><span class="p">]</span>
     <span class="n">R1</span><span class="p">,</span> <span class="n">R2</span><span class="p">,</span> <span class="n">R3</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs_obs</span><span class="p">]</span>
@@ -413,9 +426,9 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_stumpff</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Stumpff functions c2(z) and c3(z) for universal variable Kepler solution.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">z</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
         <span class="n">sz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
         <span class="n">c2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">sz</span><span class="p">))</span> <span class="o">/</span> <span class="n">z</span>
@@ -431,24 +444,29 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_kepler_U</span><span class="p">(</span><span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v0_mag</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Universal variable Kepler solver (Newton-Raphson).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">chi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">z</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">chi</span><span class="o">**</span><span class="mi">2</span>
         <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">_stumpff</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="n">r0</span> <span class="o">*</span> <span class="n">chi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">c3</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">v0_mag</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span><span class="p">))</span> <span class="o">*</span> <span class="n">chi</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">c2</span> <span class="o">+</span> <span class="n">chi</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">c3</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">r0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">c2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">v0_mag</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span><span class="p">))</span> <span class="o">*</span> <span class="n">chi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">c3</span><span class="p">)</span> <span class="o">+</span> <span class="n">chi</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">c2</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">r0</span> <span class="o">*</span> <span class="n">chi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">c3</span><span class="p">)</span>
+            <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">v0_mag</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span><span class="p">))</span> <span class="o">*</span> <span class="n">chi</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">c2</span>
+            <span class="o">+</span> <span class="n">chi</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">c3</span>
+            <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">r0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">c2</span><span class="p">)</span>
+            <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">v0_mag</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span><span class="p">))</span> <span class="o">*</span> <span class="n">chi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">c3</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">chi</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">c2</span>
+        <span class="p">)</span>
         <span class="n">chi_new</span> <span class="o">=</span> <span class="n">chi</span> <span class="o">-</span> <span class="n">f</span> <span class="o">/</span> <span class="n">df</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chi_new</span> <span class="o">-</span> <span class="n">chi</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">chi_new</span><span class="p">)</span>
         <span class="n">chi</span> <span class="o">=</span> <span class="n">chi_new</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">chi</span><span class="p">)</span>
-
-
-
-
 </pre></div>
 
            </div>

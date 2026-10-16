@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opengnc.fdir.actuator_fdir &mdash; OpenGNC  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/thebelab-helper.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenGNC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Navigation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">opengnc</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenGNC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">opengnc.fdir.actuator_fdir</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opengnc.fdir.actuator_fdir</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Actuator Fault Detection, Isolation, and Reconfiguration (FTC).</span>
+
+<span class="sd">Provides health monitoring for reaction wheels and thrusters, dynamic weighted</span>
+<span class="sd">pseudo-inverse control allocation with health masking, and underactuated</span>
+<span class="sd">attitude control for 2-wheel degraded recovery.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
+
+
+<div class="viewcode-block" id="ActuatorHealth">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.ActuatorHealth">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActuatorHealth</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Health classification for spacecraft actuators."""</span>
+
+    <span class="n">HEALTHY</span> <span class="o">=</span> <span class="s2">"HEALTHY"</span>
+    <span class="n">DEGRADED</span> <span class="o">=</span> <span class="s2">"DEGRADED"</span>
+    <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">"FAILED"</span></div>
+
+
+
+<div class="viewcode-block" id="ActuatorFaultDetector">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.ActuatorFaultDetector">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActuatorFaultDetector</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Monitors reaction wheel and thruster health states.</span>
+
+<span class="sd">    Detects motor lockup, friction torque spikes, tachometer runaway,</span>
+<span class="sd">    and command-to-telemetry tracking error.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    max_wheel_speed : float, optional</span>
+<span class="sd">        Maximum allowable reaction wheel speed (rad/s). Default is 600.0 (~5700 RPM).</span>
+<span class="sd">    torque_tolerance : float, optional</span>
+<span class="sd">        Allowable torque discrepancy between command and telemetry (N*m).</span>
+<span class="sd">        Default is 0.02.</span>
+<span class="sd">    persistence_steps : int, optional</span>
+<span class="sd">        Number of consecutive timesteps with violation before marking FAILED.</span>
+<span class="sd">        Default is 5.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">max_wheel_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">600.0</span><span class="p">,</span>
+        <span class="n">torque_tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">,</span>
+        <span class="n">persistence_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_speed</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">max_wheel_speed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">torque_tol</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">torque_tolerance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">persistence</span> <span class="o">=</span> <span class="n">persistence_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ActuatorHealth</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="ActuatorFaultDetector.register_actuator">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.ActuatorFaultDetector.register_actuator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">register_actuator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Register a new actuator to monitor."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">HEALTHY</span></div>
+
+
+<div class="viewcode-block" id="ActuatorFaultDetector.check_wheel">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.ActuatorFaultDetector.check_wheel">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_wheel</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">cmd_torque</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">actual_torque</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">current_speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActuatorHealth</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Evaluate wheel telemetry against health thresholds.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Actuator identifier.</span>
+<span class="sd">        cmd_torque : float</span>
+<span class="sd">            Commanded torque (N*m).</span>
+<span class="sd">        actual_torque : float</span>
+<span class="sd">            Measured/estimated torque output (N*m).</span>
+<span class="sd">        current_speed : float</span>
+<span class="sd">            Current wheel spin rate (rad/s).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ActuatorHealth</span>
+<span class="sd">            Updated health status.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_actuator</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">==</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">FAILED</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">FAILED</span>
+
+        <span class="c1"># Check conditions</span>
+        <span class="n">speed_overshoot</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">current_speed</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_speed</span>
+        <span class="n">torque_mismatch</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cmd_torque</span> <span class="o">-</span> <span class="n">actual_torque</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">torque_tol</span>
+
+        <span class="k">if</span> <span class="n">speed_overshoot</span> <span class="ow">or</span> <span class="n">torque_mismatch</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">persistence</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">FAILED</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">DEGRADED</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">HEALTHY</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ActuatorFaultDetector.set_failed">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.ActuatorFaultDetector.set_failed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Manually mark an actuator as FAILED."""</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actuator_status</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">FAILED</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">violation_counts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">persistence</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="WeightedControlAllocator">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.WeightedControlAllocator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WeightedControlAllocator</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+<span class="sd">    Dynamic Weighted Control Allocator (WQP / Weighted Pseudo-Inverse).</span>
+
+<span class="sd">    Maps commanded 3-axis control torque $\boldsymbol{\tau}_c \in \mathbb{R}^3$</span>
+<span class="sd">    to actuator commands $\mathbf{u} \in \mathbb{R}^n$ via:</span>
+<span class="sd">    $$\min_{\mathbf{u}} \frac{1}{2} \mathbf{u}^T \mathbf{W}_u \mathbf{u} \quad \text{s.t.} \quad \mathbf{B} \mathbf{u} = \boldsymbol{\tau}_c$$</span>
+<span class="sd">    subject to $\mathbf{u}_{\min} \le \mathbf{u} \le \mathbf{u}_{\max}$.</span>
+
+<span class="sd">    When an actuator fails, its weight $W_{u, ii}$ is scaled to $\infty$ (or</span>
+<span class="sd">    its column in $\mathbf{B}$ is masked to zero), redistributing torque</span>
+<span class="sd">    instantly to remaining functional actuators without perturbing the attitude loop.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    b_matrix : np.ndarray</span>
+<span class="sd">        Actuator geometry/effectiveness matrix $\mathbf{B} \in \mathbb{R}^{3 \times n}$.</span>
+<span class="sd">    u_min : np.ndarray | float, optional</span>
+<span class="sd">        Minimum torque limit per actuator (N*m). Default is -0.1 N*m.</span>
+<span class="sd">    u_max : np.ndarray | float, optional</span>
+<span class="sd">        Maximum torque limit per actuator (N*m). Default is +0.1 N*m.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">b_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">u_min</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">u_max</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">b_matrix</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"B matrix must have 3 rows for 3-axis torque, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">u_min</span><span class="p">):</span>
+            <span class="n">val_min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">u_min</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u_min</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span><span class="p">,</span> <span class="n">val_min</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">u_min</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">u_max</span><span class="p">):</span>
+            <span class="n">val_max</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">u_max</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u_max</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span><span class="p">,</span> <span class="n">val_max</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">u_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">u_max</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WeightedControlAllocator.set_actuator_health">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.WeightedControlAllocator.set_actuator_health">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_actuator_health</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">health</span><span class="p">:</span> <span class="n">ActuatorHealth</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+<span class="sd">        Update weighting and active masking based on actuator health.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index : int</span>
+<span class="sd">            Actuator channel index ($0 \le i &lt; n$).</span>
+<span class="sd">        health : ActuatorHealth</span>
+<span class="sd">            Health state from FDI monitor.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Actuator index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> out of range (num=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">health</span> <span class="o">==</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">HEALTHY</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_mask</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">health</span> <span class="o">==</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">DEGRADED</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mf">100.0</span>  <span class="c1"># Penalize high usage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_mask</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># FAILED</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e8</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_mask</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="WeightedControlAllocator.allocate">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.WeightedControlAllocator.allocate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tau_cmd</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+<span class="sd">        Allocate commanded 3-axis torque to individual actuators.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tau_cmd : np.ndarray</span>
+<span class="sd">            Commanded torque vector $\boldsymbol{\tau}_c \in \mathbb{R}^3$ (N*m).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Actuator torque vector $\mathbf{u} \in \mathbb{R}^n$ (N*m).</span>
+<span class="sd">        """</span>
+        <span class="n">tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tau_cmd</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"tau_cmd must be a 3-element vector, got length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="n">active_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">active_mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">num_active</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">active_indices</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">num_active</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Underactuated condition: only </span><span class="si">{</span><span class="n">num_active</span><span class="si">}</span><span class="s2"> actuators active. "</span>
+                <span class="s2">"Switch to UnderactuatedAttitudeController."</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Sub-matrix for active actuators</span>
+        <span class="n">B_sub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="p">[:,</span> <span class="n">active_indices</span><span class="p">]</span>
+        <span class="n">W_sub_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">active_indices</span><span class="p">])</span>
+
+        <span class="c1"># Analytical Weighted Pseudo-Inverse:</span>
+        <span class="c1"># u = W^-1 * B^T * (B * W^-1 * B^T)^-1 * tau</span>
+        <span class="n">BW</span> <span class="o">=</span> <span class="n">B_sub</span> <span class="o">@</span> <span class="n">W_sub_inv</span>
+        <span class="n">BWB_t</span> <span class="o">=</span> <span class="n">BW</span> <span class="o">@</span> <span class="n">B_sub</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">inv_BWB_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">BWB_t</span><span class="p">)</span>
+            <span class="n">u_active</span> <span class="o">=</span> <span class="n">W_sub_inv</span> <span class="o">@</span> <span class="n">B_sub</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">inv_BWB_t</span> <span class="o">@</span> <span class="n">tau</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+            <span class="c1"># Degenerate geometry fallback: Moore-Penrose pinv</span>
+            <span class="n">u_active</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">B_sub</span><span class="p">)</span> <span class="o">@</span> <span class="n">tau</span>
+
+        <span class="c1"># Check if saturated</span>
+        <span class="n">is_saturated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">u_active</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_min</span><span class="p">[</span><span class="n">active_indices</span><span class="p">])</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
+            <span class="n">u_active</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_max</span><span class="p">[</span><span class="n">active_indices</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_saturated</span><span class="p">:</span>
+            <span class="c1"># Constrained Quadratic Program via SLSQP</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">obj</span><span class="p">(</span><span class="n">u_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">u_vec</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">active_indices</span><span class="p">])</span> <span class="o">@</span> <span class="n">u_vec</span><span class="p">)</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">eq_cons</span><span class="p">(</span><span class="n">u_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">B_sub</span> <span class="o">@</span> <span class="n">u_vec</span> <span class="o">-</span> <span class="n">tau</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+            <span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">u_min</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_max</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">active_indices</span><span class="p">]</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span>
+                <span class="n">obj</span><span class="p">,</span>
+                <span class="n">x0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">u_active</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_min</span><span class="p">[</span><span class="n">active_indices</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_max</span><span class="p">[</span><span class="n">active_indices</span><span class="p">]),</span>
+                <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+                <span class="n">constraints</span><span class="o">=</span><span class="p">{</span><span class="s2">"type"</span><span class="p">:</span> <span class="s2">"eq"</span><span class="p">,</span> <span class="s2">"fun"</span><span class="p">:</span> <span class="n">eq_cons</span><span class="p">},</span>
+                <span class="n">method</span><span class="o">=</span><span class="s2">"SLSQP"</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+                <span class="n">u_active</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If exact equality cannot be met under bounds, clip</span>
+                <span class="n">u_active</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">u_active</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_min</span><span class="p">[</span><span class="n">active_indices</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">u_max</span><span class="p">[</span><span class="n">active_indices</span><span class="p">])</span>
+
+        <span class="c1"># Reconstruct full actuator command vector</span>
+        <span class="n">u_full</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_actuators</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">u_full</span><span class="p">[</span><span class="n">active_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">u_active</span>
+        <span class="k">return</span> <span class="n">u_full</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="UnderactuatedAttitudeController">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.UnderactuatedAttitudeController">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnderactuatedAttitudeController</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Underactuated Spacecraft Attitude Controller (2-Reaction-Wheel Recovery).</span>
+
+<span class="sd">    When one or two reaction wheels fail, leaving only 2 functional reaction</span>
+<span class="sd">    wheels, full 3-axis instantaneous controllability via wheels alone is lost.</span>
+<span class="sd">    This controller stabilizes the two actuated body axes using high-gain PD</span>
+<span class="sd">    control and uses auxiliary magnetic torquers (or cross-coupling precession)</span>
+<span class="sd">    to asymptotically damp momentum along the unactuated body axis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    actuated_axes : tuple[int, int]</span>
+<span class="sd">        Indices of the two functional body axes (e.g. (0, 1) for X and Y).</span>
+<span class="sd">    kp : float, optional</span>
+<span class="sd">        Proportional attitude error gain. Default is 0.5.</span>
+<span class="sd">    kd : float, optional</span>
+<span class="sd">        Derivative angular rate damping gain. Default is 2.0.</span>
+<span class="sd">    km : float, optional</span>
+<span class="sd">        Magnetic dipole cross-product gain for unactuated axis. Default is 1000.0.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">actuated_axes</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">kp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">kd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+        <span class="n">km</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actuated_axes</span> <span class="o">=</span> <span class="n">actuated_axes</span>
+        <span class="n">all_axes</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
+        <span class="n">unactuated</span> <span class="o">=</span> <span class="n">all_axes</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">actuated_axes</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unactuated</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Must have exactly 2 actuated axes, got </span><span class="si">{</span><span class="n">actuated_axes</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unactuated_axis</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">unactuated</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">kp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">kp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">kd</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">km</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">km</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UnderactuatedAttitudeController.compute_control">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.actuator_fdir.UnderactuatedAttitudeController.compute_control">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_control</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">q_err</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">w_err</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">b_field_body</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+<span class="sd">        Compute control torques for the 2 functional wheels and auxiliary magnetic dipole.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q_err : np.ndarray</span>
+<span class="sd">            Attitude quaternion error vector $[q_1, q_2, q_3, q_4]^T$ (vector part first 3).</span>
+<span class="sd">        w_err : np.ndarray</span>
+<span class="sd">            Body angular velocity error $[w_x, w_y, w_z]^T$ (rad/s).</span>
+<span class="sd">        b_field_body : np.ndarray, optional</span>
+<span class="sd">            Local geomagnetic field vector in body frame (Tesla).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[np.ndarray, np.ndarray]</span>
+<span class="sd">            (tau_wheels, magnetic_dipole)</span>
+<span class="sd">            - tau_wheels: 3-element torque vector with zero along the unactuated axis.</span>
+<span class="sd">            - magnetic_dipole: 3-element commanded magnetic dipole moment $\mathbf{m}$ ($A \cdot m^2$).</span>
+<span class="sd">        """</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q_err</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">w_err</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+        <span class="n">tau_wheels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="c1"># 1. PD control on the two actuated axes</span>
+        <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actuated_axes</span><span class="p">:</span>
+            <span class="n">tau_wheels</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">kp</span> <span class="o">*</span> <span class="n">q</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">kd</span> <span class="o">*</span> <span class="n">w</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+
+        <span class="c1"># 2. Auxiliary magnetic torquer desaturation / damping for unactuated axis</span>
+        <span class="n">magnetic_dipole</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">b_field_body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">b_field_body</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">b_norm_sq</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">b_norm_sq</span> <span class="o">&gt;</span> <span class="mf">1e-18</span><span class="p">:</span>
+                <span class="c1"># Desired torque along unactuated axis</span>
+                <span class="n">tau_des_unact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                <span class="n">tau_des_unact</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unactuated_axis</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">kp</span> <span class="o">*</span> <span class="n">q</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unactuated_axis</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">kd</span> <span class="o">*</span> <span class="n">w</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">unactuated_axis</span><span class="p">]</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Command dipole: m = (tau_des x B) / ||B||^2</span>
+                <span class="n">magnetic_dipole</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">tau_des_unact</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">b_norm_sq</span>
+                <span class="n">magnetic_dipole</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">magnetic_dipole</span><span class="p">,</span> <span class="o">-</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tau_wheels</span><span class="p">,</span> <span class="n">magnetic_dipole</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.actuators.vscmg</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Variable Speed Control Moment Gyro (VSCMG) actuator model.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -92,7 +92,7 @@
 <div class="viewcode-block" id="VariableSpeedCMG">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.vscmg.VariableSpeedCMG">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">VariableSpeedCMG</span><span class="p">(</span><span class="n">ControlMomentGyro</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Variable Speed Control Moment Gyro (VSCMG).</span>
 
 <span class="sd">    Allows wheel speed to change (Reaction Wheel effect) while gimbaling (CMG effect).</span>
@@ -107,19 +107,19 @@
 <span class="sd">    spin_axis_init : np.ndarray</span>
 <span class="sd">        Initial spin axis vector (3,).</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Actuator name. Default is &quot;VSCMG&quot;.</span>
+<span class="sd">        Actuator name. Default is "VSCMG".</span>
 <span class="sd">    max_gimbal_rate : float, optional</span>
 <span class="sd">        Maximum gimbal angular velocity (rad/s).</span>
 <span class="sd">    max_wheel_torque : float, optional</span>
 <span class="sd">        Maximum torque for wheel acceleration (Nm).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">wheel_inertia</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">gimbal_axis</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">spin_axis_init</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VSCMG&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"VSCMG"</span><span class="p">,</span>
         <span class="n">max_gimbal_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">max_wheel_torque</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -144,7 +144,7 @@
         <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate combined torque from gimbaling and wheel acceleration.</span>
 
 <span class="sd">        Parameters</span>
@@ -160,11 +160,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Net torque vector (Nm) (3,).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cmd_vec</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cmd_vec&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="n">cmd_vec</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cmd_vec"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">cmd_vec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">gimbal_rate_cmd</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cmd_vec or gimbal_rate_cmd is required.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"cmd_vec or gimbal_rate_cmd is required."</span><span class="p">)</span>
             <span class="n">cmd_vec</span> <span class="o">=</span> <span class="n">gimbal_rate_cmd</span> <span class="k">if</span> <span class="n">gimbal_rate_cmd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmd_vec</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">)):</span>
             <span class="n">g_rate_cmd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cmd_vec</span><span class="p">)</span>
@@ -201,7 +201,7 @@
 <div class="viewcode-block" id="VariableSpeedCMG.get_jacobian">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.vscmg.VariableSpeedCMG.get_jacobian">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns full Jacobian matrix mapping [g_rate, w_torque]^T to torque vector.</span>
 
 <span class="sd">        Parameters</span>
@@ -213,7 +213,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            (3, 2) Jacobian matrix.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_axes</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inertia</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">wheel_speed</span>
 
@@ -223,10 +223,6 @@
         <span class="n">jac</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
         <span class="k">return</span> <span class="n">jac</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

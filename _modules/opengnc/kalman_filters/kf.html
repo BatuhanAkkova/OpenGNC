@@ -76,10 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.kalman_filters.kf</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Standard Linear Kalman Filter (KF) implementation.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
 
@@ -89,7 +88,7 @@
 <div class="viewcode-block" id="KF">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.kf.KF">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KF</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Standard Discrete-Time Linear Kalman Filter (KF).</span>
 
 <span class="sd">    Suitable for linear estimation and navigation problems (e.g., constant</span>
@@ -101,10 +100,10 @@
 <span class="sd">        Dimension of the state vector $x$.</span>
 <span class="sd">    dim_z : int</span>
 <span class="sd">        Dimension of the measurement vector $z$.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim_z</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize filter dimensions and default matrices.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize filter dimensions and default matrices."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span> <span class="o">=</span> <span class="n">dim_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim_z</span> <span class="o">=</span> <span class="n">dim_z</span>
 
@@ -125,7 +124,7 @@
         <span class="n">q_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">b_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Predict the state and covariance one step forward.</span>
 
 <span class="sd">        Equations:</span>
@@ -142,7 +141,7 @@
 <span class="sd">            Process noise covariance (dim_x, dim_x). Defaults to `self.Q`.</span>
 <span class="sd">        b_mat : np.ndarray, optional</span>
 <span class="sd">            Control input matrix (dim_x, dim_u). Defaults to `self.B`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">f_mat</span><span class="p">)</span> <span class="k">if</span> <span class="n">f_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span>
         <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q_mat</span><span class="p">)</span> <span class="k">if</span> <span class="n">q_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">b_mat</span><span class="p">)</span> <span class="k">if</span> <span class="n">b_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">B</span>
@@ -160,12 +159,9 @@
 <div class="viewcode-block" id="KF.update">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.kf.KF.update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">h_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">r_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">h_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">r_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update state estimate using a new measurement.</span>
 
 <span class="sd">        Uses the Joseph robust form for covariance updates to maintain symmetry</span>
@@ -179,7 +175,7 @@
 <span class="sd">            Measurement matrix (dim_z, dim_x). Defaults to `self.H`.</span>
 <span class="sd">        r_mat : np.ndarray, optional</span>
 <span class="sd">            Measurement noise covariance (dim_z, dim_z). Defaults to `self.R`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">h_mat</span><span class="p">)</span> <span class="k">if</span> <span class="n">h_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_mat</span><span class="p">)</span> <span class="k">if</span> <span class="n">r_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
         <span class="n">zv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
@@ -187,24 +183,20 @@
         <span class="c1"># 1. Innovation</span>
         <span class="n">innov</span> <span class="o">=</span> <span class="n">zv</span> <span class="o">-</span> <span class="p">(</span><span class="n">h</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 
-        <span class="c1"># 2. Innovation Covariance: S = HPH&#39; + R</span>
+        <span class="c1"># 2. Innovation Covariance: S = HPH' + R</span>
         <span class="n">s_mat</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">h</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="n">r</span>
 
-        <span class="c1"># 3. Kalman Gain: K = PH&#39; [S]^-1</span>
+        <span class="c1"># 3. Kalman Gain: K = PH' [S]^-1</span>
         <span class="n">k_gain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">h</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">s_mat</span><span class="p">)</span>
 
         <span class="c1"># 4. State Correction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="n">k_gain</span> <span class="o">@</span> <span class="n">innov</span><span class="p">))</span>
 
-        <span class="c1"># 5. Covariance Correction (Joseph Form): P = (I-KH)P(I-KH)&#39; + KRK&#39;</span>
+        <span class="c1"># 5. Covariance Correction (Joseph Form): P = (I-KH)P(I-KH)' + KRK'</span>
         <span class="n">i_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim_x</span><span class="p">)</span>
         <span class="n">i_kh</span> <span class="o">=</span> <span class="n">i_mat</span> <span class="o">-</span> <span class="p">(</span><span class="n">k_gain</span> <span class="o">@</span> <span class="n">h</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">i_kh</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">i_kh</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">k_gain</span> <span class="o">@</span> <span class="n">r</span> <span class="o">@</span> <span class="n">k_gain</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

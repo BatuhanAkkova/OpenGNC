@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.classical_control.momentum_dumping</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Reaction wheel momentum desaturation using magnetic torque.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -86,7 +86,7 @@
 <div class="viewcode-block" id="CrossProductLaw">
 <a class="viewcode-back" href="../../../api/opengnc.classical_control.html#opengnc.classical_control.momentum_dumping.CrossProductLaw">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CrossProductLaw</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Reaction wheel momentum desaturation using the cross-product law.</span>
 
 <span class="sd">    This controller calculates a magnetic dipole moment ``m`` such that the</span>
@@ -94,10 +94,10 @@
 <span class="sd">    angular momentum error perpendicular to the magnetic field.</span>
 
 <span class="sd">    Control law: ``m = k * (H_err x B) / ||B||^2``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gain</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_dipole</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the momentum dumping controller.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize the momentum dumping controller."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gain</span> <span class="o">=</span> <span class="n">gain</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_dipole</span> <span class="o">=</span> <span class="n">max_dipole</span>
 
@@ -106,7 +106,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate_control</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">h_error</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">b_field</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the required magnetic dipole moment.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Calculate the required magnetic dipole moment."""</span>
         <span class="n">h_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">h_error</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">b_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">b_field</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="n">b_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b_vec</span><span class="p">,</span> <span class="n">b_vec</span><span class="p">)</span>

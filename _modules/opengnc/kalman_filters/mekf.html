@@ -76,7 +76,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.kalman_filters.mekf</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Multiplicative Extended Kalman Filter (MEKF) for attitude estimation.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Multiplicative Extended Kalman Filter (MEKF) for attitude estimation."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -95,9 +95,9 @@
 <div class="viewcode-block" id="MEKF">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.mekf.MEKF">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MEKF</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Packet-oriented multiplicative EKF for spacecraft attitude estimation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Packet-oriented multiplicative EKF for spacecraft attitude estimation."""</span>
 
-    <span class="n">VECTOR_QUANTITIES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sun_vector&quot;</span><span class="p">,</span> <span class="s2">&quot;magnetic_field&quot;</span><span class="p">,</span> <span class="s2">&quot;nadir_vector&quot;</span><span class="p">}</span>
+    <span class="n">VECTOR_QUANTITIES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"sun_vector"</span><span class="p">,</span> <span class="s2">"magnetic_field"</span><span class="p">,</span> <span class="s2">"nadir_vector"</span><span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -109,6 +109,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">quat_normalize</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q_init</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
         <span class="k">if</span> <span class="n">beta_init</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -127,14 +128,14 @@
         <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">q_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Propagate state from an angular-rate measurement packet.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">!=</span> <span class="s2">&quot;angular_rate&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;MEKF.predict expects an &#39;angular_rate&#39; measurement packet.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Propagate state from an angular-rate measurement packet."""</span>
+        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">!=</span> <span class="s2">"angular_rate"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"MEKF.predict expects an 'angular_rate' measurement packet."</span><span class="p">)</span>
 
-        <span class="n">step</span> <span class="o">=</span> <span class="n">dt</span> <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">measurement</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sample_period_s&quot;</span><span class="p">)</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">dt</span> <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">measurement</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sample_period_s"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;A timestep is required either as dt or measurement.metadata[&#39;sample_period_s&#39;].&quot;</span>
+                <span class="s2">"A timestep is required either as dt or measurement.metadata['sample_period_s']."</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_predict_raw</span><span class="p">(</span>
@@ -151,18 +152,18 @@
         <span class="n">measurement</span><span class="p">:</span> <span class="n">SensorMeasurement</span><span class="p">,</span>
         <span class="n">r_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply a vector or quaternion correction from a measurement packet.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">==</span> <span class="s2">&quot;attitude_quaternion&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Apply a vector or quaternion correction from a measurement packet."""</span>
+        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">==</span> <span class="s2">"attitude_quaternion"</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_quaternion</span><span class="p">(</span><span class="n">measurement</span><span class="p">,</span> <span class="n">r_mat</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">VECTOR_QUANTITIES</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported MEKF measurement quantity: </span><span class="si">{</span><span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported MEKF measurement quantity: </span><span class="si">{</span><span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-        <span class="n">reference</span> <span class="o">=</span> <span class="n">measurement</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">)</span>
+        <span class="n">reference</span> <span class="o">=</span> <span class="n">measurement</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"reference"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">reference</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Measurement &#39;</span><span class="si">{</span><span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span><span class="si">}</span><span class="s2">&#39; requires metadata[&#39;reference&#39;] for the inertial vector.&quot;</span>
+                <span class="sa">f</span><span class="s2">"Measurement '</span><span class="si">{</span><span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span><span class="si">}</span><span class="s2">' requires metadata['reference'] for the inertial vector."</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_vector_raw</span><span class="p">(</span>
@@ -179,9 +180,9 @@
         <span class="n">measurement</span><span class="p">:</span> <span class="n">SensorMeasurement</span><span class="p">,</span>
         <span class="n">r_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply a direct attitude correction from a quaternion measurement packet.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">!=</span> <span class="s2">&quot;attitude_quaternion&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;MEKF.update_quaternion expects an &#39;attitude_quaternion&#39; packet.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Apply a direct attitude correction from a quaternion measurement packet."""</span>
+        <span class="k">if</span> <span class="n">measurement</span><span class="o">.</span><span class="n">quantity</span> <span class="o">!=</span> <span class="s2">"attitude_quaternion"</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"MEKF.update_quaternion expects an 'attitude_quaternion' packet."</span><span class="p">)</span>
 
         <span class="n">default_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_quaternion_raw</span><span class="p">(</span>

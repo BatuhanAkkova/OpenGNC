@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.mission_design.coverage</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Ground station access and lighting conditions analysis utilities.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
@@ -91,9 +91,15 @@
 <div class="viewcode-block" id="calculate_access_windows">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.coverage.calculate_access_windows">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_access_windows</span><span class="p">(</span>
-    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">gs_lat_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">gs_lon_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">gs_alt_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">min_elevation_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span>
+    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">gs_lat_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">gs_lon_deg</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">gs_alt_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">min_elevation_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates access windows (visibility) from a Ground Station for a given trajectory.</span>
 
 <span class="sd">    Args:</span>
@@ -107,8 +113,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        dict: Containing &#39;visible_intervals&#39; (list of dicts), &#39;elevation_history&#39; (degrees).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        dict: Containing 'visible_intervals' (list of dicts), 'elevation_history' (degrees).</span>
+<span class="sd">    """</span>
     <span class="n">gs_lat_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">gs_lat_deg</span><span class="p">)</span>
     <span class="n">gs_lon_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">gs_lon_deg</span><span class="p">)</span>
     <span class="n">r_gs_ecef</span> <span class="o">=</span> <span class="n">llh2ecef</span><span class="p">(</span><span class="n">gs_lat_rad</span><span class="p">,</span> <span class="n">gs_lon_rad</span><span class="p">,</span> <span class="n">gs_alt_m</span><span class="p">)</span>
@@ -161,29 +167,31 @@
             <span class="n">in_pass</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">visible_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s2">&quot;start_time&quot;</span><span class="p">:</span> <span class="n">start_time</span><span class="p">,</span>
-                    <span class="s2">&quot;end_time&quot;</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                    <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span>
+                    <span class="s2">"start_time"</span><span class="p">:</span> <span class="n">start_time</span><span class="p">,</span>
+                    <span class="s2">"end_time"</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                    <span class="s2">"duration"</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">in_pass</span><span class="p">:</span>
         <span class="n">visible_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;start_time&quot;</span><span class="p">:</span> <span class="n">start_time</span><span class="p">,</span>
-                <span class="s2">&quot;end_time&quot;</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span>
+                <span class="s2">"start_time"</span><span class="p">:</span> <span class="n">start_time</span><span class="p">,</span>
+                <span class="s2">"end_time"</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">"duration"</span><span class="p">:</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;visible_intervals&quot;</span><span class="p">:</span> <span class="n">visible_intervals</span><span class="p">,</span> <span class="s2">&quot;elevation_history&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">elevations</span><span class="p">)}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"visible_intervals"</span><span class="p">:</span> <span class="n">visible_intervals</span><span class="p">,</span> <span class="s2">"elevation_history"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">elevations</span><span class="p">)}</span></div>
 
 
 
 <div class="viewcode-block" id="calculate_ground_track">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.coverage.calculate_ground_track">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">calculate_ground_track</span><span class="p">(</span><span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_ground_track</span><span class="p">(</span>
+    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates ground track coordinates (Lat, Lon, Alt) over time.</span>
 
 <span class="sd">    Args:</span>
@@ -193,8 +201,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        dict: Containing &#39;lat_deg&#39;, &#39;lon_deg&#39;, &#39;alt_m&#39; arrays.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        dict: Containing 'lat_deg', 'lon_deg', 'alt_m' arrays.</span>
+<span class="sd">    """</span>
     <span class="n">lats</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">lons</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">alts</span> <span class="o">=</span> <span class="p">[]</span>
@@ -216,14 +224,16 @@
         <span class="n">lons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lon_deg</span><span class="p">)</span>
         <span class="n">alts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;lat_deg&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lats</span><span class="p">),</span> <span class="s2">&quot;lon_deg&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lons</span><span class="p">),</span> <span class="s2">&quot;alt_m&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alts</span><span class="p">)}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"lat_deg"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lats</span><span class="p">),</span> <span class="s2">"lon_deg"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lons</span><span class="p">),</span> <span class="s2">"alt_m"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">alts</span><span class="p">)}</span></div>
 
 
 
 <div class="viewcode-block" id="calculate_lighting_conditions">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.coverage.calculate_lighting_conditions">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">calculate_lighting_conditions</span><span class="p">(</span><span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_lighting_conditions</span><span class="p">(</span>
+    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates Beta angle and Eclipse status over time.</span>
 
 <span class="sd">    Args:</span>
@@ -234,15 +244,14 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        dict: Containing &#39;beta_angle_deg&#39;, &#39;eclipse_state&#39; (1 for Sun, 0 for shade).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        dict: Containing 'beta_angle_deg', 'eclipse_state' (1 for Sun, 0 for shade).</span>
+<span class="sd">    """</span>
     <span class="n">sun_model</span> <span class="o">=</span> <span class="n">Sun</span><span class="p">()</span>
 
     <span class="n">beta_angles</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">eclipse_state</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="n">R_earth</span> <span class="o">=</span> <span class="mf">6378137.0</span>
-
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">t_array</span><span class="p">):</span>
         <span class="n">jd_current</span> <span class="o">=</span> <span class="n">jdut1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">/</span> <span class="mf">86400.0</span>
@@ -277,16 +286,20 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">eclipse_state</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># Sunlight</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;beta_angle_deg&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">beta_angles</span><span class="p">),</span> <span class="s2">&quot;eclipse_state&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">eclipse_state</span><span class="p">)}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"beta_angle_deg"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">beta_angles</span><span class="p">),</span> <span class="s2">"eclipse_state"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">eclipse_state</span><span class="p">)}</span></div>
 
 
 
 <div class="viewcode-block" id="calculate_constellation_coverage">
 <a class="viewcode-back" href="../../../api/opengnc.mission_design.html#opengnc.mission_design.coverage.calculate_constellation_coverage">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_constellation_coverage</span><span class="p">(</span>
-    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">r_eci_array_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">target_points_llh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">min_elevation_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span>
+    <span class="n">t_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r_eci_array_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">target_points_llh</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">min_elevation_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">jdut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2451545.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Evaluates coverage statistics (gap, revisit time) for a constellation over a list of ground targets.</span>
 
 <span class="sd">    Args:</span>
@@ -299,9 +312,9 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">        list of dict: For each target point, statistics including &#39;max_revisit_time_gap&#39;,</span>
-<span class="sd">                      &#39;mean_revisit_time&#39;, and &#39;total_coverage_time&#39;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        list of dict: For each target point, statistics including 'max_revisit_time_gap',</span>
+<span class="sd">                      'mean_revisit_time', and 'total_coverage_time'.</span>
+<span class="sd">    """</span>
     <span class="n">M</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">target_points_llh</span><span class="p">)</span>
     <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span>
     <span class="n">num_sats</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r_eci_array_list</span><span class="p">)</span>
@@ -390,17 +403,13 @@
 
         <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;max_revisit_time_gap&quot;</span><span class="p">:</span> <span class="n">max_gap</span><span class="p">,</span>
-                <span class="s2">&quot;mean_revisit_time&quot;</span><span class="p">:</span> <span class="n">mean_gap</span><span class="p">,</span>
-                <span class="s2">&quot;total_coverage_time&quot;</span><span class="p">:</span> <span class="n">covered_time</span><span class="p">,</span>
+                <span class="s2">"max_revisit_time_gap"</span><span class="p">:</span> <span class="n">max_gap</span><span class="p">,</span>
+                <span class="s2">"mean_revisit_time"</span><span class="p">:</span> <span class="n">mean_gap</span><span class="p">,</span>
+                <span class="s2">"total_coverage_time"</span><span class="p">:</span> <span class="n">covered_time</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">results</span></div>
-
-
-
-
 
 </pre></div>
 

@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.guidance.maneuvers</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Orbital maneuver calculations (Hohmann, Bi-elliptic, Phasing, Plane Change).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -87,10 +87,8 @@
 
 <div class="viewcode-block" id="hohmann_transfer">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.maneuvers.hohmann_transfer">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">hohmann_transfer</span><span class="p">(</span>
-    <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hohmann_transfer</span><span class="p">(</span><span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Calculate Hohmann transfer $\Delta V$ and time of flight.</span>
 
 <span class="sd">    Equations:</span>
@@ -111,7 +109,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float]</span>
 <span class="sd">        (dv1, dv2, time_of_flight) in km/s and s.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">r1_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">r2_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">mu_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -143,7 +141,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">bi_elliptic_transfer</span><span class="p">(</span>
     <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rb</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Calculate Bi-Elliptic transfer $\Delta V$ and time.</span>
 
 <span class="sd">    More efficient than Hohmann if $r_2/r_1 &gt; 15.58$.</span>
@@ -163,7 +161,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float, float]</span>
 <span class="sd">        (dv1, dv2, dv3, total_time).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">r1_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">r2_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">rb_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rb</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
@@ -197,10 +195,8 @@
 
 <div class="viewcode-block" id="phasing_maneuver">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.maneuvers.phasing_maneuver">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">phasing_maneuver</span><span class="p">(</span>
-    <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_phase</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">phasing_maneuver</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">t_phase</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate Delta-V required for an orbital phasing maneuver.</span>
 
 <span class="sd">    Parameters</span>
@@ -218,7 +214,7 @@
 <span class="sd">    tuple[float, float]</span>
 <span class="sd">        - total_dv: Total Delta-V (entry + exit) (km/s).</span>
 <span class="sd">        - t_wait: Duration of the phasing orbit (s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">t_curr</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="n">mu</span><span class="p">)</span>
     <span class="n">t_phasing</span> <span class="o">=</span> <span class="n">t_curr</span> <span class="o">+</span> <span class="n">t_phase</span>  <span class="c1"># phasing orbit period</span>
     <span class="n">a_phasing</span> <span class="o">=</span> <span class="p">(</span><span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">t_phasing</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
@@ -233,7 +229,7 @@
 <div class="viewcode-block" id="plane_change">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.maneuvers.plane_change">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plane_change</span><span class="p">(</span><span class="n">v_mag</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">delta_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate Delta-V for a simple inclination plane change maneuver.</span>
 
 <span class="sd">    Parameters</span>
@@ -247,7 +243,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Delta-V required (km/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">v_mag</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">delta_i</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">))</span></div>
 
 
@@ -255,7 +251,7 @@
 <div class="viewcode-block" id="combined_plane_change">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.maneuvers.combined_plane_change">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">combined_plane_change</span><span class="p">(</span><span class="n">v1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">delta_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate Delta-V for a combined maneuver (velocity magnitude + inclination).</span>
 
 <span class="sd">    Parameters</span>
@@ -271,7 +267,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Delta-V required (km/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v2</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v1</span> <span class="o">*</span> <span class="n">v2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">delta_i</span><span class="p">)))</span></div>
 
 
@@ -279,7 +275,7 @@
 <div class="viewcode-block" id="delta_v_budget">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.maneuvers.delta_v_budget">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">delta_v_budget</span><span class="p">(</span><span class="n">initial_mass</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dv_total</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate required propellant mass using the Tsiolkovsky rocket equation.</span>
 
 <span class="sd">    Parameters</span>
@@ -295,7 +291,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Propellant mass required (kg).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">g0</span> <span class="o">=</span> <span class="mf">0.00980665</span>  <span class="c1"># standard gravity in km/s^2</span>
     <span class="n">mass_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">dv_total</span> <span class="o">/</span> <span class="p">(</span><span class="n">isp</span> <span class="o">*</span> <span class="n">g0</span><span class="p">))</span>
     <span class="n">final_mass</span> <span class="o">=</span> <span class="n">initial_mass</span> <span class="o">/</span> <span class="n">mass_ratio</span>
@@ -306,7 +302,7 @@
 <div class="viewcode-block" id="raan_change">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.maneuvers.raan_change">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">raan_change</span><span class="p">(</span><span class="n">v_mag</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">inc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">delta_raan</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate Delta-V for a Right Ascension of Ascending Node (RAAN) change.</span>
 
 <span class="sd">    Assumes circular orbit and maneuver performed at the poles for max efficiency.</span>
@@ -324,7 +320,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    float</span>
 <span class="sd">        Delta-V required (km/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># cos(alpha) = cos^2(i) + sin^2(i) * cos(delta_raan)</span>
     <span class="n">cos_alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">delta_raan</span><span class="p">)</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">cos_alpha</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
@@ -337,7 +333,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">optimal_combined_maneuver</span><span class="p">(</span>
     <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">delta_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4418</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Find optimal split of inclination change between two burns of a Hohmann transfer.</span>
 
 <span class="sd">    Minimizes total Delta-V by balancing the plane change between higher and</span>
@@ -360,7 +356,7 @@
 <span class="sd">        - dv_total: Minimum total Delta-V (km/s).</span>
 <span class="sd">        - di1: Inclination change at first burn (radians).</span>
 <span class="sd">        - di2: Inclination change at second burn (radians).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">a_trans</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
     <span class="n">v_c1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r1</span><span class="p">)</span>
     <span class="n">v_c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">r2</span><span class="p">)</span>
@@ -374,15 +370,11 @@
         <span class="n">dv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v_trans_a</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v_c2</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v_trans_a</span> <span class="o">*</span> <span class="n">v_c2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">delta_i</span> <span class="o">-</span> <span class="n">di1</span><span class="p">))</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">dv1</span> <span class="o">+</span> <span class="n">dv2</span><span class="p">)</span>
 
-    <span class="n">res</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">delta_i</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;bounded&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">delta_i</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s2">"bounded"</span><span class="p">)</span>
     <span class="n">di1_opt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
     <span class="n">di2_opt</span> <span class="o">=</span> <span class="n">delta_i</span> <span class="o">-</span> <span class="n">di1_opt</span>
 
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">fun</span><span class="p">),</span> <span class="n">di1_opt</span><span class="p">,</span> <span class="n">di2_opt</span></div>
-
-
-
-
 
 </pre></div>
 

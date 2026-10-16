@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.experimental.edl</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Entry, Descent, and Landing (EDL) dynamics and utilities.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -101,9 +101,9 @@
     <span class="n">r_planet</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6371000.0</span><span class="p">,</span>
     <span class="n">rho_model</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Ballistic Atmospheric Entry Dynamics (3-DOF).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
     <span class="n">r_vec</span><span class="p">,</span> <span class="n">v_vec</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
     <span class="n">r_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_vec</span><span class="p">)</span>
@@ -137,9 +137,9 @@
     <span class="n">r_planet</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6371000.0</span><span class="p">,</span>
     <span class="n">rho_model</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Lifting Atmospheric Entry Dynamics with Bank Angle Modulation.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
     <span class="n">r_vec</span><span class="p">,</span> <span class="n">v_vec</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
     <span class="n">r_mag</span><span class="p">,</span> <span class="n">v_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_vec</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v_vec</span><span class="p">)</span>
@@ -170,9 +170,9 @@
 <div class="viewcode-block" id="sutton_grave_heating">
 <a class="viewcode-back" href="../../../api/opengnc.experimental.html#opengnc.experimental.edl.sutton_grave_heating">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sutton_grave_heating</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">rn</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Stagnation point heat flux via Sutton-Grave correlation.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mf">1.74153e-4</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rho</span> <span class="o">/</span> <span class="n">rn</span><span class="p">)</span> <span class="o">*</span> <span class="n">v</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span></div>
 
@@ -181,9 +181,9 @@
 <div class="viewcode-block" id="calculate_g_load">
 <a class="viewcode-back" href="../../../api/opengnc.experimental.html#opengnc.experimental.edl.calculate_g_load">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calculate_g_load</span><span class="p">(</span><span class="n">acc_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate instantaneous G-load.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">g0</span> <span class="o">=</span> <span class="mf">9.80665</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">acc_vec</span><span class="p">)</span> <span class="o">/</span> <span class="n">g0</span><span class="p">)</span></div>
 
@@ -201,11 +201,11 @@
     <span class="n">rho_model</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="n">cl</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Predictive-corrector aerocapture guidance.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">mu</span> <span class="o">=</span> <span class="n">planet_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="mf">3.986e14</span><span class="p">)</span>
-    <span class="n">r_planet</span> <span class="o">=</span> <span class="n">planet_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;r_planet&quot;</span><span class="p">,</span> <span class="mf">6371000.0</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">planet_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"mu"</span><span class="p">,</span> <span class="mf">3.986e14</span><span class="p">)</span>
+    <span class="n">r_planet</span> <span class="o">=</span> <span class="n">planet_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"r_planet"</span><span class="p">,</span> <span class="mf">6371000.0</span><span class="p">)</span>
     <span class="n">atm_int</span> <span class="o">=</span> <span class="n">r_planet</span> <span class="o">+</span> <span class="mf">120000.0</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
@@ -258,9 +258,9 @@
     <span class="n">hazards</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
     <span class="n">safety_margin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">50.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Reactive hazard avoidance maneuver logic.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hazards</span><span class="p">:</span>
         <span class="n">h_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
@@ -273,12 +273,12 @@
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;aerocapture_guidance&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;ballistic_entry_dynamics&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;calculate_g_load&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;hazard_avoidance&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;lifting_entry_dynamics&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sutton_grave_heating&quot;</span><span class="p">,</span>
+    <span class="s2">"aerocapture_guidance"</span><span class="p">,</span>
+    <span class="s2">"ballistic_entry_dynamics"</span><span class="p">,</span>
+    <span class="s2">"calculate_g_load"</span><span class="p">,</span>
+    <span class="s2">"hazard_avoidance"</span><span class="p">,</span>
+    <span class="s2">"lifting_entry_dynamics"</span><span class="p">,</span>
+    <span class="s2">"sutton_grave_heating"</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 

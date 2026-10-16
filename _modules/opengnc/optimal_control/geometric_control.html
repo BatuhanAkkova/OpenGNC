@@ -76,10 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.optimal_control.geometric_control</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Geometric Controller on SO(3) for attitude tracking.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
 
@@ -89,7 +88,7 @@
 <div class="viewcode-block" id="vee_map">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.geometric_control.vee_map">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">vee_map</span><span class="p">(</span><span class="n">R</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Map a $3\times 3$ skew-symmetric matrix to its corresponding $3\times 1$ vector.</span>
 
 <span class="sd">    Parameters</span>
@@ -101,7 +100,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        $3\times 1$ vector.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">R</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))</span></div>
 
 
@@ -109,7 +108,7 @@
 <div class="viewcode-block" id="hat_map">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.geometric_control.hat_map">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">hat_map</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Map a $3\times 1$ vector to its corresponding $3\times 3$ skew-symmetric matrix.</span>
 
 <span class="sd">    Parameters</span>
@@ -121,20 +120,21 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        $3\times 3$ skew-symmetric matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">v_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">v_vec</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
-        <span class="p">[</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
-        <span class="p">[</span><span class="o">-</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v_vec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">]</span>
-    <span class="p">]))</span></div>
+    <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">v_vec</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="o">-</span><span class="n">v_vec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v_vec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">]]</span>
+        <span class="p">),</span>
+    <span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="GeometricController">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.geometric_control.GeometricController">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GeometricController</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Geometric Controller on the Special Orthogonal Group SO(3).</span>
 
 <span class="sd">    Implements a tracking controller directly on the rotation matrix manifold,</span>
@@ -152,10 +152,10 @@
 <span class="sd">        Attitude error gain (proportional).</span>
 <span class="sd">    kW : float</span>
 <span class="sd">        Angular velocity error gain (derivative).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">J</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">kR</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">kW</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize geometric controller gains and inertia.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize geometric controller gains and inertia."""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kR</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">kR</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kW</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">kW</span><span class="p">)</span>
@@ -170,7 +170,7 @@
         <span class="n">omega_d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">d_omega_d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Compute the optimal control torque on SO(3).</span>
 
 <span class="sd">        Parameters</span>
@@ -190,7 +190,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Control torque vector M (3,) [N*m].</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">R_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
         <span class="n">omega_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
         <span class="n">Rd_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">R_d</span><span class="p">)</span>
@@ -216,10 +216,6 @@
         <span class="c1"># Control Law: M = -kR*eR - kW*eW + gyro - ff</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">kR</span> <span class="o">*</span> <span class="n">eR</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">kW</span> <span class="o">*</span> <span class="n">eW</span> <span class="o">+</span> <span class="n">M_gyro</span> <span class="o">-</span> <span class="n">M_ff</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

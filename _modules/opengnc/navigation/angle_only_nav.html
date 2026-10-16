@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.navigation.angle_only_nav</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Navigation using Line-of-Sight (LOS) measurements (unit vectors).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -92,7 +92,7 @@
 <div class="viewcode-block" id="AngleOnlyNavigation">
 <a class="viewcode-back" href="../../../api/opengnc.navigation.html#opengnc.navigation.angle_only_nav.AngleOnlyNavigation">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AngleOnlyNavigation</span><span class="p">(</span><span class="n">OrbitDeterminationEKF</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Angles-Only Navigation (AON) using Line-of-Sight (LOS) unit vectors.</span>
 
 <span class="sd">    Estimates the spacecraft state by tracking unit vectors to known celestial</span>
@@ -110,12 +110,12 @@
 <span class="sd">        Measurement noise covariance for the unit vector ($3\times 3$).</span>
 <span class="sd">    mu : float, optional</span>
 <span class="sd">        Gravitational parameter ($m^3/s^2$).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="AngleOnlyNavigation.update_unit_vector">
 <a class="viewcode-back" href="../../../api/opengnc.navigation.html#opengnc.navigation.angle_only_nav.AngleOnlyNavigation.update_unit_vector">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update_unit_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u_meas</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target_pos_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Update the state estimate using a measured LOS unit vector $\mathbf{u}$.</span>
 
 <span class="sd">        Measurement Model:</span>
@@ -129,7 +129,7 @@
 <span class="sd">            Measured unit vector in ECI frame.</span>
 <span class="sd">        target_pos_eci : np.ndarray</span>
 <span class="sd">            Known coordinates of the target (m).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">r_target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">target_pos_eci</span><span class="p">)</span>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">hx</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -158,10 +158,6 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ekf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">u_meas</span><span class="p">),</span> <span class="n">hx</span><span class="p">,</span> <span class="n">h_jac</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

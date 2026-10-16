@@ -76,10 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.optimal_control.h2_control</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">H2 Optimal Controller (LQG equivalent).</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -89,7 +88,7 @@
 <div class="viewcode-block" id="H2Controller">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.h2_control.H2Controller">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">H2Controller</span><span class="p">(</span><span class="n">LQG</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    H2-Optimal Controller.</span>
 
 <span class="sd">    Solves the standard H2 control problem for linear state-space systems.</span>
@@ -115,7 +114,7 @@
 <span class="sd">        Measurement noise covariance matrix for LQE (ny x ny).</span>
 <span class="sd">    G_lqe : np.ndarray, optional</span>
 <span class="sd">        Process noise input matrix (nx x nw). Defaults to Identity.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -128,30 +127,26 @@
         <span class="n">R_lqe</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">G_lqe</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize H2 controller as an LQG instance.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Initialize H2 controller as an LQG instance."""</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">Q_lqr</span><span class="p">,</span> <span class="n">R_lqr</span><span class="p">,</span> <span class="n">Q_lqe</span><span class="p">,</span> <span class="n">R_lqe</span><span class="p">,</span> <span class="n">G_lqe</span><span class="p">)</span>
 
 <div class="viewcode-block" id="H2Controller.solve">
 <a class="viewcode-back" href="../../../api/opengnc.optimal_control.html#opengnc.optimal_control.h2_control.H2Controller.solve">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Solve LQR and LQE optimal gain design problems.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">            Optimal feedback gain K (nu x nx) and observer gain L (nx x ny).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lqr</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lqe</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lqr</span><span class="o">.</span><span class="n">compute_gain</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lqe</span><span class="o">.</span><span class="n">compute_gain</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">K</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

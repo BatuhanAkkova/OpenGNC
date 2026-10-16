@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.mean_elements</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Mean element conversions and secular perturbation rates (e.g., J2 secular theory).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -93,9 +93,9 @@
     <span class="n">argp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">m_anom</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">j2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.08262668e-3</span><span class="p">,</span>
-    <span class="n">re</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6378137.0</span>
+    <span class="n">re</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6378137.0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert osculating Keplerian elements to mean elements using J2 secular theory.</span>
 
 <span class="sd">    This implements the secular mapping (ignoring short/long period terms).</span>
@@ -124,7 +124,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float, float, float, float]</span>
 <span class="sd">        Mean elements (a_m, e_m, i_m, raan_m, argp_m, M_m).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># First-order secular theory keeps a, e, i constant.</span>
     <span class="c1"># Periodic terms must be subtracted for a full osculating-to-mean mapping.</span>
     <span class="c1"># Current implementation serves as a placeholder for secular-only models.</span>
@@ -140,9 +140,9 @@
     <span class="n">incl</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">j2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.08262668e-3</span><span class="p">,</span>
     <span class="n">re</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6378137.0</span><span class="p">,</span>
-    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span>
+    <span class="n">mu</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">398600.4415e9</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Calculate high-precision secular rates due to J2 oblateness.</span>
 
 <span class="sd">    Computes $\dot{\Omega}$, $\dot{\omega}$, and the mean motion correction $\dot{M}$.</span>
@@ -166,26 +166,22 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float]</span>
 <span class="sd">        (raan_dot, argp_dot, m_dot) in rad/s.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">ecc</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">n0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mu</span> <span class="o">/</span> <span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
 
-    <span class="n">j2_coeff</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">n0</span> <span class="o">*</span> <span class="n">j2</span> <span class="o">*</span> <span class="p">(</span><span class="n">re</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">j2_coeff</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">n0</span> <span class="o">*</span> <span class="n">j2</span> <span class="o">*</span> <span class="p">(</span><span class="n">re</span> <span class="o">/</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 
     <span class="c1"># 1. RAAN rate (Regression of Nodes)</span>
     <span class="n">raan_dot</span> <span class="o">=</span> <span class="o">-</span><span class="n">j2_coeff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">incl</span><span class="p">)</span>
 
     <span class="c1"># 2. Argument of Perigee rate (Apsidal Rotation)</span>
-    <span class="n">argp_dot</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">j2_coeff</span> <span class="o">*</span> <span class="p">(</span><span class="mf">4.0</span> <span class="o">-</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">incl</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">argp_dot</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">j2_coeff</span> <span class="o">*</span> <span class="p">(</span><span class="mf">4.0</span> <span class="o">-</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">incl</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="c1"># 3. Mean Anomaly rate (Mean Motion Correction)</span>
-    <span class="n">m_dot</span> <span class="o">=</span> <span class="n">n0</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">j2_coeff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">ecc</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">incl</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">m_dot</span> <span class="o">=</span> <span class="n">n0</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">j2_coeff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">ecc</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">incl</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">raan_dot</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">argp_dot</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">m_dot</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

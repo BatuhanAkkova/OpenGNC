@@ -22,8 +22,8 @@
       <script src="../_static/thebelab-helper.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
-      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}})</script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -152,7 +152,7 @@ r_{ECEF} = R^{I \to E} r_{ECI}
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.utils.frame_conversion</span><span class="w"> </span><span class="kn">import</span> <span class="n">eci2ecef</span><span class="p">,</span> <span class="n">ecef2eci</span><span class="p">,</span> <span class="n">eci2lvlh_dcm</span><span class="p">,</span> <span class="n">eci2llh</span><span class="p">,</span> <span class="n">llh2ecef</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.utils.time_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">calc_gmst</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Imports successful.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Imports successful."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -177,12 +177,12 @@ r_{ECEF} = R^{I \to E} r_{ECI}
 <span class="c1"># Convert to ECEF</span>
 <span class="n">r_ecef</span><span class="p">,</span> <span class="n">v_ecef</span> <span class="o">=</span> <span class="n">eci2ecef</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">,</span> <span class="n">jd</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ECI Position: </span><span class="si">{</span><span class="n">r_eci</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ECEF Position: </span><span class="si">{</span><span class="n">r_ecef</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ECI Position: </span><span class="si">{</span><span class="n">r_eci</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ECEF Position: </span><span class="si">{</span><span class="n">r_ecef</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
 
 <span class="c1"># Verify round-trip conversion</span>
 <span class="n">r_eci_rt</span><span class="p">,</span> <span class="n">v_eci_rt</span> <span class="o">=</span> <span class="n">ecef2eci</span><span class="p">(</span><span class="n">r_ecef</span><span class="p">,</span> <span class="n">v_ecef</span><span class="p">,</span> <span class="n">jd</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Round-trip Position Error: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_eci</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">r_eci_rt</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Round-trip Position Error: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_eci</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">r_eci_rt</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -204,12 +204,12 @@ Round-trip Position Error: 3.755864e-11 m
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate ECI to LVLH DCM</span>
 <span class="n">DCM_eci2lvlh</span> <span class="o">=</span> <span class="n">eci2lvlh_dcm</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DCM (ECI -&gt; LVLH):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"DCM (ECI -&gt; LVLH):"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">DCM_eci2lvlh</span><span class="p">)</span>
 
 <span class="c1"># Verify Orthogonality (DCM * DCM^T = I)</span>
 <span class="n">identity_check</span> <span class="o">=</span> <span class="n">DCM_eci2lvlh</span> <span class="o">@</span> <span class="n">DCM_eci2lvlh</span><span class="o">.</span><span class="n">T</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Orthogonality Check Error: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">identity_check</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Orthogonality Check Error: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">identity_check</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -233,14 +233,14 @@ Orthogonality Check Error: 0.000000e+00
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to LLH (Latitude, Longitude, Altitude)</span>
 <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">alt</span> <span class="o">=</span> <span class="n">eci2llh</span><span class="p">(</span><span class="n">r_eci</span><span class="p">,</span> <span class="n">jd</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Latitude:  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> deg&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Longitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> deg&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Altitude:  </span><span class="si">{</span><span class="n">alt</span><span class="o">/</span><span class="mf">1000.0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> km&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Latitude:  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> deg"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Longitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> deg"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Altitude:  </span><span class="si">{</span><span class="n">alt</span><span class="o">/</span><span class="mf">1000.0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> km"</span><span class="p">)</span>
 
 <span class="c1"># Verify using llh2ecef</span>
 <span class="n">r_ecef_check</span> <span class="o">=</span> <span class="n">llh2ecef</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">alt</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">ECEF Position from LLH: </span><span class="si">{</span><span class="n">r_ecef_check</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Difference from original ECEF: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_ecef</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">r_ecef_check</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">ECEF Position from LLH: </span><span class="si">{</span><span class="n">r_ecef_check</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Difference from original ECEF: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_ecef</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">r_ecef_check</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

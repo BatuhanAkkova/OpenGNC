@@ -126,14 +126,14 @@
 
 <span class="c1"># 2. Append some payload data (two float32 values)</span>
 <span class="c1"># CCSDS standards use Big-Endian (Network Byte Order)</span>
-<span class="n">payload</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.1</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;&gt;f4&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.1</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">'&gt;f4'</span><span class="p">)</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
 <span class="n">packet</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">payload</span>
 
 <span class="c1"># 3. Pack the full packet to binary</span>
 <span class="n">raw_bytes</span> <span class="o">=</span> <span class="n">packet</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full Packet (hex): </span><span class="si">{</span><span class="n">raw_bytes</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Header (hex): </span><span class="si">{</span><span class="n">raw_bytes</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Packet Length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">raw_bytes</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Full Packet (hex): </span><span class="si">{</span><span class="n">raw_bytes</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Header (hex): </span><span class="si">{</span><span class="n">raw_bytes</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Packet Length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">raw_bytes</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -154,10 +154,10 @@ Total Packet Length: 14 bytes
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.ground_segment.decom</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecomEngine</span>
 
 <span class="c1"># Define the structure of the data inside the CCSDS packet data field</span>
-<span class="c1"># &#39;f&#39; corresponds to a 32-bit float (4 bytes)</span>
+<span class="c1"># 'f' corresponds to a 32-bit float (4 bytes)</span>
 <span class="n">parameter_config</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;voltage&quot;</span><span class="p">,</span> <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;current&quot;</span><span class="p">,</span> <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"voltage"</span><span class="p">,</span> <span class="s2">"data_type"</span><span class="p">:</span> <span class="s2">"f"</span><span class="p">,</span> <span class="s2">"offset"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"scale"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"current"</span><span class="p">,</span> <span class="s2">"data_type"</span><span class="p">:</span> <span class="s2">"f"</span><span class="p">,</span> <span class="s2">"offset"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"scale"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
 <span class="p">]</span>
 
 <span class="c1"># Initialize the DecomEngine</span>
@@ -167,14 +167,14 @@ Total Packet Length: 14 bytes
 <span class="n">data_field</span> <span class="o">=</span> <span class="n">raw_bytes</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">decommutate</span><span class="p">(</span><span class="n">data_field</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Decommutated Telemetry (Big-Endian): </span><span class="si">{</span><span class="n">results</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Measured Voltage: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;voltage&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> V&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Measured Current: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;current&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> A&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Decommutated Telemetry (Big-Endian): </span><span class="si">{</span><span class="n">results</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Measured Voltage: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'voltage'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> V"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Measured Current: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">'current'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> A"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Decommutated Telemetry (Big-Endian): {&#39;voltage&#39;: 10.100000381469727, &#39;current&#39;: 20.200000762939453}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Decommutated Telemetry (Big-Endian): {'voltage': 10.100000381469727, 'current': 20.200000762939453}
 Measured Voltage: 10.10 V
 Measured Current: 20.20 A
 </pre></div>

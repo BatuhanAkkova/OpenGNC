@@ -76,10 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.ssa.maneuver</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Debris Avoidance Maneuver Planning.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
 
@@ -96,7 +95,7 @@
     <span class="n">safety_radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">t_encounter</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Plan an impulsive Debris Avoidance Maneuver (DAM).</span>
 
 <span class="sd">    Primarily calculates an along-track thrust to achieve a target miss</span>
@@ -118,13 +117,13 @@
 <span class="sd">    Tuple[np.ndarray, float]</span>
 <span class="sd">        - Delta-V vector in ECI (m/s).</span>
 <span class="sd">        - Estimated miss distance after maneuver (m).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rs</span><span class="p">,</span> <span class="n">vs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_sat</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_sat</span><span class="p">)</span>
     <span class="n">rd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_debris</span><span class="p">)</span>
 
     <span class="n">v_mag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vs</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">v_mag</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Velocity is too small.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Velocity is too small."</span><span class="p">)</span>
 
     <span class="c1"># Unit along-track vector</span>
     <span class="n">t_hat</span> <span class="o">=</span> <span class="n">vs</span> <span class="o">/</span> <span class="n">v_mag</span>
@@ -150,10 +149,6 @@
     <span class="n">d_est</span> <span class="o">=</span> <span class="n">d_curr</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dv_mag</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">t_encounter</span> <span class="k">if</span> <span class="n">t_encounter</span> <span class="o">&gt;</span> <span class="mf">10.0</span> <span class="k">else</span> <span class="n">t_encounter</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">dv_vec</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">d_est</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

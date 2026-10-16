@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.frame_conversion</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Frame conversion utilities (ECI, ECEF, LVLH, LLH).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -91,12 +91,9 @@
 <div class="viewcode-block" id="eci2ecef">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.eci2ecef">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2ecef</span><span class="p">(</span>
-    <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">jd_ut1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">dut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd_ut1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Convert ECI to ECEF.</span>
 
 <span class="sd">    Rotation:</span>
@@ -118,7 +115,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (ECEF position vector (m), ECEF velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">reci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
     <span class="n">veci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_eci</span><span class="p">)</span>
 
@@ -139,12 +136,9 @@
 <div class="viewcode-block" id="ecef2eci">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.ecef2eci">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ecef2eci</span><span class="p">(</span>
-    <span class="n">r_ecef</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">v_ecef</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">jd_ut1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">dut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">r_ecef</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_ecef</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd_ut1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dut1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert ECEF position and velocity to ECI frame.</span>
 
 <span class="sd">    Parameters</span>
@@ -162,7 +156,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (ECI position vector (m), ECI velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">recef</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_ecef</span><span class="p">)</span>
     <span class="n">vecef</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_ecef</span><span class="p">)</span>
 
@@ -182,7 +176,7 @@
 <div class="viewcode-block" id="eci2lvlh_dcm">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.eci2lvlh_dcm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2lvlh_dcm</span><span class="p">(</span><span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculate the DCM from ECI to LVLH (Local Vertical Local Horizontal).</span>
 
 <span class="sd">    LVLH Frame (Nadir-Pointed):</span>
@@ -201,7 +195,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 Direction Cosine Matrix $C_{LVLH/ECI}$.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">reci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
     <span class="n">veci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v_eci</span><span class="p">)</span>
 
@@ -217,7 +211,7 @@
 <div class="viewcode-block" id="eci2llh">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.eci2llh">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2llh</span><span class="p">(</span><span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd_ut1</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert ECI position to Geodetic LLH (Latitude, Longitude, Height).</span>
 
 <span class="sd">    Parameters</span>
@@ -231,7 +225,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float]</span>
 <span class="sd">        (Latitude (rad), Longitude (rad), Altitude (m)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># WGS84 Parameters</span>
     <span class="n">a</span> <span class="o">=</span> <span class="mf">6378137.0</span>
     <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">298.257223563</span>
@@ -248,7 +242,7 @@
 
     <span class="c1"># Iterative solution for latitude/altitude</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-        <span class="n">n_val</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">n_val</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">alt</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_val</span>
         <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_val</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_val</span> <span class="o">+</span> <span class="n">alt</span><span class="p">))))</span>
 
@@ -259,7 +253,7 @@
 <div class="viewcode-block" id="elements2perifocal_dcm">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.elements2perifocal_dcm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">elements2perifocal_dcm</span><span class="p">(</span><span class="n">raan</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">inc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">arg_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Calculates the DCM from perifocal (PQW) to ECI.</span>
 
 <span class="sd">    Parameters</span>
@@ -275,7 +269,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 Direction Cosine Matrix (PQW to ECI).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">c_r</span><span class="p">,</span> <span class="n">s_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">raan</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">raan</span><span class="p">)</span>
     <span class="n">c_i</span><span class="p">,</span> <span class="n">s_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span>
     <span class="n">c_p</span><span class="p">,</span> <span class="n">s_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">arg_p</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">arg_p</span><span class="p">)</span>
@@ -299,7 +293,7 @@
 <div class="viewcode-block" id="eci2geodetic">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.eci2geodetic">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2geodetic</span><span class="p">(</span><span class="n">r_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Converts ECI position to Geodetic coordinates.</span>
 
 <span class="sd">    Parameters</span>
@@ -313,7 +307,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[float, float, float]</span>
 <span class="sd">        (Longitude (deg), Latitude (deg), Altitude (m)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">r_eci</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r_eci</span><span class="p">)</span>
 
@@ -339,7 +333,7 @@
 <div class="viewcode-block" id="eci2eme2000">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.eci2eme2000">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2eme2000</span><span class="p">(</span><span class="n">reci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">veci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Converts ECI (J2000) to EME2000.</span>
 
 <span class="sd">    In many contexts these are treated as identical. This function treats ECI as</span>
@@ -356,7 +350,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (EME2000 position vector (m), EME2000 velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Treated as identity (no frame rotation between ECI/EME2000 at J2000 epoch)</span>
     <span class="k">return</span> <span class="n">reci</span><span class="p">,</span> <span class="n">veci</span></div>
 
@@ -365,7 +359,7 @@
 <div class="viewcode-block" id="eme20002eci">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.eme20002eci">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eme20002eci</span><span class="p">(</span><span class="n">reci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">veci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Converts EME2000 to ECI (J2000).</span>
 
 <span class="sd">    Parameters</span>
@@ -379,7 +373,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (ECI position vector (m), ECI velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">reci</span><span class="p">,</span> <span class="n">veci</span></div>
 
 
@@ -387,7 +381,7 @@
 <div class="viewcode-block" id="eci2icrf">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.eci2icrf">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">eci2icrf</span><span class="p">(</span><span class="n">reci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">veci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Converts ECI (J2000) to ICRF.</span>
 
 <span class="sd">    Includes simplified Precession and Nutation.</span>
@@ -405,7 +399,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (ICRF position vector (m), ICRF velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">jd</span> <span class="o">-</span> <span class="mf">2451545.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">36525.0</span>  <span class="c1"># Julian centuries from J2000</span>
 
     <span class="c1"># Simplified Precession (Lieske et al., 1977)</span>
@@ -425,7 +419,7 @@
 <div class="viewcode-block" id="icrf2eci">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.icrf2eci">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">icrf2eci</span><span class="p">(</span><span class="n">reci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">veci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">jd</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Converts ICRF to ECI (J2000).</span>
 
 <span class="sd">    Parameters</span>
@@ -441,7 +435,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">        (ECI position vector (m), ECI velocity vector (m/s)).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">jd</span> <span class="o">-</span> <span class="mf">2451545.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">36525.0</span>
     <span class="n">zeta</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2306.2181</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="mf">0.30188</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.017998</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">648000.0</span><span class="p">)</span>
     <span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2004.3109</span> <span class="o">*</span> <span class="n">t</span> <span class="o">-</span> <span class="mf">0.42665</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">0.041833</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">648000.0</span><span class="p">)</span>
@@ -459,7 +453,7 @@
 <div class="viewcode-block" id="rot_y_local">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.rot_y_local">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_y_local</span><span class="p">(</span><span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Rotation matrix for rotation about y-axis.</span>
 
 <span class="sd">    Parameters</span>
@@ -471,7 +465,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 rotation matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
         <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)]]</span>
     <span class="p">)</span></div>
@@ -481,7 +475,7 @@
 <div class="viewcode-block" id="llh2ecef">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.frame_conversion.llh2ecef">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">llh2ecef</span><span class="p">(</span><span class="n">lat_rad</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lon_rad</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">alt_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Converts Geodetic coordinates (LLH) to ECEF.</span>
 
 <span class="sd">    Parameters</span>
@@ -497,7 +491,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Position in ECEF [m].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">a</span> <span class="o">=</span> <span class="mf">6378137.0</span>  <span class="c1"># Semi-major axis [m]</span>
     <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">298.257223563</span>  <span class="c1"># Flattening</span>
     <span class="n">e2</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span>  <span class="c1"># Square of eccentricity</span>
@@ -509,10 +503,6 @@
     <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">e2</span><span class="p">)</span> <span class="o">+</span> <span class="n">alt_m</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat_rad</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span></div>
-
-
-
-
 
 </pre></div>
 

@@ -76,7 +76,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.sensors.sun_sensor_array</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Coarse sun sensor array model.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Coarse sun sensor array model."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -90,18 +90,18 @@
 <div class="viewcode-block" id="CoarseSunSensorArray">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CoarseSunSensorArray</span><span class="p">(</span><span class="n">Sensor</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Array of coarse sun sensors (CSS).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Array of coarse sun sensors (CSS)."""</span>
 
-    <span class="n">quantity</span> <span class="o">=</span> <span class="s2">&quot;sun_intensity_array&quot;</span>
-    <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;sensor_unit&quot;</span>
-    <span class="n">frame</span> <span class="o">=</span> <span class="s2">&quot;body&quot;</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="s2">"sun_intensity_array"</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="s2">"sensor_unit"</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="s2">"body"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">boresights</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">i_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
         <span class="n">noise_std</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;CSSArray&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"CSSArray"</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">boresights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -121,10 +121,12 @@
 
 <div class="viewcode-block" id="CoarseSunSensorArray.measure">
 <a class="viewcode-back" href="../../../api/opengnc.sensors.html#opengnc.sensors.sun_sensor_array.CoarseSunSensorArray.measure">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">true_sun_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SensorMeasurement</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">true_sun_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SensorMeasurement</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">true_sun_vec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;true_sun_vec is required.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"true_sun_vec is required."</span><span class="p">)</span>
             <span class="n">true_sun_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">sun_unit</span> <span class="o">=</span> <span class="n">true_sun_vec</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true_sun_vec</span><span class="p">)</span>
         <span class="n">measurements</span> <span class="o">=</span> <span class="p">[]</span>
@@ -134,7 +136,10 @@
             <span class="n">i_meas</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">noise_std</span><span class="p">)</span>
             <span class="n">measurements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">i_meas</span><span class="p">)))</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_measurement</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;boresights&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">boresights</span><span class="p">],</span> <span class="s2">&quot;i_max&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_max</span><span class="p">})</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_measurement</span><span class="p">(</span>
+            <span class="n">values</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"boresights"</span><span class="p">:</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">boresights</span><span class="p">],</span> <span class="s2">"i_max"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_max</span><span class="p">},</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CoarseSunSensorArray.measurement_noise_std">

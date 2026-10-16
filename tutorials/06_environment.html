@@ -22,8 +22,8 @@
       <script src="../_static/thebelab-helper.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
-      <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}})</script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -160,7 +160,7 @@ where <span class="math notranslate nohighlight">\(\nu\)</span> is the shadow fu
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.disturbances.gravity</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThirdBodyGravity</span><span class="p">,</span> <span class="n">TwoBodyGravity</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.propagators.cowell</span><span class="w"> </span><span class="kn">import</span> <span class="n">CowellPropagator</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Environment modules loaded.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Environment modules loaded."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -191,8 +191,8 @@ where <span class="math notranslate nohighlight">\(\nu\)</span> is the shadow fu
 <span class="n">jd</span> <span class="o">=</span> <span class="mf">2451545.0</span>
 
 <span class="n">a_drag</span> <span class="o">=</span> <span class="n">drag_model</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">(</span><span class="n">r_400</span><span class="p">,</span> <span class="n">v_400</span><span class="p">,</span> <span class="n">jd</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">cd</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Drag at 400km: Accordance Vector: </span><span class="si">{</span><span class="n">a_drag</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_drag</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Drag at 400km: Accordance Vector: </span><span class="si">{</span><span class="n">a_drag</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_drag</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -213,11 +213,11 @@ Magnitude: 2.745185e-06 m/s^2
 <span class="n">cr</span> <span class="o">=</span> <span class="mf">1.3</span> <span class="c1"># Reflectivity</span>
 
 <span class="n">a_srp</span> <span class="o">=</span> <span class="n">srp_model</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">(</span><span class="n">r_400</span><span class="p">,</span> <span class="n">jd</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SRP Accel Vector: </span><span class="si">{</span><span class="n">a_srp</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_srp</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SRP Accel Vector: </span><span class="si">{</span><span class="n">a_srp</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_srp</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ratio (Drag/SRP): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_drag</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_srp</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;At 400km LEO, Atmospheric Drag dominates heavily. SRP becomes relevant at higher altitudes (MEO/GEO).&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Ratio (Drag/SRP): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_drag</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_srp</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"At 400km LEO, Atmospheric Drag dominates heavily. SRP becomes relevant at higher altitudes (MEO/GEO)."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -239,8 +239,8 @@ At 400km LEO, Atmospheric Drag dominates heavily. SRP becomes relevant at higher
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">third_body</span> <span class="o">=</span> <span class="n">ThirdBodyGravity</span><span class="p">()</span>
 <span class="n">a_3b</span> <span class="o">=</span> <span class="n">third_body</span><span class="o">.</span><span class="n">get_acceleration</span><span class="p">(</span><span class="n">r_400</span><span class="p">,</span> <span class="n">jd</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Third-Body Accel Vector: </span><span class="si">{</span><span class="n">a_3b</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_3b</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Third-Body Accel Vector: </span><span class="si">{</span><span class="n">a_3b</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Magnitude: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a_3b</span><span class="p">)</span><span class="si">:</span><span class="s2">.6e</span><span class="si">}</span><span class="s2"> m/s^2"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -272,7 +272,7 @@ Magnitude: 6.104070e-07 m/s^2
 
 <span class="c1"># Propagate short window</span>
 <span class="n">r_f</span><span class="p">,</span> <span class="n">v_f</span> <span class="o">=</span> <span class="n">propagator</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">r_400</span><span class="p">,</span> <span class="n">v_400</span><span class="p">,</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">perturbation_acc_fn</span><span class="o">=</span><span class="n">environmental_perturbations</span><span class="p">,</span> <span class="n">dt_step</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Propagated position after 1 hour: </span><span class="si">{</span><span class="n">r_f</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Propagated position after 1 hour: </span><span class="si">{</span><span class="n">r_f</span><span class="si">}</span><span class="s2"> m"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

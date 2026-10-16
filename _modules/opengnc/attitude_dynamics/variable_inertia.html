@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.attitude_dynamics.variable_inertia</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Attitude dynamics with time-varying inertia tensors.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -86,12 +86,9 @@
 <div class="viewcode-block" id="variable_inertia_euler_equations">
 <a class="viewcode-back" href="../../../api/opengnc.attitude_dynamics.html#opengnc.attitude_dynamics.variable_inertia.variable_inertia_euler_equations">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">variable_inertia_euler_equations</span><span class="p">(</span>
-    <span class="n">J</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">J_dot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">torque</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">J</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">J_dot</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torque</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Compute $\dot{\omega}$ for a body with time-varying inertia.</span>
 
 <span class="sd">    Equation of Motion:</span>
@@ -112,7 +109,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Angular acceleration $\dot{\omega}$ (3,) (rad/s$^2$).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">j_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
     <span class="n">jd_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">J_dot</span><span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
@@ -129,12 +126,9 @@
 <div class="viewcode-block" id="mass_depletion_J_dot">
 <a class="viewcode-back" href="../../../api/opengnc.attitude_dynamics.html#opengnc.attitude_dynamics.variable_inertia.mass_depletion_J_dot">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mass_depletion_J_dot</span><span class="p">(</span>
-    <span class="n">J_nominal</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-    <span class="n">m_initial</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">dm_dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">r_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">J_nominal</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">m_initial</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dm_dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r_point</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Model $\dot{\mathbf{J}}$ due to point-mass depletion.</span>
 
 <span class="sd">    $\dot{\mathbf{J}} = \dot{m} [ (\mathbf{r}^T \mathbf{r}) \mathbf{I} - \mathbf{r} \mathbf{r}^T ]$</span>
@@ -154,17 +148,13 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Inertia derivative $\dot{\mathbf{J}}$ (3, 3) ($kg \cdot m^2 / s$).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">r_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">r_point</span><span class="p">)</span>
     <span class="n">r_sq</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r_vec</span><span class="p">,</span> <span class="n">r_vec</span><span class="p">))</span>
     <span class="n">r_outer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">r_vec</span><span class="p">,</span> <span class="n">r_vec</span><span class="p">)</span>
 
     <span class="c1"># dot(J) = dot(m) * [ (r^2 * I) - (r outer r) ]</span>
     <span class="k">return</span> <span class="n">dm_dt</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_sq</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">r_outer</span><span class="p">)</span></div>
-
-
-
-
 
 </pre></div>
 

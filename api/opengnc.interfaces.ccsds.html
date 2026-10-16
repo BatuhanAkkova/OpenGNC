@@ -61,6 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="opengnc.disturbances.html">opengnc.disturbances package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.environment.html">opengnc.environment package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.experimental.html">opengnc.experimental package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="opengnc.fdir.html">opengnc.fdir package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.guidance.html">opengnc.guidance package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="opengnc.integrators.html">opengnc.integrators package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="opengnc.interfaces.html">opengnc.interfaces package</a></li>
@@ -116,6 +117,68 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
+<section id="module-opengnc.interfaces.ccsds.cdm">
+<span id="opengnc-interfaces-ccsds-cdm-module"></span><h2>opengnc.interfaces.ccsds.cdm module<a class="headerlink" href="#module-opengnc.interfaces.ccsds.cdm" title="Link to this heading"></a></h2>
+<p>CCSDS Conjunction Data Message (CDM) implementation.
+Standard: CCSDS 508.0-B-1 (Blue Book).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.cdm.CDM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.interfaces.ccsds.cdm.</span></span><span class="sig-name descname"><span class="pre">CDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.cdm.CDM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Conjunction Data Message (CDM) handler.</p>
+<p>Supports reading, writing, and analytical collision probability calculation ($P_c$)
+per CCSDS 508.0-B-1 and Foster (1992) standards.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.cdm.CDM.compute_collision_probability">
+<span class="sig-name descname"><span class="pre">compute_collision_probability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hard_body_radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.compute_collision_probability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.cdm.CDM.compute_collision_probability" title="Link to this definition"></a></dt>
+<dd><p>Compute the 2D collision probability ($P_c$) in the encounter frame (Foster, 1992).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hard_body_radius</strong> (<em>float</em><em>, </em><em>optional</em>) – Combined spherical hard-body radius $R = R_1 + R_2$ (m).
+If omitted, uses the sum of <cite>object1</cite> and <cite>object2</cite> radii.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collision probability $P_c in [0, 1]$.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.cdm.CDM.from_file">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.interfaces.ccsds.cdm.CDM" title="opengnc.interfaces.ccsds.cdm.CDM"><span class="pre">CDM</span></a></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.cdm.CDM.from_file" title="Link to this definition"></a></dt>
+<dd><p>Parse a CDM from a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.cdm.CDM.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.cdm.CDM.set_data" title="Link to this definition"></a></dt>
+<dd><p>Update CDM fields from a dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.cdm.CDM.to_file">
+<span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.cdm.CDM.to_file" title="Link to this definition"></a></dt>
+<dd><p>Save the CDM to a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.cdm.CDM.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.cdm.CDM.to_string" title="Link to this definition"></a></dt>
+<dd><p>Format CDM in standard CCSDS Key-Value Notation (KVN).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.cdm.CDM.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.cdm.CDM.write" title="Link to this definition"></a></dt>
+<dd><p>Alias for to_file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-opengnc.interfaces.ccsds.oem">
 <span id="opengnc-interfaces-ccsds-oem-module"></span><h2>opengnc.interfaces.ccsds.oem module<a class="headerlink" href="#module-opengnc.interfaces.ccsds.oem" title="Link to this heading"></a></h2>
 <p>CCSDS Orbit Ephemeris Message (OEM) implementation.</p>
@@ -153,6 +216,61 @@
 </dd></dl>
 
 </section>
+<section id="module-opengnc.interfaces.ccsds.omm">
+<span id="opengnc-interfaces-ccsds-omm-module"></span><h2>opengnc.interfaces.ccsds.omm module<a class="headerlink" href="#module-opengnc.interfaces.ccsds.omm" title="Link to this heading"></a></h2>
+<p>CCSDS Orbit Mean-Elements Message (OMM) implementation.
+Standard: CCSDS 502.0-B-2 (Blue Book).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.interfaces.ccsds.omm.</span></span><span class="sig-name descname"><span class="pre">OMM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Orbit Mean-Elements Message (OMM) handler.</p>
+<p>Supports reading, writing, and TLE cross-conversion of CCSDS OMM files (KVN format).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM.from_file">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.interfaces.ccsds.omm.OMM" title="opengnc.interfaces.ccsds.omm.OMM"><span class="pre">OMM</span></a></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM.from_file" title="Link to this definition"></a></dt>
+<dd><p>Load an OMM from a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM.from_tle">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_tle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'OBJECT'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.interfaces.ccsds.omm.OMM" title="opengnc.interfaces.ccsds.omm.OMM"><span class="pre">OMM</span></a></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.from_tle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM.from_tle" title="Link to this definition"></a></dt>
+<dd><p>Create an OMM directly from a standard Two-Line Element (TLE) pair.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM.get_keplerian_elements">
+<span class="sig-name descname"><span class="pre">get_keplerian_elements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.get_keplerian_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM.get_keplerian_elements" title="Link to this definition"></a></dt>
+<dd><p>Return mean Keplerian orbital elements.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM.set_data" title="Link to this definition"></a></dt>
+<dd><p>Update OMM fields from a dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM.to_file">
+<span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM.to_file" title="Link to this definition"></a></dt>
+<dd><p>Save the OMM to a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM.to_string" title="Link to this definition"></a></dt>
+<dd><p>Render the OMM in standard Key-Value Notation (KVN).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.omm.OMM.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.omm.OMM.write" title="Link to this definition"></a></dt>
+<dd><p>Alias for to_file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-opengnc.interfaces.ccsds.opm">
 <span id="opengnc-interfaces-ccsds-opm-module"></span><h2>opengnc.interfaces.ccsds.opm module<a class="headerlink" href="#module-opengnc.interfaces.ccsds.opm" title="Link to this heading"></a></h2>
 <p>CCSDS Orbit Parameter Message (OPM) implementation.</p>
@@ -185,7 +303,64 @@
 </section>
 <section id="module-opengnc.interfaces.ccsds">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-opengnc.interfaces.ccsds" title="Link to this heading"></a></h2>
-<p>CCSDS standards implementation (OEM, OPM).</p>
+<p>CCSDS standards implementation (OEM, OPM, OMM, CDM).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.CDM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.interfaces.ccsds.</span></span><span class="sig-name descname"><span class="pre">CDM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.CDM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Conjunction Data Message (CDM) handler.</p>
+<p>Supports reading, writing, and analytical collision probability calculation ($P_c$)
+per CCSDS 508.0-B-1 and Foster (1992) standards.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.CDM.compute_collision_probability">
+<span class="sig-name descname"><span class="pre">compute_collision_probability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hard_body_radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.compute_collision_probability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.CDM.compute_collision_probability" title="Link to this definition"></a></dt>
+<dd><p>Compute the 2D collision probability ($P_c$) in the encounter frame (Foster, 1992).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hard_body_radius</strong> (<em>float</em><em>, </em><em>optional</em>) – Combined spherical hard-body radius $R = R_1 + R_2$ (m).
+If omitted, uses the sum of <cite>object1</cite> and <cite>object2</cite> radii.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Collision probability $P_c in [0, 1]$.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.CDM.from_file">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.interfaces.ccsds.cdm.CDM" title="opengnc.interfaces.ccsds.cdm.CDM"><span class="pre">CDM</span></a></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.CDM.from_file" title="Link to this definition"></a></dt>
+<dd><p>Parse a CDM from a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.CDM.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.CDM.set_data" title="Link to this definition"></a></dt>
+<dd><p>Update CDM fields from a dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.CDM.to_file">
+<span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.CDM.to_file" title="Link to this definition"></a></dt>
+<dd><p>Save the CDM to a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.CDM.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.CDM.to_string" title="Link to this definition"></a></dt>
+<dd><p>Format CDM in standard CCSDS Key-Value Notation (KVN).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.CDM.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/cdm.html#CDM.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.CDM.write" title="Link to this definition"></a></dt>
+<dd><p>Alias for to_file.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OEM">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.interfaces.ccsds.</span></span><span class="sig-name descname"><span class="pre">OEM</span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/oem.html#OEM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OEM" title="Link to this definition"></a></dt>
@@ -215,6 +390,56 @@
 <dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OEM.write">
 <span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/oem.html#OEM.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OEM.write" title="Link to this definition"></a></dt>
 <dd><p>Write the OEM to a file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">opengnc.interfaces.ccsds.</span></span><span class="sig-name descname"><span class="pre">OMM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Orbit Mean-Elements Message (OMM) handler.</p>
+<p>Supports reading, writing, and TLE cross-conversion of CCSDS OMM files (KVN format).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM.from_file">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.interfaces.ccsds.omm.OMM" title="opengnc.interfaces.ccsds.omm.OMM"><span class="pre">OMM</span></a></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM.from_file" title="Link to this definition"></a></dt>
+<dd><p>Load an OMM from a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM.from_tle">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_tle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'OBJECT'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#opengnc.interfaces.ccsds.omm.OMM" title="opengnc.interfaces.ccsds.omm.OMM"><span class="pre">OMM</span></a></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.from_tle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM.from_tle" title="Link to this definition"></a></dt>
+<dd><p>Create an OMM directly from a standard Two-Line Element (TLE) pair.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM.get_keplerian_elements">
+<span class="sig-name descname"><span class="pre">get_keplerian_elements</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.get_keplerian_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM.get_keplerian_elements" title="Link to this definition"></a></dt>
+<dd><p>Return mean Keplerian orbital elements.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM.set_data" title="Link to this definition"></a></dt>
+<dd><p>Update OMM fields from a dictionary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM.to_file">
+<span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM.to_file" title="Link to this definition"></a></dt>
+<dd><p>Save the OMM to a KVN file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.to_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM.to_string" title="Link to this definition"></a></dt>
+<dd><p>Render the OMM in standard Key-Value Notation (KVN).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opengnc.interfaces.ccsds.OMM.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/opengnc/interfaces/ccsds/omm.html#OMM.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opengnc.interfaces.ccsds.OMM.write" title="Link to this definition"></a></dt>
+<dd><p>Alias for to_file.</p>
 </dd></dl>
 
 </dd></dl>

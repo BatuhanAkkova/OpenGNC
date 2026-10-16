@@ -86,9 +86,9 @@
     <span class="n">latitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">longitudes</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Coverage Heat Map&quot;</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Coverage Heat Map"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Plots a density/heatmap on an Earth map to analyze access/coverage.</span>
 
 <span class="sd">    Parameters</span>
@@ -101,13 +101,13 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">        plotly.graph_objects.Figure: The plotly figure object.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">latitudes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">latitudes</span><span class="p">)</span>
     <span class="n">longitudes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">longitudes</span><span class="p">)</span>
     <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">latitudes</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">longitudes</span><span class="o">.</span><span class="n">shape</span> <span class="ow">or</span> <span class="n">latitudes</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Latitudes, longitudes, and values must have the same length/shape.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Latitudes, longitudes, and values must have the same length/shape."</span><span class="p">)</span>
 
     <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 
@@ -116,17 +116,17 @@
         <span class="n">go</span><span class="o">.</span><span class="n">Scattergeo</span><span class="p">(</span>
             <span class="n">lat</span><span class="o">=</span><span class="n">latitudes</span><span class="p">,</span>
             <span class="n">lon</span><span class="o">=</span><span class="n">longitudes</span><span class="p">,</span>
-            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">"markers"</span><span class="p">,</span>
             <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
                 <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
                 <span class="n">color</span><span class="o">=</span><span class="n">values</span><span class="p">,</span>
-                <span class="n">colorscale</span><span class="o">=</span><span class="s2">&quot;Viridis&quot;</span><span class="p">,</span>  <span class="c1"># Good for continuous values</span>
-                <span class="n">colorbar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Value&quot;</span><span class="p">),</span>
+                <span class="n">colorscale</span><span class="o">=</span><span class="s2">"Viridis"</span><span class="p">,</span>  <span class="c1"># Good for continuous values</span>
+                <span class="n">colorbar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Value"</span><span class="p">),</span>
                 <span class="n">opacity</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>  <span class="c1"># Make translucent to see map below</span>
                 <span class="n">showscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Coverage Value&quot;</span><span class="p">,</span>
-            <span class="n">hoverinfo</span><span class="o">=</span><span class="s2">&quot;skip&quot;</span> <span class="k">if</span> <span class="kc">True</span> <span class="k">else</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>  <span class="c1"># Can add hover details if needed</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Coverage Value"</span><span class="p">,</span>
+            <span class="n">hoverinfo</span><span class="o">=</span><span class="s2">"skip"</span> <span class="k">if</span> <span class="kc">True</span> <span class="k">else</span> <span class="s2">"text"</span><span class="p">,</span>  <span class="c1"># Can add hover details if needed</span>
         <span class="p">)</span>
     <span class="p">)</span>
 
@@ -136,24 +136,20 @@
         <span class="n">geo</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">showland</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">showcoastlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">projection_type</span><span class="o">=</span><span class="s2">&quot;equirectangular&quot;</span><span class="p">,</span>
-            <span class="n">coastlinecolor</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
-            <span class="n">landcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-            <span class="n">lakecolor</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
-            <span class="n">rivercolor</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
+            <span class="n">projection_type</span><span class="o">=</span><span class="s2">"equirectangular"</span><span class="p">,</span>
+            <span class="n">coastlinecolor</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span>
+            <span class="n">landcolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+            <span class="n">lakecolor</span><span class="o">=</span><span class="s2">"lightblue"</span><span class="p">,</span>
+            <span class="n">rivercolor</span><span class="o">=</span><span class="s2">"lightblue"</span><span class="p">,</span>
             <span class="n">showocean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">oceancolor</span><span class="o">=</span><span class="s2">&quot;aliceblue&quot;</span><span class="p">,</span>
-            <span class="n">lataxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">),</span>
-            <span class="n">lonaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">),</span>
+            <span class="n">oceancolor</span><span class="o">=</span><span class="s2">"aliceblue"</span><span class="p">,</span>
+            <span class="n">lataxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">),</span>
+            <span class="n">lonaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">],</span> <span class="n">showgrid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gridcolor</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">),</span>
         <span class="p">),</span>
         <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">fig</span></div>
-
-
-
-
 
 </pre></div>
 

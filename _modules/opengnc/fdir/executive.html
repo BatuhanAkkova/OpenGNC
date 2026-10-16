@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>opengnc.fdir.executive &mdash; OpenGNC  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/thebelab.css" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/thebelab-helper.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenGNC
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Navigation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">opengnc</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenGNC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">opengnc.fdir.executive</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for opengnc.fdir.executive</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Autonomous FDIR Executive and GNC Mission Health State Machine.</span>
+
+<span class="sd">Coordinates sensor fault isolation, actuator control reconfiguration, and</span>
+<span class="sd">autonomous transitions between Nominal, Degraded, Underactuated, and Safe Modes.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.fdir.actuator_fdir</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActuatorHealth</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">opengnc.fdir.sensor_fdir</span><span class="w"> </span><span class="kn">import</span> <span class="n">SensorHealth</span>
+
+
+<div class="viewcode-block" id="FDIRMode">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.executive.FDIRMode">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FDIRMode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Spacecraft GNC operational modes governed by FDIR."""</span>
+
+    <span class="n">NOMINAL</span> <span class="o">=</span> <span class="s2">"NOMINAL"</span>
+    <span class="n">DEGRADED_POINTING</span> <span class="o">=</span> <span class="s2">"DEGRADED_POINTING"</span>
+    <span class="n">UNDERACTUATED_CONTROL</span> <span class="o">=</span> <span class="s2">"UNDERACTUATED_CONTROL"</span>
+    <span class="n">SAFE_MODE_SUN_POINTING</span> <span class="o">=</span> <span class="s2">"SAFE_MODE_SUN_POINTING"</span></div>
+
+
+
+<div class="viewcode-block" id="FDIRExecutive">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.executive.FDIRExecutive">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FDIRExecutive</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Finite State Machine governing autonomous Spacecraft FDIR transitions.</span>
+
+<span class="sd">    Evaluates collective sensor health, actuator integrity, and dynamic pointing</span>
+<span class="sd">    metrics to deterministically transition between operational modes:</span>
+<span class="sd">    - NOMINAL: Full sensor fusion and nominal 3-axis control.</span>
+<span class="sd">    - DEGRADED_POINTING: Maintained 3-axis pointing with isolated sensor/actuator.</span>
+<span class="sd">    - UNDERACTUATED_CONTROL: 2-RW stabilization with auxiliary magnetic damping.</span>
+<span class="sd">    - SAFE_MODE_SUN_POINTING: Power preservation &amp; tumbling damping fallback.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initial_mode : FDIRMode, optional</span>
+<span class="sd">        Starting mode for the executive. Default is FDIRMode.NOMINAL.</span>
+<span class="sd">    max_rate_runaway : float, optional</span>
+<span class="sd">        Maximum allowable angular velocity (rad/s) before forcing Safe Mode.</span>
+<span class="sd">        Default is 0.1 rad/s (~5.7 deg/s).</span>
+<span class="sd">    max_pointing_error_deg : float, optional</span>
+<span class="sd">        Maximum allowable pointing error (deg) before flagging attitude loss.</span>
+<span class="sd">        Default is 45.0 degrees.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">initial_mode</span><span class="p">:</span> <span class="n">FDIRMode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">NOMINAL</span><span class="p">,</span>
+        <span class="n">max_rate_runaway</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">max_pointing_error_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">45.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span><span class="p">:</span> <span class="n">FDIRMode</span> <span class="o">=</span> <span class="n">initial_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">max_rate_runaway</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_pointing_err</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">max_pointing_error_deg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">FDIRMode</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transition_log</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="FDIRExecutive.evaluate_state">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.executive.FDIRExecutive.evaluate_state">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_state</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">time_s</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">sensor_health</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SensorHealth</span><span class="p">],</span>
+        <span class="n">actuator_health</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ActuatorHealth</span><span class="p">],</span>
+        <span class="n">pointing_error_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">rate_norm</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FDIRMode</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Evaluate system health telemetry and perform mode transitions.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        time_s : float</span>
+<span class="sd">            Simulation/mission elapsed time (s).</span>
+<span class="sd">        sensor_health : dict[str, SensorHealth]</span>
+<span class="sd">            Dictionary of sensor states {sensor_name: SensorHealth}.</span>
+<span class="sd">        actuator_health : dict[str, ActuatorHealth]</span>
+<span class="sd">            Dictionary of actuator states {actuator_name: ActuatorHealth}.</span>
+<span class="sd">        pointing_error_deg : float, optional</span>
+<span class="sd">            Current pointing error in degrees. Default is 0.0.</span>
+<span class="sd">        rate_norm : float, optional</span>
+<span class="sd">            Current angular rate magnitude ||omega|| in rad/s. Default is 0.0.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FDIRMode</span>
+<span class="sd">            Current active FDIR operational mode.</span>
+<span class="sd">        """</span>
+        <span class="c1"># Count healthy/functional hardware</span>
+        <span class="n">active_sensors</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sensor_health</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span> <span class="o">!=</span> <span class="n">SensorHealth</span><span class="o">.</span><span class="n">ISOLATED</span><span class="p">)</span>
+        <span class="n">active_actuators</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">actuator_health</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span> <span class="o">!=</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">FAILED</span><span class="p">)</span>
+
+        <span class="n">prev_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="s2">""</span>
+
+        <span class="c1"># Safe Mode Trigger 1: Rate Runaway or severe pointing divergence</span>
+        <span class="k">if</span> <span class="n">rate_norm</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_rate</span><span class="p">:</span>
+            <span class="n">target_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">SAFE_MODE_SUN_POINTING</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Angular rate runaway: </span><span class="si">{</span><span class="n">rate_norm</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> rad/s &gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_rate</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span>
+        <span class="c1"># Safe Mode Trigger 2: Insufficient sensors to determine attitude</span>
+        <span class="k">elif</span> <span class="n">active_sensors</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">target_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">SAFE_MODE_SUN_POINTING</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="s2">"Complete loss of attitude sensors (0 active)"</span>
+        <span class="c1"># Safe Mode Trigger 3: Fewer than 2 functional actuators</span>
+        <span class="k">elif</span> <span class="n">active_actuators</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">target_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">SAFE_MODE_SUN_POINTING</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Catastrophic actuator failure: </span><span class="si">{</span><span class="n">active_actuators</span><span class="si">}</span><span class="s2"> functional actuators"</span>
+        <span class="c1"># Underactuated Control: Exactly 2 functional actuators</span>
+        <span class="k">elif</span> <span class="n">active_actuators</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">target_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">UNDERACTUATED_CONTROL</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="s2">"Actuator count reduced to 2: initiating underactuated control"</span>
+        <span class="c1"># Degraded Pointing: Any isolated sensor or degraded/failed actuator (with &gt;= 3 remaining)</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="n">SensorHealth</span><span class="o">.</span><span class="n">ISOLATED</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sensor_health</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">ActuatorHealth</span><span class="o">.</span><span class="n">HEALTHY</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">actuator_health</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="ow">or</span> <span class="n">pointing_error_deg</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_pointing_err</span>
+        <span class="p">):</span>
+            <span class="n">target_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">DEGRADED_POINTING</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="s2">"Subsystem degraded; 3-axis pointing maintained via reallocation"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">NOMINAL</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="s2">"All subsystems nominal"</span>
+
+        <span class="c1"># Apply transition</span>
+        <span class="k">if</span> <span class="n">target_mode</span> <span class="o">!=</span> <span class="n">prev_mode</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">time_s</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s] FDIR Transition: </span><span class="si">{</span><span class="n">prev_mode</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">target_mode</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transition_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mode_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">time_s</span><span class="p">,</span> <span class="n">target_mode</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span> <span class="o">=</span> <span class="n">target_mode</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span></div>
+
+
+<div class="viewcode-block" id="FDIRExecutive.force_safe_mode">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.executive.FDIRExecutive.force_safe_mode">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">force_safe_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_s</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Manual override"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Manually force executive into Safe Mode."""</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">SAFE_MODE_SUN_POINTING</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">time_s</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s] FDIR Transition: </span><span class="si">{</span><span class="n">prev</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2">)"</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transition_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">time_s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="FDIRExecutive.reset_to_nominal">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.executive.FDIRExecutive.reset_to_nominal">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_to_nominal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_s</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Reset executive back to Nominal Mode after recovery."""</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span> <span class="o">=</span> <span class="n">FDIRMode</span><span class="o">.</span><span class="n">NOMINAL</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">time_s</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s] FDIR Transition: </span><span class="si">{</span><span class="n">prev</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> (Recovery reset)"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transition_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">time_s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span><span class="p">,</span> <span class="s2">"Recovery reset"</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="FDIRExecutive.get_telemetry">
+<a class="viewcode-back" href="../../../api/opengnc.fdir.html#opengnc.fdir.executive.FDIRExecutive.get_telemetry">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_telemetry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Generate diagnostic telemetry summary of FDIR status.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, Any]</span>
+<span class="sd">            Dictionary containing current mode, transition history, and log.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"current_mode"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mode</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">"transition_count"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mode_history</span><span class="p">),</span>
+            <span class="s2">"transition_log"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transition_log</span><span class="p">),</span>
+        <span class="p">}</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

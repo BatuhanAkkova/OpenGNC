@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.actuators.reaction_wheel</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Reaction Wheel (RW) actuator model with friction and momentum limits.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -92,7 +92,7 @@
 <div class="viewcode-block" id="ReactionWheel">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.reaction_wheel.ReactionWheel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ReactionWheel</span><span class="p">(</span><span class="n">Actuator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Reaction Wheel Actuator.</span>
 
 <span class="sd">    Models torque generation with saturation, max speed limits, and friction.</span>
@@ -106,26 +106,26 @@
 <span class="sd">    inertia : float, optional</span>
 <span class="sd">        Moment of inertia about spin axis (kg*m^2).</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Actuator name. Default is &quot;RW&quot;.</span>
+<span class="sd">        Actuator name. Default is "RW".</span>
 <span class="sd">    static_friction : float, optional</span>
 <span class="sd">        Static friction torque (Nm). Default is 0.0.</span>
 <span class="sd">    viscous_friction : float, optional</span>
 <span class="sd">        Viscous friction coefficient (Nm/(rad/s)). Default is 0.0.</span>
 <span class="sd">    coulomb_friction : float, optional</span>
 <span class="sd">        Coulomb friction torque (Nm). Default is 0.0.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">max_torque</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">max_momentum</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">inertia</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RW&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"RW"</span><span class="p">,</span>
         <span class="n">static_friction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
         <span class="n">viscous_friction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
         <span class="n">coulomb_friction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Initialize reaction wheel parameters.</span>
 
 <span class="sd">        Parameters</span>
@@ -137,14 +137,14 @@
 <span class="sd">        inertia : float | None, optional</span>
 <span class="sd">            Wheel inertia ($kg \cdot m^2$).</span>
 <span class="sd">        name : str, optional</span>
-<span class="sd">            Actuator name. Default &quot;RW&quot;.</span>
+<span class="sd">            Actuator name. Default "RW".</span>
 <span class="sd">        static_friction : float, optional</span>
 <span class="sd">            Static friction torque (Nm).</span>
 <span class="sd">        viscous_friction : float, optional</span>
 <span class="sd">            Viscous coefficient ($Nm / (rad/s)$).</span>
 <span class="sd">        coulomb_friction : float, optional</span>
 <span class="sd">            Coulomb friction torque (Nm).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">saturation</span><span class="o">=</span><span class="n">max_torque</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_momentum</span> <span class="o">=</span> <span class="n">max_momentum</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inertia</span> <span class="o">=</span> <span class="n">inertia</span>
@@ -155,13 +155,9 @@
 <div class="viewcode-block" id="ReactionWheel.command">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.reaction_wheel.ReactionWheel.command">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">torque_cmd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">current_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">torque_cmd</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">current_speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">        Calculate delivered motor torque.</span>
 
 <span class="sd">        Friction Model:</span>
@@ -178,10 +174,10 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Actual torque delivered to the spacecraft (Nm).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">torque_cmd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;torque_cmd is required.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"torque_cmd is required."</span><span class="p">)</span>
             <span class="n">torque_cmd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">torque</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_deadband</span><span class="p">(</span><span class="n">torque_cmd</span><span class="p">)</span>
         <span class="n">torque</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply_saturation</span><span class="p">(</span><span class="n">torque</span><span class="p">))</span>
@@ -208,10 +204,6 @@
 
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">torque</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

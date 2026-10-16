@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.kalman_filters.imm</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Interacting Multiple Model (IMM) Filter for switching-mode systems.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
@@ -89,7 +89,7 @@
 <div class="viewcode-block" id="IMM">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.imm.IMM">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">IMM</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Interacting Multiple Model (IMM) Filter.</span>
 
 <span class="sd">    Estimates the state of a system that can switch between multiple discrete</span>
@@ -102,7 +102,7 @@
 <span class="sd">        List of filter objects (e.g., KF, EKF, UKF).</span>
 <span class="sd">    transition_matrix : np.ndarray</span>
 <span class="sd">        Model transition probability matrix (N x N), where $T_{ij} = P(M_j | M_i)$.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">transition_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
@@ -118,7 +118,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">mu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for mu_probs (backward compatibility).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Alias for mu_probs (backward compatibility)."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_probs</span>
 
     <span class="nd">@mu</span><span class="o">.</span><span class="n">setter</span>
@@ -128,7 +128,7 @@
 <div class="viewcode-block" id="IMM.predict">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.imm.IMM.predict">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Predict step (Mixing and model-specific prediction).</span>
 
 <span class="sd">        Parameters</span>
@@ -136,8 +136,8 @@
 <span class="sd">        dt : float</span>
 <span class="sd">            Time step (s).</span>
 <span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional arguments passed to the sub-filters&#39; predict methods.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            Additional arguments passed to the sub-filters' predict methods.</span>
+<span class="sd">        """</span>
         <span class="c1"># Interaction (Mixing)</span>
         <span class="c1"># Calculate normalization constants cj = sum(Tij * mui)</span>
         <span class="n">c_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_probs</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">transition_matrix</span>
@@ -166,13 +166,17 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x_mixed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">p_mixed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
-            <span class="c1"># Support both &#39;fx&#39; and &#39;fx_func&#39; keywords</span>
-            <span class="n">fx_func</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fx_func&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fx&quot;</span><span class="p">))</span>
+            <span class="c1"># Support both 'fx' and 'fx_func' keywords</span>
+            <span class="n">fx_func</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"fx_func"</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"fx"</span><span class="p">))</span>
 
             <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s2">&quot;fx_func&quot;</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span> <span class="ow">and</span> <span class="n">fx_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">fx_func</span><span class="o">=</span><span class="n">fx_func</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;fx&quot;</span><span class="p">,</span> <span class="s2">&quot;fx_func&quot;</span><span class="p">]})</span>
-            <span class="k">elif</span> <span class="s2">&quot;dt&quot;</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">"fx_func"</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span> <span class="ow">and</span> <span class="n">fx_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+                    <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span>
+                    <span class="n">fx_func</span><span class="o">=</span><span class="n">fx_func</span><span class="p">,</span>
+                    <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"fx"</span><span class="p">,</span> <span class="s2">"fx_func"</span><span class="p">]},</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">"dt"</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
@@ -181,7 +185,7 @@
 <div class="viewcode-block" id="IMM.update">
 <a class="viewcode-back" href="../../../api/opengnc.kalman_filters.html#opengnc.kalman_filters.imm.IMM.update">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update step (Model-specific update and mode probability update).</span>
 
 <span class="sd">        Parameters</span>
@@ -189,15 +193,22 @@
 <span class="sd">        z : np.ndarray</span>
 <span class="sd">            Measurement vector (dim_z,).</span>
 <span class="sd">        **kwargs : Any</span>
-<span class="sd">            Additional arguments passed to the sub-filters&#39; update methods.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Support both &#39;hx&#39; and &#39;hx_func&#39; keywords</span>
-        <span class="n">hx_func</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hx_func&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hx&quot;</span><span class="p">))</span>
+<span class="sd">            Additional arguments passed to the sub-filters' update methods.</span>
+<span class="sd">        """</span>
+        <span class="c1"># Support both 'hx' and 'hx_func' keywords</span>
+        <span class="n">hx_func</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"hx_func"</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"hx"</span><span class="p">))</span>
 
         <span class="n">likelihoods</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_models</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_models</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s2">&quot;hx_func&quot;</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span> <span class="ow">and</span> <span class="n">hx_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">hx_func</span><span class="o">=</span><span class="n">hx_func</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;hx&quot;</span><span class="p">,</span> <span class="s2">&quot;hx_func&quot;</span><span class="p">]})</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="s2">"hx_func"</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span>
+                <span class="ow">and</span> <span class="n">hx_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="n">z</span><span class="p">,</span>
+                    <span class="n">hx_func</span><span class="o">=</span><span class="n">hx_func</span><span class="p">,</span>
+                    <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"hx"</span><span class="p">,</span> <span class="s2">"hx_func"</span><span class="p">]},</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">likelihoods</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_likelihood</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
@@ -220,7 +231,7 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_likelihood</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate Gaussian measurement likelihood for a specific model.</span>
 
 <span class="sd">        Parameters</span>
@@ -234,15 +245,15 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Likelihood value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="n">model_idx</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">"H"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">):</span>
             <span class="n">h_mat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">H</span>
             <span class="n">resid</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="p">(</span><span class="n">h_mat</span> <span class="o">@</span> <span class="n">f</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
             <span class="n">s_mat</span> <span class="o">=</span> <span class="p">(</span><span class="n">h_mat</span> <span class="o">@</span> <span class="n">f</span><span class="o">.</span><span class="n">P</span> <span class="o">@</span> <span class="n">h_mat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="n">R</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Fallback for filters that don&#39;t expose H (like UKF/CKF)</span>
+            <span class="c1"># Fallback for filters that don't expose H (like UKF/CKF)</span>
             <span class="k">return</span> <span class="mf">1.0</span>
 
         <span class="n">inv_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">s_mat</span><span class="p">)</span>
@@ -250,10 +261,6 @@
         <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
         <span class="n">exponent</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">resid</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_s</span> <span class="o">@</span> <span class="n">resid</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">((</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">**</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">det_s</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">exponent</span><span class="p">))</span></div>
-
-
-
-
 
 </pre></div>
 

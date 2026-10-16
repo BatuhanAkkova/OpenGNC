@@ -14,6 +14,7 @@ Subpackages
    opengnc.disturbances
    opengnc.environment
    opengnc.experimental
+   opengnc.fdir
    opengnc.guidance
    opengnc.integrators
    opengnc.interfaces

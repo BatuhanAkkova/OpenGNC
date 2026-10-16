@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.actuators.cmg</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Control Moment Gyro (CMG) actuator model.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -92,7 +92,7 @@
 <div class="viewcode-block" id="ControlMomentGyro">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.cmg.ControlMomentGyro">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ControlMomentGyro</span><span class="p">(</span><span class="n">Actuator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Control Moment Gyro (CMG) Actuator.</span>
 
 <span class="sd">    Models torque produced by changing the orientation of a constant-speed momentum wheel.</span>
@@ -107,17 +107,17 @@
 <span class="sd">    spin_axis_init : np.ndarray</span>
 <span class="sd">        Unit vector of the initial spin axis (3,).</span>
 <span class="sd">    name : str, optional</span>
-<span class="sd">        Actuator name. Default is &quot;CMG&quot;.</span>
+<span class="sd">        Actuator name. Default is "CMG".</span>
 <span class="sd">    max_gimbal_rate : float, optional</span>
 <span class="sd">        Maximum gimbal angular velocity (rad/s).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">wheel_momentum</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">gimbal_axis</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">spin_axis_init</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;CMG&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"CMG"</span><span class="p">,</span>
         <span class="n">max_gimbal_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">saturation</span><span class="o">=</span><span class="n">max_gimbal_rate</span><span class="p">)</span>
@@ -137,7 +137,7 @@
 <div class="viewcode-block" id="ControlMomentGyro.get_axes">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.cmg.ControlMomentGyro.get_axes">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Get the current spin and transverse axes for a given gimbal angle.</span>
 
 <span class="sd">        Parameters</span>
@@ -149,7 +149,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        tuple[np.ndarray, np.ndarray]</span>
 <span class="sd">            (spin_axis, transverse_axis).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">theta</span> <span class="o">=</span> <span class="n">angle</span> <span class="k">if</span> <span class="n">angle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">gimbal_angle</span>
         <span class="c1"># Rotation about gimbal axis</span>
         <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_axis</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_axis</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
@@ -160,13 +160,9 @@
 <div class="viewcode-block" id="ControlMomentGyro.command">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.cmg.ControlMomentGyro.command">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">gimbal_rate_cmd</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">gimbal_rate_cmd</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Calculate torque produced by gimbal rate.</span>
 
 <span class="sd">        Parameters</span>
@@ -182,11 +178,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Torque vector (Nm) (3,).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Apply rate limits</span>
         <span class="k">if</span> <span class="n">gimbal_rate_cmd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;gimbal_rate_cmd is required.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"gimbal_rate_cmd is required."</span><span class="p">)</span>
             <span class="n">gimbal_rate_cmd</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">g_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply_saturation</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">gimbal_rate_cmd</span><span class="p">)))</span>
 
@@ -208,7 +204,7 @@
 <div class="viewcode-block" id="ControlMomentGyro.get_torque_jacobian">
 <a class="viewcode-back" href="../../../api/opengnc.actuators.html#opengnc.actuators.cmg.ControlMomentGyro.get_torque_jacobian">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_torque_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the Jacobian mapping gimbal rate to torque: T = A * g_rate.</span>
 
 <span class="sd">        Parameters</span>
@@ -220,14 +216,10 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            (3, 1) mapping matrix.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_axes</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h_mag</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 </div>
-
-
-
-
 
 </pre></div>
 

@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.guidance.attitude_guidance</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Attitude guidance laws for Nadir, Sun, and Target pointing, and trajectory planning.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -88,7 +88,7 @@
 <div class="viewcode-block" id="nadir_pointing_reference">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.attitude_guidance.nadir_pointing_reference">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nadir_pointing_reference</span><span class="p">(</span><span class="n">pos_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">vel_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generate a reference quaternion for Nadir pointing.</span>
 
 <span class="sd">    The target frame is defined as:</span>
@@ -107,7 +107,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Reference quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">pos_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pos_eci</span><span class="p">)</span>
     <span class="n">vel_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">vel_eci</span><span class="p">)</span>
 
@@ -132,7 +132,7 @@
 <div class="viewcode-block" id="sun_pointing_reference">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.attitude_guidance.sun_pointing_reference">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">sun_pointing_reference</span><span class="p">(</span><span class="n">sun_vec_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generate a reference quaternion for Sun pointing.</span>
 
 <span class="sd">    Primary objective is to align the spacecraft body X-axis with the Sun vector.</span>
@@ -147,7 +147,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Reference quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">sun_dir</span> <span class="o">=</span> <span class="n">sun_vec_eci</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">sun_vec_eci</span><span class="p">)</span>
 
     <span class="c1"># Shortest rotation from ECI X to Sun vector</span>
@@ -169,7 +169,7 @@
 <div class="viewcode-block" id="target_tracking_reference">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.attitude_guidance.target_tracking_reference">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">target_tracking_reference</span><span class="p">(</span><span class="n">pos_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target_pos_eci</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generate a reference quaternion to track a target position.</span>
 
 <span class="sd">    The target frame is defined with the Z-axis aligned with the boresight (towards target).</span>
@@ -185,7 +185,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Reference quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rel_pos</span> <span class="o">=</span> <span class="n">target_pos_eci</span> <span class="o">-</span> <span class="n">pos_eci</span>
     <span class="n">z_axis</span> <span class="o">=</span> <span class="n">rel_pos</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">rel_pos</span><span class="p">)</span>
 
@@ -208,7 +208,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">eigenaxis_slew_path_planning</span><span class="p">(</span>
     <span class="n">q_initial</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">q_final</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">time_span</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Generate an eigenaxis slew profile using Spherical Linear Interpolation (SLERP).</span>
 
 <span class="sd">    Parameters</span>
@@ -224,7 +224,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    list[np.ndarray]</span>
 <span class="sd">        List of interpolated quaternions along the path.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">attitude_blending</span><span class="p">(</span><span class="n">q_initial</span><span class="p">,</span> <span class="n">q_final</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">time_span</span><span class="p">]</span></div>
 
 
@@ -232,7 +232,7 @@
 <div class="viewcode-block" id="attitude_blending">
 <a class="viewcode-back" href="../../../api/opengnc.guidance.html#opengnc.guidance.attitude_guidance.attitude_blending">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">attitude_blending</span><span class="p">(</span><span class="n">q1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    SLERP (Spherical Linear Interpolation) between two orientation quaternions.</span>
 
 <span class="sd">    Parameters</span>
@@ -248,7 +248,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Blended/interpolated quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">quat1</span> <span class="o">=</span> <span class="n">quat_normalize</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
     <span class="n">quat2</span> <span class="o">=</span> <span class="n">quat_normalize</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
 
@@ -278,8 +278,8 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_rmat_to_quat</span><span class="p">(</span><span class="n">r_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert a 3x3 rotation matrix to a quaternion using Shepperd&#39;s algorithm.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Convert a 3x3 rotation matrix to a quaternion using Shepperd's algorithm.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -290,7 +290,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">tr_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">r_mat</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tr_val</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">scale_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">tr_val</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
@@ -318,10 +318,6 @@
         <span class="n">quat_z</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">scale_s</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">quat_x</span><span class="p">,</span> <span class="n">quat_y</span><span class="p">,</span> <span class="n">quat_z</span><span class="p">,</span> <span class="n">quat_w</span><span class="p">])</span>
-
-
-
-
 </pre></div>
 
            </div>

@@ -76,9 +76,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opengnc.utils.state_conversion</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">State and attitude representation conversion utilities.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -91,7 +91,7 @@
 <div class="viewcode-block" id="quat_to_dcm">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.quat_to_dcm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">quat_to_dcm</span><span class="p">(</span><span class="n">q</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert a quaternion to a Direction Cosine Matrix (DCM).</span>
 
 <span class="sd">    Parameters</span>
@@ -103,7 +103,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 Direction Cosine Matrix (Body-to-ECI rotation).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">qu</span><span class="o">.</span><span class="n">quat_to_rmat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q</span><span class="p">))</span></div>
 
 
@@ -111,7 +111,7 @@
 <div class="viewcode-block" id="quat_to_euler">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.quat_to_euler">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">quat_to_euler</span><span class="p">(</span><span class="n">q</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Convert a quaternion to Euler angles in a specified sequence.</span>
 
 <span class="sd">    Parameters</span>
@@ -119,13 +119,13 @@
 <span class="sd">    q : np.ndarray</span>
 <span class="sd">        Quaternion [x, y, z, w].</span>
 <span class="sd">    sequence : str</span>
-<span class="sd">        Rotation sequence (e.g., &#39;321&#39;, &#39;313&#39;).</span>
+<span class="sd">        Rotation sequence (e.g., '321', '313').</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Euler angles $[\theta_1, \theta_2, \theta_3]$ in radians.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">dcm</span> <span class="o">=</span> <span class="n">quat_to_dcm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">q</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">dcm_to_euler</span><span class="p">(</span><span class="n">dcm</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span></div>
 
@@ -134,10 +134,10 @@
 <div class="viewcode-block" id="dcm_to_quat">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.dcm_to_quat">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">dcm_to_quat</span><span class="p">(</span><span class="n">dcm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert a Direction Cosine Matrix to a quaternion.</span>
 
-<span class="sd">    Uses Shepperd&#39;s algorithm for numerical stability.</span>
+<span class="sd">    Uses Shepperd's algorithm for numerical stability.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -148,7 +148,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Unit quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dcm</span><span class="p">)</span>
     <span class="n">tr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
 
@@ -184,7 +184,7 @@
 <div class="viewcode-block" id="dcm_to_euler">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.dcm_to_euler">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">dcm_to_euler</span><span class="p">(</span><span class="n">dcm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert a Direction Cosine Matrix to Euler angles.</span>
 
 <span class="sd">    Parameters</span>
@@ -192,13 +192,13 @@
 <span class="sd">    dcm : np.ndarray</span>
 <span class="sd">        3x3 Direction Cosine Matrix.</span>
 <span class="sd">    sequence : str</span>
-<span class="sd">        Rotation sequence (e.g., &#39;321&#39;).</span>
+<span class="sd">        Rotation sequence (e.g., '321').</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Euler angles in radians.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">dcm_to_euler</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dcm</span><span class="p">),</span> <span class="n">sequence</span><span class="p">)</span></div>
 
 
@@ -206,7 +206,7 @@
 <div class="viewcode-block" id="euler_to_quat">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.euler_to_quat">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">euler_to_quat</span><span class="p">(</span><span class="n">angles</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Euler angles to a quaternion.</span>
 
 <span class="sd">    Parameters</span>
@@ -220,7 +220,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        Quaternion [x, y, z, w].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">dcm</span> <span class="o">=</span> <span class="n">euler_to_dcm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">angles</span><span class="p">),</span> <span class="n">sequence</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dcm_to_quat</span><span class="p">(</span><span class="n">dcm</span><span class="p">)</span></div>
 
@@ -229,7 +229,7 @@
 <div class="viewcode-block" id="euler_to_dcm">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.euler_to_dcm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">euler_to_dcm</span><span class="p">(</span><span class="n">angles</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Convert Euler angles to a Direction Cosine Matrix.</span>
 
 <span class="sd">    Parameters</span>
@@ -243,14 +243,15 @@
 <span class="sd">    -------</span>
 <span class="sd">    np.ndarray</span>
 <span class="sd">        3x3 Direction Cosine Matrix.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">euler_to_dcm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">angles</span><span class="p">),</span> <span class="n">sequence</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="rot_x">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.rot_x">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_x</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the x-axis rotation matrix for the given angle.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Return the x-axis rotation matrix for the given angle."""</span>
     <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">rot_x</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
 
 
@@ -258,7 +259,7 @@
 <div class="viewcode-block" id="rot_y">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.rot_y">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_y</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the y-axis rotation matrix for the given angle.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Return the y-axis rotation matrix for the given angle."""</span>
     <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">rot_y</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
 
 
@@ -266,9 +267,8 @@
 <div class="viewcode-block" id="rot_z">
 <a class="viewcode-back" href="../../../api/opengnc.utils.html#opengnc.utils.state_conversion.rot_z">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">rot_z</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the z-axis rotation matrix for the given angle.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Return the z-axis rotation matrix for the given angle."""</span>
     <span class="k">return</span> <span class="n">eu</span><span class="o">.</span><span class="n">rot_z</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span></div>
-
 
 </pre></div>
 
