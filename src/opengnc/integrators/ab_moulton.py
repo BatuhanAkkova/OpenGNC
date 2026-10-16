@@ -29,7 +29,14 @@ class AdamsBashforthMoultonIntegrator(Integrator):
             np.array([36799, 139849, -121797, 123133, -88547, 41499, -11351, 1375]) / 120960
         )
 
-    def integrate(self, f: Callable, t_span: tuple[float, float], y0: np.ndarray, dt: float = 10.0, **kwargs: Any) -> tuple[np.ndarray, np.ndarray]:
+    def integrate(
+        self,
+        f: Callable,
+        t_span: tuple[float, float],
+        y0: np.ndarray,
+        dt: float = 10.0,
+        **kwargs: Any,
+    ) -> tuple[np.ndarray, np.ndarray]:
         """
         Integrate over a time span using Adams-Bashforth-Moulton 8th order.
         """
@@ -102,14 +109,12 @@ class AdamsBashforthMoultonIntegrator(Integrator):
 
         return np.array(t_values), np.array(y_values)
 
-    def step(self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any) -> tuple[np.ndarray, float, float]:
+    def step(
+        self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any
+    ) -> tuple[np.ndarray, float, float]:
         """
         Single step interface (not recommended for multi-step integrators).
         """
         raise NotImplementedError(
             "Adams-Bashforth-Moulton requires historical states. Use integrate method."
         )
-
-
-
-

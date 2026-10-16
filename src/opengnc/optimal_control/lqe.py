@@ -101,7 +101,3 @@ class LQE:
         self.L = term.T
 
         return self.L
-
-
-
-

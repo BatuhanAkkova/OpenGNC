@@ -2,7 +2,6 @@
 Continuous thrust guidance laws including Q-law and ZEM/ZEV feedback.
 """
 
-
 import numpy as np
 from scipy.integrate import solve_bvp
 from scipy.optimize import minimize
@@ -75,7 +74,9 @@ def q_law_guidance(
     if np.sin(i) == 0:
         term2 = np.zeros(3)
     else:
-        term2 = (r_mag * np.sin(theta) * np.cos(i) / (h_mag * np.sin(i))) * np.array([0.0, 0.0, 1.0])
+        term2 = (r_mag * np.sin(theta) * np.cos(i) / (h_mag * np.sin(i))) * np.array(
+            [0.0, 0.0, 1.0]
+        )
     b_argp = term1 - term2
 
     b_mat = np.vstack([b_a, b_e, b_i, b_raan, b_argp])
@@ -149,9 +150,7 @@ def zem_zev_guidance(
     return np.asarray((6.0 / t_go**2) * zem - (2.0 / t_go) * zev)
 
 
-def gravity_turn_guidance(
-    vel: np.ndarray, accel_mag: float, mode: str = "descent"
-) -> np.ndarray:
+def gravity_turn_guidance(vel: np.ndarray, accel_mag: float, mode: str = "descent") -> np.ndarray:
     """
     Gravity turn steering law.
 
@@ -330,9 +329,7 @@ def indirect_optimal_guidance(
         """
         # Initial position and velocity
         # Final position and velocity
-        return np.asarray(
-            np.concatenate([ya[:3] - r0, ya[3:6] - v0, yb[:3] - rf, yb[3:6] - vf])
-        )
+        return np.asarray(np.concatenate([ya[:3] - r0, ya[3:6] - v0, yb[:3] - rf, yb[3:6] - vf]))
 
     t_init = np.linspace(0, tf, 5)
     y_init = np.zeros((12, t_init.size))
@@ -457,12 +454,10 @@ def direct_collocation_guidance(
         x_guess[i * 9 + 3 : i * 9 + 6] = v0 + frac * (vf - v0)
         # Accelerations are initialized to zero
 
-    res = minimize(objective, x_guess, constraints={"type": "eq", "fun": dynamic_constraints}, method="SLSQP")
+    res = minimize(
+        objective, x_guess, constraints={"type": "eq", "fun": dynamic_constraints}, method="SLSQP"
+    )
 
     if res.success:
         return np.asarray(res.x.reshape((n_nodes, 9)))
     return None
-
-
-
-

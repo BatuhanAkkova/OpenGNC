@@ -69,7 +69,9 @@ class MissionSimulator:
         self.time = t0
         self.state = initial_state
 
-    def schedule_event(self, t: float, callback: Callable[..., Any], *args: Any, **kwargs: Any) -> None:
+    def schedule_event(
+        self, t: float, callback: Callable[..., Any], *args: Any, **kwargs: Any
+    ) -> None:
         """
         Register a discrete event for future execution.
 
@@ -142,7 +144,3 @@ class MissionSimulator:
             self.step(dt)
 
         return self.logger.history if self.logger else self.state
-
-
-
-

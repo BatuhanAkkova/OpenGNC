@@ -35,7 +35,3 @@ __all__ = [
     "compute_injection_state",
     "predict_lifetime",
 ]
-
-
-
-

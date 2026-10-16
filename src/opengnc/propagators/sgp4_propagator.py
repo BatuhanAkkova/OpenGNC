@@ -10,6 +10,7 @@ import numpy as np
 
 try:
     from sgp4.api import Satrec
+
     SGP4_AVAILABLE = True
 except ImportError:
     SGP4_AVAILABLE = False
@@ -113,7 +114,3 @@ class Sgp4Propagator(Propagator):
         if err != 0:
             raise RuntimeError(f"SGP4 error code {err}")
         return np.array(r_km) * 1000.0, np.array(v_kms) * 1000.0
-
-
-
-

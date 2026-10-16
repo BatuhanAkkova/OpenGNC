@@ -78,7 +78,3 @@ def triad(
     m_r = np.column_stack((t1r, t2r, t3r))
 
     return np.asarray(m_b @ m_r.T)
-
-
-
-

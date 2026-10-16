@@ -2,7 +2,6 @@
 H2 Optimal Controller (LQG equivalent).
 """
 
-
 import numpy as np
 
 from .lqg import LQG
@@ -65,7 +64,3 @@ class H2Controller(LQG):
         self.K = self.lqr.compute_gain()
         self.L = self.lqe.compute_gain()
         return self.K, self.L
-
-
-
-

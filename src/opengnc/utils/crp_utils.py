@@ -76,11 +76,7 @@ def crp_to_dcm(q_crp: np.ndarray) -> np.ndarray:
     norm_sq = np.sum(cv**2)
     q1, q2, q3 = cv
 
-    s_mat = np.array([
-        [0.0, -q3,  q2],
-        [q3,  0.0, -q1],
-        [-q2, q1,  0.0]
-    ])
+    s_mat = np.array([[0.0, -q3, q2], [q3, 0.0, -q1], [-q2, q1, 0.0]])
 
     return cast(np.ndarray, np.eye(3) + (2.0 * s_mat @ s_mat + 2.0 * s_mat) / (1.0 + norm_sq))
 
@@ -116,7 +112,3 @@ def crp_addition(q1: np.ndarray, q2: np.ndarray) -> np.ndarray:
         raise ValueError("CRP addition is singular (rotation equals 180 degrees).")
 
     return cast(np.ndarray, (qv1 + qv2 + np.cross(qv2, qv1)) / (1.0 - dot))
-
-
-
-

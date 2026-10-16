@@ -75,7 +75,3 @@ class AngleOnlyNavigation(OrbitDeterminationEKF):
             return h_mat
 
         self.ekf.update(np.asarray(u_meas), hx, h_jac)
-
-
-
-

@@ -2,7 +2,6 @@
 Navigation using GNSS (GPS) position and velocity measurements.
 """
 
-
 from typing import Any
 
 import numpy as np
@@ -24,7 +23,7 @@ class GPSNavigation(OrbitDeterminationEKF):
         r_meas: np.ndarray,
         v_meas: np.ndarray | None = None,
         gps_cov: np.ndarray | None = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         r"""
         Update state estimate using GNSS Cartesian measurements.
@@ -61,7 +60,9 @@ class GPSNavigation(OrbitDeterminationEKF):
                 # Scaled default covariance
                 r_mat = np.eye(6)
                 # Ensure self.ekf.R is captured correctly even if not initialized as expected
-                r_pos = self.ekf.R if (hasattr(self.ekf, 'R') and self.ekf.R.size > 0) else np.eye(3)
+                r_pos = (
+                    self.ekf.R if (hasattr(self.ekf, "R") and self.ekf.R.size > 0) else np.eye(3)
+                )
                 r_mat[:3, :3] = r_pos
                 r_mat[3:, 3:] = r_pos * 0.1  # Velocity noise heuristic
 
@@ -69,7 +70,3 @@ class GPSNavigation(OrbitDeterminationEKF):
         else:
             # Position only update
             self.update(rv)
-
-
-
-

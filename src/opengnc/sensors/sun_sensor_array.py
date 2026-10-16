@@ -39,7 +39,9 @@ class CoarseSunSensorArray(Sensor):
         self.i_max = i_max
         self.noise_std = noise_std
 
-    def measure(self, true_sun_vec: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_sun_vec: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_sun_vec is None:
             if not args:
                 raise ValueError("true_sun_vec is required.")
@@ -52,7 +54,10 @@ class CoarseSunSensorArray(Sensor):
             i_meas += np.random.normal(0, self.noise_std)
             measurements.append(float(max(0.0, i_meas)))
         values = np.array(measurements)
-        return self.build_measurement(values, metadata={"boresights": [b.copy() for b in self.boresights], "i_max": self.i_max})
+        return self.build_measurement(
+            values,
+            metadata={"boresights": [b.copy() for b in self.boresights], "i_max": self.i_max},
+        )
 
     def measurement_noise_std(self) -> np.ndarray:
         return np.full(len(self.boresights), float(self.noise_std), dtype=float)

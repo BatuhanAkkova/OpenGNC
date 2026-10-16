@@ -6,10 +6,7 @@ import numpy as np
 
 
 def compute_mahalanobis_distance(
-    x1: np.ndarray,
-    x2: np.ndarray,
-    cov1: np.ndarray,
-    cov2: np.ndarray
+    x1: np.ndarray, x2: np.ndarray, cov1: np.ndarray, cov2: np.ndarray
 ) -> float:
     r"""
     Compute the Mahalanobis statistical distance between two state estimates.
@@ -43,11 +40,7 @@ def compute_mahalanobis_distance(
 
 
 def correlate_tracks(
-    x1: np.ndarray,
-    x2: np.ndarray,
-    cov1: np.ndarray,
-    cov2: np.ndarray,
-    threshold: float = 3.0
+    x1: np.ndarray, x2: np.ndarray, cov1: np.ndarray, cov2: np.ndarray, threshold: float = 3.0
 ) -> bool:
     """
     Correlate two tracks based on a Mahalanobis distance threshold.
@@ -70,7 +63,3 @@ def correlate_tracks(
     """
     dist = compute_mahalanobis_distance(x1, x2, cov1, cov2)
     return dist <= threshold
-
-
-
-

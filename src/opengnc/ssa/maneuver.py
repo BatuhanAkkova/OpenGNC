@@ -2,7 +2,6 @@
 Debris Avoidance Maneuver Planning.
 """
 
-
 from typing import cast
 
 import numpy as np
@@ -70,7 +69,3 @@ def plan_avoidance_maneuver(
     d_est = d_curr + np.abs(dv_mag) * (3.0 * t_encounter if t_encounter > 10.0 else t_encounter)
 
     return dv_vec, float(d_est)
-
-
-
-

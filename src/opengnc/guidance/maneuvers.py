@@ -7,9 +7,7 @@ from __future__ import annotations
 import numpy as np
 
 
-def hohmann_transfer(
-    r1: float, r2: float, mu: float = 398600.4418
-) -> tuple[float, float, float]:
+def hohmann_transfer(r1: float, r2: float, mu: float = 398600.4418) -> tuple[float, float, float]:
     r"""
     Calculate Hohmann transfer $\Delta V$ and time of flight.
 
@@ -111,9 +109,7 @@ def bi_elliptic_transfer(
     return float(dv1), float(dv2), float(dv3), float(t_total)
 
 
-def phasing_maneuver(
-    a: float, t_phase: float, mu: float = 398600.4418
-) -> tuple[float, float]:
+def phasing_maneuver(a: float, t_phase: float, mu: float = 398600.4418) -> tuple[float, float]:
     """
     Calculate Delta-V required for an orbital phasing maneuver.
 
@@ -278,7 +274,3 @@ def optimal_combined_maneuver(
     di2_opt = delta_i - di1_opt
 
     return float(res.fun), di1_opt, di2_opt
-
-
-
-

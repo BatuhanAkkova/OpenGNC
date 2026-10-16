@@ -56,11 +56,7 @@ class Thruster(Actuator):
         self.isp: float | None = isp
 
     def command(
-        self,
-        thrust_cmd: float | None = None,
-        dt: float | None = None,
-        *args: Any,
-        **kwargs: Any
+        self, thrust_cmd: float | None = None, dt: float | None = None, *args: Any, **kwargs: Any
     ) -> float:
         """
         Calculate delivered thrust.
@@ -163,11 +159,7 @@ class ChemicalThruster(Thruster):
         super().__init__(max_thrust=max_thrust, isp=isp, min_impulse_bit=mib, name=name)
 
     def command(
-        self,
-        thrust_cmd: float | None = None,
-        dt: float | None = None,
-        *args: Any,
-        **kwargs: Any
+        self, thrust_cmd: float | None = None, dt: float | None = None, *args: Any, **kwargs: Any
     ) -> float:
         """
         Considers PWM constraints for chemical valve.
@@ -286,7 +278,9 @@ class ThrusterCluster:
         (N, 3) thrust unit vectors in body frame.
     """
 
-    def __init__(self, thrusters: list[Thruster], positions: np.ndarray, directions: np.ndarray) -> None:
+    def __init__(
+        self, thrusters: list[Thruster], positions: np.ndarray, directions: np.ndarray
+    ) -> None:
         self.thrusters = thrusters
         self.N = len(thrusters)
         self.pos = np.array(positions)
@@ -305,10 +299,7 @@ class ThrusterCluster:
         self.allocator = PseudoInverseAllocator(self.A)
 
     def command(
-        self,
-        force_torque_cmd: np.ndarray | None = None,
-        dt: float | None = None,
-        *args: Any
+        self, force_torque_cmd: np.ndarray | None = None, dt: float | None = None, *args: Any
     ) -> np.ndarray:
         """
         Distribute 6-DOF force/torque command to individual thrusters.
@@ -339,7 +330,3 @@ class ThrusterCluster:
             delivered_thrusts.append(delivered)
 
         return np.array(delivered_thrusts)
-
-
-
-

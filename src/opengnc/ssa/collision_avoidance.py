@@ -59,7 +59,7 @@ def plan_collision_avoidance_maneuver(
 
     mu = 3.986004418e14
     r_mag = np.linalg.norm(r_sat_tca)
-    n = np.sqrt(mu / r_mag**3) # Mean motion
+    n = np.sqrt(mu / r_mag**3)  # Mean motion
 
     # We want Phi_rv(t_tca, t_man)
     tau = t_man_before_tca
@@ -75,9 +75,13 @@ def plan_collision_avoidance_maneuver(
         # dr_t = (2/n) * (cos(n*t)-1) * dv_r + (1/n) * (4*sin(n*t)-3*n*t) * dv_t
         # dr_n = (1/n) * sin(n*t) * dv_n
 
-        dr_r = (1.0/n) * np.sin(n*tau) * dv_rtn[0] + (2.0/n) * (1.0 - np.cos(n*tau)) * dv_rtn[1]
-        dr_t = (2.0/n) * (np.cos(n*tau) - 1.0) * dv_rtn[0] + (1.0/n) * (4.0*np.sin(n*tau) - 3.0*n*tau) * dv_rtn[1]
-        dr_n = (1.0/n) * np.sin(n*tau) * dv_rtn[2]
+        dr_r = (1.0 / n) * np.sin(n * tau) * dv_rtn[0] + (2.0 / n) * (
+            1.0 - np.cos(n * tau)
+        ) * dv_rtn[1]
+        dr_t = (2.0 / n) * (np.cos(n * tau) - 1.0) * dv_rtn[0] + (1.0 / n) * (
+            4.0 * np.sin(n * tau) - 3.0 * n * tau
+        ) * dv_rtn[1]
+        dr_n = (1.0 / n) * np.sin(n * tau) * dv_rtn[2]
 
         dr_rtn = np.array([dr_r, dr_t, dr_n])
 
@@ -96,9 +100,7 @@ def plan_collision_avoidance_maneuver(
 
         # Compute Pc
         pc = compute_pc_chan(
-            r_sat_new, v_sat_tca, cov_sat_tca,
-            r_deb_tca, v_deb_tca, cov_deb_tca,
-            hbr
+            r_sat_new, v_sat_tca, cov_sat_tca, r_deb_tca, v_deb_tca, cov_deb_tca, hbr
         )
         return pc
 
@@ -107,9 +109,9 @@ def plan_collision_avoidance_maneuver(
 
     res = minimize(
         lambda x: np.linalg.norm(x),
-        x0=np.array([0.0, 1e-4, 0.0]), # Small along-track start
-        constraints={'type': 'ineq', 'fun': lambda x: pc_limit - get_cam_pc(x)},
-        bounds=[(-0.1, 0.1), (-0.1, 0.1), (-0.1, 0.1)] # Limit to 10cm/s for safety
+        x0=np.array([0.0, 1e-4, 0.0]),  # Small along-track start
+        constraints={"type": "ineq", "fun": lambda x: pc_limit - get_cam_pc(x)},
+        bounds=[(-0.1, 0.1), (-0.1, 0.1), (-0.1, 0.1)],  # Limit to 10cm/s for safety
     )
 
     dv_rtn_opt = res.x

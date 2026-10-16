@@ -89,7 +89,11 @@ class IMM:
 
             sig = inspect.signature(self.filters[i].predict)
             if "fx_func" in sig.parameters and fx_func is not None:
-                self.filters[i].predict(dt=dt, fx_func=fx_func, **{k: v for k, v in kwargs.items() if k not in ["fx", "fx_func"]})
+                self.filters[i].predict(
+                    dt=dt,
+                    fx_func=fx_func,
+                    **{k: v for k, v in kwargs.items() if k not in ["fx", "fx_func"]},
+                )
             elif "dt" in sig.parameters:
                 self.filters[i].predict(dt=dt, **kwargs)
             else:
@@ -111,8 +115,15 @@ class IMM:
 
         likelihoods = np.zeros(self.num_models)
         for i in range(self.num_models):
-            if "hx_func" in inspect.signature(self.filters[i].update).parameters and hx_func is not None:
-                self.filters[i].update(z, hx_func=hx_func, **{k: v for k, v in kwargs.items() if k not in ["hx", "hx_func"]})
+            if (
+                "hx_func" in inspect.signature(self.filters[i].update).parameters
+                and hx_func is not None
+            ):
+                self.filters[i].update(
+                    z,
+                    hx_func=hx_func,
+                    **{k: v for k, v in kwargs.items() if k not in ["hx", "hx_func"]},
+                )
             else:
                 self.filters[i].update(z, **kwargs)
             likelihoods[i] = self._calculate_likelihood(i, z)
@@ -164,7 +175,3 @@ class IMM:
         dim = len(z)
         exponent = -0.5 * (resid.T @ inv_s @ resid)
         return float((1.0 / np.sqrt((2 * np.pi) ** dim * det_s)) * np.exp(exponent))
-
-
-
-

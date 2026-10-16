@@ -59,12 +59,7 @@ def fuel_slosh_dynamics(
 
 
 def fuel_slosh_torque(
-    m_p: float,
-    L: float,
-    theta: float,
-    theta_dot: float,
-    theta_ddot: float,
-    r_base: np.ndarray
+    m_p: float, L: float, theta: float, theta_dot: float, theta_ddot: float, r_base: np.ndarray
 ) -> np.ndarray:
     """
     Compute reaction torque from slosh bob.
@@ -104,7 +99,3 @@ def fuel_slosh_torque(
     # Torque: r_bob x F_react
     r_bob = rb + L * e_r
     return np.cross(r_bob, force_react)
-
-
-
-

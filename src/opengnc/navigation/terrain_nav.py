@@ -2,7 +2,6 @@
 Terrain-Relative Navigation (TRN) feature matching and localization update.
 """
 
-
 import numpy as np
 
 
@@ -24,9 +23,7 @@ class FeatureMatchingTRN:
         self.map = np.stack([np.asarray(m) for m in map_database])
 
     def match_features(
-        self,
-        observed_features: list[np.ndarray],
-        dist_threshold: float = 10.0
+        self, observed_features: list[np.ndarray], dist_threshold: float = 10.0
     ) -> list[tuple[np.ndarray, np.ndarray]]:
         """
         Match observed features to the global map.
@@ -59,7 +56,7 @@ def map_relative_localization_update(
     x_state: np.ndarray,
     p_cov: np.ndarray,
     matches: list[tuple[np.ndarray, np.ndarray]],
-    r_noise: np.ndarray
+    r_noise: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray]:
     r"""
     EKF Measurement Update using TRN feature matches.
@@ -106,7 +103,3 @@ def map_relative_localization_update(
         p = (np.eye(len(x)) - k_gain @ h_mat) @ p
 
     return x, p
-
-
-
-

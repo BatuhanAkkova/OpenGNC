@@ -40,8 +40,8 @@ class CR3BP:
         """
         x, y, z, vx, vy, vz = state
 
-        r1 = np.sqrt((x + self.mu)**2 + y**2 + z**2)
-        r2 = np.sqrt((x - 1 + self.mu)**2 + y**2 + z**2)
+        r1 = np.sqrt((x + self.mu) ** 2 + y**2 + z**2)
+        r2 = np.sqrt((x - 1 + self.mu) ** 2 + y**2 + z**2)
 
         # Potential derivatives
         ax = x - (1 - self.mu) * (x + self.mu) / r1**3 - self.mu * (x - 1 + self.mu) / r2**3
@@ -73,8 +73,8 @@ class CR3BP:
         """
         x, y, z, vx, vy, vz = state
 
-        r1 = np.sqrt((x + self.mu)**2 + y**2 + z**2)
-        r2 = np.sqrt((x - 1 + self.mu)**2 + y**2 + z**2)
+        r1 = np.sqrt((x + self.mu) ** 2 + y**2 + z**2)
+        r2 = np.sqrt((x - 1 + self.mu) ** 2 + y**2 + z**2)
 
         v_sq = vx**2 + vy**2 + vz**2
         potential = (x**2 + y**2) + 2 * (1 - self.mu) / r1 + 2 * self.mu / r2

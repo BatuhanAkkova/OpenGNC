@@ -199,7 +199,9 @@ class UKF_Attitude(UKF):
             q_init = np.array([0.0, 0.0, 0.0, 1.0])
         if bias_init is None:
             bias_init = np.zeros(3)
-        self.x = np.concatenate([np.asarray(q_init, dtype=float), np.asarray(bias_init, dtype=float)])
+        self.x = np.concatenate(
+            [np.asarray(q_init, dtype=float), np.asarray(bias_init, dtype=float)]
+        )
 
     def predict(  # type: ignore[override]
         self,
@@ -235,7 +237,9 @@ class UKF_Attitude(UKF):
             return
 
         if measurement.quantity not in self.VECTOR_QUANTITIES:
-            raise ValueError(f"Unsupported UKF attitude measurement quantity: {measurement.quantity}")
+            raise ValueError(
+                f"Unsupported UKF attitude measurement quantity: {measurement.quantity}"
+            )
 
         reference = measurement.metadata.get("reference")
         if reference is None:

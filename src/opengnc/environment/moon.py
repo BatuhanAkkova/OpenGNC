@@ -44,9 +44,9 @@ class Moon:
 
         # 2. Mean fundamental arguments [deg]
         lam_m = 218.316 + 481267.8813 * t_cen  # Mean longitude
-        m_m = np.radians((134.963 + 477198.8676 * t_cen) % 360)    # Moon mean anomaly
+        m_m = np.radians((134.963 + 477198.8676 * t_cen) % 360)  # Moon mean anomaly
         d_rad = np.radians((297.850 + 445267.1115 * t_cen) % 360)  # Moon mean elongation
-        u_rad = np.radians((93.272 + 483202.0175 * t_cen) % 360)   # Moon mean latitude
+        u_rad = np.radians((93.272 + 483202.0175 * t_cen) % 360)  # Moon mean latitude
 
         # 4. Longitude series (fundamental terms)
         lon = (
@@ -83,11 +83,11 @@ class Moon:
         eps = np.radians(23.439291)  # Obliquity
 
         x = r_mag_km * np.cos(lat_rad) * np.cos(lon_rad)
-        y = r_mag_km * (np.cos(eps) * np.cos(lat_rad) * np.sin(lon_rad) - np.sin(eps) * np.sin(lat_rad))
-        z = r_mag_km * (np.sin(eps) * np.cos(lat_rad) * np.sin(lon_rad) + np.cos(eps) * np.sin(lat_rad))
+        y = r_mag_km * (
+            np.cos(eps) * np.cos(lat_rad) * np.sin(lon_rad) - np.sin(eps) * np.sin(lat_rad)
+        )
+        z = r_mag_km * (
+            np.sin(eps) * np.cos(lat_rad) * np.sin(lon_rad) + np.cos(eps) * np.sin(lat_rad)
+        )
 
         return np.array([x, y, z]) * 1000.0  # Meters
-
-
-
-

@@ -2,7 +2,6 @@
 Geometric Controller on SO(3) for attitude tracking.
 """
 
-
 from typing import cast
 
 import numpy as np
@@ -40,11 +39,12 @@ def hat_map(v: np.ndarray) -> np.ndarray:
         $3\times 3$ skew-symmetric matrix.
     """
     v_vec = np.asarray(v).flatten()
-    return cast(np.ndarray, np.array([
-        [0.0, -v_vec[2], v_vec[1]],
-        [v_vec[2], 0.0, -v_vec[0]],
-        [-v_vec[1], v_vec[0], 0.0]
-    ]))
+    return cast(
+        np.ndarray,
+        np.array(
+            [[0.0, -v_vec[2], v_vec[1]], [v_vec[2], 0.0, -v_vec[0]], [-v_vec[1], v_vec[0], 0.0]]
+        ),
+    )
 
 
 class GeometricController:
@@ -127,7 +127,3 @@ class GeometricController:
 
         # Control Law: M = -kR*eR - kW*eW + gyro - ff
         return cast(np.ndarray, -self.kR * eR - self.kW * eW + M_gyro - M_ff)
-
-
-
-

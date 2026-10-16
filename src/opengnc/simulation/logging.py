@@ -89,7 +89,3 @@ class SimulationLogger:
                     pass
         except ImportError:
             print("Warning: h5py not installed. Cannot save to HDF5 format.")
-
-
-
-

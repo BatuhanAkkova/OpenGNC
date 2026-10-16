@@ -15,19 +15,81 @@ from opengnc.sensors import (
     SunSensor,
     load_sensor_suite,
 )
-from opengnc.utils.quat_utils import axis_angle_to_quat, quat_conj, quat_mult, quat_normalize, quat_rot
+from opengnc.utils.quat_utils import (
+    axis_angle_to_quat,
+    quat_conj,
+    quat_mult,
+    quat_normalize,
+    quat_rot,
+)
 
 
 def test_sensor_packet_interface_consistency():
     sensors_and_inputs = [
-        (Gyroscope(noise_std=0.0), (np.array([0.1, -0.2, 0.3]),), "angular_rate", "rad/s", "body", 3),
-        (SunSensor(noise_std=0.0), (np.array([1.0, 0.0, 0.0]),), "sun_vector", "unit_vector", "body", 3),
-        (Magnetometer(noise_std=0.0), (np.array([2e-5, 0.0, -1e-5]),), "magnetic_field", "T", "body", 3),
-        (HorizonSensor(noise_std=0.0), (np.array([0.0, 0.0, 1.0]),), "nadir_vector", "unit_vector", "body", 3),
-        (StarTracker(noise_std=0.0), (np.array([0.0, 0.0, 0.0, 1.0]),), "attitude_quaternion", "quaternion", "body_to_inertial", 4),
-        (Lidar(range_noise_std=0.0, los_noise_std=0.0), (np.array([10.0, 0.0, 0.0]),), "range_los", ("m", "unit_vector"), "body", 4),
-        (GNSSReceiver(pos_noise_std=0.0, vel_noise_std=0.0), (np.array([1.0, 2.0, 3.0]), np.array([4.0, 5.0, 6.0])), "position_velocity", ("m", "m/s"), "state_frame", 6),
-        (IMU(gyro_params={"noise_std": 0.0}, accel_params={"noise_std": 0.0}), (np.array([0.1, 0.2, 0.3]), np.array([0.0, 0.0, 9.81])), "imu", ("rad/s", "m/s^2"), "body", 6),
+        (
+            Gyroscope(noise_std=0.0),
+            (np.array([0.1, -0.2, 0.3]),),
+            "angular_rate",
+            "rad/s",
+            "body",
+            3,
+        ),
+        (
+            SunSensor(noise_std=0.0),
+            (np.array([1.0, 0.0, 0.0]),),
+            "sun_vector",
+            "unit_vector",
+            "body",
+            3,
+        ),
+        (
+            Magnetometer(noise_std=0.0),
+            (np.array([2e-5, 0.0, -1e-5]),),
+            "magnetic_field",
+            "T",
+            "body",
+            3,
+        ),
+        (
+            HorizonSensor(noise_std=0.0),
+            (np.array([0.0, 0.0, 1.0]),),
+            "nadir_vector",
+            "unit_vector",
+            "body",
+            3,
+        ),
+        (
+            StarTracker(noise_std=0.0),
+            (np.array([0.0, 0.0, 0.0, 1.0]),),
+            "attitude_quaternion",
+            "quaternion",
+            "body_to_inertial",
+            4,
+        ),
+        (
+            Lidar(range_noise_std=0.0, los_noise_std=0.0),
+            (np.array([10.0, 0.0, 0.0]),),
+            "range_los",
+            ("m", "unit_vector"),
+            "body",
+            4,
+        ),
+        (
+            GNSSReceiver(pos_noise_std=0.0, vel_noise_std=0.0),
+            (np.array([1.0, 2.0, 3.0]), np.array([4.0, 5.0, 6.0])),
+            "position_velocity",
+            ("m", "m/s"),
+            "state_frame",
+            6,
+        ),
+        (
+            IMU(gyro_params={"noise_std": 0.0}, accel_params={"noise_std": 0.0}),
+            (np.array([0.1, 0.2, 0.3]), np.array([0.0, 0.0, 9.81])),
+            "imu",
+            ("rad/s", "m/s^2"),
+            "body",
+            6,
+        ),
     ]
 
     for sensor, args, quantity, units, frame, size in sensors_and_inputs:
@@ -43,7 +105,16 @@ def test_sensor_packet_interface_consistency():
 
 def test_load_sensor_suite_from_json_and_yaml(tmp_path: Path):
     json_cfg = tmp_path / "sensors.json"
-    json_cfg.write_text(json.dumps({"sensors": [{"type": "gyroscope", "noise_std": 0.0}, {"type": "sun_sensor", "noise_std": 0.0}]}))
+    json_cfg.write_text(
+        json.dumps(
+            {
+                "sensors": [
+                    {"type": "gyroscope", "noise_std": 0.0},
+                    {"type": "sun_sensor", "noise_std": 0.0},
+                ]
+            }
+        )
+    )
 
     sensors = load_sensor_suite(json_cfg)
     assert [sensor.quantity for sensor in sensors] == ["angular_rate", "sun_vector"]

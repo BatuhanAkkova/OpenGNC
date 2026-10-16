@@ -68,7 +68,9 @@ class J2Gravity:
         Equatorial radius (m).
     """
 
-    def __init__(self, mu: float = 398600.4418e9, j2: float = 0.001082635855, re: float = 6378137.0) -> None:
+    def __init__(
+        self, mu: float = 398600.4418e9, j2: float = 0.001082635855, re: float = 6378137.0
+    ) -> None:
         """Initialize J2 parameters."""
         self.mu = mu
         self.j2 = j2
@@ -99,11 +101,13 @@ class J2Gravity:
 
         factor = (1.5 * self.j2 * self.mu * self.re**2) / (r_mag**5)
 
-        ax = factor * x * (5 * (z / r_mag)**2 - 1)
-        ay = factor * y * (5 * (z / r_mag)**2 - 1)
-        az = factor * z * (5 * (z / r_mag)**2 - 3)
+        ax = factor * x * (5 * (z / r_mag) ** 2 - 1)
+        ay = factor * y * (5 * (z / r_mag) ** 2 - 1)
+        az = factor * z * (5 * (z / r_mag) ** 2 - 3)
 
-        return cast(np.ndarray, np.array([ax, ay, az]) + TwoBodyGravity(self.mu).get_acceleration(r_vec))
+        return cast(
+            np.ndarray, np.array([ax, ay, az]) + TwoBodyGravity(self.mu).get_acceleration(r_vec)
+        )
 
 
 class HarmonicsGravity:
@@ -134,7 +138,7 @@ class HarmonicsGravity:
         re: float = 6378137.0,
         n_max: int = 20,
         m_max: int = 20,
-        file_path: str | None = None
+        file_path: str | None = None,
     ) -> None:
         """Load potential coefficients and initialize recursion workspace."""
         self.mu = mu
@@ -213,7 +217,7 @@ def _compute_gravity_njit(
     """
     Numba-accelerated spherical harmonics recursion.
     """
-    r_sq = x*x + y*y + z*z
+    r_sq = x * x + y * y + z * z
     r_mag = np.sqrt(r_sq)
 
     rho = re / r_mag
@@ -230,17 +234,19 @@ def _compute_gravity_njit(
     for n in range(2, n_max + 1):
         # m = 0
         an0 = np.sqrt((4.0 * n**2 - 1.0) / n**2)
-        bn0 = np.sqrt((2.0 * n + 1.0) * (n - 1.0)**2 / (n**2 * (2.0 * n - 3.0)))
-        P[n, 0] = an0 * sin_phi * P[n-1, 0] - bn0 * P[n-2, 0]
+        bn0 = np.sqrt((2.0 * n + 1.0) * (n - 1.0) ** 2 / (n**2 * (2.0 * n - 3.0)))
+        P[n, 0] = an0 * sin_phi * P[n - 1, 0] - bn0 * P[n - 2, 0]
 
         for m in range(1, min(n + 1, m_max + 1)):
             if n == m:
                 cnn = np.sqrt((2.0 * n + 1.0) / (2.0 * n))
-                P[n, n] = cnn * cos_phi_approx * P[n-1, n-1]
+                P[n, n] = cnn * cos_phi_approx * P[n - 1, n - 1]
             else:
                 anm = np.sqrt((4.0 * n**2 - 1.0) / (n**2 - m**2))
-                bnm = np.sqrt((2.0 * n + 1.0) * ((n - 1.0)**2 - m**2) / ((2.0 * n - 3.0) * (n**2 - m**2)))
-                P[n, m] = anm * sin_phi * P[n-1, m] - bnm * P[n-2, m]
+                bnm = np.sqrt(
+                    (2.0 * n + 1.0) * ((n - 1.0) ** 2 - m**2) / ((2.0 * n - 3.0) * (n**2 - m**2))
+                )
+                P[n, m] = anm * sin_phi * P[n - 1, m] - bnm * P[n - 2, m]
 
     du_dr = -mu / r_sq
     du_dlat, du_dlon = 0.0, 0.0
@@ -268,7 +274,7 @@ def _compute_gravity_njit(
             else:
                 anm = np.sqrt((2.0 * n + 1.0) / (n - m)) * np.sqrt((2.0 * n - 1.0) / (n + m))
                 cos_phi_sq = max(1e-15, 1.0 - sin_phi**2)
-                dp = (n * sin_phi * P[n, m] - anm * P[n-1, m]) / np.sqrt(cos_phi_sq)
+                dp = (n * sin_phi * P[n, m] - anm * P[n - 1, m]) / np.sqrt(cos_phi_sq)
 
             s_r += (n + 1.0) * P[n, m] * gt
             s_lat += dp * gt
@@ -282,7 +288,7 @@ def _compute_gravity_njit(
 
     term_r = du_dr * cos_phi_approx
     term_lat = (du_dlat / r_mag) * (-sin_phi)
-    term_lon = (du_dlon / (r_mag * safe_cos))
+    term_lon = du_dlon / (r_mag * safe_cos)
 
     ax_ecef = (term_r + term_lat) * clon + term_lon * (-slon)
     ay_ecef = (term_r + term_lat) * slon + term_lon * clon
@@ -308,7 +314,9 @@ class GradientTorque:
         """Initialize torque solver."""
         self.mu = mu
 
-    def gravity_gradient_torque(self, J: np.ndarray, r_eci: np.ndarray, q_body2eci: np.ndarray) -> np.ndarray:
+    def gravity_gradient_torque(
+        self, J: np.ndarray, r_eci: np.ndarray, q_body2eci: np.ndarray
+    ) -> np.ndarray:
         r"""
         Calculate Gravity Gradient torque in Body frame.
 
@@ -362,6 +370,7 @@ class ThirdBodyGravity:
         self.mu_moon = mu_moon
         from opengnc.environment.moon import Moon
         from opengnc.environment.solar import Sun
+
         self.sun_model = Sun()
         self.moon_model = Moon()
 
@@ -387,7 +396,9 @@ class ThirdBodyGravity:
 
         def body_acc(s_vec: np.ndarray, mu: float) -> np.ndarray:
             d = s_vec - rv
-            return np.asarray(mu * (d / np.linalg.norm(d) ** 3 - s_vec / np.linalg.norm(s_vec) ** 3))
+            return np.asarray(
+                mu * (d / np.linalg.norm(d) ** 3 - s_vec / np.linalg.norm(s_vec) ** 3)
+            )
 
         return cast(np.ndarray, body_acc(rss, self.mu_sun) + body_acc(rms, self.mu_moon))
 
@@ -435,10 +446,14 @@ class RelativisticCorrection:
         rm, vm = np.linalg.norm(r), np.linalg.norm(v)
 
         # Schwarzschild static correction
-        sch = (self.mu / (self.c**2 * rm**3)) * ( (4*self.mu/rm - vm**2)*r + 4*np.dot(r,v)*v )
+        sch = (self.mu / (self.c**2 * rm**3)) * (
+            (4 * self.mu / rm - vm**2) * r + 4 * np.dot(r, v) * v
+        )
 
         # Lense-Thirring dynamic correction
-        lt_term = (2 * self.mu / (self.c**2 * rm**3)) * ( (3.0/rm**2) * np.dot(r, self.S_vec) * r - self.S_vec )
+        lt_term = (2 * self.mu / (self.c**2 * rm**3)) * (
+            (3.0 / rm**2) * np.dot(r, self.S_vec) * r - self.S_vec
+        )
 
         return cast(np.ndarray, sch + np.cross(lt_term, v))
 
@@ -472,6 +487,7 @@ class OceanTidesGravity:
     def _get_doodson_arguments(self, jd: float) -> dict[str, float]:
         """Compute Doodson harmonic arguments for the given epoch."""
         from opengnc.utils.time_utils import calc_gmst
+
         T = (jd - 2451545.0) / 36525.0
         n = jd - 2451545.0
         gmst = calc_gmst(jd)
@@ -517,17 +533,13 @@ class OceanTidesGravity:
         lat = np.arcsin(z / rm)
         lon = np.arctan2(y, x)
 
-        rho = (self.re / rm)**2
+        rho = (self.re / rm) ** 2
         p_21 = np.sqrt(15) * np.sin(lat) * np.cos(lat)
-        p_22 = np.sqrt(15/4) * np.cos(lat)**2
+        p_22 = np.sqrt(15 / 4) * np.cos(lat) ** 2
 
         u_21 = rho * p_21 * (dc[2, 1] * np.cos(lon) + ds[2, 1] * np.sin(lon))
-        u_22 = rho * p_22 * (dc[2, 2] * np.cos(2*lon) + ds[2, 2] * np.sin(2*lon))
+        u_22 = rho * p_22 * (dc[2, 2] * np.cos(2 * lon) + ds[2, 2] * np.sin(2 * lon))
 
-        acc_ecef = - (self.mu / rm**2) * (u_21 + u_22) * (r_ecef / rm)
+        acc_ecef = -(self.mu / rm**2) * (u_21 + u_22) * (r_ecef / rm)
         aeci, _ = ecef2eci(acc_ecef, np.zeros(3), jd)
         return cast(np.ndarray, aeci)
-
-
-
-

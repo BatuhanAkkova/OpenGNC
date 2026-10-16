@@ -70,7 +70,12 @@ class KeplerPropagator(Propagator):
                 T = 2 * np.pi * np.sqrt(np.abs(1.0 / alpha) ** 3 / mu)  # Period
                 if np.abs(dt) > np.abs(T):
                     dt = dt % T
-            except (FloatingPointError, OverflowError, ValueError, ZeroDivisionError):  # pragma: no cover
+            except (
+                FloatingPointError,
+                OverflowError,
+                ValueError,
+                ZeroDivisionError,
+            ):  # pragma: no cover
                 pass  # Fallback if calculation fails
 
             x_i = float(np.sqrt(mu) * dt * alpha)
@@ -94,7 +99,10 @@ class KeplerPropagator(Propagator):
                     * mu
                     * alpha
                     * dt
-                    / (np.dot(r_i, v_i) + np.sign(dt) * np.sqrt(-mu / alpha) * (1 - r_i_mag * alpha))
+                    / (
+                        np.dot(r_i, v_i)
+                        + np.sign(dt) * np.sqrt(-mu / alpha) * (1 - r_i_mag * alpha)
+                    )
                 )
                 x_i = float(np.sign(dt) * np.sqrt(-1 / alpha) * np.log(temp))
             except Exception:
@@ -170,7 +178,3 @@ class KeplerPropagator(Propagator):
             c2 = 0.5
             c3 = 1 / 6.0
         return float(c2), float(c3)
-
-
-
-

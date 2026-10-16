@@ -28,12 +28,7 @@ class TaylorIntegrator(Integrator):
         self.order = order
 
     def step(
-        self,
-        f: Callable,
-        t: float,
-        y: np.ndarray,
-        dt: float,
-        **kwargs: Any
+        self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any
     ) -> tuple[np.ndarray, float, float]:
         """
         Perform a single Taylor series step.
@@ -72,7 +67,7 @@ class TaylorIntegrator(Integrator):
         if self.order >= 3:
             # 3rd order term approx
             h = 1e-6
-            f_dot_next = (f(t + 2*h, y + f1*2*h, **kwargs) - f_next) / h
+            f_dot_next = (f(t + 2 * h, y + f1 * 2 * h, **kwargs) - f_next) / h
             f_ddot = (f_dot_next - f_dot) / h
             y_next += (1.0 / 6.0) * f_ddot * dt**3
 

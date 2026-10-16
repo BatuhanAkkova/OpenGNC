@@ -149,14 +149,21 @@ class Sensor(ABC):
 
     def apply_faults(self, value: np.ndarray | float) -> np.ndarray | float:
         if self.fault_state == "stuck":
-            return cast(np.ndarray | float, self.stuck_value if self.stuck_value is not None else value)
+            return cast(
+                np.ndarray | float, self.stuck_value if self.stuck_value is not None else value
+            )
         if self.fault_state == "spike":
-            spike = np.random.normal(0, 100 * np.std(value) if np.std(value) > 0 else 10.0, size=np.shape(value))
+            spike = np.random.normal(
+                0, 100 * np.std(value) if np.std(value) > 0 else 10.0, size=np.shape(value)
+            )
             return cast(np.ndarray | float, value + spike)
         if self.fault_state == "noise_increase":
             return cast(
                 np.ndarray | float,
-                value + np.random.normal(0, 10.0 * np.std(value) if np.std(value) > 0 else 1.0, size=np.shape(value)),
+                value
+                + np.random.normal(
+                    0, 10.0 * np.std(value) if np.std(value) > 0 else 1.0, size=np.shape(value)
+                ),
             )
         return cast(np.ndarray | float, value)
 

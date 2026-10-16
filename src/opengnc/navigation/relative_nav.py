@@ -2,7 +2,6 @@
 EKF for relative navigation using Clohessy-Wiltshire (Hill) dynamics.
 """
 
-
 from typing import cast
 
 import numpy as np
@@ -37,7 +36,7 @@ class RelativeNavigationEKF:
         p0: np.ndarray,
         q_mat: np.ndarray,
         r_mat: np.ndarray,
-        mean_motion: float
+        mean_motion: float,
     ) -> None:
         """Initialize Relative EKF."""
         self.ekf = EKF(dim_x=6, dim_z=3)
@@ -75,6 +74,7 @@ class RelativeNavigationEKF:
         z_rel_pos : np.ndarray
             Relative position vector in Hill frame (m).
         """
+
         def hx(x: np.ndarray) -> np.ndarray:
             return cast(np.ndarray, x[:3])
 
@@ -111,16 +111,16 @@ class RelativeNavigationEKF:
         phi = np.zeros((6, 6))
 
         # Pos-Pos
-        phi[0, 0], phi[0, 3] = 4 - 3*c, s/n
-        phi[0, 4] = (2.0/n)*(1 - c)
-        phi[1, 0], phi[1, 1] = 6*(s - nt), 1.0
-        phi[1, 3], phi[1, 4] = (2.0/n)*(c - 1), (4.0*s/n) - 3*t
-        phi[2, 2], phi[2, 5] = c, s/n
+        phi[0, 0], phi[0, 3] = 4 - 3 * c, s / n
+        phi[0, 4] = (2.0 / n) * (1 - c)
+        phi[1, 0], phi[1, 1] = 6 * (s - nt), 1.0
+        phi[1, 3], phi[1, 4] = (2.0 / n) * (c - 1), (4.0 * s / n) - 3 * t
+        phi[2, 2], phi[2, 5] = c, s / n
 
         # Vel-Pos/Vel
-        phi[3, 0], phi[3, 3], phi[3, 4] = 3*n*s, c, 2*s
-        phi[4, 0], phi[4, 3], phi[4, 4] = 6*n*(c - 1), -2*s, 4*c - 3
-        phi[5, 2], phi[5, 5] = -n*s, c
+        phi[3, 0], phi[3, 3], phi[3, 4] = 3 * n * s, c, 2 * s
+        phi[4, 0], phi[4, 3], phi[4, 4] = 6 * n * (c - 1), -2 * s, 4 * c - 3
+        phi[5, 2], phi[5, 5] = -n * s, c
 
         return cast(np.ndarray, phi)
 
@@ -128,7 +128,3 @@ class RelativeNavigationEKF:
     def state(self) -> np.ndarray:
         r"""Estimated relative state $[\delta \mathbf{r}, \delta \mathbf{v}]^T$."""
         return self.ekf.x
-
-
-
-

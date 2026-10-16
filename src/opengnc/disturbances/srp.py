@@ -33,12 +33,7 @@ class Canonball:
         self.P_sun = 4.56e-6  # N/m^2 (Ref solar pressure at 1 AU)
 
     def get_acceleration(
-        self,
-        r_eci: np.ndarray,
-        jd: float,
-        mass: float,
-        area: float,
-        cr: float
+        self, r_eci: np.ndarray, jd: float, mass: float, area: float, cr: float
     ) -> np.ndarray:
         r"""
         Calculate SRP acceleration vector.
@@ -111,7 +106,3 @@ class Canonball:
         if r_perp_sq < R_earth**2:
             return 0.0
         return 1.0
-
-
-
-

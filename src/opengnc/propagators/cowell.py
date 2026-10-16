@@ -105,7 +105,3 @@ class CowellPropagator(Propagator):
         v_f = y_final[3:]
 
         return cast(np.ndarray, r_f), cast(np.ndarray, v_f)
-
-
-
-

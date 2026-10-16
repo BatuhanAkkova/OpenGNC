@@ -1,4 +1,3 @@
-
 import numpy as np
 import plotly.graph_objects as go
 
@@ -7,7 +6,7 @@ def plot_ground_track(
     latitudes: np.ndarray | list[float],
     longitudes: np.ndarray | list[float],
     times: np.ndarray | list[float] | None = None,
-    title: str = "Satellite Ground Track"
+    title: str = "Satellite Ground Track",
 ) -> go.Figure:
     """
     2D Sub-Satellite Point (SSP) Visualization.
@@ -57,7 +56,8 @@ def plot_ground_track(
     # 2. Main Ground Track Trace
     fig.add_trace(
         go.Scattergeo(
-            lat=lats, lon=lons,
+            lat=lats,
+            lon=lons,
             mode="lines+markers",
             line=dict(width=2, color="darkorange"),
             marker=dict(size=4, color="darkorange", opacity=0.8),
@@ -70,7 +70,8 @@ def plot_ground_track(
     # 3. Markers
     fig.add_trace(
         go.Scattergeo(
-            lat=[lats[0]], lon=[lons[0]],
+            lat=[lats[0]],
+            lon=[lons[0]],
             mode="markers",
             marker=dict(size=8, color="green", symbol="circle"),
             name="Start",
@@ -79,7 +80,8 @@ def plot_ground_track(
 
     fig.add_trace(
         go.Scattergeo(
-            lat=[lats[-1]], lon=[lons[-1]],
+            lat=[lats[-1]],
+            lon=[lons[-1]],
             mode="markers",
             marker=dict(size=8, color="red", symbol="square"),
             name="End",
@@ -106,7 +108,3 @@ def plot_ground_track(
     )
 
     return fig
-
-
-
-

@@ -65,7 +65,3 @@ def rts_smoother(
         p_smoothed[k] = pf + gain_c @ (p_smoothed[k + 1] - p_pred) @ gain_c.T
 
     return x_smoothed, p_smoothed
-
-
-
-

@@ -29,7 +29,9 @@ class Accelerometer(Sensor):
         self.bias = np.asarray(bias, dtype=float) if bias is not None else np.zeros(3)
         self.scale_factor = scale_factor
 
-    def measure(self, true_accel: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_accel: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_accel is None:
             if not args:
                 raise ValueError("true_accel is required.")
@@ -73,12 +75,20 @@ class IMU(Sensor):
             true_accel = np.asarray(args[1])
         gyro_packet = self.gyro.measure(true_omega, **kwargs)
         accel_packet = self.accel.measure(true_accel, **kwargs)
-        covariance = np.block([
-            [gyro_packet.covariance, np.zeros((3, 3))],
-            [np.zeros((3, 3)), accel_packet.covariance],
-        ])
+        covariance = np.block(
+            [
+                [gyro_packet.covariance, np.zeros((3, 3))],
+                [np.zeros((3, 3)), accel_packet.covariance],
+            ]
+        )
         value = np.concatenate([gyro_packet.value, accel_packet.value])
-        return self.build_measurement(value, covariance=covariance, metadata={"components": ["angular_rate", "specific_force"]})
+        return self.build_measurement(
+            value,
+            covariance=covariance,
+            metadata={"components": ["angular_rate", "specific_force"]},
+        )
 
     def measurement_noise_std(self) -> np.ndarray:
-        return np.concatenate([self.gyro.measurement_noise_std(), self.accel.measurement_noise_std()])
+        return np.concatenate(
+            [self.gyro.measurement_noise_std(), self.accel.measurement_noise_std()]
+        )

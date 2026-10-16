@@ -21,10 +21,14 @@ class Altimeter(Sensor):
         self.noise_std = noise_std
         self.bias = bias
 
-    def measure(self, true_altitude: float | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_altitude: float | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_altitude is None:
             if not args:
                 raise ValueError("true_altitude is required.")
             true_altitude = float(args[0])
-        measured_alt = float(max(0.0, true_altitude + self.bias + np.random.normal(0, self.noise_std)))
+        measured_alt = float(
+            max(0.0, true_altitude + self.bias + np.random.normal(0, self.noise_std))
+        )
         return self.build_measurement(measured_alt)

@@ -62,7 +62,3 @@ class RealTimeSimulator(MissionSimulator):
             elif sleep_time < -dt:
                 # Issue a warning if we consistenty fall behind schedule
                 print(f"Warning: Real-time deadline missed by {-sleep_time:.3f}s")
-
-
-
-

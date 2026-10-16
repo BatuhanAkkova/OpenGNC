@@ -35,7 +35,14 @@ class SymplecticIntegrator(Integrator):
         self.d2 = self.w0
         self.d4 = 0.0
 
-    def integrate(self, f: Callable, t_span: tuple[float, float], y0: np.ndarray, dt: float = 10.0, **kwargs: Any) -> tuple[np.ndarray, np.ndarray]:
+    def integrate(
+        self,
+        f: Callable,
+        t_span: tuple[float, float],
+        y0: np.ndarray,
+        dt: float = 10.0,
+        **kwargs: Any,
+    ) -> tuple[np.ndarray, np.ndarray]:
         """
         Integrate over time span.
         Note: Symplectic methods work BEST for TIME-INVARIANT potentials (a = f(r)).
@@ -87,14 +94,12 @@ class SymplecticIntegrator(Integrator):
 
         return np.array(t_values), np.array(y_values)
 
-    def step(self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any) -> tuple[np.ndarray, float, float]:
+    def step(
+        self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any
+    ) -> tuple[np.ndarray, float, float]:
         """
         Single step wrapper.
         """
         # Compose a single step
         res_t, res_y = self.integrate(f, (t, t + dt), y, dt=dt)
         return res_y[-1], res_t[-1], float(dt)
-
-
-
-

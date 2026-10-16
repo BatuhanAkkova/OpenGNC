@@ -151,6 +151,7 @@ def euler_to_dcm(angles: np.ndarray, sequence: str) -> np.ndarray:
     """
     return eu.euler_to_dcm(np.asarray(angles), sequence)
 
+
 def rot_x(theta: float) -> np.ndarray:
     """Return the x-axis rotation matrix for the given angle."""
     return eu.rot_x(theta)
@@ -164,4 +165,3 @@ def rot_y(theta: float) -> np.ndarray:
 def rot_z(theta: float) -> np.ndarray:
     """Return the z-axis rotation matrix for the given angle."""
     return eu.rot_z(theta)
-

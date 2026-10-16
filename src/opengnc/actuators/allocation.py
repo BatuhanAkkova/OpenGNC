@@ -98,12 +98,16 @@ class SingularRobustAllocator(ControlAllocator):
         Maximum regularization weight. Default is 0.01.
     """
 
-    def __init__(self, actuator_matrix: np.ndarray, epsilon: float = 0.01, lambda0: float = 0.01) -> None:
+    def __init__(
+        self, actuator_matrix: np.ndarray, epsilon: float = 0.01, lambda0: float = 0.01
+    ) -> None:
         super().__init__(actuator_matrix)
         self.epsilon = epsilon
         self.lambda0 = lambda0
 
-    def allocate(self, desired_output: np.ndarray, A_current: np.ndarray | None = None) -> np.ndarray:
+    def allocate(
+        self, desired_output: np.ndarray, A_current: np.ndarray | None = None
+    ) -> np.ndarray:
         """
         Perform SR-Inverse allocation.
 
@@ -173,7 +177,9 @@ class NullMotionManager:
         A_pinv = np.linalg.pinv(A)
         return cast(np.ndarray, self.I - A_pinv @ A)
 
-    def apply_null_command(self, u_base: np.ndarray, z: np.ndarray, A_current: np.ndarray | None = None) -> np.ndarray:
+    def apply_null_command(
+        self, u_base: np.ndarray, z: np.ndarray, A_current: np.ndarray | None = None
+    ) -> np.ndarray:
         """
         Add null-motion component to base command.
 
@@ -193,7 +199,3 @@ class NullMotionManager:
         """
         P = self.get_null_projection(A_current)
         return cast(np.ndarray, u_base + P @ z)
-
-
-
-

@@ -1,11 +1,9 @@
-
 import numpy as np
 import plotly.graph_objects as go
 
 
 def plot_attitude_sphere(
-    vectors: np.ndarray | list[list[float]],
-    title: str = "Attitude Sphere Visualization"
+    vectors: np.ndarray | list[list[float]], title: str = "Attitude Sphere Visualization"
 ) -> go.Figure:
     r"""
     Directional Attitude Visualization.
@@ -44,7 +42,9 @@ def plot_attitude_sphere(
 
     fig.add_trace(
         go.Surface(
-            x=x, y=y, z=z,
+            x=x,
+            y=y,
+            z=z,
             colorscale="Greys",
             opacity=0.15,
             showscale=False,
@@ -56,7 +56,9 @@ def plot_attitude_sphere(
     # 2. Sequential Trace
     fig.add_trace(
         go.Scatter3d(
-            x=v_norm[:, 0], y=v_norm[:, 1], z=v_norm[:, 2],
+            x=v_norm[:, 0],
+            y=v_norm[:, 1],
+            z=v_norm[:, 2],
             mode="lines",
             line=dict(color="blue", width=4),
             name="Pointing Trace",
@@ -67,7 +69,9 @@ def plot_attitude_sphere(
     curr = v_norm[-1]
     fig.add_trace(
         go.Scatter3d(
-            x=[0, curr[0]], y=[0, curr[1]], z=[0, curr[2]],
+            x=[0, curr[0]],
+            y=[0, curr[1]],
+            z=[0, curr[2]],
             mode="lines+markers",
             line=dict(color="red", width=5),
             marker=dict(size=4),
@@ -78,7 +82,9 @@ def plot_attitude_sphere(
     # 4. Landmarks
     fig.add_trace(
         go.Scatter3d(
-            x=[v_norm[0, 0]], y=[v_norm[0, 1]], z=[v_norm[0, 2]],
+            x=[v_norm[0, 0]],
+            y=[v_norm[0, 1]],
+            z=[v_norm[0, 2]],
             mode="markers",
             marker=dict(size=6, color="green"),
             name="Start",
@@ -99,7 +105,3 @@ def plot_attitude_sphere(
     )
 
     return fig
-
-
-
-

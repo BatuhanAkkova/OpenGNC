@@ -2,7 +2,6 @@
 Standard Linear Kalman Filter (KF) implementation.
 """
 
-
 from typing import cast
 
 import numpy as np
@@ -75,10 +74,7 @@ class KF:
         self.P = (f @ self.P @ f.T) + q
 
     def update(
-        self,
-        z: np.ndarray,
-        h_mat: np.ndarray | None = None,
-        r_mat: np.ndarray | None = None
+        self, z: np.ndarray, h_mat: np.ndarray | None = None, r_mat: np.ndarray | None = None
     ) -> None:
         """
         Update state estimate using a new measurement.
@@ -115,7 +111,3 @@ class KF:
         i_mat = np.eye(self.dim_x)
         i_kh = i_mat - (k_gain @ h)
         self.P = (i_kh @ self.P @ i_kh.T) + (k_gain @ r @ k_gain.T)
-
-
-
-

@@ -131,7 +131,3 @@ class INDIOuterLoopPD:
         d_term = self.Kd @ err_d if isinstance(self.Kd, np.ndarray) else self.Kd * err_d
 
         return cast(np.ndarray, ad_val - p_term - d_term)
-
-
-
-

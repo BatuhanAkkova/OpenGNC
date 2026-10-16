@@ -24,12 +24,7 @@ class SpaceWeather:
         Planetary equivalent amplitude index (geomagnetic). Default 15.0.
     """
 
-    def __init__(
-        self,
-        f107: float = 150.0,
-        f107_avg: float = 150.0,
-        ap: float = 15.0
-    ) -> None:
+    def __init__(self, f107: float = 150.0, f107_avg: float = 150.0, ap: float = 15.0) -> None:
         """Initialize indices and compute derived Kp."""
         self.f107 = f107
         self.f107_avg = f107_avg
@@ -68,12 +63,7 @@ class SpaceWeather:
         Dict[str, float]
             Indices dictionary.
         """
-        return {
-            "f107": self.f107,
-            "f107_avg": self.f107_avg,
-            "ap": self.ap,
-            "kp": self.kp
-        }
+        return {"f107": self.f107, "f107_avg": self.f107_avg, "ap": self.ap, "kp": self.kp}
 
     def set_solar_flux(self, f107: float, f107_avg: float | None = None) -> None:
         """
@@ -88,7 +78,3 @@ class SpaceWeather:
         """
         self.f107 = float(f107)
         self.f107_avg = float(f107_avg) if f107_avg is not None else self.f107
-
-
-
-

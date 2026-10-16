@@ -2,7 +2,6 @@
 B-Dot controller for spacecraft magnetic detumbling.
 """
 
-
 import numpy as np
 
 
@@ -73,7 +72,3 @@ class BDot:
         # Estimate B_dot via backward difference
         b_dot_est = (np.asarray(b_field_curr) - np.asarray(b_field_prev)) / dt
         return self.calculate_control(b_dot_est)
-
-
-
-

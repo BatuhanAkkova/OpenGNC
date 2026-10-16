@@ -47,7 +47,3 @@ def euler_equations(J: np.ndarray, omega: np.ndarray, torque: np.ndarray) -> np.
     rhs = torque - gyro_term
 
     return np.linalg.solve(J, rhs)
-
-
-
-

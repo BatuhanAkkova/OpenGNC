@@ -225,7 +225,3 @@ def _rmat_to_quat(r_mat: np.ndarray) -> np.ndarray:
         quat_z = 0.25 * scale_s
 
     return np.array([quat_x, quat_y, quat_z, quat_w])
-
-
-
-

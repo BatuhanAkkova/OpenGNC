@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 def plot_orbit_3d(
     r_eci: np.ndarray | list[list[float]],
     r_earth: bool = True,
-    title: str = "3D Orbit Visualization"
+    title: str = "3D Orbit Visualization",
 ) -> go.Figure:
     """
     Standard 3D Orbit Visualization.
@@ -44,7 +44,9 @@ def plot_orbit_3d(
 
         fig.add_trace(
             go.Surface(
-                x=x, y=y, z=z,
+                x=x,
+                y=y,
+                z=z,
                 colorscale="Blues",
                 opacity=0.3,
                 showscale=False,
@@ -56,7 +58,9 @@ def plot_orbit_3d(
     # 2. Flight Path
     fig.add_trace(
         go.Scatter3d(
-            x=r_val[:, 0], y=r_val[:, 1], z=r_val[:, 2],
+            x=r_val[:, 0],
+            y=r_val[:, 1],
+            z=r_val[:, 2],
             mode="lines",
             line=dict(color="darkred", width=4),
             name="Orbit Path",
@@ -66,7 +70,9 @@ def plot_orbit_3d(
     # 3. Markers
     fig.add_trace(
         go.Scatter3d(
-            x=[r_val[0, 0]], y=[r_val[0, 1]], z=[r_val[0, 2]],
+            x=[r_val[0, 0]],
+            y=[r_val[0, 1]],
+            z=[r_val[0, 2]],
             mode="markers",
             marker=dict(size=6, color="green", symbol="circle"),
             name="Start",
@@ -75,7 +81,9 @@ def plot_orbit_3d(
 
     fig.add_trace(
         go.Scatter3d(
-            x=[r_val[-1, 0]], y=[r_val[-1, 1]], z=[r_val[-1, 2]],
+            x=[r_val[-1, 0]],
+            y=[r_val[-1, 1]],
+            z=[r_val[-1, 2]],
             mode="markers",
             marker=dict(size=6, color="orange", symbol="circle"),
             name="Current Position",
@@ -95,7 +103,3 @@ def plot_orbit_3d(
     )
 
     return fig
-
-
-
-

@@ -1,7 +1,9 @@
 import importlib
 import warnings
 
-from opengnc.experimental.edl import ballistic_entry_dynamics as experimental_ballistic_entry_dynamics
+from opengnc.experimental.edl import (
+    ballistic_entry_dynamics as experimental_ballistic_entry_dynamics,
+)
 from opengnc.experimental.interfaces.gmat import GMATInterface as ExperimentalGMATInterface
 from opengnc.ops.ground_segment.ccsds import SpacePacket as OpsSpacePacket
 

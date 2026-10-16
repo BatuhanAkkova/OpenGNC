@@ -12,7 +12,7 @@ def kepler2mee(
     raan: float,
     argp: float,
     nu: float,
-    mu: float = 398600.4415e9
+    mu: float = 398600.4415e9,
 ) -> tuple[float, float, float, float, float, float]:
     """
     Convert Keplerian elements to Modified Equinoctial Elements (MEE).
@@ -49,24 +49,11 @@ def kepler2mee(
     k = np.tan(incl / 2.0) * np.sin(raan)
     l_true = raan + argp + nu
 
-    return (
-        float(p_mee),
-        float(f),
-        float(g),
-        float(h),
-        float(k),
-        float(l_true % (2 * np.pi))
-    )
+    return (float(p_mee), float(f), float(g), float(h), float(k), float(l_true % (2 * np.pi)))
 
 
 def mee2eci(
-    p: float,
-    f: float,
-    g: float,
-    h: float,
-    k: float,
-    l_true: float,
-    mu: float = 398600.4415e9
+    p: float, f: float, g: float, h: float, k: float, l_true: float, mu: float = 398600.4415e9
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Convert Modified Equinoctial Elements to ECI Cartesian state.
@@ -91,26 +78,42 @@ def mee2eci(
 
     s2 = 1.0 + h**2 + k**2
 
-    r_eci = (r / s2) * np.array([
-        cos_l * (1 + h**2 - k**2) + 2 * h * k * sin_l,
-        sin_l * (1 - h**2 + k**2) + 2 * h * k * cos_l,
-        2 * (h * sin_l - k * cos_l),
-    ])
+    r_eci = (r / s2) * np.array(
+        [
+            cos_l * (1 + h**2 - k**2) + 2 * h * k * sin_l,
+            sin_l * (1 - h**2 + k**2) + 2 * h * k * cos_l,
+            2 * (h * sin_l - k * cos_l),
+        ]
+    )
 
     v_coeff = np.sqrt(mu / p) / s2
-    v_eci = v_coeff * np.array([
-        -(sin_l * (1 + h**2 - k**2) - 2 * h * k * cos_l + g + g * h**2 - g * k**2 - 2 * f * h * k),
-        (cos_l * (1 - h**2 + k**2) - 2 * h * k * sin_l + f - f * h**2 + f * k**2 - 2 * g * h * k),
-        2 * (cos_l + f) * h + 2 * (sin_l + g) * k,
-    ])
+    v_eci = v_coeff * np.array(
+        [
+            -(
+                sin_l * (1 + h**2 - k**2)
+                - 2 * h * k * cos_l
+                + g
+                + g * h**2
+                - g * k**2
+                - 2 * f * h * k
+            ),
+            (
+                cos_l * (1 - h**2 + k**2)
+                - 2 * h * k * sin_l
+                + f
+                - f * h**2
+                + f * k**2
+                - 2 * g * h * k
+            ),
+            2 * (cos_l + f) * h + 2 * (sin_l + g) * k,
+        ]
+    )
 
     return r_eci, v_eci
 
 
 def eci2mee(
-    r_eci: np.ndarray,
-    v_eci: np.ndarray,
-    mu: float = 398600.4415e9
+    r_eci: np.ndarray, v_eci: np.ndarray, mu: float = 398600.4415e9
 ) -> tuple[float, float, float, float, float, float]:
     """
     Convert ECI Cartesian state to Modified Equinoctial Elements.
@@ -137,7 +140,3 @@ def eci2mee(
     a, ecc, incl, raan, argp, nu, _, _, _, _, _, _ = eci2kepler(rv, vv)
 
     return kepler2mee(a, ecc, incl, raan, argp, nu, mu)
-
-
-
-

@@ -110,7 +110,3 @@ class Actuator(ABC):
         if abs(value) < self.deadband:
             return 0.0
         return float(value)
-
-
-
-

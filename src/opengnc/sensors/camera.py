@@ -34,7 +34,9 @@ class Camera(Sensor):
         self.cx = resolution[0] / 2
         self.cy = resolution[1] / 2
 
-    def measure(self, true_point_body: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_point_body: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_point_body is None:
             if not args:
                 raise ValueError("true_point_body is required.")

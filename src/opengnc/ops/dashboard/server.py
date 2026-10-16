@@ -10,7 +10,9 @@ app = FastAPI()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LEGACY_STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), "dashboard", "static")
-STATIC_DIR = LEGACY_STATIC_DIR if os.path.exists(LEGACY_STATIC_DIR) else os.path.join(BASE_DIR, "static")
+STATIC_DIR = (
+    LEGACY_STATIC_DIR if os.path.exists(LEGACY_STATIC_DIR) else os.path.join(BASE_DIR, "static")
+)
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 

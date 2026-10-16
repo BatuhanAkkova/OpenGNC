@@ -83,7 +83,3 @@ def fixed_interval_smoother(
         x_smoothed[k] = p_smoothed[k] @ (p_f_inv @ x_forward[k] + y_info[k])
 
     return x_smoothed, p_smoothed
-
-
-
-

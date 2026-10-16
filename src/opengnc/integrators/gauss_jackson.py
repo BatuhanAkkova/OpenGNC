@@ -103,7 +103,14 @@ class GaussJacksonIntegrator(Integrator):
 
         return diff
 
-    def integrate(self, f: Callable, t_span: tuple[float, float], y0: np.ndarray, dt: float = 10.0, **kwargs: Any) -> tuple[np.ndarray, np.ndarray]:
+    def integrate(
+        self,
+        f: Callable,
+        t_span: tuple[float, float],
+        y0: np.ndarray,
+        dt: float = 10.0,
+        **kwargs: Any,
+    ) -> tuple[np.ndarray, np.ndarray]:
         """
         Integrate over a time span using Gauss-Jackson 8th order.
         """
@@ -245,12 +252,10 @@ class GaussJacksonIntegrator(Integrator):
         # Convert back to arrays to maintain interface consistency
         return np.array(t_values), np.array(y_values)
 
-    def step(self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any) -> tuple[np.ndarray, float, float]:
+    def step(
+        self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any
+    ) -> tuple[np.ndarray, float, float]:
         """
         Single step interface.
         """
         raise NotImplementedError("Gauss-Jackson requires historical states. Use integrate method.")
-
-
-
-

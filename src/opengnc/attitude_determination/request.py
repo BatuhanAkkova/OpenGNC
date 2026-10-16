@@ -2,7 +2,6 @@
 Recursive QUEST (REQUEST) algorithm for recursive attitude estimation.
 """
 
-
 from typing import Any
 
 import numpy as np
@@ -85,11 +84,13 @@ class RequestFilter:
 
         ds_matrix = db_matrix + db_matrix.T
         d_sigma = float(np.trace(db_matrix))
-        dz_vec = np.array([
-            db_matrix[2, 1] - db_matrix[1, 2],
-            db_matrix[0, 2] - db_matrix[2, 0],
-            db_matrix[1, 0] - db_matrix[0, 1]
-        ])
+        dz_vec = np.array(
+            [
+                db_matrix[2, 1] - db_matrix[1, 2],
+                db_matrix[0, 2] - db_matrix[2, 0],
+                db_matrix[1, 0] - db_matrix[0, 1],
+            ]
+        )
 
         # Form incremental dK matrix
         dk_matrix = np.zeros((4, 4))
@@ -147,7 +148,3 @@ def request(
     rf = RequestFilter(initial_k)
     rf.update(body_vectors, ref_vectors, weights, rho)
     return rf.get_quaternion()
-
-
-
-

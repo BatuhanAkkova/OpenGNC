@@ -16,12 +16,16 @@ class HorizonSensor(Sensor):
     units = "unit_vector"
     frame = "body"
 
-    def __init__(self, noise_std: float = 0.01, bias: np.ndarray | None = None, name: str = "HorizonSensor") -> None:
+    def __init__(
+        self, noise_std: float = 0.01, bias: np.ndarray | None = None, name: str = "HorizonSensor"
+    ) -> None:
         super().__init__(name)
         self.noise_std = noise_std
         self.bias = np.asarray(bias, dtype=float) if bias is not None else np.zeros(2)
 
-    def measure(self, true_nadir_vec: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_nadir_vec: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_nadir_vec is None:
             if not args:
                 raise ValueError("true_nadir_vec is required.")

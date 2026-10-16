@@ -11,7 +11,13 @@ from opengnc.utils.frame_conversion import eci2ecef, eci2llh, llh2ecef
 
 
 def calculate_access_windows(
-    t_array: np.ndarray, r_eci_array: np.ndarray, gs_lat_deg: float, gs_lon_deg: float, gs_alt_m: float, min_elevation_deg: float = 5.0, jdut1: float = 2451545.0
+    t_array: np.ndarray,
+    r_eci_array: np.ndarray,
+    gs_lat_deg: float,
+    gs_lon_deg: float,
+    gs_alt_m: float,
+    min_elevation_deg: float = 5.0,
+    jdut1: float = 2451545.0,
 ) -> dict[str, Any]:
     """
     Calculates access windows (visibility) from a Ground Station for a given trajectory.
@@ -99,7 +105,9 @@ def calculate_access_windows(
     return {"visible_intervals": visible_intervals, "elevation_history": np.array(elevations)}
 
 
-def calculate_ground_track(t_array: np.ndarray, r_eci_array: np.ndarray, jdut1: float = 2451545.0) -> dict[str, np.ndarray]:
+def calculate_ground_track(
+    t_array: np.ndarray, r_eci_array: np.ndarray, jdut1: float = 2451545.0
+) -> dict[str, np.ndarray]:
     """
     Calculates ground track coordinates (Lat, Lon, Alt) over time.
 
@@ -136,7 +144,9 @@ def calculate_ground_track(t_array: np.ndarray, r_eci_array: np.ndarray, jdut1: 
     return {"lat_deg": np.array(lats), "lon_deg": np.array(lons), "alt_m": np.array(alts)}
 
 
-def calculate_lighting_conditions(t_array: np.ndarray, r_eci_array: np.ndarray, v_eci_array: np.ndarray, jdut1: float = 2451545.0) -> dict[str, np.ndarray]:
+def calculate_lighting_conditions(
+    t_array: np.ndarray, r_eci_array: np.ndarray, v_eci_array: np.ndarray, jdut1: float = 2451545.0
+) -> dict[str, np.ndarray]:
     """
     Calculates Beta angle and Eclipse status over time.
 
@@ -156,7 +166,6 @@ def calculate_lighting_conditions(t_array: np.ndarray, r_eci_array: np.ndarray, 
     eclipse_state = []
 
     R_earth = 6378137.0
-
 
     for i, t in enumerate(t_array):
         jd_current = jdut1 + t / 86400.0
@@ -195,7 +204,11 @@ def calculate_lighting_conditions(t_array: np.ndarray, r_eci_array: np.ndarray, 
 
 
 def calculate_constellation_coverage(
-    t_array: np.ndarray, r_eci_array_list: list[np.ndarray], target_points_llh: np.ndarray, min_elevation_deg: float = 5.0, jdut1: float = 2451545.0
+    t_array: np.ndarray,
+    r_eci_array_list: list[np.ndarray],
+    target_points_llh: np.ndarray,
+    min_elevation_deg: float = 5.0,
+    jdut1: float = 2451545.0,
 ) -> list[dict[str, float]]:
     """
     Evaluates coverage statistics (gap, revisit time) for a constellation over a list of ground targets.
@@ -308,7 +321,3 @@ def calculate_constellation_coverage(
         )
 
     return results
-
-
-
-

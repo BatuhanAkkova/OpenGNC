@@ -9,6 +9,7 @@ import numpy as np
 
 try:
     from jplephem.spk import SPK
+
     JPLEPHEM_AVAILABLE = True
 except ImportError:
     JPLEPHEM_AVAILABLE = False

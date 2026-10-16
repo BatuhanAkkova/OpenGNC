@@ -64,12 +64,7 @@ class RK45(Integrator):
         self.E = self.b5 - self.b4  # Error estimation coefficients
 
     def step(
-        self,
-        f: Callable,
-        t: float,
-        y: np.ndarray,
-        dt: float,
-        **kwargs: Any
+        self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any
     ) -> tuple[np.ndarray, float, float]:
         """
         Perform a single adaptive RK45 step with error control.
@@ -109,7 +104,9 @@ class RK45(Integrator):
                 sum_ak = np.zeros_like(y_val)
                 for j in range(i):
                     sum_ak += self.a[i][j] * k[j]
-                k.append(np.asarray(f(t + self.c[i] * dt_current, y_val + dt_current * sum_ak, **kwargs)))
+                k.append(
+                    np.asarray(f(t + self.c[i] * dt_current, y_val + dt_current * sum_ak, **kwargs))
+                )
 
             k_arr = np.array(k)
 
@@ -131,7 +128,9 @@ class RK45(Integrator):
                 else:
                     dt_new = dt_current * self.safety_factor * (error_ratio**-0.2)
 
-                dt_new = max(dt_current * self.min_factor, min(dt_new, dt_current * self.max_factor))
+                dt_new = max(
+                    dt_current * self.min_factor, min(dt_new, dt_current * self.max_factor)
+                )
                 return y_next, t_next, dt_new
             else:
                 # Rejection
@@ -145,7 +144,7 @@ class RK45(Integrator):
         t_span: tuple[float, float],
         y0: np.ndarray,
         dt: float | None = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> tuple[np.ndarray, np.ndarray]:
         """
         Integrate over span with adaptive stepping.
@@ -169,7 +168,3 @@ class RK45(Integrator):
         if dt is None:
             dt = (t_span[1] - t_span[0]) / 100.0
         return super().integrate(f, t_span, y0, dt, **kwargs)
-
-
-
-

@@ -18,10 +18,7 @@ class RadiationModel:
         pass
 
     def estimate_tid(
-        self,
-        altitude_km: float,
-        inclination_deg: float,
-        duration_days: float
+        self, altitude_km: float, inclination_deg: float, duration_days: float
     ) -> float:
         """
         Estimate cumulative Total Ionizing Dose (TID).
@@ -51,11 +48,7 @@ class RadiationModel:
 
         return float(base_rate * alt_factor * inc_factor * duration_days)
 
-    def estimate_seu_rate(
-        self,
-        altitude_km: float,
-        device_cross_section: float = 1.0e-12
-    ) -> float:
+    def estimate_seu_rate(self, altitude_km: float, device_cross_section: float = 1.0e-12) -> float:
         """
         Estimate Single Event Upset (SEU) rate from proton flux.
 
@@ -76,7 +69,3 @@ class RadiationModel:
         # 86400 s/day
         rate = flux_p * device_cross_section * 86400.0
         return float(rate)
-
-
-
-

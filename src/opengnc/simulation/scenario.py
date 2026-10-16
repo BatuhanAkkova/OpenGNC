@@ -51,6 +51,7 @@ class ScenarioConfig:
         elif ext in [".yaml", ".yml"]:
             try:
                 import yaml  # type: ignore[import-untyped]
+
                 with open(self.filename, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
                     self.config = cast(dict[str, Any], data) if data is not None else {}
@@ -88,7 +89,3 @@ class ScenarioConfig:
             else:
                 return default
         return current
-
-
-
-

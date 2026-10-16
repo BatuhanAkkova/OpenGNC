@@ -46,7 +46,12 @@ class SpacePacket:
         return max(0, len(self.data) - 1)
 
     def pack(self) -> bytes:
-        word1 = (self.version << 13) | (self.packet_type << 12) | (int(self.sec_header_flag) << 11) | self.apid
+        word1 = (
+            (self.version << 13)
+            | (self.packet_type << 12)
+            | (int(self.sec_header_flag) << 11)
+            | self.apid
+        )
         word2 = (self.seq_flags << 14) | self.seq_count
         word3 = self.data_length_field
         header = struct.pack(">HHH", word1, word2, word3)
@@ -57,7 +62,7 @@ class SpacePacket:
         if len(buffer) < cls.HEADER_SIZE:
             raise ValueError("Buffer too short for CCSDS header.")
 
-        word1, word2, word3 = struct.unpack(">HHH", buffer[:cls.HEADER_SIZE])
+        word1, word2, word3 = struct.unpack(">HHH", buffer[: cls.HEADER_SIZE])
 
         version = (word1 >> 13) & 0x07
         packet_type = PacketType((word1 >> 12) & 0x01)

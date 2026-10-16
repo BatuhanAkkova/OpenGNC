@@ -133,7 +133,3 @@ class EKF:
 
         i_kh = np.eye(self.dim_x) - (k_gain @ h_mat)
         self.P = (i_kh @ self.P @ i_kh.T) + (k_gain @ r @ k_gain.T)
-
-
-
-

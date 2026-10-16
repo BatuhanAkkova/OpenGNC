@@ -73,11 +73,7 @@ class ReactionWheel(Actuator):
         self.coulomb_friction = coulomb_friction
 
     def command(
-        self,
-        torque_cmd: float | None = None,
-        current_speed: float = 0.0,
-        *args: Any,
-        **kwargs: Any
+        self, torque_cmd: float | None = None, current_speed: float = 0.0, *args: Any, **kwargs: Any
     ) -> float:
         r"""
         Calculate delivered motor torque.
@@ -125,7 +121,3 @@ class ReactionWheel(Actuator):
                 torque = 0.0
 
         return float(torque)
-
-
-
-

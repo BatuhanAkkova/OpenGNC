@@ -69,7 +69,3 @@ class SlidingModeController:
             switching_term = np.sign(s_val)
 
         return cast(float | np.ndarray, self.eq_func(x, t) - self.k_gain * switching_term)
-
-
-
-

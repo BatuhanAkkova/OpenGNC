@@ -2,7 +2,6 @@
 Differential Correction using Batch Least Squares for Orbit Determination.
 """
 
-
 from typing import cast
 
 import numpy as np
@@ -48,6 +47,7 @@ class BatchLeastSquaresOD:
         np.ndarray
             State at $t_{end}$.
         """
+
         def f(state: np.ndarray) -> np.ndarray:
             r = state[:3]
             v = state[3:]
@@ -65,11 +65,7 @@ class BatchLeastSquaresOD:
         return cast(np.ndarray, x0 + (dt / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4))
 
     def solve(
-        self,
-        observations: np.ndarray,
-        times: np.ndarray,
-        max_iter: int = 15,
-        tol: float = 1e-6
+        self, observations: np.ndarray, times: np.ndarray, max_iter: int = 15, tol: float = 1e-6
     ) -> np.ndarray:
         """
         Iteratively solve the Batch LS problem.
@@ -131,7 +127,3 @@ class BatchLeastSquaresOD:
                 break
 
         return cast(np.ndarray, self.x)
-
-
-
-

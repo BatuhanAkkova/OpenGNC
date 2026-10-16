@@ -66,7 +66,3 @@ class FeedbackLinearization:
 
         # Matrix case: Solve g(x)u = v - f(x)
         return cast(np.ndarray, np.linalg.solve(g_val, v_vec - f_val))
-
-
-
-

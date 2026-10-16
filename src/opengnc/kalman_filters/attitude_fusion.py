@@ -43,7 +43,9 @@ class AttitudeSensorFusion:
 
     def update_from_measurement(self, measurement: SensorMeasurement) -> None:
         if measurement.quantity == "angular_rate":
-            raise ValueError("Angular-rate measurements belong in the predict step, not the update step.")
+            raise ValueError(
+                "Angular-rate measurements belong in the predict step, not the update step."
+            )
         self.filter.update(measurement)
 
     def update_from_measurements(self, measurements: list[SensorMeasurement]) -> None:

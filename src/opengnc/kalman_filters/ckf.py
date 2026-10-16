@@ -163,9 +163,6 @@ class CKF:
         except np.linalg.LinAlgError:
             # Fallback to sqrtm if Cholesky fails due to semi-definiteness
             from scipy.linalg import sqrtm
+
             sqrt_p = sqrtm(p_sym).real
             return cast(np.ndarray, x[:, np.newaxis] + (sqrt_p @ self.xi))
-
-
-
-

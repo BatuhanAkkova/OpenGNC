@@ -42,7 +42,7 @@ class ThermalEnvironment:
         float
             Solar flux ($W/m^2$).
         """
-        return float(self.solar_constant / (float(distance_au)**2))
+        return float(self.solar_constant / (float(distance_au) ** 2))
 
     def get_albedo_flux(self, r_sat: np.ndarray, r_sun: np.ndarray) -> float:
         """
@@ -85,7 +85,3 @@ class ThermalEnvironment:
             Planetary IR flux ($W/m^2$).
         """
         return float(self.earth_ir)
-
-
-
-

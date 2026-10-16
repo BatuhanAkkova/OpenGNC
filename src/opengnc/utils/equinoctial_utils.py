@@ -6,12 +6,7 @@ import numpy as np
 
 
 def kepler2equinoctial(
-    a: float,
-    ecc: float,
-    incl: float,
-    raan: float,
-    argp: float,
-    m_anom: float
+    a: float, ecc: float, incl: float, raan: float, argp: float, m_anom: float
 ) -> tuple[float, float, float, float, float, float]:
     r"""
     Convert Keplerian elements to Classical Equinoctial elements.
@@ -45,23 +40,11 @@ def kepler2equinoctial(
     q = np.tan(incl / 2.0) * np.cos(raan)
     mean_lon = raan + argp + m_anom
 
-    return (
-        float(a),
-        float(h),
-        float(k),
-        float(p),
-        float(q),
-        float(mean_lon % (2 * np.pi))
-    )
+    return (float(a), float(h), float(k), float(p), float(q), float(mean_lon % (2 * np.pi)))
 
 
 def equinoctial2kepler(
-    a: float,
-    h: float,
-    k: float,
-    p: float,
-    q: float,
-    mean_lon: float
+    a: float, h: float, k: float, p: float, q: float, mean_lon: float
 ) -> tuple[float, float, float, float, float, float, float]:
     """
     Convert Equinoctial elements back to Keplerian elements.
@@ -103,7 +86,7 @@ def equinoctial2kepler(
         float(raan % (2 * np.pi)),
         float(argp % (2 * np.pi)),
         float(nu % (2 * np.pi)),
-        float(m_anom % (2 * np.pi))
+        float(m_anom % (2 * np.pi)),
     )
 
 
@@ -136,13 +119,7 @@ def solve_kepler_equinoctial(mean_lon: float, h: float, k: float) -> float:
 
 
 def equinoctial2eci(
-    a: float,
-    h: float,
-    k: float,
-    p: float,
-    q: float,
-    mean_lon: float,
-    mu: float = 398600.4415e9
+    a: float, h: float, k: float, p: float, q: float, mean_lon: float, mu: float = 398600.4415e9
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Direct conversion from Equinoctial elements to ECI state.
@@ -182,7 +159,3 @@ def equinoctial2eci(
     v_eci = x_dot_eq * f_vec + y_dot_eq * g_vec
 
     return r_eci, v_eci
-
-
-
-

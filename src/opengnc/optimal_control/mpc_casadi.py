@@ -11,14 +11,17 @@ import numpy as np
 
 try:
     import casadi as ca
+
     CASADI_AVAILABLE = True
 except ImportError:
     CASADI_AVAILABLE = False
 
     class ca:  # type: ignore
         """Placeholder for CasADi types when not installed."""
+
         MX = Any
         SX = Any
+
         def __getattr__(self, name: str) -> Any:
             return Any
 
@@ -100,7 +103,9 @@ class CasadiNMPC:
 
         self._setup_solver()
 
-    def _setup_bounds(self, bound: float | np.ndarray | None, dim: int, default_val: float) -> np.ndarray:
+    def _setup_bounds(
+        self, bound: float | np.ndarray | None, dim: int, default_val: float
+    ) -> np.ndarray:
         """Helper to convert scalar or array bounds to full-dimension arrays."""
         if bound is None:
             return np.full(dim, default_val)
@@ -123,8 +128,8 @@ class CasadiNMPC:
         """Formulate the NLP and instantiate the IPOPT solver."""
         # Symbolic decision variables
         X = ca.MX.sym("X", self.nx, self.N + 1)  # State variables
-        U = ca.MX.sym("U", self.nu, self.N)       # Control variables
-        X0 = ca.MX.sym("X0", self.nx)             # Initial state parameter
+        U = ca.MX.sym("U", self.nu, self.N)  # Control variables
+        X0 = ca.MX.sym("X0", self.nx)  # Initial state parameter
 
         cost = 0.0
         g = []  # Constraints (Multiple Shooting)
@@ -133,7 +138,9 @@ class CasadiNMPC:
         for k in range(self.N):
             cost += self.L(X[:, k], U[:, k])
 
-            x_next_sim = self._rk4_step(X[:, k], U[:, k]) if not self.discrete else self.f(X[:, k], U[:, k])
+            x_next_sim = (
+                self._rk4_step(X[:, k], U[:, k]) if not self.discrete else self.f(X[:, k], U[:, k])
+            )
             g.append(X[:, k + 1] - x_next_sim)
 
         cost += self.V(X[:, self.N])
@@ -144,12 +151,7 @@ class CasadiNMPC:
         nlp = {"x": v_decision, "f": cost, "g": g_constraints, "p": X0}
 
         # Solver configuration (IPOPT)
-        opts = {
-            "ipopt.print_level": 0,
-            "print_time": 0,
-            "ipopt.tol": 1e-6,
-            "ipopt.max_iter": 150
-        }
+        opts = {"ipopt.print_level": 0, "print_time": 0, "ipopt.tol": 1e-6, "ipopt.max_iter": 150}
         self.solver = ca.nlpsol("solver", "ipopt", nlp, opts)
 
         # Build concatenated bound vectors for X and U
@@ -202,5 +204,5 @@ class CasadiNMPC:
 
         v_opt = sol["x"].full().flatten()
         # Extract controls (located after all state variables in decision vector)
-        u_opt_flat = v_opt[self.nx * (self.N + 1):]
+        u_opt_flat = v_opt[self.nx * (self.N + 1) :]
         return cast(np.ndarray, u_opt_flat.reshape((self.N, self.nu)))

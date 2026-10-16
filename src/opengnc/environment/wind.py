@@ -44,12 +44,7 @@ class AtmosphereCoRotation:
         rv = np.asarray(r_eci)
         return np.asarray(np.cross(self.omega_earth, rv))
 
-    def get_relative_velocity(
-        self,
-        r_eci: np.ndarray,
-        v_eci: np.ndarray,
-        jd: float
-    ) -> np.ndarray:
+    def get_relative_velocity(self, r_eci: np.ndarray, v_eci: np.ndarray, jd: float) -> np.ndarray:
         r"""
         Calculate spacecraft velocity relative to the atmosphere (Airspeed).
 
@@ -74,7 +69,3 @@ class AtmosphereCoRotation:
         vv = np.asarray(v_eci)
         v_wind = self.get_wind_velocity(rv, jd)
         return np.asarray(vv - v_wind)
-
-
-
-

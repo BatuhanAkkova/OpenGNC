@@ -6,10 +6,7 @@ import numpy as np
 
 
 def variable_inertia_euler_equations(
-    J: np.ndarray,
-    J_dot: np.ndarray,
-    omega: np.ndarray,
-    torque: np.ndarray
+    J: np.ndarray, J_dot: np.ndarray, omega: np.ndarray, torque: np.ndarray
 ) -> np.ndarray:
     r"""
     Compute $\dot{\omega}$ for a body with time-varying inertia.
@@ -46,10 +43,7 @@ def variable_inertia_euler_equations(
 
 
 def mass_depletion_J_dot(
-    J_nominal: np.ndarray,
-    m_initial: float,
-    dm_dt: float,
-    r_point: np.ndarray
+    J_nominal: np.ndarray, m_initial: float, dm_dt: float, r_point: np.ndarray
 ) -> np.ndarray:
     r"""
     Model $\dot{\mathbf{J}}$ due to point-mass depletion.
@@ -78,7 +72,3 @@ def mass_depletion_J_dot(
 
     # dot(J) = dot(m) * [ (r^2 * I) - (r outer r) ]
     return dm_dt * (r_sq * np.eye(3) - r_outer)
-
-
-
-

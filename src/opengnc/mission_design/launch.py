@@ -9,7 +9,15 @@ import numpy as np
 from opengnc.utils.frame_conversion import ecef2eci, llh2ecef
 
 
-def calculate_launch_windows(jd_start: float, jd_end: float, inc_deg: float, raan_deg: float, lat_deg: float, lon_deg: float, step_sec: float = 60) -> list[dict[str, Any]]:
+def calculate_launch_windows(
+    jd_start: float,
+    jd_end: float,
+    inc_deg: float,
+    raan_deg: float,
+    lat_deg: float,
+    lon_deg: float,
+    step_sec: float = 60,
+) -> list[dict[str, Any]]:
     """
     Calculates launch windows by finding times when the launch site intersects the target orbit plane.
 
@@ -87,7 +95,13 @@ def eci2_ecef_or_inverse_wrapper(recef: np.ndarray, jd: float) -> tuple[np.ndarr
 
 
 def compute_injection_state(
-    lat_deg: float, lon_deg: float, alt_m: float, azimuth_deg: float, flight_path_angle_deg: float, speed_mps: float, jd: float
+    lat_deg: float,
+    lon_deg: float,
+    alt_m: float,
+    azimuth_deg: float,
+    flight_path_angle_deg: float,
+    speed_mps: float,
+    jd: float,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Computes ECI state vector at insertion.
@@ -145,7 +159,12 @@ def compute_injection_state(
 
 
 def calculate_deployment_sequence(
-    planes: int, sats_per_plane: int, phasing_parameter_f: int, inc_deg: float, base_raan_deg: float = 0.0, base_ta_deg: float = 0.0
+    planes: int,
+    sats_per_plane: int,
+    phasing_parameter_f: int,
+    inc_deg: float,
+    base_raan_deg: float = 0.0,
+    base_ta_deg: float = 0.0,
 ) -> list[dict[str, Any]]:
     """
     Computes target RAAN and True Anomaly for each satellite in a Walker-Delta Constellation (T/P/F).
@@ -183,7 +202,3 @@ def calculate_deployment_sequence(
             global_id += 1
 
     return sequence
-
-
-
-

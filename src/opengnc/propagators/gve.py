@@ -33,7 +33,7 @@ class GVEPropagator(Propagator):
         t0: float,
         state0: np.ndarray,
         dt: float,
-        perturbation_func: Callable[[float, np.ndarray], np.ndarray]
+        perturbation_func: Callable[[float, np.ndarray], np.ndarray],
     ) -> np.ndarray:
         r"""
         Propagate orbital elements one step using RK4 on GVE.
@@ -66,7 +66,7 @@ class GVEPropagator(Propagator):
         self,
         t: float,
         state: np.ndarray,
-        perturbation_func: Callable[[float, np.ndarray], np.ndarray]
+        perturbation_func: Callable[[float, np.ndarray], np.ndarray],
     ) -> np.ndarray:
         r"""
         Calculate GVE state derivatives.
@@ -106,8 +106,9 @@ class GVEPropagator(Propagator):
         de = (1 / h) * (p * np.sin(nu) * ar + ((p + r) * np.cos(nu) + r * e) * as_)
         di = (r * np.cos(u) / h) * aw
         draan = (r * np.sin(u) / (h * np.sin(i))) * aw
-        dargp = (1 / (h * e)) * (-p * np.cos(nu) * ar + (p + r) * np.sin(nu) * as_) - \
-                (r * np.sin(u) * np.cos(i) / (h * np.sin(i))) * aw
+        dargp = (1 / (h * e)) * (-p * np.cos(nu) * ar + (p + r) * np.sin(nu) * as_) - (
+            r * np.sin(u) * np.cos(i) / (h * np.sin(i))
+        ) * aw
         dnu = (h / r**2) + (1 / (h * e)) * (p * np.cos(nu) * ar - (p + r) * np.sin(nu) * as_)
 
         return np.array([da, de, di, draan, dargp, dnu])

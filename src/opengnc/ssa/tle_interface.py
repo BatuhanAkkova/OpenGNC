@@ -87,11 +87,11 @@ class TLECatalog:
 
         i = 0
         while i < len(lines) - 1:
-            l1, l2 = lines[i], lines[i+1]
+            l1, l2 = lines[i], lines[i + 1]
             if l1.startswith("1") and l2.startswith("2"):
                 # 3-line format (Name above 1/2) or 2rd/3rd line of 3-line
-                if i > 0 and not lines[i-1].startswith(("1", "2")):
-                    name = lines[i-1]
+                if i > 0 and not lines[i - 1].startswith(("1", "2")):
+                    name = lines[i - 1]
                 else:
                     name = f"SAT_{l1[2:7]}"
                 self.add_tle(name, l1, l2)
@@ -110,7 +110,3 @@ class TLECatalog:
     def list_satellites(self) -> list[str]:
         """List names of all registered satellites."""
         return [s.name for s in self.satellites]
-
-
-
-

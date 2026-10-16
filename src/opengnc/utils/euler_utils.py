@@ -24,11 +24,7 @@ def rot_x(angle: float) -> np.ndarray:
         3x3 rotation matrix.
     """
     c, s = np.cos(angle), np.sin(angle)
-    return cast(np.ndarray, np.array([
-        [1.0, 0.0, 0.0],
-        [0.0,   c,  -s],
-        [0.0,   s,   c]
-    ]))
+    return cast(np.ndarray, np.array([[1.0, 0.0, 0.0], [0.0, c, -s], [0.0, s, c]]))
 
 
 def rot_y(angle: float) -> np.ndarray:
@@ -46,11 +42,7 @@ def rot_y(angle: float) -> np.ndarray:
         3x3 rotation matrix.
     """
     c, s = np.cos(angle), np.sin(angle)
-    return cast(np.ndarray, np.array([
-        [  c, 0.0,  s],
-        [0.0, 1.0, 0.0],
-        [ -s, 0.0,  c]
-    ]))
+    return cast(np.ndarray, np.array([[c, 0.0, s], [0.0, 1.0, 0.0], [-s, 0.0, c]]))
 
 
 def rot_z(angle: float) -> np.ndarray:
@@ -68,11 +60,7 @@ def rot_z(angle: float) -> np.ndarray:
         3x3 rotation matrix.
     """
     c, s = np.cos(angle), np.sin(angle)
-    return cast(np.ndarray, np.array([
-        [  c,  -s, 0.0],
-        [  s,   c, 0.0],
-        [0.0, 0.0, 1.0]
-    ]))
+    return cast(np.ndarray, np.array([[c, -s, 0.0], [s, c, 0.0], [0.0, 0.0, 1.0]]))
 
 
 def euler_to_dcm(angles: np.ndarray, sequence: str) -> np.ndarray:
@@ -181,7 +169,3 @@ def dcm_to_euler(dcm: np.ndarray, sequence: str) -> np.ndarray:
             theta3 = np.arctan2(parity * mat[j, i], mat[i, i])
 
         return cast(np.ndarray, np.array([theta1, theta2, theta3]))
-
-
-
-

@@ -95,7 +95,3 @@ def generate_porkchop_grid(
         "v_inf_arr": v_inf_arr_grid,
         "tof": tof_grid,
     }
-
-
-
-

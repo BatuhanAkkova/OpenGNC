@@ -87,7 +87,3 @@ class ConstellationSimulator:
             Aggregate simulation results.
         """
         return self.simulator.run(t_end, dt)
-
-
-
-

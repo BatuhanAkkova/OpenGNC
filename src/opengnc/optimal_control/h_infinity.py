@@ -78,7 +78,9 @@ class HInfinityController:
         try:
             # We use use solve_continuous_are which expects: A.T*P + P*A - P*B*R^-1*B.T*P + Q = 0
             # So we pass B s.t. B*R^-1*B.T = S
-            self.P = solve_continuous_are(self.A, np.eye(self.A.shape[0]), self.Q, np.linalg.inv(s_mat))
+            self.P = solve_continuous_are(
+                self.A, np.eye(self.A.shape[0]), self.Q, np.linalg.inv(s_mat)
+            )
             return self.P
         except Exception as e:
             raise ValueError(
@@ -123,7 +125,3 @@ class HInfinityController:
         if self.K is None:
             raise RuntimeError("Feedback gain not available.")
         return cast(np.ndarray, -self.K @ x)
-
-
-
-

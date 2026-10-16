@@ -113,8 +113,16 @@ class LinearMPC:
         # Build Input Bounds
         bounds: list[tuple[float, float]] = []
         if self.u_min is not None or self.u_max is not None:
-            umin = np.full(self.nu, self.u_min) if np.isscalar(self.u_min) else np.asarray(self.u_min).flatten()
-            umax = np.full(self.nu, self.u_max) if np.isscalar(self.u_max) else np.asarray(self.u_max).flatten()
+            umin = (
+                np.full(self.nu, self.u_min)
+                if np.isscalar(self.u_min)
+                else np.asarray(self.u_min).flatten()
+            )
+            umax = (
+                np.full(self.nu, self.u_max)
+                if np.isscalar(self.u_max)
+                else np.asarray(self.u_max).flatten()
+            )
             for _ in range(self.N):
                 for i in range(self.nu):
                     bounds.append((umin[i], umax[i]))
@@ -124,8 +132,16 @@ class LinearMPC:
         # State constraints
         constraints: list[dict[str, Any]] = []
         if self.x_min is not None or self.x_max is not None:
-            xmin = np.full(self.nx, self.x_min) if np.isscalar(self.x_min) else np.asarray(self.x_min).flatten()
-            xmax = np.full(self.nx, self.x_max) if np.isscalar(self.x_max) else np.asarray(self.x_max).flatten()
+            xmin = (
+                np.full(self.nx, self.x_min)
+                if np.isscalar(self.x_min)
+                else np.asarray(self.x_min).flatten()
+            )
+            xmax = (
+                np.full(self.nx, self.x_max)
+                if np.isscalar(self.x_max)
+                else np.asarray(self.x_max).flatten()
+            )
 
             def state_constraint_fun(u_flat: np.ndarray) -> np.ndarray:
                 u_seq = u_flat.reshape((self.N, self.nu))
@@ -142,7 +158,9 @@ class LinearMPC:
             constraints.append({"type": "ineq", "fun": state_constraint_fun})
 
         u_guess = np.zeros(self.N * self.nu)
-        res = minimize(objective, u_guess, method="SLSQP", bounds=bounds or None, constraints=constraints)
+        res = minimize(
+            objective, u_guess, method="SLSQP", bounds=bounds or None, constraints=constraints
+        )
 
         if not res.success:
             # Note: In production GNC, fallback controllers are usually triggered here
@@ -251,8 +269,16 @@ class NonlinearMPC:
 
         bounds: list[tuple[float, float]] = []
         if self.u_min is not None or self.u_max is not None:
-            umin = np.full(self.nu, self.u_min) if np.isscalar(self.u_min) else np.asarray(self.u_min).flatten()
-            umax = np.full(self.nu, self.u_max) if np.isscalar(self.u_max) else np.asarray(self.u_max).flatten()
+            umin = (
+                np.full(self.nu, self.u_min)
+                if np.isscalar(self.u_min)
+                else np.asarray(self.u_min).flatten()
+            )
+            umax = (
+                np.full(self.nu, self.u_max)
+                if np.isscalar(self.u_max)
+                else np.asarray(self.u_max).flatten()
+            )
             for _ in range(self.N):
                 for i in range(self.nu):
                     bounds.append((umin[i], umax[i]))
@@ -262,8 +288,16 @@ class NonlinearMPC:
         # State constraints
         constraints: list[dict[str, Any]] = []
         if self.x_min is not None or self.x_max is not None:
-            xmin = np.full(self.nx, self.x_min) if np.isscalar(self.x_min) else np.asarray(self.x_min).flatten()
-            xmax = np.full(self.nx, self.x_max) if np.isscalar(self.x_max) else np.asarray(self.x_max).flatten()
+            xmin = (
+                np.full(self.nx, self.x_min)
+                if np.isscalar(self.x_min)
+                else np.asarray(self.x_min).flatten()
+            )
+            xmax = (
+                np.full(self.nx, self.x_max)
+                if np.isscalar(self.x_max)
+                else np.asarray(self.x_max).flatten()
+            )
 
             def state_constraint_fun(u_flat: np.ndarray) -> np.ndarray:
                 u_seq = u_flat.reshape((self.N, self.nu))
@@ -280,10 +314,8 @@ class NonlinearMPC:
             constraints.append({"type": "ineq", "fun": state_constraint_fun})
 
         u0 = np.zeros(self.N * self.nu)
-        res = minimize(objective, u0, method="SLSQP", bounds=bounds or None, constraints=constraints)
+        res = minimize(
+            objective, u0, method="SLSQP", bounds=bounds or None, constraints=constraints
+        )
 
         return cast(np.ndarray, res.x.reshape((self.N, self.nu)))
-
-
-
-

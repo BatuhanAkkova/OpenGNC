@@ -11,10 +11,7 @@ from opengnc.utils.time_utils import calc_gmst
 
 
 def eci2ecef(
-    r_eci: np.ndarray,
-    v_eci: np.ndarray,
-    jd_ut1: float,
-    dut1: float = 0.0
+    r_eci: np.ndarray, v_eci: np.ndarray, jd_ut1: float, dut1: float = 0.0
 ) -> tuple[np.ndarray, np.ndarray]:
     r"""
     Convert ECI to ECEF.
@@ -56,10 +53,7 @@ def eci2ecef(
 
 
 def ecef2eci(
-    r_ecef: np.ndarray,
-    v_ecef: np.ndarray,
-    jd_ut1: float,
-    dut1: float = 0.0
+    r_ecef: np.ndarray, v_ecef: np.ndarray, jd_ut1: float, dut1: float = 0.0
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Convert ECEF position and velocity to ECI frame.
@@ -159,7 +153,7 @@ def eci2llh(r_eci: np.ndarray, jd_ut1: float) -> tuple[float, float, float]:
 
     # Iterative solution for latitude/altitude
     for _ in range(5):
-        n_val = a / np.sqrt(1.0 - e2 * np.sin(lat)**2)
+        n_val = a / np.sqrt(1.0 - e2 * np.sin(lat) ** 2)
         alt = p / np.cos(lat) - n_val
         lat = np.arctan2(z, p * (1.0 - e2 * (n_val / (n_val + alt))))
 
@@ -396,7 +390,3 @@ def llh2ecef(lat_rad: float, lon_rad: float, alt_m: float) -> np.ndarray:
     z = (N * (1.0 - e2) + alt_m) * np.sin(lat_rad)
 
     return np.array([x, y, z])
-
-
-
-

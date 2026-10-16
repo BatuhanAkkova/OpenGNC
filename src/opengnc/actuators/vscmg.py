@@ -137,7 +137,3 @@ class VariableSpeedCMG(ControlMomentGyro):
         jac[:, 0] = h * t
         jac[:, 1] = s
         return jac
-
-
-
-

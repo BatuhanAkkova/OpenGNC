@@ -28,13 +28,7 @@ class LumpedDrag:
         self.co_rotate = co_rotate
 
     def get_acceleration(
-        self,
-        r_eci: np.ndarray,
-        v_eci: np.ndarray,
-        jd: float,
-        mass: float,
-        area: float,
-        cd: float
+        self, r_eci: np.ndarray, v_eci: np.ndarray, jd: float, mass: float, area: float, cd: float
     ) -> np.ndarray:
         r"""
         Calculate instantaneous drag acceleration vector.
@@ -81,7 +75,3 @@ class LumpedDrag:
         # Acceleration calculation
         acc_mag = 0.5 * rho * v_rel_norm**2 * cd * (area / mass)
         return np.asarray(-acc_mag * (v_rel / v_rel_norm))
-
-
-
-

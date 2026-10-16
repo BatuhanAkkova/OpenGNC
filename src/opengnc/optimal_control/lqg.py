@@ -2,7 +2,6 @@
 Linear Quadratic Gaussian (LQG) Controller.
 """
 
-
 import numpy as np
 
 from .lqe import LQE
@@ -128,7 +127,3 @@ class LQG:
             self.update_estimation(y, u_applied, dt)
 
         return -self.K @ self.x_hat
-
-
-
-

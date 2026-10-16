@@ -154,7 +154,3 @@ class AKF(KF):
         eigenvalues, eigenvectors = np.linalg.eigh(matrix)
         eigenvalues = np.maximum(eigenvalues, 1e-6)
         return cast(np.ndarray, eigenvectors @ np.diag(eigenvalues) @ eigenvectors.T)
-
-
-
-

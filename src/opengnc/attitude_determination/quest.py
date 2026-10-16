@@ -2,7 +2,6 @@
 QUEST algorithm for optimal attitude determination (Wahba's problem).
 """
 
-
 import numpy as np
 
 from opengnc.utils.quat_utils import quat_normalize
@@ -69,31 +68,35 @@ def quest(
     # K-matrix components
     s_matrix = b_matrix + b_matrix.T
     sigma = float(np.trace(b_matrix))
-    z_vec = np.array([
-        b_matrix[2, 1] - b_matrix[1, 2],
-        b_matrix[0, 2] - b_matrix[2, 0],
-        b_matrix[1, 0] - b_matrix[0, 1]
-    ])
+    z_vec = np.array(
+        [
+            b_matrix[2, 1] - b_matrix[1, 2],
+            b_matrix[0, 2] - b_matrix[2, 0],
+            b_matrix[1, 0] - b_matrix[0, 1],
+        ]
+    )
 
     # Characteristic polynomial coefficients for lambda search
     b_frob_sq = float(np.trace(b_matrix @ b_matrix.T))
-    adj_b = np.array([
+    adj_b = np.array(
         [
-            b_matrix[1, 1]*b_matrix[2, 2] - b_matrix[1, 2]*b_matrix[2, 1],
-            b_matrix[0, 2]*b_matrix[2, 1] - b_matrix[0, 1]*b_matrix[2, 2],
-            b_matrix[0, 1]*b_matrix[1, 2] - b_matrix[0, 2]*b_matrix[1, 1]
-        ],
-        [
-            b_matrix[1, 2]*b_matrix[2, 0] - b_matrix[1, 0]*b_matrix[2, 2],
-            b_matrix[0, 0]*b_matrix[2, 2] - b_matrix[0, 2]*b_matrix[2, 0],
-            b_matrix[0, 2]*b_matrix[1, 0] - b_matrix[0, 0]*b_matrix[1, 2]
-        ],
-        [
-            b_matrix[1, 0]*b_matrix[2, 1] - b_matrix[1, 1]*b_matrix[2, 0],
-            b_matrix[0, 1]*b_matrix[2, 0] - b_matrix[0, 0]*b_matrix[2, 1],
-            b_matrix[0, 0]*b_matrix[1, 1] - b_matrix[0, 1]*b_matrix[1, 0]
+            [
+                b_matrix[1, 1] * b_matrix[2, 2] - b_matrix[1, 2] * b_matrix[2, 1],
+                b_matrix[0, 2] * b_matrix[2, 1] - b_matrix[0, 1] * b_matrix[2, 2],
+                b_matrix[0, 1] * b_matrix[1, 2] - b_matrix[0, 2] * b_matrix[1, 1],
+            ],
+            [
+                b_matrix[1, 2] * b_matrix[2, 0] - b_matrix[1, 0] * b_matrix[2, 2],
+                b_matrix[0, 0] * b_matrix[2, 2] - b_matrix[0, 2] * b_matrix[2, 0],
+                b_matrix[0, 2] * b_matrix[1, 0] - b_matrix[0, 0] * b_matrix[1, 2],
+            ],
+            [
+                b_matrix[1, 0] * b_matrix[2, 1] - b_matrix[1, 1] * b_matrix[2, 0],
+                b_matrix[0, 1] * b_matrix[2, 0] - b_matrix[0, 0] * b_matrix[2, 1],
+                b_matrix[0, 0] * b_matrix[1, 1] - b_matrix[0, 1] * b_matrix[1, 0],
+            ],
         ]
-    ]).T  # Adjugate is the transpose of the cofactor matrix
+    ).T  # Adjugate is the transpose of the cofactor matrix
 
     adj_b_frob_sq = float(np.trace(adj_b @ adj_b.T))
     det_b = float(np.linalg.det(b_matrix))
@@ -102,8 +105,8 @@ def quest(
     lam = float(np.sum(w))
     for _ in range(max_iter):
         # f(lam) and f'(lam) from Davenport characteristic equation
-        f_val = (lam**2 - b_frob_sq)**2 - 8*lam*det_b - 4*adj_b_frob_sq
-        fp_val = 4*lam*(lam**2 - b_frob_sq) - 8*det_b
+        f_val = (lam**2 - b_frob_sq) ** 2 - 8 * lam * det_b - 4 * adj_b_frob_sq
+        fp_val = 4 * lam * (lam**2 - b_frob_sq) - 8 * det_b
 
         delta = f_val / fp_val
         lam -= delta
@@ -116,7 +119,3 @@ def quest(
 
     q_opt = np.array([p_vec[0], p_vec[1], p_vec[2], 1.0])
     return quat_normalize(q_opt)
-
-
-
-

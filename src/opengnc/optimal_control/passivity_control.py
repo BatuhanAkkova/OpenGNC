@@ -85,10 +85,14 @@ class PassivityBasedController:
         # 2. Reference velocity trajectory (v_r)
         # v_r defines the manifold for asymptotic convergence
         # v_r = q_dot_d - Lambda * e_q
-        v_r = vd_vec - (self.Lambda @ e_q if isinstance(self.Lambda, np.ndarray) else self.Lambda * e_q)
+        v_r = vd_vec - (
+            self.Lambda @ e_q if isinstance(self.Lambda, np.ndarray) else self.Lambda * e_q
+        )
 
         # 3. Reference acceleration trajectory (v_r_dot)
-        v_r_dot = ad_vec - (self.Lambda @ e_v if isinstance(self.Lambda, np.ndarray) else self.Lambda * e_v)
+        v_r_dot = ad_vec - (
+            self.Lambda @ e_v if isinstance(self.Lambda, np.ndarray) else self.Lambda * e_v
+        )
 
         # 4. Tracking surface / sliding error (s)
         # s = q_dot - v_r = e_dot + Lambda * e
@@ -105,7 +109,3 @@ class PassivityBasedController:
         damp_term = self.K_d @ s if isinstance(self.K_d, np.ndarray) else self.K_d * s
 
         return cast(np.ndarray, ff_term - damp_term)
-
-
-
-

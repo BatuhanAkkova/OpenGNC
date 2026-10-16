@@ -71,7 +71,3 @@ class LQR:
         # Numerically stable solve for R*K = B^T*P
         self.K = np.linalg.solve(self.R, self.B.T @ self.P)
         return self.K
-
-
-
-

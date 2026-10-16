@@ -6,7 +6,7 @@ def plot_coverage_heatmap(
     latitudes: np.ndarray | list[float],
     longitudes: np.ndarray | list[float],
     values: np.ndarray | list[float],
-    title: str = "Coverage Heat Map"
+    title: str = "Coverage Heat Map",
 ) -> go.Figure:
     """
     Plots a density/heatmap on an Earth map to analyze access/coverage.
@@ -70,7 +70,3 @@ def plot_coverage_heatmap(
     )
 
     return fig
-
-
-
-

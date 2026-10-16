@@ -10,10 +10,7 @@ import numpy as np
 
 
 def gibbs_iod(
-    r1: np.ndarray,
-    r2: np.ndarray,
-    r3: np.ndarray,
-    mu: float = 398600.4415e9
+    r1: np.ndarray, r2: np.ndarray, r3: np.ndarray, mu: float = 398600.4415e9
 ) -> np.ndarray:
     r"""
     Initial Orbit Determination (IOD) via Gibbs method.
@@ -56,7 +53,7 @@ def herrick_gibbs_iod(
     r3: np.ndarray,
     dt21: float,
     dt32: float,
-    mu: float = 398600.4415e9
+    mu: float = 398600.4415e9,
 ) -> np.ndarray:
     r"""
     Initial Orbit Determination via Herrick-Gibbs method.
@@ -152,12 +149,15 @@ def gauss_iod(
     R2_sq = np.dot(R2, R2)
 
     poly_coeffs = [
-        1.0, 0.0,
+        1.0,
+        0.0,
         -(a_term**2 + 2.0 * a_term * e_dot + R2_sq),
-        0.0, 0.0,
+        0.0,
+        0.0,
         -2.0 * mu * b_term * (a_term + e_dot),
-        0.0, 0.0,
-        -(mu**2) * b_term**2
+        0.0,
+        0.0,
+        -(mu**2) * b_term**2,
     ]
     roots = np.roots(poly_coeffs)
     real_positive_roots = sorted(roots[np.isreal(roots) & (roots.real > 0)].real)
@@ -181,8 +181,8 @@ def gauss_iod(
     # Initial solver refinement (One-pass stable refinement)
     # Using the polynomial magnitude to fix the curvature, solve for rhos
     u = mu / r2_mag**3
-    c1 = c1_init * (1 + u/6 * (tau**2 - tau3**2))
-    c3 = c3_init * (1 + u/6 * (tau**2 - tau1**2))
+    c1 = c1_init * (1 + u / 6 * (tau**2 - tau3**2))
+    c3 = c3_init * (1 + u / 6 * (tau**2 - tau1**2))
 
     try:
         mat = np.array([c1 * l1, -l2, c3 * l3]).T
@@ -212,7 +212,7 @@ def laplace_iod(
     r_obs: np.ndarray,
     v_obs: np.ndarray,
     a_obs: np.ndarray,
-    mu: float = 398600.4415e9
+    mu: float = 398600.4415e9,
 ) -> np.ndarray:
     r"""
     Orbit determination from line-of-sight derivatives (Laplace method).
@@ -231,7 +231,11 @@ def laplace_iod(
     np.ndarray
         ECI State vector $[r, v]$ at epoch.
     """
-    rho_hat_vec, rho_dot_vec, rho_ddot_vec = np.asarray(rho_hat), np.asarray(rho_dot), np.asarray(rho_ddot)
+    rho_hat_vec, rho_dot_vec, rho_ddot_vec = (
+        np.asarray(rho_hat),
+        np.asarray(rho_dot),
+        np.asarray(rho_ddot),
+    )
     r_o, v_o, a_o = np.asarray(r_obs), np.asarray(v_obs), np.asarray(a_obs)
 
     d_mat = np.array([rho_hat_vec, rho_dot_vec, rho_ddot_vec])
@@ -247,8 +251,17 @@ def laplace_iod(
     cos_phi = np.dot(rho_hat_vec, r_o) / r_mag_o
 
     # Solve radius equation
-    poly = [1.0, 0.0, -(a_lap**2 + 2.0*r_mag_o*a_lap*cos_phi + r_mag_o**2),
-            0.0, 0.0, -(2.0*a_lap*b_lap + 2.0*r_mag_o*b_lap*cos_phi), 0.0, 0.0, -(b_lap**2)]
+    poly = [
+        1.0,
+        0.0,
+        -(a_lap**2 + 2.0 * r_mag_o * a_lap * cos_phi + r_mag_o**2),
+        0.0,
+        0.0,
+        -(2.0 * a_lap * b_lap + 2.0 * r_mag_o * b_lap * cos_phi),
+        0.0,
+        0.0,
+        -(b_lap**2),
+    ]
 
     roots = np.roots(poly)
     real_positive_roots = roots[np.isreal(roots) & (roots.real > 0)].real
@@ -272,7 +285,7 @@ def laplace_iod_from_observations(
     rho_hats: list[np.ndarray],
     rs_obs: list[np.ndarray],
     times: list[float],
-    mu: float = 398600.4415e9
+    mu: float = 398600.4415e9,
 ) -> np.ndarray:
     r"""
     Perform Laplace IOD from three standard LOS observations.
@@ -345,14 +358,19 @@ def _kepler_U(dt: float, r0: float, v0_mag: float, alpha: float, mu: float) -> f
     for _ in range(10):
         z = alpha * chi**2
         c2, c3 = _stumpff(z)
-        f = r0 * chi * (1 - z * c3) + (np.dot(r0, v0_mag) / np.sqrt(mu)) * chi**2 * c2 + chi**3 * c3 - np.sqrt(mu) * dt
-        df = r0 * (1 - z * c2) + (np.dot(r0, v0_mag) / np.sqrt(mu)) * chi * (1 - z * c3) + chi**2 * c2
+        f = (
+            r0 * chi * (1 - z * c3)
+            + (np.dot(r0, v0_mag) / np.sqrt(mu)) * chi**2 * c2
+            + chi**3 * c3
+            - np.sqrt(mu) * dt
+        )
+        df = (
+            r0 * (1 - z * c2)
+            + (np.dot(r0, v0_mag) / np.sqrt(mu)) * chi * (1 - z * c3)
+            + chi**2 * c2
+        )
         chi_new = chi - f / df
         if np.abs(chi_new - chi) < 1e-10:
             return float(chi_new)
         chi = chi_new
     return float(chi)
-
-
-
-

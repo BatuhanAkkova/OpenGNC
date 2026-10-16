@@ -12,12 +12,7 @@ except ImportError:
     ppigrf = None
 
 
-def igrf_field(
-    lat: float,
-    lon: float,
-    alt: float,
-    time: datetime | float
-) -> np.ndarray:
+def igrf_field(lat: float, lon: float, alt: float, time: datetime | float) -> np.ndarray:
     """
     Get the International Geomagnetic Reference Field (IGRF) vector.
 
@@ -49,12 +44,7 @@ def igrf_field(
     return np.asarray(ppigrf.igrf(lon, lat, alt, time), dtype=float)
 
 
-def wmm_field(
-    lat: float,
-    lon: float,
-    alt: float,
-    date: datetime | float
-) -> np.ndarray:
+def wmm_field(lat: float, lon: float, alt: float, date: datetime | float) -> np.ndarray:
     """
     Get the World Magnetic Model (WMM) field vector.
 
@@ -111,11 +101,9 @@ def tilted_dipole_field(r_ecef: np.ndarray) -> np.ndarray:
     phi_p = mag_lon
 
     # 3. Dipole Moment unit vector in ECEF
-    moment_u = np.array([
-        np.sin(theta_p) * np.cos(phi_p),
-        np.sin(theta_p) * np.sin(phi_p),
-        np.cos(theta_p)
-    ])
+    moment_u = np.array(
+        [np.sin(theta_p) * np.cos(phi_p), np.sin(theta_p) * np.sin(phi_p), np.cos(theta_p)]
+    )
 
     # 4. Strength factor k = B0 * Re^3
     k_mag = b0 * (re_m**3)
@@ -132,7 +120,3 @@ def tilted_dipole_field(r_ecef: np.ndarray) -> np.ndarray:
     b_ecef = (k_mag / (r_mag**3)) * (3.0 * np.dot(moment_u, r_unit) * r_unit - moment_u)
 
     return np.asarray(-b_ecef, dtype=float)
-
-
-
-

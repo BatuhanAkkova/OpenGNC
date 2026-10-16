@@ -41,7 +41,3 @@ class Propagator(ABC):
             v_f : Final velocity vector (m/s).
         """
         pass
-
-
-
-

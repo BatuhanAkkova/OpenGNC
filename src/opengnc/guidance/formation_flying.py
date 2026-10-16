@@ -119,7 +119,3 @@ def distributed_consensus_control(
     # The term (L @ X) computes the sum of relative state errors in the network
     consensus_error = np.asarray(laplacian_matrix) @ np.asarray(states)
     return np.asarray(-gains * consensus_error)
-
-
-
-

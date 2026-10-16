@@ -30,11 +30,17 @@ class Magnetometer(Sensor):
         self.misalignment = misalignment
         self.scale_factor = scale_factor
 
-    def measure(self, true_mag_vec_body: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_mag_vec_body: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_mag_vec_body is None:
             if not args:
                 raise ValueError("true_mag_vec_body is required.")
             true_mag_vec_body = np.asarray(args[0])
-        calibrated = self.apply_calibration(true_mag_vec_body, self.misalignment, self.scale_factor, self.bias)
-        measured = np.asarray(self.apply_faults(self.add_gaussian_noise(calibrated, self.noise_std)), dtype=float)
+        calibrated = self.apply_calibration(
+            true_mag_vec_body, self.misalignment, self.scale_factor, self.bias
+        )
+        measured = np.asarray(
+            self.apply_faults(self.add_gaussian_noise(calibrated, self.noise_std)), dtype=float
+        )
         return self.build_measurement(measured)

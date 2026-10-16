@@ -30,13 +30,19 @@ class SunSensor(Sensor):
         self.misalignment = misalignment
         self.scale_factor = scale_factor
 
-    def measure(self, true_sun_vec_body: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_sun_vec_body: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_sun_vec_body is None:
             if not args:
                 raise ValueError("true_sun_vec_body is required.")
             true_sun_vec_body = np.asarray(args[0])
-        calibrated = self.apply_calibration(true_sun_vec_body, self.misalignment, self.scale_factor, self.bias)
-        measured_vec = np.asarray(self.apply_faults(self.add_gaussian_noise(calibrated, self.noise_std)), dtype=float)
+        calibrated = self.apply_calibration(
+            true_sun_vec_body, self.misalignment, self.scale_factor, self.bias
+        )
+        measured_vec = np.asarray(
+            self.apply_faults(self.add_gaussian_noise(calibrated, self.noise_std)), dtype=float
+        )
         norm = np.linalg.norm(measured_vec)
         if norm > 0:
             measured_vec = measured_vec / norm

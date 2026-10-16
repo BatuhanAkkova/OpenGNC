@@ -116,7 +116,3 @@ def coupled_flexible_rigid_dynamics(
     sol = np.linalg.solve(m_aug, rhs)
 
     return np.asarray(sol[:3]), np.asarray(sol[3:])
-
-
-
-

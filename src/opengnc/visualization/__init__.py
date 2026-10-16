@@ -14,7 +14,3 @@ __all__ = [
     "plot_ground_track",
     "plot_orbit_3d",
 ]
-
-
-
-

@@ -141,7 +141,3 @@ class FiniteHorizonLQR:
         """
         k_t = self.get_gain(t)
         return cast(np.ndarray, -k_t @ np.asarray(x))
-
-
-
-

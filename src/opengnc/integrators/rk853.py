@@ -17,7 +17,14 @@ class RK853(Integrator):
     High order integrator for high precision requirements.
     """
 
-    def __init__(self, rtol: float = 1e-9, atol: float = 1e-12, safety_factor: float = 0.9, min_factor: float = 0.2, max_factor: float = 10.0) -> None:
+    def __init__(
+        self,
+        rtol: float = 1e-9,
+        atol: float = 1e-12,
+        safety_factor: float = 0.9,
+        min_factor: float = 0.2,
+        max_factor: float = 10.0,
+    ) -> None:
         self.rtol = rtol
         self.atol = atol
         self.safety_factor = safety_factor
@@ -33,7 +40,9 @@ class RK853(Integrator):
 
         self.error_exponent = -1 / (7 + 1)  # error estimator order is 7
 
-    def step(self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any) -> tuple[np.ndarray, float, float]:
+    def step(
+        self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any
+    ) -> tuple[np.ndarray, float, float]:
         """
         Perform a single adaptive RK853 step.
         """
@@ -91,11 +100,14 @@ class RK853(Integrator):
                 if abs(dt_current) < 1e-15:
                     raise RuntimeError("Step size too small in RK853")
 
-    def integrate(self, f: Callable, t_span: tuple[float, float], y0: np.ndarray, dt: float | None = None, **kwargs: Any) -> tuple[np.ndarray, np.ndarray]:
+    def integrate(
+        self,
+        f: Callable,
+        t_span: tuple[float, float],
+        y0: np.ndarray,
+        dt: float | None = None,
+        **kwargs: Any,
+    ) -> tuple[np.ndarray, np.ndarray]:
         if dt is None:
             dt = (t_span[1] - t_span[0]) / 100.0
         return super().integrate(f, t_span, y0, dt, **kwargs)
-
-
-
-

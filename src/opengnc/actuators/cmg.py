@@ -75,11 +75,7 @@ class ControlMomentGyro(Actuator):
         return s, t
 
     def command(
-        self,
-        gimbal_rate_cmd: Any = None,
-        dt: float | None = None,
-        *args: Any,
-        **kwargs: Any
+        self, gimbal_rate_cmd: Any = None, dt: float | None = None, *args: Any, **kwargs: Any
     ) -> np.ndarray:
         """
         Calculate torque produced by gimbal rate.
@@ -135,7 +131,3 @@ class ControlMomentGyro(Actuator):
         """
         _, t = self.get_axes(angle)
         return (self.h_mag * t).reshape(3, 1)
-
-
-
-

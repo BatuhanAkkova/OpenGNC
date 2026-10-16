@@ -266,7 +266,3 @@ def predict_lifetime(
         "final_altitude": final_h,
         "trajectory": {"t": sol.t, "r": sol.y[:3, :].T, "v": sol.y[3:, :].T},
     }
-
-
-
-

@@ -47,7 +47,3 @@ class Magnetorquer(Actuator):
                 raise ValueError("dipole_cmd is required.")
             dipole_cmd = float(args[0])
         return float(self.apply_saturation(dipole_cmd))
-
-
-
-

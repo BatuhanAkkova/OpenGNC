@@ -85,7 +85,7 @@ class BacksteppingController:
         # 2. Virtual control law (alpha)
         # alpha acts as the 'desired' x2 to stabilize e1
         # alpha = -k1 * e1 + x1_dot_d
-        alpha = - (self.k1 @ e1 if isinstance(self.k1, np.ndarray) else self.k1 * e1)
+        alpha = -(self.k1 @ e1 if isinstance(self.k1, np.ndarray) else self.k1 * e1)
         alpha += v_des
 
         # 3. Virtual velocity error (e2)
@@ -94,7 +94,7 @@ class BacksteppingController:
         # 4. Time derivative of alpha
         # d/dt(alpha) = -k1 * (x2 - x1_dot_d) + x1_ddot_d
         e1_dot = x2 - v_des
-        alpha_dot = - (self.k1 @ e1_dot if isinstance(self.k1, np.ndarray) else self.k1 * e1_dot)
+        alpha_dot = -(self.k1 @ e1_dot if isinstance(self.k1, np.ndarray) else self.k1 * e1_dot)
         alpha_dot += a_des
 
         # 5. System dynamics evaluation
@@ -115,7 +115,3 @@ class BacksteppingController:
 
         # Use pseudoinverse for robust inversion
         return cast(np.ndarray, np.linalg.pinv(g_val) @ inner_term)
-
-
-
-

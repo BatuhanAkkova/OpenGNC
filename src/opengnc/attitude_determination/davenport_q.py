@@ -2,7 +2,6 @@
 Davenport's q-method for optimal attitude determination (Wahba's problem).
 """
 
-
 import numpy as np
 
 from opengnc.utils.quat_utils import quat_normalize
@@ -62,11 +61,13 @@ def davenport_q(
     # K-matrix components
     s_matrix = b_matrix + b_matrix.T
     sigma = float(np.trace(b_matrix))
-    z_vec = np.array([
-        b_matrix[2, 1] - b_matrix[1, 2],
-        b_matrix[0, 2] - b_matrix[2, 0],
-        b_matrix[1, 0] - b_matrix[0, 1]
-    ])
+    z_vec = np.array(
+        [
+            b_matrix[2, 1] - b_matrix[1, 2],
+            b_matrix[0, 2] - b_matrix[2, 0],
+            b_matrix[1, 0] - b_matrix[0, 1],
+        ]
+    )
 
     # Construct Davenport K-matrix
     k_matrix = np.zeros((4, 4))
@@ -80,7 +81,3 @@ def davenport_q(
     q_opt = vecs[:, np.argmax(vals)]
 
     return quat_normalize(q_opt)
-
-
-
-

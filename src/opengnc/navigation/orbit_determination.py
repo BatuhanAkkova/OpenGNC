@@ -83,11 +83,7 @@ class OrbitDeterminationEKF:
             self.gravity = TwoBodyGravity(mu=mu)
 
     def _state_transition(
-        self,
-        x: np.ndarray,
-        dt: float,
-        u: np.ndarray | None = None,
-        **kwargs: Any
+        self, x: np.ndarray, dt: float, u: np.ndarray | None = None, **kwargs: Any
     ) -> np.ndarray:
         r"""
         Integrate orbital dynamics using the RK4 method.
@@ -106,6 +102,7 @@ class OrbitDeterminationEKF:
         np.ndarray
             Propagated state $\mathbf{x}(t + \Delta t)$.
         """
+
         def f_dynamics(state: np.ndarray) -> np.ndarray:
             r = state[:3]
             v = state[3:]
@@ -120,11 +117,7 @@ class OrbitDeterminationEKF:
         return cast(np.ndarray, x + (dt / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4))
 
     def _jacobian_f(
-        self,
-        x: np.ndarray,
-        dt: float,
-        u: np.ndarray | None = None,
-        **kwargs: Any
+        self, x: np.ndarray, dt: float, u: np.ndarray | None = None, **kwargs: Any
     ) -> np.ndarray:
         r"""
         Compute the Discrete-Time State Transition Jacobian.
@@ -180,6 +173,7 @@ class OrbitDeterminationEKF:
         z_pos : np.ndarray
             ECI Position measurement (m).
         """
+
         def hx(x_state: np.ndarray) -> np.ndarray:
             return x_state[:3]
 
@@ -199,7 +193,3 @@ class OrbitDeterminationEKF:
     def covariance(self) -> np.ndarray:
         r"""Estimation error covariance matrix $\mathbf{P}$."""
         return self.ekf.P
-
-
-
-

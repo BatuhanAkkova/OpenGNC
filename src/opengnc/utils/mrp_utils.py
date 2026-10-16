@@ -74,14 +74,12 @@ def mrp_to_dcm(sigma: np.ndarray) -> np.ndarray:
     sigma_sq = np.sum(sv**2)
     s1, s2, s3 = sv
 
-    s_mat = np.array([
-        [0.0, -s3,  s2],
-        [s3,  0.0, -s1],
-        [-s2, s1,  0.0]
-    ])
+    s_mat = np.array([[0.0, -s3, s2], [s3, 0.0, -s1], [-s2, s1, 0.0]])
 
-    den = (1.0 + sigma_sq)**2
-    return cast(np.ndarray, np.eye(3) + (8.0 * s_mat @ s_mat + 4.0 * (1.0 - sigma_sq) * s_mat) / den)
+    den = (1.0 + sigma_sq) ** 2
+    return cast(
+        np.ndarray, np.eye(3) + (8.0 * s_mat @ s_mat + 4.0 * (1.0 - sigma_sq) * s_mat) / den
+    )
 
 
 def get_shadow_mrp(sigma: np.ndarray) -> np.ndarray:
@@ -131,7 +129,3 @@ def check_mrp_switching(sigma: np.ndarray, threshold: float = 1.0) -> np.ndarray
     if np.linalg.norm(sv) > threshold:
         return get_shadow_mrp(sv)
     return cast(np.ndarray, sv)
-
-
-
-

@@ -86,7 +86,9 @@ class SolarSail(Actuator):
 
         return cast(np.ndarray, force)
 
-    def command(self, normal_cmd: np.ndarray | None = None, *args: Any, **kwargs: Any) -> np.ndarray:
+    def command(
+        self, normal_cmd: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> np.ndarray:
         """
         Calculate force based on commanded normal vector and current environment.
 
@@ -112,7 +114,3 @@ class SolarSail(Actuator):
         sun_vec = kwargs.get("sun_vec", np.array([1.0, 0.0, 0.0]))
         dist = float(kwargs.get("distance_au", 1.0))
         return cast(np.ndarray, self.calculate_force(sun_vec, normal_cmd, distance_au=dist))
-
-
-
-

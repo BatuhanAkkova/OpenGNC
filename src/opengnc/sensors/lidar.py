@@ -16,12 +16,16 @@ class Lidar(Sensor):
     units = ("m", "unit_vector")
     frame = "body"
 
-    def __init__(self, range_noise_std: float = 0.01, los_noise_std: float = 0.001, name: str = "Lidar") -> None:
+    def __init__(
+        self, range_noise_std: float = 0.01, los_noise_std: float = 0.001, name: str = "Lidar"
+    ) -> None:
         super().__init__(name)
         self.range_noise_std = range_noise_std
         self.los_noise_std = los_noise_std
 
-    def measure(self, true_relative_pos: np.ndarray | None = None, *args: Any, **kwargs: Any) -> SensorMeasurement:
+    def measure(
+        self, true_relative_pos: np.ndarray | None = None, *args: Any, **kwargs: Any
+    ) -> SensorMeasurement:
         if true_relative_pos is None:
             if not args:
                 raise ValueError("true_relative_pos is required.")
@@ -35,13 +39,22 @@ class Lidar(Sensor):
             measured_los /= np.linalg.norm(measured_los)
         else:
             measured_los = true_los
-        covariance = np.diag([
-            self.range_noise_std**2,
-            self.los_noise_std**2,
-            self.los_noise_std**2,
-            self.los_noise_std**2,
-        ])
-        return self.build_measurement(np.concatenate([[measured_range], measured_los]), covariance=covariance, metadata={"components": ["range", "line_of_sight"]})
+        covariance = np.diag(
+            [
+                self.range_noise_std**2,
+                self.los_noise_std**2,
+                self.los_noise_std**2,
+                self.los_noise_std**2,
+            ]
+        )
+        return self.build_measurement(
+            np.concatenate([[measured_range], measured_los]),
+            covariance=covariance,
+            metadata={"components": ["range", "line_of_sight"]},
+        )
 
     def measurement_noise_std(self) -> np.ndarray:
-        return np.array([self.range_noise_std, self.los_noise_std, self.los_noise_std, self.los_noise_std], dtype=float)
+        return np.array(
+            [self.range_noise_std, self.los_noise_std, self.los_noise_std, self.los_noise_std],
+            dtype=float,
+        )

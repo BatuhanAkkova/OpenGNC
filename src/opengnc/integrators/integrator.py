@@ -19,12 +19,7 @@ class Integrator(ABC):
 
     @abstractmethod
     def step(
-        self,
-        f: Callable,
-        t: float,
-        y: np.ndarray,
-        dt: float,
-        **kwargs: Any
+        self, f: Callable, t: float, y: np.ndarray, dt: float, **kwargs: Any
     ) -> tuple[np.ndarray, float, float]:
         r"""
         Perform a single integration step.
@@ -58,7 +53,7 @@ class Integrator(ABC):
         t_span: tuple[float, float],
         y0: np.ndarray,
         dt: float = 0.01,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> tuple[np.ndarray, np.ndarray]:
         r"""
         Integrate the differential equation over a specified time interval.
@@ -102,7 +97,3 @@ class Integrator(ABC):
             y_values.append(y)
 
         return np.array(t_values), np.array(y_values)
-
-
-
-

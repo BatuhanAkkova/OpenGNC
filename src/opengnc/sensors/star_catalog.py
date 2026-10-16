@@ -67,7 +67,3 @@ class StarCatalog:
                 visible_stars.append(star)
 
         return visible_stars
-
-
-
-

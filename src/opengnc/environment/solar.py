@@ -63,7 +63,3 @@ class Sun:
         z = np.sin(eps) * np.sin(lon_ecl)
 
         return np.array([x, y, z]) * au_m
-
-
-
-

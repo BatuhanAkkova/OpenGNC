@@ -133,7 +133,3 @@ class ModelReferenceAdaptiveControl:
             Simulation time step (s).
         """
         self.theta_hat += self.d_theta_hat * dt
-
-
-
-
