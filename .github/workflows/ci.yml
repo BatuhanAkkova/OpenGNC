@@ -26,10 +26,13 @@ jobs:
       run: |
         python -c "import fastapi, plotly, uvicorn; print('runtime imports OK')"
 
-    - name: Ruff
+    - name: Ruff Format Check
+      run: python -m ruff format --check src tests
+
+    - name: Ruff Lint
       run: python -m ruff check src
 
-    - name: Mypy
+    - name: Mypy Typecheck
       run: python -m mypy src
 
   test:
@@ -39,7 +42,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
     - uses: actions/checkout@v4
@@ -70,6 +73,25 @@ jobs:
         file: ./coverage.xml
         fail_ci_if_error: false
 
+  cpp-test:
+    name: cpp-test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
+
+    - name: Build C++ Test Runner
+      run: cmake --build build --config Release
+
+    - name: Run C++ Unit Tests
+      run: ctest --test-dir build -C Release --output-on-failure
+
   build-package:
     needs: lint-and-typecheck
     runs-on: ubuntu-latest
@@ -82,7 +104,10 @@ jobs:
         python-version: "3.11"
 
     - name: Install build tooling
-      run: python -m pip install --upgrade pip build
+      run: python -m pip install --upgrade pip build twine
 
-    - name: Build package
+    - name: Build sdist and wheel
       run: python -m build
+
+    - name: Check package metadata with Twine
+      run: twine check --strict dist/*

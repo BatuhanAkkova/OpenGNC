@@ -1,0 +1,26 @@
+include LICENSE
+include README.md
+include ROADMAP.md
+include CONTRIBUTING.md
+include CITATION.cff
+include CMakeLists.txt
+include .coveragerc
+
+recursive-include src/opengnc py.typed *.csv *.html *.js *.css
+recursive-include cpp *
+recursive-include tests *
+recursive-include examples *
+recursive-include benchmarks *
+recursive-include docs *
+
+exclude .gitignore
+exclude .pre-commit-config.yaml
+exclude Dockerfile
+exclude entrypoint.sh
+
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude *.so
+global-exclude *.dylib
+global-exclude *.pyd
+global-exclude *.dll

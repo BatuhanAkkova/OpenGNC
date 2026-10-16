@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: OpenGNC Documentation
+    url: https://BatuhanAkkova.github.io/OpenGNC/
+    about: Read the official documentation and API reference.
+  - name: GitHub Discussions
+    url: https://github.com/BatuhanAkkova/OpenGNC/discussions
+    about: Ask questions, share spacecraft mission ideas, and discuss GNC design.

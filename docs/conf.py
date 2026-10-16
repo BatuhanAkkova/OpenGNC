@@ -43,8 +43,8 @@ myst_dmath_double_inline = True
 myst_update_mathjax = False
 
 mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-mathjax_config = {
-    "tex2jax": {
+mathjax3_config = {
+    "tex": {
         "inlineMath": [["$", "$"], ["\\(", "\\)"]],
         "displayMath": [["$$", "$$"], ["\\[", "\\]"]],
         "processEscapes": True,

@@ -1,0 +1,35 @@
+name: Feature Request
+description: Suggest an idea or enhancement for OpenGNC
+title: "[ENH]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature for OpenGNC! OpenGNC aims to be the definitive open-source toolkit for Guidance, Navigation, and Control.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: Is your feature request related to a problem or a gap in current functionality?
+      placeholder: "I'm always frustrated when..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution / Enhancement
+      description: Describe the solution or new GNC capability you would like added.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Aerospace References / Literature
+      description: Cite any published papers, textbook chapters (e.g. Vallado, Markley & Crassidis, Wie), or NASA/ESA standards that define this algorithm.
+      placeholder: "Markley & Crassidis (2014), Fundamentals of Spacecraft Attitude Determination and Control..."
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or features you've considered.

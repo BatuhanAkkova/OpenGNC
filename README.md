@@ -49,11 +49,31 @@
   - **Classic**: PID controllers and B-Dot detumbling logic.
   - **Optimal**: LQR (Linear Quadratic Regulator) and LQE (Kalman Filter design).
   - **Advanced**: Nonlinear MPC (Model Predictive Control) and Sliding Mode Control.
+  - **Underactuated**: 2-Reaction-Wheel stabilization with auxiliary geomagnetic dipole torquer desaturation.
+- **Rendezvous & Relative Motion**:
+  - **Clohessy-Wiltshire (CW)**: Circular relative orbit propagation and targeting.
+  - **Yamanaka-Ankersen (YA)**: Closed-form, singularity-free State Transition Matrix for eccentric orbits ($0 \le e < 1$).
 - **Sensors**: Realistic Star Tracker, Sun Sensor, Magnetometer, Gyroscope, IMU, GNSS, and ranging sensors with a shared measurement packet interface.
 - **Actuators**: Model Reaction Wheels (saturation/jitter) and Thrusters (Chemical/Electric).
 
-### Mission Design
-- **SSA (Space Situational Awareness)**: Conjunction Assessment (CAT), Maneuver Detection, and TLE interface.
+### Spacecraft Autonomy & FDIR (`opengnc.fdir`)
+- **Sensor FDI**:
+  - **Chi-Square Monitor**: Normalized Innovation Squared ($\chi^2$) hypothesis test for fast step/jump detection.
+  - **GLRT / CUSUM Monitor**: Generalized Likelihood Ratio Test for slow sensor drift and thermal ramps.
+  - **Sensor Isolation Manager**: Cross-sensor consistency voting and adaptive measurement covariance scaling ($R_{eff} = s \cdot R$).
+- **Actuator FTC**:
+  - **Fault Detector**: Wheel overspeed runaway, friction runaway, and command tracking error checks.
+  - **Weighted Control Allocator**: Constrained/unconstrained WQP reallocation around degraded or failed actuators.
+- **Autonomous Executive (FSM)**:
+  - Deterministic state machine managing `NOMINAL`, `DEGRADED_POINTING`, `UNDERACTUATED_CONTROL`, and `SAFE_MODE_SUN_POINTING`.
+
+### Interoperability & Mission Standards
+- **CCSDS Messages**:
+  - **OMM (CCSDS 502.0-B-2)**: Orbit Mean-Elements Message with TLE import/export.
+  - **CDM (CCSDS 508.0-B-1)**: Conjunction Data Message with short-encounter collision probability ($P_c$).
+  - **OEM (CCSDS 502.0-B-2)**: Orbit Ephemeris Message with interpolation and covariance blocks.
+  - **OPM (CCSDS 502.0-B-2)**: Orbit Parameter Message for state vectors and Keplerian elements.
+- **SSA & Conjunction Analysis**: Conjunction Assessment (CAT), Foster/Akella-Alfriend collision risk, Maneuver Detection, and TLE interface.
 - **Mission Design**: $\Delta v$ Budgeting, Communication Link Budgets, and Ground Station Coverage tools.
 
 ### Visualization & Analysis

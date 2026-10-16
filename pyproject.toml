@@ -9,9 +9,34 @@ description = "A Guidance, Navigation, and Control toolkit for spacecraft."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
-    { name = "Batuhan Akkova" },
+    { name = "Batuhan Akkova", email = "batuhanakkova1@gmail.com" },
 ]
-license = { text = "MIT" }
+license = "MIT"
+keywords = [
+    "gnc",
+    "astrodynamics",
+    "aerospace",
+    "spacecraft",
+    "orbital-mechanics",
+    "attitude-determination",
+    "attitude-control",
+    "kalman-filter",
+    "satellite",
+    "space-situational-awareness",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Aerospace",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "numpy>=1.20.0",
     "scipy>=1.7.0",
@@ -22,6 +47,13 @@ dependencies = [
     "joblib>=1.3.0",
     "numba>=0.56.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/BatuhanAkkova/OpenGNC"
+Documentation = "https://BatuhanAkkova.github.io/OpenGNC/"
+Repository = "https://github.com/BatuhanAkkova/OpenGNC.git"
+Issues = "https://github.com/BatuhanAkkova/OpenGNC/issues"
+Changelog = "https://github.com/BatuhanAkkova/OpenGNC/releases"
 
 [project.optional-dependencies]
 sat = [
@@ -64,7 +96,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-opengnc = ["*.csv", "dashboard/static/*", "ops/dashboard/static/*"]
+opengnc = ["*.csv", "py.typed", "dashboard/static/*", "ops/dashboard/static/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
