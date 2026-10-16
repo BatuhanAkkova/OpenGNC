@@ -2,13 +2,11 @@
 Conversions between ECI position/velocity and Keplerian orbital elements.
 """
 
-
 import numpy as np
 
 
 def eci2kepler(
-    r_eci: np.ndarray,
-    v_eci: np.ndarray
+    r_eci: np.ndarray, v_eci: np.ndarray
 ) -> tuple[float, float, float, float, float, float, float, float, float, float, float, float]:
     """
     Convert ECI Cartesian state to Keplerian orbital elements.
@@ -60,7 +58,7 @@ def eci2kepler(
 
     # 5. Semi-major axis and Semi-latus rectum
     energy = float((v_mag**2 / 2.0) - (mu / r_mag))
-    if abs(energy) < 1e-12: # Parabolic
+    if abs(energy) < 1e-12:  # Parabolic
         a = np.inf
     else:
         a = float(-mu / (2.0 * energy))
@@ -79,7 +77,7 @@ def eci2kepler(
 
     # 8. Argument of Perigee
     if n_mag < 1e-12:
-        argp = 0.0 # Placeholder for equatorial orbits
+        argp = 0.0  # Placeholder for equatorial orbits
     else:
         if ecc < 1e-12:
             argp = 0.0
@@ -90,7 +88,7 @@ def eci2kepler(
 
     # 9. True Anomaly
     if ecc < 1e-12:
-        nu = 0.0 # Circular orbit placeholder
+        nu = 0.0  # Circular orbit placeholder
     else:
         nu = float(np.arccos(np.clip(np.dot(e_vec, rv) / (ecc * r_mag), -1.0, 1.0)))
         if np.dot(rv, vv) < 0:
@@ -125,12 +123,7 @@ def eci2kepler(
 
 
 def kepler2eci(
-    a: float,
-    ecc: float,
-    incl: float,
-    raan: float,
-    argp: float,
-    nu: float
+    a: float, ecc: float, incl: float, raan: float, argp: float, nu: float
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Convert Keplerian elements to ECI Cartesian state.
@@ -164,8 +157,8 @@ def kepler2eci(
     v_pqw = np.array([-sin_nu, ecc + cos_nu, 0.0]) * np.sqrt(mu / p)
 
     # 2. Rotation Matrix: Perifocal to ECI
-    # R = Rz(-raan) * Rx(-incl) * Rz(-argp)
-    r_mat = rot_z(-raan) @ rot_x(-incl) @ rot_z(-argp)
+    # R = Rz(raan) * Rx(incl) * Rz(argp)
+    r_mat = rot_z(raan) @ rot_x(incl) @ rot_z(argp)
 
     return r_mat @ r_pqw, r_mat @ v_pqw
 
@@ -186,20 +179,20 @@ def anomalies(ecc: float, nu: float) -> tuple[float, float]:
     tuple[float, float]
         (Eccentric Anomaly, Mean Anomaly) in radians.
     """
-    if ecc < 1e-12: # Circular
+    if ecc < 1e-12:  # Circular
         return nu, nu
 
-    if ecc < 1.0: # Elliptical
+    if ecc < 1.0:  # Elliptical
         e_anom = 2 * np.arctan(np.sqrt((1 - ecc) / (1 + ecc)) * np.tan(nu / 2))
         m_anom = e_anom - ecc * np.sin(e_anom)
-    elif ecc > 1.0: # Hyperbolic
+    elif ecc > 1.0:  # Hyperbolic
         e_anom = 2 * np.arctanh(np.sqrt((ecc - 1) / (ecc + 1)) * np.tan(nu / 2))
         m_anom = ecc * np.sinh(e_anom) - e_anom
-    else: # Parabolic
+    else:  # Parabolic
         e_anom = np.tan(nu / 2)
         m_anom = e_anom + (e_anom**3) / 3.0
 
-    return float(e_anom % (2*np.pi)), float(m_anom % (2*np.pi))
+    return float(e_anom % (2 * np.pi)), float(m_anom % (2 * np.pi))
 
 
 def rot_x(angle: float) -> np.ndarray:
@@ -257,7 +250,3 @@ def rot_z(angle: float) -> np.ndarray:
     return np.array(
         [[np.cos(angle), -np.sin(angle), 0], [np.sin(angle), np.cos(angle), 0], [0, 0, 1]]
     )
-
-
-
-

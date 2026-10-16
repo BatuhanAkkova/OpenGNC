@@ -29,6 +29,7 @@ class MEKF:
         else:
             self.q = quat_normalize(np.asarray(q_init, dtype=float))
 
+        self.beta: np.ndarray
         if beta_init is None:
             self.beta = np.zeros(3)
         else:

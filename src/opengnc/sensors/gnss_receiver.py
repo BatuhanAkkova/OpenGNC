@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 
@@ -46,21 +46,48 @@ class GNSSReceiver(Sensor):
             if len(args) < 2:
                 raise ValueError("true_vel is required.")
             true_vel = np.asarray(args[1])
-        meas_pos = np.asarray(self.apply_faults(self.add_gaussian_noise(true_pos, self.pos_noise_std) + self.pos_bias), dtype=float)
-        meas_vel = np.asarray(self.apply_faults(self.add_gaussian_noise(true_vel, self.vel_noise_std) + self.vel_bias), dtype=float)
-        covariance = np.diag([
-            self.pos_noise_std**2,
-            self.pos_noise_std**2,
-            self.pos_noise_std**2,
-            self.vel_noise_std**2,
-            self.vel_noise_std**2,
-            self.vel_noise_std**2,
-        ])
+        meas_pos = np.asarray(
+            self.apply_faults(
+                self.add_gaussian_noise(true_pos, self.pos_noise_std) + self.pos_bias
+            ),
+            dtype=float,
+        )
+        meas_vel = np.asarray(
+            self.apply_faults(
+                self.add_gaussian_noise(true_vel, self.vel_noise_std) + self.vel_bias
+            ),
+            dtype=float,
+        )
+        covariance = np.diag(
+            [
+                self.pos_noise_std**2,
+                self.pos_noise_std**2,
+                self.pos_noise_std**2,
+                self.vel_noise_std**2,
+                self.vel_noise_std**2,
+                self.vel_noise_std**2,
+            ]
+        )
         frame = kwargs.get("frame", self.frame)
-        return self.build_measurement(np.concatenate([meas_pos, meas_vel]), covariance=covariance, frame=frame, metadata={"components": ["position", "velocity"], "frame": frame})
+        return self.build_measurement(
+            np.concatenate([meas_pos, meas_vel]),
+            covariance=covariance,
+            frame=frame,
+            metadata={"components": ["position", "velocity"], "frame": frame},
+        )
 
     def measurement_noise_std(self) -> np.ndarray:
-        return np.array([self.pos_noise_std, self.pos_noise_std, self.pos_noise_std, self.vel_noise_std, self.vel_noise_std, self.vel_noise_std], dtype=float)
+        return np.array(
+            [
+                self.pos_noise_std,
+                self.pos_noise_std,
+                self.pos_noise_std,
+                self.vel_noise_std,
+                self.vel_noise_std,
+                self.vel_noise_std,
+            ],
+            dtype=float,
+        )
 
     def measurement_bias(self) -> np.ndarray | None:
-        return np.concatenate([self.pos_bias, self.vel_bias])
+        return cast(np.ndarray, np.concatenate([self.pos_bias, self.vel_bias]))

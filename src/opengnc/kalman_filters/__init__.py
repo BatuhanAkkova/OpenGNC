@@ -24,8 +24,6 @@ ACCELERATION_AVAILABLE = False
 try:
     import sys
 
-    import opengnc_py
-
     current_dir = Path(__file__).resolve().parent
     project_root = current_dir.parent.parent.parent
     build_paths = [
@@ -38,6 +36,8 @@ try:
     for path in build_paths:
         if path.exists():
             sys.path.append(str(path))
+
+    import opengnc_py
 
     MEKF = opengnc_py.MEKF
     UKF_Attitude = opengnc_py.UKF_Attitude

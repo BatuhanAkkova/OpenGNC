@@ -83,7 +83,7 @@ class EnckePropagator(Propagator):
                             q_val * (3.0 + 3.0 * q_val + q_val**2) / (1.0 + (1.0 + q_val) ** 1.5)
                         )
 
-                a_pt = np.zeros(3, dtype=float)
+                a_pt: np.ndarray = np.zeros(3, dtype=float)
                 if perturbation_acc_fn is not None:
                     a_pt = np.asarray(
                         perturbation_acc_fn(curr_t + t_local, r_tot, v_tot), dtype=float

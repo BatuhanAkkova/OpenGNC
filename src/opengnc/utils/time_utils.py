@@ -8,12 +8,7 @@ import numpy as np
 
 
 def calc_jd(
-    year: int,
-    month: int,
-    day: int,
-    hour: int = 0,
-    minute: int = 0,
-    sec: float = 0.0
+    year: int, month: int, day: int, hour: int = 0, minute: int = 0, sec: float = 0.0
 ) -> tuple[float, float]:
     """
     Calculate the Julian Date (JD) from a Gregorian date and time.
@@ -106,6 +101,18 @@ def jd_to_datetime(jd: float, jd_frac: float) -> tuple[int, int, int, int, int, 
     minute = int((time_frac - hour * 3600.0) / 60.0)
     second = time_frac - hour * 3600.0 - minute * 60.0
 
+    # Handle floating point inaccuracies (e.g. 59.999999s -> 00s with minute increment)
+    second = round(second, 4)
+    if second >= 60.0:
+        second = 0.0
+        minute += 1
+    if minute >= 60:
+        minute -= 60
+        hour += 1
+    if hour >= 24:
+        hour -= 24
+        day_int += 1
+
     return int(year), int(month), day_int, hour, minute, second
 
 
@@ -125,7 +132,7 @@ def day_to_mdtime(year: int, doy_frac: float) -> tuple[int, int, int, int, float
     tuple[int, int, int, int, float]
         (Month, Day, Hour, Minute, Second).
     """
-    is_leap = (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))
+    is_leap = year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
     mon_days = [31, 29 if is_leap else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
     doy = int(doy_frac)
@@ -404,7 +411,3 @@ def convert_time(
         jdtdb,
         jdtdbfrac,
     )
-
-
-
-
