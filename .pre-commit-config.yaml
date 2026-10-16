@@ -1,23 +1,32 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+      - id: check-toml
       - id: check-added-large-files
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.4
+    rev: v0.6.9
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.9.0
+
+  - repo: local
     hooks:
       - id: mypy
-        additional_dependencies: [numpy, scipy]
+        name: mypy typecheck
+        entry: python -m mypy src
+        language: system
+        types: [python]
+        pass_filenames: false
 
-
-
-
+      - id: pytest-quick
+        name: pytest quick validation
+        entry: python -m pytest tests -k "not benchmark" -q
+        language: system
+        types: [python]
+        pass_filenames: false

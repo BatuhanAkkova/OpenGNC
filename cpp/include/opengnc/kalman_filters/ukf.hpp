@@ -59,8 +59,26 @@ public:
         }
 
         // Default vector space operations
-        subtract_x = [](const StateVec& a, const StateVec& b) { return (a - b).eval(); };
-        add_x = [](const StateVec& x, const ErrorVec& dx) { return (x + dx).eval(); };
+        subtract_x = [](const StateVec& a, const StateVec& b) -> ErrorVec {
+            if constexpr (NP == NX) {
+                return (a - b).eval();
+            } else {
+                ErrorVec e = ErrorVec::Zero();
+                constexpr int min_dim = (NX < NP) ? NX : NP;
+                e.template head<min_dim>() = a.template head<min_dim>() - b.template head<min_dim>();
+                return e;
+            }
+        };
+        add_x = [](const StateVec& x, const ErrorVec& dx) -> StateVec {
+            if constexpr (NP == NX) {
+                return (x + dx).eval();
+            } else {
+                StateVec res = x;
+                constexpr int min_dim = (NX < NP) ? NX : NP;
+                res.template head<min_dim>() += dx.template head<min_dim>();
+                return res;
+            }
+        };
         mean_x = [](const SigmaPoints& sigs, const Eigen::Matrix<double, 2 * NP + 1, 1>& w) {
             return (sigs * w).eval();
         };

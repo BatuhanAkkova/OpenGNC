@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -e ".[dev,ops]"
+        pip install -e ".[all,dev,ops]"
 
     - name: Smoke import optional runtime deps
       run: |
@@ -87,7 +87,7 @@ jobs:
       run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
 
     - name: Build C++ Test Runner
-      run: cmake --build build --config Release
+      run: cmake --build build --config Release --target test_runner
 
     - name: Run C++ Unit Tests
       run: ctest --test-dir build -C Release --output-on-failure

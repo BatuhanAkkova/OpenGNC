@@ -16,8 +16,16 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
 )
 
-# Fetching Eigen can take a moment
-FetchContent_MakeAvailable(eigen)
+FetchContent_GetProperties(eigen)
+if(NOT eigen_POPULATED)
+  FetchContent_Populate(eigen)
+  add_library(Eigen3::Eigen INTERFACE IMPORTED GLOBAL)
+  target_include_directories(Eigen3::Eigen INTERFACE ${eigen_SOURCE_DIR})
+endif()
+
+if(POLICY CMP0169)
+  cmake_policy(SET CMP0169 OLD)
+endif()
 
 # 2. Fetch Asio (Header-only networking)
 message(STATUS "Fetching Asio 1.30.2...")
@@ -27,16 +35,22 @@ FetchContent_Declare(
     GIT_TAG        asio-1-30-2
     GIT_SHALLOW    TRUE
 )
-FetchContent_MakeAvailable(asio)
+FetchContent_GetProperties(asio)
+if(NOT asio_POPULATED)
+    FetchContent_Populate(asio)
+endif()
 
-# 3. Fetch pybind11 for Python integration
-message(STATUS "Fetching pybind11...")
-FetchContent_Declare(
-  pybind11
-  GIT_REPOSITORY https://github.com/pybind/pybind11.git
-  GIT_TAG        v2.12.0
-)
-FetchContent_MakeAvailable(pybind11)
+# 3. Fetch pybind11 for Python integration (optional)
+option(BUILD_PYTHON_BINDINGS "Build Python extension bindings via pybind11" OFF)
+if(BUILD_PYTHON_BINDINGS)
+    message(STATUS "Fetching pybind11...")
+    FetchContent_Declare(
+      pybind11
+      GIT_REPOSITORY https://github.com/pybind/pybind11.git
+      GIT_TAG        v2.12.0
+    )
+    FetchContent_MakeAvailable(pybind11)
+endif()
 
 # --- Header-only Library ---
 add_library(opengnc INTERFACE)
@@ -70,7 +84,7 @@ if(BUILD_TESTING)
 endif()
 
 # --- Python Extension Module ---
-if(pybind11_FOUND)
+if(BUILD_PYTHON_BINDINGS AND pybind11_FOUND)
     pybind11_add_module(opengnc_py cpp/src/bindings.cpp)
     target_link_libraries(opengnc_py PRIVATE opengnc)
 endif()
