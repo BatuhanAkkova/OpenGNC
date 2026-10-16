@@ -46,7 +46,15 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
-    - name: Publish package distribution to PyPI
+    - name: Publish package distribution to PyPI (API Token)
+      if: ${{ secrets.PYPI_API_TOKEN != '' }}
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+        skip-existing: true
+
+    - name: Publish package distribution to PyPI (Trusted Publisher)
+      if: ${{ secrets.PYPI_API_TOKEN == '' }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         skip-existing: true

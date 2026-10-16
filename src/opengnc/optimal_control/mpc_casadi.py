@@ -122,7 +122,7 @@ class CasadiNMPC:
         k2 = self.f(x + self.dt / 2.0 * k1, u)
         k3 = self.f(x + self.dt / 2.0 * k2, u)
         k4 = self.f(x + self.dt * k3, u)
-        return x + (self.dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
+        return cast(ca.MX, x + (self.dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4))
 
     def _setup_solver(self) -> None:
         """Formulate the NLP and instantiate the IPOPT solver."""

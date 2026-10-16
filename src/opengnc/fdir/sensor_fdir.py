@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from collections import deque
 from enum import Enum
+from typing import cast
 
 import numpy as np
 from scipy import stats
@@ -310,12 +311,12 @@ class SensorIsolationManager:
         cov = np.asarray(base_cov, dtype=float)
 
         if state == SensorHealth.HEALTHY:
-            return cov.copy()
+            return cast(np.ndarray, cov.copy())
         elif state == SensorHealth.DEGRADED:
-            return cov * self.inflation_factor
+            return cast(np.ndarray, cov * self.inflation_factor)
         else:
             # Isolated: effectively infinite covariance (decoupled)
-            return cov * 1e9
+            return cast(np.ndarray, cov * 1e9)
 
     def isolate_sensor(self, sensor_name: str) -> None:
         """Manually force a sensor into the ISOLATED state."""
