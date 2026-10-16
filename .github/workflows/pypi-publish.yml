@@ -46,15 +46,26 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
+    - name: Check PyPI Authentication Method
+      id: auth
+      run: |
+        if [ -n "$TOKEN" ]; then
+          echo "use_token=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "use_token=false" >> "$GITHUB_OUTPUT"
+        fi
+      env:
+        TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+
     - name: Publish package distribution to PyPI (API Token)
-      if: ${{ secrets.PYPI_API_TOKEN != '' }}
+      if: steps.auth.outputs.use_token == 'true'
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
         skip-existing: true
 
     - name: Publish package distribution to PyPI (Trusted Publisher)
-      if: ${{ secrets.PYPI_API_TOKEN == '' }}
+      if: steps.auth.outputs.use_token != 'true'
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         skip-existing: true
