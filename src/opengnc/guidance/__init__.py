@@ -18,7 +18,14 @@ from .maneuvers import (
     phasing_maneuver,
     plane_change,
 )
-from .rendezvous import cw_equations, cw_targeting, solve_lambert
+from .rendezvous import (
+    cw_equations,
+    cw_targeting,
+    solve_lambert,
+    ya_propagate,
+    ya_targeting,
+    yamanaka_ankersen_stm,
+)
 
 __all__ = [
     "apollo_dps_guidance",
@@ -37,5 +44,8 @@ __all__ = [
     "solve_lambert",
     "sun_pointing_reference",
     "target_tracking_reference",
+    "ya_propagate",
+    "ya_targeting",
+    "yamanaka_ankersen_stm",
     "zem_zev_guidance",
 ]
